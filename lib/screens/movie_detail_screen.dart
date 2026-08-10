@@ -4,10 +4,12 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import '../utils/l10n.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_windows/webview_windows.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../api/phim_api.dart';
 import '../api/firebase_api.dart';
 import '../api/auth_api.dart';
@@ -58,6 +60,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _showInlineTrailer = false;
   bool _trailerEnded = false;
   bool _isTrailerExpanded = false;
+  bool _isTrailerPaused = false;
+  bool _autoPlayTrailerSetting = true;
   String? _tmdbRating;
   double _averageRating = 0.0;
   int _totalRatings = 0;
@@ -97,10 +101,20 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   void initState() {
     super.initState();
+    _loadSettings();
     _fetchDetail();
     _fetchFirebaseRatings();
     _loadUserAndComments();
     _checkWatchlistStatus();
+  }
+
+  Future<void> _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (mounted) {
+      setState(() {
+        _autoPlayTrailerSetting = prefs.getBool('auto_play_trailer') ?? true;
+      });
+    }
   }
 
   Future<void> _checkWatchlistStatus() async {
@@ -118,7 +132,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       await FirebaseApi.removeFromWatchlist(widget.slug);
       if (mounted) {
         setState(() => _isInWatchlist = false);
-        UIUtils.showCustomSnackBar(context, 'Đã xóa khỏi Danh sách yêu thích');
+        UIUtils.showCustomSnackBar(context, L10n.t('removed_favorite'));
       }
     } else {
       final success = await FirebaseApi.addToWatchlist(_movie!);
@@ -127,12 +141,12 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           setState(() => _isInWatchlist = true);
           UIUtils.showCustomSnackBar(
             context,
-            'Đã thêm vào Danh sách yêu thích',
+            L10n.t('added_favorite'),
           );
         } else {
           UIUtils.showCustomSnackBar(
             context,
-            'Danh sách yêu thích đã đầy (tối đa 20 phim). Vui lòng xóa bớt.',
+            L10n.t('favorite_full'),
             isError: true,
           );
         }
@@ -186,9 +200,39 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     }
     setState(() {
       _showInlineTrailer = false;
-      _trailerEnded = true;
+      _isTrailerPaused = true;
       _isTrailerExpanded = false;
     });
+  }
+
+  void _playTrailer() {
+    if (_isWebviewInitialized) {
+      _webviewController.executeScript(
+        "if(player && player.playVideo) { player.seekTo(0); player.playVideo(); }",
+      );
+      setState(() {
+        _showInlineTrailer = true;
+        _isTrailerPaused = false;
+        _trailerEnded = false;
+        _isTrailerExpanded = false;
+      });
+    } else {
+      _startInlineTrailer();
+    }
+  }
+
+  void _resumeTrailer() {
+    if (_isWebviewInitialized) {
+      _webviewController.executeScript(
+        "if(player && player.playVideo) { player.playVideo(); }",
+      );
+      setState(() {
+        _showInlineTrailer = true;
+        _isTrailerPaused = false;
+        _trailerEnded = false;
+        _isTrailerExpanded = false;
+      });
+    }
   }
 
   void _fetchDetail() {
@@ -325,6 +369,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       );
       setState(() {
         _showInlineTrailer = true;
+        _isTrailerPaused = false;
         _trailerEnded = false;
         _isTrailerExpanded = false;
       });
@@ -350,7 +395,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       if (mounted) {
         setState(() {
           _isLoadingTrailer = false;
-          _showInlineTrailer = true;
+          if (_autoPlayTrailerSetting) {
+            _showInlineTrailer = true;
+            _isTrailerPaused = false;
+          } else {
+            _showInlineTrailer = false;
+            _isTrailerPaused = false; // Để UI hiện 'Phát Trailer' ban đầu
+          }
           _trailerEnded = false;
           _isTrailerExpanded = false; // Luôn thu nhỏ khi mới bắt đầu
         });
@@ -399,7 +450,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           width: '100%',
           videoId: '$videoId',
           playerVars: {
-            'autoplay': 1,
+            'autoplay': ${_autoPlayTrailerSetting ? 1 : 0},
             'rel': 0,
             'modestbranding': 1,
             'fs': 0,
@@ -413,7 +464,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             'onReady': function(event) {
               event.target.setVolume(35);
               event.target.unMute();
-              event.target.playVideo();
+              ${_autoPlayTrailerSetting ? 'event.target.playVideo();' : ''}
             },
             'onStateChange': function(event) {
               if (window.chrome && window.chrome.webview) {
@@ -449,6 +500,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           if (mounted) {
             setState(() {
               _showInlineTrailer = false;
+              _isTrailerPaused = false;
               _trailerEnded = true;
               _isTrailerExpanded = false;
             });
@@ -658,7 +710,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         // Seasons Selector
-        const Text('Chọn Mùa:', style: TextStyle(color: Colors.white70)),
+        Text(L10n.t('select_season') + ':', style: const TextStyle(color: Colors.white70)),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -695,7 +747,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
         // Episodes Selector
         if (_selectedSeason != null) ...[
-          const Text('Chọn Tập:', style: TextStyle(color: Colors.white70)),
+          Text(L10n.t('select_episode') + ':', style: const TextStyle(color: Colors.white70)),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
@@ -741,8 +793,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               child: CircularProgressIndicator(),
             )
           else if (_p2pStreams.isEmpty)
-            const Text(
-              'Không tìm thấy luồng phát nào cho tập này.',
+            Text(L10n.t('no_streams_found'),
               style: TextStyle(color: Colors.redAccent),
             )
           else
@@ -767,7 +818,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           episodes: _p2pStreams,
                           currentEpisodeIndex: idx,
                           movieName:
-                              '${_movie!.name} - ${_selectedP2pEpisode!.slug}',
+                              '${_movie!.displayName} - ${_selectedP2pEpisode!.slug}',
                         ),
                       ),
                     );
@@ -913,7 +964,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     final bool isSeries =
         _movie!.episodes.isNotEmpty && _movie!.episodes.first.items.length > 1;
     final String episodeText = isSeries
-        ? '${_movie!.episodes.first.items.length} Tập'
+        ? '${_movie!.episodes.first.items.length} ${L10n.t('episodes')}'
         : _movie!.currentEpisode;
 
     return Scaffold(
@@ -1049,7 +1100,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
                                         Text(
-                                          _movie!.name,
+                                          _movie!.displayName,
                                           style: const TextStyle(
                                             fontSize: 48,
                                             fontWeight: FontWeight.bold,
@@ -1142,9 +1193,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                 color: Colors.black,
                                                 size: 20,
                                               ),
-                                              label: const Text(
-                                                'Chia sẻ',
-                                                style: TextStyle(
+                                              label: Text(
+                                                L10n.t('share'),
+                                                style: const TextStyle(
                                                   color: Colors.black,
                                                   fontWeight: FontWeight.bold,
                                                 ),
@@ -1177,7 +1228,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                 size: 20,
                                               ),
                                               label: Text(
-                                                'Yêu thích',
+                                                L10n.t('favorite'),
                                                 style: TextStyle(
                                                   color: _isInWatchlist
                                                       ? Colors.redAccent
@@ -1199,99 +1250,107 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                               ),
                                             ),
                                             const SizedBox(width: 12),
-                                            if (!_showInlineTrailer) ...[
-                                              if (_trailerNotFound)
+                                            if (_trailerNotFound)
+                                              ElevatedButton.icon(
+                                                onPressed: () {
+                                                  final url = Uri.parse(
+                                                    'https://www.youtube.com/results?search_query=${Uri.encodeComponent("${_movie!.displayName} trailer")}',
+                                                  );
+                                                  launchUrl(url);
+                                                },
+                                                icon: const Icon(
+                                                  Icons.search,
+                                                  color: Colors.white,
+                                                ),
+                                                label: Text(
+                                                  L10n.t('trailer_search'),
+                                                  style: const TextStyle(color: Colors.white),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.white.withOpacity(0.15),
+                                                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                  ),
+                                                ),
+                                              )
+                                            else if (_isLoadingTrailer)
+                                              ElevatedButton.icon(
+                                                onPressed: null,
+                                                icon: const SizedBox(
+                                                  width: 20,
+                                                  height: 20,
+                                                  child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white),
+                                                ),
+                                                label: Text(L10n.t('loading'),
+                                                  style: TextStyle(color: Colors.white),
+                                                ),
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.white.withOpacity(0.15),
+                                                  padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.circular(12),
+                                                  ),
+                                                ),
+                                              )
+                                            else if (_isWebviewInitialized)
+                                              if (_showInlineTrailer)
                                                 ElevatedButton.icon(
-                                                  onPressed: () {
-                                                    final url = Uri.parse(
-                                                      'https://www.youtube.com/results?search_query=${Uri.encodeComponent("${_movie!.name} trailer")}',
-                                                    );
-                                                    launchUrl(url);
-                                                  },
+                                                  onPressed: _pauseTrailer,
                                                   icon: const Icon(
-                                                    Icons.search,
+                                                    Icons.stop,
                                                     color: Colors.white,
                                                   ),
-                                                  label: const Text(
-                                                    'Tìm Trailer',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                    ),
+                                                  label: Text(L10n.t('trailer_stop'),
+                                                    style: TextStyle(color: Colors.white),
                                                   ),
                                                   style: ElevatedButton.styleFrom(
-                                                    backgroundColor: Colors
-                                                        .white
-                                                        .withOpacity(0.15),
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 14,
-                                                          horizontal: 20,
-                                                        ),
+                                                    backgroundColor: Colors.redAccent.withOpacity(0.8),
+                                                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                                                     shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            12,
-                                                          ),
+                                                      borderRadius: BorderRadius.circular(12),
                                                     ),
                                                   ),
                                                 )
                                               else if (_trailerEnded)
                                                 ElevatedButton.icon(
-                                                  onPressed:
-                                                      _startInlineTrailer,
+                                                  onPressed: _playTrailer,
                                                   icon: const Icon(
                                                     Icons.replay,
                                                     color: Colors.white,
                                                   ),
-                                                  label: const Text(
-                                                    'Phát lại trailer',
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                    ),
+                                                  label: Text(L10n.t('trailer_replay'),
+                                                    style: TextStyle(color: Colors.white),
                                                   ),
                                                   style: ElevatedButton.styleFrom(
-                                                    backgroundColor: Colors
-                                                        .white
-                                                        .withOpacity(0.15),
-                                                    padding:
-                                                        const EdgeInsets.symmetric(
-                                                          vertical: 14,
-                                                          horizontal: 20,
-                                                        ),
+                                                    backgroundColor: Colors.white.withOpacity(0.15),
+                                                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                                                     shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            12,
-                                                          ),
+                                                      borderRadius: BorderRadius.circular(12),
                                                     ),
                                                   ),
                                                 )
-                                              else if (_isLoadingTrailer)
-                                                const Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 16,
-                                                      height: 16,
-                                                      child:
-                                                          CircularProgressIndicator(
-                                                            color:
-                                                                Colors.white54,
-                                                            strokeWidth: 2,
-                                                          ),
+                                              else
+                                                ElevatedButton.icon(
+                                                  onPressed: _isTrailerPaused ? _resumeTrailer : _playTrailer,
+                                                  icon: const Icon(
+                                                    Icons.play_arrow,
+                                                    color: Colors.white,
+                                                  ),
+                                                  label: Text(
+                                                    _isTrailerPaused ? L10n.t('trailer_resume') : L10n.t('trailer_play'),
+                                                    style: const TextStyle(color: Colors.white),
+                                                  ),
+                                                  style: ElevatedButton.styleFrom(
+                                                    backgroundColor: Colors.white.withOpacity(0.15),
+                                                    padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(12),
                                                     ),
-                                                    SizedBox(width: 8),
-                                                    Text(
-                                                      'Đang tải...',
-                                                      style: TextStyle(
-                                                        color: Colors.white54,
-                                                        fontSize: 13,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
+                                                  ),
+                                                )
                                             ],
-                                          ],
-                                        ),
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -1315,7 +1374,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                       children: [
                                         if (_movie!.genres.isNotEmpty) ...[
                                           _buildRichText(
-                                            'Thể loại: ',
+                                            L10n.t('genres'),
                                             _movie!.genres.join(', '),
                                           ),
                                           const SizedBox(height: 8),
@@ -1326,7 +1385,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                 .trim()
                                                 .isNotEmpty) ...[
                                           _buildRichText(
-                                            'Đạo diễn: ',
+                                            L10n.t('directors'),
                                             _movie!.directors.join(', '),
                                           ),
                                           const SizedBox(height: 8),
@@ -1358,9 +1417,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: [
-                                          const Text(
-                                            'Diễn viên:',
-                                            style: TextStyle(
+                                          Text(
+                                            L10n.t('actors'),
+                                            style: const TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
@@ -1503,10 +1562,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                         size: 28,
                                       ),
                                       const SizedBox(width: 16),
-                                      const Expanded(
+                                      Expanded(
                                         child: Text(
-                                          'Phim chưa được công chiếu hoặc đang chờ cập nhật tập phim mới.',
-                                          style: TextStyle(
+                                          L10n.t('movie_not_released'),
+                                          style: const TextStyle(
                                             color: Colors.white70,
                                             fontSize: 16,
                                           ),
@@ -1516,8 +1575,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   ),
                                 ),
                               ] else ...[
-                                const Text(
-                                  'CHỌN TẬP PHIM',
+                                Text(L10n.t('select_episode').toUpperCase(),
                                   style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
@@ -1531,13 +1589,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   children: [
                                     _buildMainTab(
                                       'Promax',
-                                      'NGUỒN PROMAX',
+                                      L10n.t('source_promax'),
                                       Icons.stars,
                                     ),
                                     const SizedBox(width: 16),
                                     _buildMainTab(
                                       'Standard',
-                                      'NGUỒN STANDARD',
+                                      L10n.t('source_standard'),
                                       Icons.list,
                                     ),
                                   ],
@@ -1554,9 +1612,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                         ..._p2pServers,
                                       ];
                                       if (promaxServers.isEmpty)
-                                        return const Text(
-                                          'Không có nguồn Promax nào.',
-                                          style: TextStyle(
+                                        return Text(
+                                          L10n.t('no_promax_source'),
+                                          style: const TextStyle(
                                             color: Colors.white54,
                                           ),
                                         );
@@ -1783,9 +1841,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   Widget _buildRatingSection() {
     return Row(
       children: [
-        const Text(
-          'Đánh giá: ',
-          style: TextStyle(color: Colors.white70, fontSize: 16),
+        Text(
+          L10n.t('rating'),
+          style: const TextStyle(color: Colors.white70, fontSize: 16),
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -1845,9 +1903,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             ),
           )
         else
-          const Text(
-            'Chưa có đánh giá',
-            style: TextStyle(color: Colors.white54, fontSize: 14),
+          Text(
+            L10n.t('no_rating'),
+            style: const TextStyle(color: Colors.white54, fontSize: 14),
           ),
       ],
     );
@@ -1989,9 +2047,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 40),
-        const Text(
-          'Bình luận',
-          style: TextStyle(
+        Text(
+          L10n.t('comments'),
+          style: const TextStyle(
             color: Colors.white,
             fontSize: 24,
             fontWeight: FontWeight.bold,
@@ -2369,12 +2427,7 @@ class _HoverPosterState extends State<HoverPoster> {
           ),
         );
       } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Không tìm thấy hình ảnh nào từ TMDB'),
-            duration: Duration(seconds: 2),
-          ),
-        );
+        UIUtils.showCustomSnackBar(context, 'Không tìm thấy hình ảnh nào từ TMDB', isError: true);
       }
     }
   }

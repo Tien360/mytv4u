@@ -191,7 +191,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildSectionTitle(Icons.account_circle, L10n.t('sync_account')),
+                          _buildSectionTitle(Icons.account_circle, 'Tài khoản đồng bộ'),
                           const SizedBox(height: 16),
                           if (_currentUser != null)
                             _buildUserCard()
@@ -200,7 +200,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           
                           const SizedBox(height: 48),
 
-
+                          _buildSectionTitle(Icons.play_circle_outline, 'Trình phát video'),
+                          const SizedBox(height: 16),
+                          GlassContainer(
+                            padding: const EdgeInsets.all(16),
+                            child: SwitchListTile(
+                              title: const Text('Tăng tốc phần cứng (GPU)'),
+                              subtitle: const Text('Bật để xem mượt hơn. Tắt đi nếu xem phim bị lỗi hình ảnh hoặc văng ứng dụng.'),
+                              value: _hwAccel,
+                              activeColor: Colors.redAccent,
+                              onChanged: (val) async {
+                                final prefs = await SharedPreferences.getInstance();
+                                await prefs.setBool('enable_hw_accel', val);
+                                setState(() {
+                                  _hwAccel = val;
+                                });
+                              },
+                            ),
+                          ),
+                          
+                          const SizedBox(height: 48),
 
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -254,7 +273,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       borderRadius: BorderRadius.circular(4),
                                     ),
                                     child: Text(
-                                      L10n.t('sub_example'),
+                                      'Ví dụ: Phụ đề sẽ hiển thị như thế này.',
                                       style: TextStyle(
                                         color: _getColorFromName(_subColor),
                                         fontSize: _subSize,
@@ -272,7 +291,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(width: 8),
-                                    Text(L10n.t('sub_size'), style: TextStyle(color: Colors.white, fontSize: 16)),
+                                    const Text('Kích thước chữ', style: TextStyle(color: Colors.white, fontSize: 16)),
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Slider(
@@ -299,7 +318,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(width: 8),
-                                    Text(L10n.t('sub_opacity'), style: TextStyle(color: Colors.white, fontSize: 16)),
+                                    const Text('Độ mờ nền chữ', style: TextStyle(color: Colors.white, fontSize: 16)),
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Slider(
@@ -382,43 +401,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           
                           const SizedBox(height: 48),
 
-                          _buildSectionTitle(Icons.language, L10n.t('language_settings')),
-                          const SizedBox(height: 16),
-                          GlassContainer(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(L10n.t('language'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                DropdownButton<String>(
-                                  value: _appLang,
-                                  dropdownColor: Colors.black87,
-                                  style: const TextStyle(color: Colors.amber, fontSize: 16),
-                                  underline: const SizedBox(),
-                                  items: [
-                                    DropdownMenuItem(value: 'vi', child: Text(L10n.t('lang_vi'))),
-                                    DropdownMenuItem(value: 'en', child: Text('English')),
-                                  ],
-                                  onChanged: (val) async {
-                                    if (val != null) {
-                                      await L10n.load(val);
-                                      setState(() {
-                                        _appLang = val;
-                                      });
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 48),
-
-                          _buildSectionTitle(Icons.play_circle_outline, L10n.t('video_player')),
+                          _buildSectionTitle(Icons.settings_suggest, L10n.t('health_utilities')),
                           const SizedBox(height: 16),
                           GlassContainer(
                             padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
+                                SwitchListTile(
+                                  title: Text(L10n.t('language'), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                  subtitle: Text(_appLang == 'vi' ? 'Tiếng Việt' : 'English', style: const TextStyle(color: Colors.white70)),
+                                  value: _appLang == 'vi',
+                                  activeColor: Colors.amber,
+                                  onChanged: (val) async {
+                                    final newLang = val ? 'vi' : 'en';
+                                    await L10n.load(newLang);
+                                    setState(() {
+                                      _appLang = newLang;
+                                    });
+                                  },
+                                ),
+                                const Divider(color: Colors.white12, height: 1),
                                 SwitchListTile(
                                   title: Text(L10n.t('auto_next'), style: const TextStyle(color: Colors.white, fontSize: 16)),
                                   value: _autoNext,
@@ -464,30 +466,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
                                 ),
                                 const Divider(color: Colors.white12, height: 1),
-                                SwitchListTile(
-                                  title: Text(L10n.t('hw_accel')),
-                                  subtitle: Text(L10n.t('hw_accel_desc')),
-                                  value: _hwAccel,
-                                  activeColor: Colors.redAccent,
-                                  onChanged: (val) async {
-                                    final prefs = await SharedPreferences.getInstance();
-                                    await prefs.setBool('enable_hw_accel', val);
-                                    setState(() {
-                                      _hwAccel = val;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          
-                          const SizedBox(height: 48),
-
-                          _buildSectionTitle(Icons.health_and_safety, L10n.t('health_utilities')),
-                          const SizedBox(height: 16),
-                          GlassContainer(
-                            padding: const EdgeInsets.all(16),
-                            child: ListTile(
+                                ListTile(
                                   title: Text(L10n.t('watch_limit'), style: const TextStyle(color: Colors.white, fontSize: 16)),
                                   trailing: DropdownButton<int>(
                                     value: _watchLimit,
@@ -510,6 +489,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     },
                                   ),
                                 ),
+                              ],
+                            ),
                           ),
 
                           const SizedBox(height: 48),
@@ -517,7 +498,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              _buildSectionTitle(Icons.source, L10n.t('movie_sources')),
+                              _buildSectionTitle(Icons.source, 'Nguồn phim'),
                               TextButton.icon(
                                 onPressed: () {
                                   bool allSelected = _sources.values.every((v) => v);
@@ -533,23 +514,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   color: Colors.white70,
                                 ),
                                 label: Text(
-                                  _sources.values.every((v) => v) ? L10n.t('deselect_all') : L10n.t('select_all'),
+                                  _sources.values.every((v) => v) ? 'Bỏ chọn tất cả' : 'Chọn tất cả',
                                   style: const TextStyle(color: Colors.white70),
                                 ),
                               ),
                             ],
                           ),
                           const SizedBox(height: 8),
-                          Text(
-                            L10n.t('sources_desc'),
-                            style: const TextStyle(color: Colors.white54, fontSize: 14),
+                          const Text(
+                            'Chọn các nguồn phim bạn muốn sử dụng. Các nguồn bị tắt sẽ không xuất hiện khi tìm kiếm và duyệt phim.',
+                            style: TextStyle(color: Colors.white54, fontSize: 14),
                           ),
                           const SizedBox(height: 24),
                           
                           // Nhóm Nguồn Promax
-                          Text(
-                            L10n.t('source_promax'),
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber),
+                          const Text(
+                            'Nguồn Promax',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber),
                           ),
                           const SizedBox(height: 12),
                           Wrap(
@@ -564,9 +545,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           const SizedBox(height: 24),
                           
                           // Nhóm Nguồn Standard
-                          Text(
-                            L10n.t('source_standard'),
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent),
+                          const Text(
+                            'Nguồn Standard',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent),
                           ),
                           const SizedBox(height: 12),
                           Wrap(
@@ -580,28 +561,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                           const SizedBox(height: 48),
 
-                          _buildSectionTitle(Icons.keyboard, L10n.t('shortcuts')),
+                          _buildSectionTitle(Icons.keyboard, 'Phím tắt'),
                           const SizedBox(height: 16),
                           GlassContainer(
                             padding: const EdgeInsets.all(20),
                             child: Column(
                               children: [
-                                _buildShortcutRow('F11', L10n.t('shortcut_fullscreen')),
+                                _buildShortcutRow('F11', 'Phóng to / Thu nhỏ toàn màn hình (Full Screen)'),
                                 const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('ESC', L10n.t('shortcut_escape')),
+                                _buildShortcutRow('ESC', 'Thoát / Đóng hộp thoại'),
                                 const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('Space (Cách)', L10n.t('shortcut_play_pause')),
+                                _buildShortcutRow('Space (Cách)', 'Tạm dừng / Phát video'),
                                 const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('F', L10n.t('shortcut_zoom')),
+                                _buildShortcutRow('F', 'Phóng to video (khi đang xem)'),
                                 const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('Mũi tên Trái / Phải', L10n.t('shortcut_seek')),
+                                _buildShortcutRow('Mũi tên Trái / Phải', 'Tua video 10 giây'),
                               ],
                             ),
                           ),
 
                           const SizedBox(height: 48),
 
-                          _buildSectionTitle(Icons.info_outline, L10n.t('info_contact')),
+                          _buildSectionTitle(Icons.info_outline, 'Thông tin & Liên hệ'),
                           const SizedBox(height: 16),
                           _buildAppInfoCard(),
                           
@@ -668,7 +649,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.green.withOpacity(0.5)),
                   ),
-                  child: Text(L10n.t('synced_with_web'), style: TextStyle(color: Colors.greenAccent, fontSize: 12, fontWeight: FontWeight.bold)),
+                  child: const Text('Đã đồng bộ với TV4U Web', style: TextStyle(color: Colors.greenAccent, fontSize: 12, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -676,7 +657,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           OutlinedButton.icon(
             onPressed: _handleLogout,
             icon: const Icon(Icons.logout, size: 18),
-            label: Text(L10n.t('logout')),
+            label: const Text('Đăng xuất'),
             style: OutlinedButton.styleFrom(
               foregroundColor: Colors.redAccent,
               side: const BorderSide(color: Colors.redAccent),
@@ -697,17 +678,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           const Icon(Icons.cloud_sync, size: 48, color: Colors.white54),
           const SizedBox(height: 16),
-          Text(
-            L10n.t('login_sync_desc'),
+          const Text(
+            'Đăng nhập để đồng bộ lịch sử xem phim và danh sách yêu thích của bạn giữa phiên bản Web và Ứng dụng Desktop.',
             textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white70, fontSize: 15),
+            style: TextStyle(color: Colors.white70, fontSize: 15),
           ),
           const SizedBox(height: 24),
           ElevatedButton.icon(
             icon: _isLoggingIn 
                 ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(color: Colors.black, strokeWidth: 2)) 
                 : const Icon(Icons.login),
-            label: Text(_isLoggingIn ? L10n.t('opening_browser') : L10n.t('login_google')),
+            label: Text(_isLoggingIn ? 'Đang mở trình duyệt...' : 'Đăng nhập với Google'),
             onPressed: _isLoggingIn ? null : _handleLogin,
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.white,
@@ -820,7 +801,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           Image.asset('assets/logo.png', height: 48),
           const SizedBox(height: 24),
-          _buildInfoRow(L10n.t('version'), UpdateApi.currentAppVersion),
+          _buildInfoRow('Phiên bản', UpdateApi.currentAppVersion),
           const SizedBox(height: 16),
           Align(
             alignment: Alignment.centerRight,
@@ -849,12 +830,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             builder: (context) => UpdateDialog(updateInfo: publicInfo),
                           );
                         } else {
-                          UIUtils.showCustomSnackBar(context, L10n.t('no_public_version'));
+                          UIUtils.showCustomSnackBar(context, 'Không tìm thấy bản Public!');
                         }
                       }
                     },
                     icon: const Icon(Icons.download, size: 16, color: Colors.blueAccent),
-                    label: Text(L10n.t('return_public'), style: TextStyle(color: Colors.blueAccent)),
+                    label: const Text('Trở về bản Public', style: TextStyle(color: Colors.blueAccent)),
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Colors.blueAccent),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -881,12 +862,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           builder: (context) => UpdateDialog(updateInfo: updateInfo),
                         );
                       } else {
-                        UIUtils.showCustomSnackBar(context, L10n.t('using_latest_version'));
+                        UIUtils.showCustomSnackBar(context, 'Bạn đang sử dụng phiên bản mới nhất!');
                       }
                     }
                   },
                   icon: const Icon(Icons.system_update, size: 16, color: Colors.amber),
-                  label: Text(L10n.t('check_update'), style: TextStyle(color: Colors.amber)),
+                  label: const Text('Kiểm tra phiên bản mới', style: TextStyle(color: Colors.amber)),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Colors.amber),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -896,9 +877,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const Divider(color: Colors.white12, height: 32),
-          _buildInfoRow(L10n.t('developer'), _appSettings?['developer'] ?? 'Sparky'),
+          _buildInfoRow('Nhà phát triển', _appSettings?['developer'] ?? 'Sparky'),
           const Divider(color: Colors.white12, height: 32),
-          _buildInfoRow(L10n.t('contact'), _appSettings?['contact'] ?? 'mytv4u.web.app'),
+          _buildInfoRow('Liên hệ', _appSettings?['contact'] ?? 'mytv4u.web.app'),
           if (_appSettings != null && _appSettings!['facebook'] != null && _appSettings!['facebook'].toString().isNotEmpty) ...[
             const Divider(color: Colors.white12, height: 32),
             _buildInfoRow('Facebook', _appSettings!['facebook']),
@@ -909,66 +890,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: OutlinedButton.icon(
               onPressed: _showTermsDialog,
               icon: const Icon(Icons.gavel, color: Colors.blueAccent, size: 18),
-              label: Text(L10n.t('terms_disclaimer'), style: TextStyle(color: Colors.blueAccent)),
+              label: const Text('Điều khoản sử dụng & Miễn trừ trách nhiệm', style: TextStyle(color: Colors.blueAccent)),
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.blueAccent),
                 padding: const EdgeInsets.symmetric(vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-              ),
-            ),
-          ),
-          
-          const SizedBox(height: 48),
-
-          // Nút Khôi phục cài đặt gốc
-          Center(
-            child: ElevatedButton.icon(
-              onPressed: () async {
-                final prefs = await SharedPreferences.getInstance();
-                
-                await prefs.remove('enable_hw_accel');
-                await prefs.remove('sub_size');
-                await prefs.remove('sub_opacity');
-                await prefs.remove('sub_color');
-                await prefs.remove('sub_font');
-                await prefs.remove('auto_next');
-                await prefs.remove('auto_play_trailer');
-                await prefs.remove('default_speed');
-                await prefs.remove('watch_limit');
-                await prefs.remove('enabled_sources');
-                await prefs.remove('app_lang');
-
-                await L10n.load('vi');
-                
-                setState(() {
-                  _hwAccel = true;
-                  _subSize = 24.0;
-                  _subOpacity = 0.3;
-                  _subColor = 'White';
-                  _subFont = 'Roboto';
-                  _autoNext = true;
-                  _autoPlayTrailer = true;
-                  _defaultSpeed = 1.0;
-                  _watchLimit = 0;
-                  _appLang = 'vi';
-                  for (var key in _sources.keys) {
-                    _sources[key] = true;
-                  }
-                  _sources['torrentio'] = false; // default
-                });
-
-                if (mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(L10n.t('restore_default'))),
-                  );
-                }
-              },
-              icon: const Icon(Icons.restore),
-              label: Text(L10n.t('restore_default')),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red.withOpacity(0.2),
-                foregroundColor: Colors.redAccent,
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
               ),
             ),
           ),
@@ -1029,10 +955,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               child: const Icon(Icons.shield, color: Colors.blueAccent),
                             ),
                             const SizedBox(width: 16),
-                            Expanded(
+                            const Expanded(
                               child: Text(
-                                L10n.t('terms_dmca_title'),
-                                style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+                                'Điều Khoản Sử Dụng & DMCA',
+                                style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
                               ),
                             ),
                             IconButton(
@@ -1055,29 +981,29 @@ class _SettingsScreenState extends State<SettingsScreen> {
                               _buildTermSection(
                                 icon: Icons.storage,
                                 iconColor: Colors.blueAccent,
-                                title: L10n.t('terms_p1_title'),
-                                content: L10n.t('terms_p1_content'),
+                                title: '1. Tổng Hợp Nguồn & Bản Quyền',
+                                content: 'MyTV4U là công cụ tự động tìm kiếm và tổng hợp liên kết phát trực tuyến công khai. Ứng dụng TUYỆT ĐỐI KHÔNG sở hữu, KHÔNG lưu trữ (host), KHÔNG tải lên và KHÔNG phân phối bất kỳ tệp tin phương tiện nào. Tất cả nội dung số hiển thị trên MyTV4U đều được truyền tải trực tiếp từ các máy chủ bên thứ ba độc lập.',
                               ),
                               const SizedBox(height: 32),
                               _buildTermSection(
                                 icon: Icons.warning_amber_rounded,
                                 iconColor: Colors.amber,
-                                title: L10n.t('terms_p2_title'),
-                                content: L10n.t('terms_p2_content'),
+                                title: '2. Tính Khả Dụng Của Nguồn',
+                                content: 'Các nguồn phát trực tuyến (M3U8) phụ thuộc 100% vào máy chủ bên ngoài (NguonC, KKPhim, TV360, VSMov...). Chúng có thể bị gián đoạn, đổi cấu hình hoặc ngừng hoạt động vĩnh viễn bất kỳ lúc nào bởi quyết định của máy chủ bên thứ ba. Đội ngũ phát triển MyTV4U không có thẩm quyền can thiệp hay đảm bảo tính ổn định.',
                               ),
                               const SizedBox(height: 32),
                               _buildTermSection(
                                 icon: Icons.developer_mode,
                                 iconColor: Colors.greenAccent,
-                                title: L10n.t('terms_p3_title'),
-                                content: L10n.t('terms_p3_content'),
+                                title: '3. Phạm Vi Phát Triển',
+                                content: 'MyTV4U định vị là một công cụ phần mềm. Đội ngũ phát triển chỉ nghiên cứu và xây dựng UI/UX đồng bộ đa nền tảng, thuật toán tìm kiếm, framework ứng dụng, custom video player engine, và hệ thống đồng bộ lịch sử xem.',
                               ),
                               const SizedBox(height: 32),
                               _buildTermSection(
                                 icon: Icons.gavel,
                                 iconColor: Colors.pinkAccent,
-                                title: L10n.t('terms_p4_title'),
-                                content: L10n.t('terms_p4_content'),
+                                title: '4. Yêu Cầu Gỡ Bỏ (DMCA)',
+                                content: 'Người dùng tự chịu trách nhiệm đối với hành vi truy cập. Nếu bạn là chủ sở hữu bản quyền, vui lòng gửi yêu cầu gỡ bỏ trực tiếp (DMCA Takedown) đến đơn vị quản lý máy chủ lưu trữ (Host Provider) của bên thứ ba đang trực tiếp chứa tệp tin đó.',
                               ),
                             ],
                           ),
@@ -1101,7 +1027,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             elevation: 0,
                           ),
-                          child: Text(L10n.t('terms_agree'), style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          child: const Text('Tôi đã hiểu & Đồng ý', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ],

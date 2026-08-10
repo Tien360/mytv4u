@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../models/update_info.dart';
 import '../api/update_api.dart';
@@ -45,8 +46,12 @@ class _UpdateDialogState extends State<UpdateDialog> {
       child: AlertDialog(
         backgroundColor: const Color(0xFF1A1A2E),
         title: Text(
-          'Cập nhật phiên bản mới (${widget.updateInfo.latestVersion})',
-          style: const TextStyle(color: Colors.white),
+          widget.updateInfo.isDowngrade
+              ? 'Trở về phiên bản Public (${widget.updateInfo.latestVersion})'
+              : widget.updateInfo.isBeta
+                  ? 'Phiên bản thử nghiệm Beta (${widget.updateInfo.latestVersion})'
+                  : 'Cập nhật phiên bản mới (${widget.updateInfo.latestVersion})',
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
         content: SizedBox(
           width: 400,
@@ -58,6 +63,29 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 Text(
                   'Lỗi: $_error',
                   style: const TextStyle(color: Colors.redAccent),
+                ),
+                const SizedBox(height: 16),
+              ],
+              if (widget.updateInfo.isBeta && !widget.updateInfo.isDowngrade) ...[
+                Container(
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.redAccent.withOpacity(0.1),
+                    border: Border.all(color: Colors.redAccent.withOpacity(0.5)),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(Icons.warning_amber_rounded, color: Colors.redAccent, size: 24),
+                      SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          'Cảnh báo: Đây là phiên bản thử nghiệm (Beta). Có thể chứa một số lỗi. Hãy sao lưu cấu hình trước khi cài.',
+                          style: TextStyle(color: Colors.redAccent, fontSize: 13),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 16),
               ],
@@ -101,6 +129,11 @@ class _UpdateDialogState extends State<UpdateDialog> {
               onPressed: () => Navigator.of(context).pop(),
               child: const Text('Để sau', style: TextStyle(color: Colors.white54)),
             ),
+          if (!_isDownloading && widget.updateInfo.isForceUpdate)
+            TextButton(
+              onPressed: () => exit(0),
+              child: const Text('Thoát ứng dụng', style: TextStyle(color: Colors.white54)),
+            ),
           if (!_isDownloading)
             ElevatedButton(
               onPressed: _startDownload,
@@ -108,7 +141,9 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 backgroundColor: Colors.amber,
                 foregroundColor: Colors.black,
               ),
-              child: const Text('Cập nhật ngay'),
+              child: Text(
+                widget.updateInfo.isDowngrade ? 'Hạ cấp ngay' : 'Cập nhật ngay',
+              ),
             ),
         ],
       ),

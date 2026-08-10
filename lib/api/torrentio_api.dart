@@ -71,6 +71,25 @@ class TorrentioApi {
     return null;
   }
 
+  /// Get TMDB ID from IMDB ID using TMDB Find API
+  static Future<String?> getTmdbIdFromImdb(String imdbId) async {
+    try {
+      final url = 'https://api.themoviedb.org/3/find/$imdbId?external_source=imdb_id&api_key=$_tmdbApiKey';
+      final res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 5));
+      if (res.statusCode == 200) {
+        final data = json.decode(res.body);
+        if (data['movie_results'] != null && data['movie_results'].isNotEmpty) {
+          return data['movie_results'][0]['id'].toString();
+        } else if (data['tv_results'] != null && data['tv_results'].isNotEmpty) {
+          return data['tv_results'][0]['id'].toString();
+        }
+      }
+    } catch (e) {
+      print('TorrentioApi.getTmdbIdFromImdb error: $e');
+    }
+    return null;
+  }
+
   /// Fetch available torrent streams for a movie from Torrentio and PirateBay.
   /// Returns a list of EpisodeServer objects containing playable streams.
   static Future<List<EpisodeServer>> fetchStreams(

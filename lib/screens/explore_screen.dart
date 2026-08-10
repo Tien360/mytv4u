@@ -6,6 +6,7 @@ import 'movie_detail_screen.dart';
 import '../widgets/glass_search_bar.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/hover_movie_card.dart';
+import '../utils/l10n.dart';
 
 class ExploreScreen extends StatefulWidget {
   const ExploreScreen({super.key});
@@ -24,34 +25,34 @@ class ExploreScreenState extends State<ExploreScreen> {
 
   final ScrollController _scrollController = ScrollController();
 
-  final List<Map<String, String>> _categories = [
-    {'name': 'Phim Lẻ', 'slug': 'phim-le'},
-    {'name': 'Phim Bộ', 'slug': 'phim-bo'},
-    {'name': 'Hoạt Hình', 'slug': 'hoat-hinh'},
-    {'name': 'TV Shows', 'slug': 'tv-shows'},
+  List<Map<String, String>> get _categories => [
+    {'name': L10n.t('category_movies'), 'slug': 'phim-le'},
+    {'name': L10n.t('category_series'), 'slug': 'phim-bo'},
+    {'name': L10n.t('category_anime'), 'slug': 'hoat-hinh'},
+    {'name': L10n.t('category_tv_shows'), 'slug': 'tv-shows'},
   ];
 
-  final List<Map<String, String>> _genres = [
-    {'name': 'Tất cả Thể Loại', 'slug': ''},
-    {'name': 'Hành động', 'slug': 'hanh-dong'},
-    {'name': 'Tình cảm', 'slug': 'tinh-cam'},
-    {'name': 'Hài hước', 'slug': 'hai-huoc'},
-    {'name': 'Cổ trang', 'slug': 'co-trang'},
-    {'name': 'Tâm lý', 'slug': 'tam-ly'},
-    {'name': 'Hình sự', 'slug': 'hinh-su'},
-    {'name': 'Viễn tưởng', 'slug': 'vien-tuong'},
-    {'name': 'Kinh dị', 'slug': 'kinh-di'},
-    {'name': 'Hoạt hình', 'slug': 'hoat-hinh'}
+  List<Map<String, String>> get _genres => [
+    {'name': L10n.t('genre_all'), 'slug': ''},
+    {'name': L10n.t('genre_action'), 'slug': 'hanh-dong'},
+    {'name': L10n.t('genre_romance'), 'slug': 'tinh-cam'},
+    {'name': L10n.t('genre_comedy'), 'slug': 'hai-huoc'},
+    {'name': L10n.t('genre_historical'), 'slug': 'co-trang'},
+    {'name': L10n.t('genre_psychological'), 'slug': 'tam-ly'},
+    {'name': L10n.t('genre_criminal'), 'slug': 'hinh-su'},
+    {'name': L10n.t('genre_scifi'), 'slug': 'vien-tuong'},
+    {'name': L10n.t('genre_horror'), 'slug': 'kinh-di'},
+    {'name': L10n.t('genre_animation'), 'slug': 'hoat-hinh'}
   ];
 
-  final List<Map<String, String>> _countries = [
-    {'name': 'Tất cả Quốc Gia', 'slug': ''},
-    {'name': 'Hàn Quốc', 'slug': 'han-quoc'},
-    {'name': 'Trung Quốc', 'slug': 'trung-quoc'},
-    {'name': 'Âu Mỹ', 'slug': 'au-my'},
-    {'name': 'Việt Nam', 'slug': 'viet-nam'},
-    {'name': 'Nhật Bản', 'slug': 'nhat-ban'},
-    {'name': 'Thái Lan', 'slug': 'thai-lan'}
+  List<Map<String, String>> get _countries => [
+    {'name': L10n.t('country_all'), 'slug': ''},
+    {'name': L10n.t('category_korean'), 'slug': 'han-quoc'},
+    {'name': L10n.t('category_chinese'), 'slug': 'trung-quoc'},
+    {'name': L10n.t('category_western'), 'slug': 'au-my'},
+    {'name': L10n.t('country_vietnam'), 'slug': 'viet-nam'},
+    {'name': L10n.t('country_japan'), 'slug': 'nhat-ban'},
+    {'name': L10n.t('country_thailand'), 'slug': 'thai-lan'}
   ];
 
   void setFilter(String type, String slug) {

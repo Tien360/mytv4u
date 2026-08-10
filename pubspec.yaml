@@ -81,6 +81,7 @@ flutter:
   assets:
     - assets/logo.png
     - assets/intro-sound.mp3
+    - assets/langs/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

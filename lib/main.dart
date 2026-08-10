@@ -11,10 +11,15 @@ import 'services/deep_link_service.dart';
 
 import 'package:webview_windows/webview_windows.dart';
 import 'api/stremio_server.dart';
+import 'utils/l10n.dart';
+import 'utils/system_utils.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   
+  // Khởi tạo đa ngôn ngữ
+  await L10n.load();
+
   // Tắt Hardware Acceleration của WebView2 để tránh lỗi màn hình đen trên máy lỗi GPU
   try {
     await WebviewController.initializeEnvironment(
@@ -25,6 +30,9 @@ void main(List<String> args) async {
   }
 
   MediaKit.ensureInitialized();
+  
+  // Lấy thông tin RAM bất đồng bộ để set Buffer video
+  SystemUtils.initAsync();
   
   // Initialize deep link service (register protocol + parse args)
   await DeepLinkService.instance.initialize(args);

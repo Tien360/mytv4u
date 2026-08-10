@@ -91,7 +91,7 @@ class _HoverMovieCardState extends State<HoverMovieCard> {
                               ),
                             ),
                             child: Text(
-                              widget.movie.name,
+                              widget.movie.displayName,
                               style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 13),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,

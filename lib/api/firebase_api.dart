@@ -126,6 +126,25 @@ class FirebaseApi {
     return null;
   }
 
+  static Future<Map<String, dynamic>> checkAppStatus() async {
+    final url = Uri.parse('$baseUrl/app_settings/status');
+    try {
+      final response = await http.get(url);
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data['fields'] != null) {
+          return {
+            'isKilled': data['fields']['isKilled']?['booleanValue'] ?? false,
+            'killMessage': data['fields']['killMessage']?['stringValue'] ?? 'Ứng dụng đã bị ngừng hoạt động.',
+          };
+        }
+      }
+    } catch (e) {
+      print('Error fetching app status: $e');
+    }
+    return {'isKilled': false, 'killMessage': ''};
+  }
+
   static Future<Map<String, dynamic>> getAverageRating(String movieSlug) async {
     final url = Uri.parse('$baseUrl:runQuery');
     try {

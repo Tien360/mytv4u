@@ -1,0 +1,15 @@
+{
+  "name": "torrent_engine",
+  "version": "1.0.0",
+  "description": "Custom high-speed torrent proxy for MyTV4U",
+  "main": "server.js",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "memory-chunk-store": "^1.3.0",
+    "torrent-stream": "^1.2.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'main_screen.dart';
 import 'movie_detail_screen.dart';
 import '../widgets/custom_title_bar.dart';
 import '../services/deep_link_service.dart';
+import '../api/firebase_api.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -44,34 +46,63 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
     _animationController.forward();
 
-    // Chuyển sang MainScreen sau 2.5s, có deep link thì mở phim luôn
-    Timer(const Duration(milliseconds: 2500), () {
-      if (!mounted) return;
-      
-      // Check for deep link
-      final deepLink = DeepLinkService.instance.consumeInitialDeepLink();
-      
-      Navigator.of(context).pushReplacement(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) => const MainScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return FadeTransition(opacity: animation, child: child);
-          },
-          transitionDuration: const Duration(milliseconds: 800),
+    _initializeApp();
+  }
+
+  Future<void> _initializeApp() async {
+    final minWait = Future.delayed(const Duration(milliseconds: 2500));
+    
+    final status = await FirebaseApi.checkAppStatus();
+    
+    await minWait;
+    
+    if (!mounted) return;
+
+    if (status['isKilled'] == true) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) => WillPopScope(
+          onWillPop: () async => false, // Chặn nút back
+          child: AlertDialog(
+            backgroundColor: Colors.grey[900],
+            title: const Text('Ứng dụng đã ngừng hoạt động', style: TextStyle(color: Colors.redAccent)),
+            content: Text(status['killMessage'] ?? 'Vui lòng liên hệ nhà phát triển.', style: const TextStyle(color: Colors.white, fontSize: 16)),
+            actions: [
+              TextButton(
+                onPressed: () => exit(0),
+                child: const Text('Thoát ứng dụng', style: TextStyle(color: Colors.white70)),
+              ),
+            ],
+          ),
         ),
       );
-      
-      // If there's a deep link, navigate to movie detail after MainScreen is built
-      if (deepLink != null && deepLink.action == 'movie' && deepLink.slug.isNotEmpty) {
-        Future.delayed(const Duration(milliseconds: 500), () {
-          DeepLinkService.navigatorKey.currentState?.push(
-            MaterialPageRoute(
-              builder: (_) => MovieDetailScreen(slug: deepLink.slug),
-            ),
-          );
-        });
-      }
-    });
+      return;
+    }
+
+    // Check for deep link
+    final deepLink = DeepLinkService.instance.consumeInitialDeepLink();
+    
+    Navigator.of(context).pushReplacement(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => const MainScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        transitionDuration: const Duration(milliseconds: 800),
+      ),
+    );
+    
+    // If there's a deep link, navigate to movie detail after MainScreen is built
+    if (deepLink != null && deepLink.action == 'movie' && deepLink.slug.isNotEmpty) {
+      Future.delayed(const Duration(milliseconds: 500), () {
+        DeepLinkService.navigatorKey.currentState?.push(
+          MaterialPageRoute(
+            builder: (_) => MovieDetailScreen(slug: deepLink.slug),
+          ),
+        );
+      });
+    }
   }
 
   @override

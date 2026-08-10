@@ -8,35 +8,77 @@ import '../models/update_info.dart';
 import 'firebase_api.dart';
 
 class UpdateApi {
-  static const String updateDocUrl = '${FirebaseApi.baseUrl}/updates/latest';
+  static const String publicUpdateUrl = '${FirebaseApi.baseUrl}/updates/public';
+  static const String betaUpdateUrl = '${FirebaseApi.baseUrl}/updates/beta';
   static final Dio _dio = Dio();
+
+  // BẠN SẼ ĐỔI SỐ NÀY MỖI KHI RA MẮT BẢN CẬP NHẬT MỚI:
+  static const String currentAppVersion = '26.08.10.a.beta';
 
   /// Kiểm tra có bản cập nhật mới không
   static Future<UpdateInfo?> checkForUpdate() async {
     try {
-      final response = await http.get(Uri.parse(updateDocUrl));
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        final updateInfo = UpdateInfo.fromFirestore(data);
+      final publicRes = await http.get(Uri.parse(publicUpdateUrl));
+      final betaRes = await http.get(Uri.parse(betaUpdateUrl));
+      
+      UpdateInfo? publicInfo;
+      UpdateInfo? betaInfo;
 
-        // Lấy version hiện tại (từ pubspec.yaml hoặc config)
-        // package_info_plus có thể lấy version từ native build
-        final packageInfo = await PackageInfo.fromPlatform();
-        String currentVersion = packageInfo.version;
-        
-        // Nếu bạn custom version trong C++ hoặc chưa set đúng trong pubspec, 
-        // có thể hardcode fallback ở đây
-        if (currentVersion.isEmpty || currentVersion == '1.0.0') {
-          // currentVersion = '26.08.01.a.public'; // Demo default
-        }
+      if (publicRes.statusCode == 200) {
+        publicInfo = UpdateInfo.fromFirestore(json.decode(publicRes.body));
+      }
+      if (betaRes.statusCode == 200) {
+        betaInfo = UpdateInfo.fromFirestore(json.decode(betaRes.body), isBeta: true);
+      }
 
-        if (_isNewerVersion(updateInfo.latestVersion, currentVersion)) {
-          return updateInfo;
+      String currentVersion = currentAppVersion;
+      bool isCurrentUserBeta = currentVersion.contains('.beta');
+
+      // 1. Luôn ưu tiên bản Public nếu nó mới hơn bản hiện tại
+      if (publicInfo != null && _isNewerVersion(publicInfo.latestVersion, currentVersion)) {
+        return publicInfo;
+      }
+      
+      // 2. Nếu Public không có gì mới, kiểm tra Beta
+      if (betaInfo != null && _isNewerVersion(betaInfo.latestVersion, currentVersion)) {
+        // Chỉ hiện Beta nếu bản Beta lớn hơn bản Public (tức là tính năng thật sự mới)
+        if (publicInfo == null || _isNewerVersion(betaInfo.latestVersion, publicInfo.latestVersion)) {
+          if (isCurrentUserBeta) {
+            // Người dùng đang dùng Beta -> Trả về update Beta, có thể bắt buộc
+            return betaInfo;
+          } else {
+            // Người dùng đang dùng Public -> Trả về update Beta nhưng KHÔNG bắt buộc
+            return UpdateInfo(
+              latestVersion: betaInfo.latestVersion,
+              downloadUrl: betaInfo.downloadUrl,
+              releaseNotes: betaInfo.releaseNotes,
+              isForceUpdate: false, // Public lên Beta luôn là tuỳ chọn
+              isBeta: true,
+            );
+          }
         }
       }
     } catch (e) {
       print('Lỗi kiểm tra cập nhật: $e');
     }
+    return null;
+  }
+
+  /// Lấy thông tin bản Public trực tiếp (Dành cho chức năng Hạ cấp của Beta)
+  static Future<UpdateInfo?> getPublicUpdateInfo() async {
+    try {
+      final publicRes = await http.get(Uri.parse(publicUpdateUrl));
+      if (publicRes.statusCode == 200) {
+        final info = UpdateInfo.fromFirestore(json.decode(publicRes.body));
+        return UpdateInfo(
+          latestVersion: info.latestVersion,
+          downloadUrl: info.downloadUrl,
+          releaseNotes: info.releaseNotes,
+          isForceUpdate: false,
+          isDowngrade: true,
+        );
+      }
+    } catch (e) {}
     return null;
   }
 
@@ -63,7 +105,7 @@ class UpdateApi {
       // Chạy file setup.exe với cờ cài đặt ngầm
       await Process.start(
         savePath,
-        ['/VERYSILENT', '/SUPPRESSMSGBOXES', '/CLOSEAPPLICATIONS'],
+        ['/SILENT', '/SUPPRESSMSGBOXES', '/CLOSEAPPLICATIONS'],
         mode: ProcessStartMode.detached,
       );
 

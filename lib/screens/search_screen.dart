@@ -4,6 +4,7 @@ import '../api/phim_api.dart';
 import '../models/movie.dart';
 import 'movie_detail_screen.dart';
 import '../widgets/hover_movie_card.dart';
+import '../utils/l10n.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -54,7 +55,7 @@ class SearchScreenState extends State<SearchScreen> {
     return _isLoading
         ? const Center(child: CircularProgressIndicator())
         : _movies.isEmpty && _lastQuery.isNotEmpty
-            ? const Center(child: Text('Không tìm thấy kết quả nào', style: TextStyle(color: Colors.white, fontSize: 16)))
+            ? Center(child: Text(L10n.t('search_no_results'), style: const TextStyle(color: Colors.white, fontSize: 16)))
             : GridView.builder(
                 padding: const EdgeInsets.all(24),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

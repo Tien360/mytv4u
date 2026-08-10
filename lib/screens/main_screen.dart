@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../utils/l10n.dart';
 import 'home_screen.dart';
 import 'explore_screen.dart';
 import 'search_screen.dart';
@@ -221,22 +222,22 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                     padding: EdgeInsets.symmetric(horizontal: _isSidebarCollapsed ? 0 : 12),
                     child: Column(
                       children: [
-                        _buildNavItem(Icons.home_outlined, Icons.home, 'Trang chủ', 0),
+                        _buildNavItem(Icons.home_outlined, Icons.home, L10n.t('nav_home'), 0),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.explore_outlined, Icons.explore, 'Khám phá', 1),
+                        _buildNavItem(Icons.explore_outlined, Icons.explore, L10n.t('nav_explore'), 1),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.search_outlined, Icons.search, 'Tìm kiếm', 2),
+                        _buildNavItem(Icons.search_outlined, Icons.search, L10n.t('nav_search'), 2),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.live_tv_outlined, Icons.live_tv, 'TV', 3),
+                        _buildNavItem(Icons.live_tv_outlined, Icons.live_tv, L10n.t('nav_tv'), 3),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.favorite_outline, Icons.favorite, 'Yêu thích', 4),
+                        _buildNavItem(Icons.favorite_outline, Icons.favorite, L10n.t('nav_favorite'), 4),
                       ],
                     ),
                   ),
                   const Spacer(),
                   Padding(
                     padding: EdgeInsets.all(_isSidebarCollapsed ? 8.0 : 12.0),
-                    child: _buildNavItem(Icons.settings_outlined, Icons.settings, 'Cài đặt', -1, onTapOverride: () async {
+                    child: _buildNavItem(Icons.settings_outlined, Icons.settings, L10n.t('nav_settings'), -1, onTapOverride: () async {
                       await Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
                       setState(() {
                         _stackKey = UniqueKey();

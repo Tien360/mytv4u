@@ -4,10 +4,11 @@ import '../screens/movie_detail_screen.dart';
 import '../api/phim_api.dart';
 import '../models/movie.dart';
 import '../utils/ui_utils.dart';
+import '../utils/l10n.dart';
 
 class GlassSearchBar extends StatefulWidget {
   final String hintText;
-  const GlassSearchBar({super.key, this.hintText = 'Tìm kiếm phim...'});
+  const GlassSearchBar({super.key, this.hintText = ''});
 
   @override
   State<GlassSearchBar> createState() => _GlassSearchBarState();
@@ -31,20 +32,15 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
       if (mounted) {
         Navigator.pop(context); // Tắt loading
         if (results.isNotEmpty) {
-          // Hiện kết quả dưới dạng ModalBottomSheet hoặc chuyển thẳng sang search_screen
-          // Cách nhanh nhất là nhảy tới bộ phim đầu tiên tìm thấy nếu match
-          // Nhưng an toàn hơn là mở 1 trang danh sách hoặc hiển thị luôn popup.
-          // Để nhất quán, gọi callback hoặc mở SearchScreen.
-          // Tạm thời mở 1 dialog danh sách kết quả nhanh
           _showQuickResults(results);
         } else {
-          UIUtils.showCustomSnackBar(context, 'Không tìm thấy phim nào!');
+          UIUtils.showCustomSnackBar(context, L10n.t('search_no_results'));
         }
       }
     } catch (e) {
       if (mounted) {
         Navigator.pop(context);
-        UIUtils.showCustomSnackBar(context, 'Lỗi tìm kiếm: $e', isError: true);
+        UIUtils.showCustomSnackBar(context, '${L10n.t('search_error')}: $e', isError: true);
       }
     }
   }
@@ -63,7 +59,7 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
               const SizedBox(height: 12),
               Container(width: 40, height: 5, decoration: BoxDecoration(color: Colors.white30, borderRadius: BorderRadius.circular(10))),
               const SizedBox(height: 16),
-              const Text('Kết quả tìm kiếm', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
+              Text(L10n.t('search_results'), style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white)),
               const SizedBox(height: 16),
               Expanded(
                 child: ListView.builder(
@@ -72,7 +68,7 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
                     final movie = results[index];
                     return ListTile(
                       leading: Image.network(movie.thumbUrl, width: 50, height: 75, fit: BoxFit.cover, errorBuilder: (_,__,___) => const Icon(Icons.movie, color: Colors.white54)),
-                      title: Text(movie.name, style: const TextStyle(color: Colors.white)),
+                      title: Text(movie.displayName, style: const TextStyle(color: Colors.white)),
                       subtitle: Text(movie.originalName, style: const TextStyle(color: Colors.white54)),
                       onTap: () {
                         Navigator.pop(context);
@@ -108,7 +104,7 @@ class _GlassSearchBarState extends State<GlassSearchBar> {
               controller: _controller,
               style: const TextStyle(color: Colors.white),
               decoration: InputDecoration(
-                hintText: widget.hintText,
+                hintText: widget.hintText.isEmpty ? L10n.t('search_hint') : widget.hintText,
                 hintStyle: const TextStyle(color: Colors.white38),
                 border: InputBorder.none,
               ),

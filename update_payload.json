@@ -1,0 +1,16 @@
+﻿{
+    "fields":  {
+                   "download_url":  {
+                                        "stringValue":  "https://github.com/Tien360/mytv4u/releases/download/26.08.08.n.beta/MyTV4U_Setup_26.08.08.n.beta.exe"
+                                    },
+                   "is_force_update":  {
+                                           "booleanValue":  true
+                                       },
+                   "release_notes":  {
+                                         "stringValue":  "Thêm nút \u0027Thoát ứng dụng\u0027 ở các màn hình khóa (Cập nhật bắt buộc \u0026 Ngừng hoạt động)."
+                                     },
+                   "latest_version":  {
+                                          "stringValue":  "26.08.08.n.beta"
+                                      }
+               }
+}

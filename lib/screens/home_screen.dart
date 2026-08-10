@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../utils/l10n.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -34,14 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Định nghĩa các hàng
   final List<Map<String, dynamic>> _sections = [
-    {'title': 'Phim Quốc Tế Thịnh Hành (Stremio)', 'type': 'stremio', 'slug': 'top'},
-    {'title': 'Phim Lẻ Mới Cập Nhật', 'type': 'category', 'slug': 'phim-le'},
-    {'title': 'Phim Bộ Mới Cập Nhật', 'type': 'category', 'slug': 'phim-bo'},
-    {'title': 'Phim Hàn Quốc', 'type': 'country', 'slug': 'han-quoc'},
-    {'title': 'Phim Trung Quốc', 'type': 'country', 'slug': 'trung-quoc'},
-    {'title': 'Phim Âu Mỹ', 'type': 'country', 'slug': 'au-my'},
-    {'title': 'Phim Hoạt Hình', 'type': 'category', 'slug': 'hoat-hinh'},
-    {'title': 'TV Shows', 'type': 'category', 'slug': 'tv-shows'},
+    {'title': L10n.t('category_trending_stremio'), 'type': 'stremio', 'slug': 'top'},
+    {'title': L10n.t('category_movies'), 'type': 'category', 'slug': 'phim-le'},
+    {'title': L10n.t('category_series'), 'type': 'category', 'slug': 'phim-bo'},
+    {'title': L10n.t('category_korean'), 'type': 'country', 'slug': 'han-quoc'},
+    {'title': L10n.t('category_chinese'), 'type': 'country', 'slug': 'trung-quoc'},
+    {'title': L10n.t('category_western'), 'type': 'country', 'slug': 'au-my'},
+    {'title': L10n.t('category_anime'), 'type': 'category', 'slug': 'hoat-hinh'},
+    {'title': L10n.t('category_tv_shows'), 'type': 'category', 'slug': 'tv-shows'},
   ];
 
   @override
@@ -260,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           children: [
                             // Title
                             Text(
-                              _heroMovies[_currentHeroIndex].name,
+                              _heroMovies[_currentHeroIndex].displayName,
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 40, // 2.5rem
@@ -427,10 +428,10 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
-              'Tiếp Tục Xem',
+              L10n.t('continue_watching_button'),
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
             ),
           ),
@@ -512,7 +513,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
-                                    'Đang xem: ${item['currentEpisode']}',
+                                    '${L10n.t("currently_watching")}${item['currentEpisode']}',
                                     style: const TextStyle(color: Colors.blueAccent, fontSize: 12, fontWeight: FontWeight.w500),
                                   ),
                                 ],
@@ -661,7 +662,7 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> {
                 ),
                 TextButton(
                   onPressed: widget.onSeeMore,
-                  child: const Text('Xem thêm >', style: TextStyle(color: Colors.blueAccent)),
+                  child: Text(L10n.t('see_more') + ' >', style: const TextStyle(color: Colors.blueAccent)),
                 ),
               ],
             ),

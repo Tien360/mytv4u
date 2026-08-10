@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../api/firebase_api.dart';
 import '../models/movie.dart';
 import '../utils/ui_utils.dart';
+import '../utils/l10n.dart';
 import 'movie_detail_screen.dart';
 import '../widgets/hover_movie_card.dart';
 
@@ -39,7 +40,7 @@ class LibraryScreenState extends State<LibraryScreen> {
 
   Future<void> _removeFromWatchlist(String slug) async {
     await FirebaseApi.removeFromWatchlist(slug);
-    UIUtils.showCustomSnackBar(context, 'Đã xóa khỏi Danh sách yêu thích');
+    UIUtils.showCustomSnackBar(context, L10n.t('removed_favorite'));
     _fetchWatchlist();
   }
 
@@ -52,11 +53,11 @@ class LibraryScreenState extends State<LibraryScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 24, top: 24, bottom: 16),
+            Padding(
+              padding: const EdgeInsets.only(left: 24, top: 24, bottom: 16),
               child: Text(
-                'Danh sách Yêu thích',
-                style: TextStyle(
+                L10n.t('favorite_list'),
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
@@ -67,10 +68,10 @@ class LibraryScreenState extends State<LibraryScreen> {
               child: _isLoading
                   ? const Center(child: CircularProgressIndicator())
                   : _watchlist.isEmpty
-                      ? const Center(
+                      ? Center(
                           child: Text(
-                            'Chưa có phim nào trong danh sách yêu thích.',
-                            style: TextStyle(color: Colors.white54, fontSize: 16),
+                            L10n.t('favorite_empty'),
+                            style: const TextStyle(color: Colors.white54, fontSize: 16),
                           ),
                         )
                       : GridView.builder(
@@ -134,7 +135,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                                     child: IconButton(
                                       icon: const Icon(Icons.delete_outline, color: Colors.white, size: 20),
                                       onPressed: () => _removeFromWatchlist(movie.slug),
-                                      tooltip: 'Xóa khỏi Yêu thích',
+                                      tooltip: L10n.t('remove_favorite'),
                                     ),
                                   ),
                                 ),

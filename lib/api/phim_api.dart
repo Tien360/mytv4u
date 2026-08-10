@@ -1177,7 +1177,36 @@ class PhimApi {
               })
               .catchError((_) {}),
         );
+      } // Added missing brace
+
+      if (initialMovie != null && (initialMovie.imdbId == null || initialMovie.imdbId!.isEmpty || initialMovie.imdbId == 'N/A')) {
+        futures.add(() async {
+          try {
+            final isTv = initialMovie.type.toLowerCase() == 'series' ||
+                initialMovie.type.toLowerCase() == 'tvshows' ||
+                initialMovie.currentEpisode.toLowerCase().contains('tập') ||
+                initialMovie.currentEpisode.contains('/') ||
+                initialMovie.time.toLowerCase().contains('tập') ||
+                initialMovie.episodes.any((e) => e.items.length > 1);
+
+            final id = await TorrentioApi.getImdbId(
+              initialMovie.name,
+              initialMovie.originalName,
+              initialMovie.year,
+              isTv,
+            );
+            if (id != null && id.isNotEmpty) {
+              if (parsedMap.isNotEmpty) {
+                for (var key in parsedMap.keys) {
+                  parsedMap[key] = parsedMap[key]!.copyWith(imdbId: id);
+                }
+                processAndEmit();
+              }
+            }
+          } catch (_) {}
+        }());
       }
+
 
       if (enabledSources.contains('torrentio') && initialMovie != null) {
         futures.add(() async {
@@ -1201,6 +1230,10 @@ class PhimApi {
               }
             }
 
+            if (imdbId.isEmpty && initialMovie.imdbId != null && initialMovie.imdbId!.isNotEmpty) {
+              imdbId = initialMovie.imdbId!;
+            }
+
             if (imdbId.isEmpty) {
               final id = await TorrentioApi.getImdbId(
                 initialMovie.name,
@@ -1220,6 +1253,8 @@ class PhimApi {
                 );
               }
 
+              final tmdbId = await TorrentioApi.getTmdbIdFromImdb(imdbId);
+
               // Check if it's a TV show, if so we don't fetch streams here, we just emit the imdbId
               // and fetch the episodes list from Cinemeta
               if (isTv) {
@@ -1227,7 +1262,7 @@ class PhimApi {
                   imdbId,
                 );
                 if (cinemetaEpisodes.isNotEmpty) {
-                  final items = cinemetaEpisodes
+                  final p2pItems = cinemetaEpisodes
                       .map(
                         (e) => Episode(
                           name: 'Tập ${e['episode']}',
@@ -1238,8 +1273,36 @@ class PhimApi {
                         ),
                       )
                       .toList();
+                      
+                  final vidsrcItems = tmdbId != null ? cinemetaEpisodes
+                      .map(
+                        (e) => Episode(
+                          name: 'Tập ${e['episode']}',
+                          slug: 'S${e['season']}E${e['episode']}',
+                          m3u8Url: '',
+                          embedUrl:
+                              'https://vidsrc.sbs/embed/tv/$tmdbId/${e['season']}/${e['episode']}',
+                        ),
+                      )
+                      .toList() : <Episode>[];
+                      
+                  final vidApiItems = cinemetaEpisodes
+                      .map(
+                        (e) => Episode(
+                          name: 'Tập ${e['episode']}',
+                          slug: 'S${e['season']}E${e['episode']}',
+                          m3u8Url: '',
+                          embedUrl:
+                              'https://vaplayer.ru/embed/tv/$imdbId/${e['season']}/${e['episode']}',
+                        ),
+                      )
+                      .toList();
+
                   serversMap[9] = [
-                    EpisodeServer(serverName: 'P2P (Torrent)', items: items),
+                    EpisodeServer(serverName: 'P2P (Torrent)', items: p2pItems),
+                    if (vidsrcItems.isNotEmpty)
+                      EpisodeServer(serverName: 'VidSrc (Embed)', items: vidsrcItems),
+                    EpisodeServer(serverName: 'VidAPI (Embed)', items: vidApiItems),
                   ];
                 }
                 processAndEmit();
@@ -1247,10 +1310,43 @@ class PhimApi {
               }
 
               final servers = await TorrentioApi.fetchStreams(imdbId);
-              if (servers.isNotEmpty) {
-                serversMap[9] = servers;
-                processAndEmit();
-              }
+              
+              final vidsrcServer = tmdbId != null ? EpisodeServer(
+                  serverName: 'VidSrc (Embed)',
+                  items: [
+                    Episode(
+                      name: 'Full',
+                      slug: 'full',
+                      m3u8Url: '',
+                      embedUrl: 'https://vidsrc.sbs/embed/movie/$tmdbId',
+                    )
+                  ],
+                ) : null;
+                
+                final vidApiServer = EpisodeServer(
+                  serverName: 'VidAPI (Embed)',
+                  items: [
+                    Episode(
+                      name: 'Full',
+                      slug: 'full',
+                      m3u8Url: '',
+                      embedUrl: 'https://vaplayer.ru/embed/movie/$imdbId',
+                    )
+                  ],
+                );
+                
+                if (servers.isNotEmpty) {
+                  if (vidsrcServer != null) servers.add(vidsrcServer);
+                  servers.add(vidApiServer);
+                  serversMap[9] = servers;
+                  processAndEmit();
+                } else {
+                  serversMap[9] = [
+                    if (vidsrcServer != null) vidsrcServer,
+                    vidApiServer
+                  ];
+                  processAndEmit();
+                }
             }
           } catch (e) {
             print('PhimApi torrentio error: $e');
@@ -1463,13 +1559,31 @@ class PhimApi {
               return trailer['key'];
             }
           }
-        } else {
-          print('TMDB videos error: ${videoRes.statusCode}');
         }
       }
     } catch (e) {
-      print('PhimApi getTrailerStreamUrl error: $e');
+      print('PhimApi TMDB getTrailerStreamUrl error: $e');
     }
+
+    // Fallback: Tìm kiếm trực tiếp trên YouTube bằng tên gốc (Original Title) + "trailer"
+    try {
+      final query = Uri.encodeComponent('$originalTitle trailer');
+      final ytUrl = Uri.parse('https://www.youtube.com/results?search_query=$query');
+      final ytRes = await http.get(ytUrl, headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      });
+      
+      if (ytRes.statusCode == 200) {
+        final regex = RegExp(r'/watch\?v=([a-zA-Z0-9_-]{11})');
+        final match = regex.firstMatch(ytRes.body);
+        if (match != null && match.group(1) != null) {
+          return match.group(1);
+        }
+      }
+    } catch (e) {
+      print('PhimApi YouTube scrape error: $e');
+    }
+
     return null;
   }
 

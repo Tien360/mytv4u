@@ -1,6 +1,9 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
@@ -176,7 +179,16 @@ class _PlayerScreenState extends State<PlayerScreen> {
     );
     _playerSubs.add(
       player.stream.completed.listen((completed) {
-        if (completed && _autoNext) _playNextEpisode();
+        if (completed && _autoNext) {
+          final isNearEnd = _duration.inSeconds > 0 && 
+              (_position.inSeconds >= _duration.inSeconds - 120);
+          if (isNearEnd) {
+            _playNextEpisode();
+          } else {
+            debugPrint('Luồng bị ngắt giữa chừng. Không tự động nhảy tập.');
+            if (mounted) setState(() => errorMsg = 'Luồng bị ngắt kết nối. Vui lòng thử lại!');
+          }
+        }
       }),
     );
     _playerSubs.add(
@@ -346,17 +358,66 @@ class _PlayerScreenState extends State<PlayerScreen> {
           final title = "${widget.movieName} - ${ep.name}";
           final exePath = r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
           
-          final process = await Process.start(exePath, [
+          String? subtitlePath;
+          if (widget.imdbId != null && widget.imdbId!.isNotEmpty) {
+            try {
+              int? inferredSeason = widget.season;
+              int? currentEpNum = widget.episode;
+              final epName = ep.name.toLowerCase().startsWith('tập') ? ep.name : 'Tập ${ep.name}';
+              
+              // 1. Try to extract exact Season and Episode from P2P slug (e.g. S2E3)
+              final slugMatch = RegExp(r'^S(\d+)E(\d+)$', caseSensitive: false).firstMatch(ep.slug);
+              if (slugMatch != null) {
+                inferredSeason = int.tryParse(slugMatch.group(1)!);
+                currentEpNum = int.tryParse(slugMatch.group(2)!);
+              } else {
+                // 2. Fallback: Parse episode from name (e.g. "Tập 3")
+                if (currentEpNum == null && epName.toLowerCase().contains('tập')) {
+                  final match = RegExp(r'tập\s*(\d+)').firstMatch(epName.toLowerCase());
+                  if (match != null) {
+                    currentEpNum = int.tryParse(match.group(1)!);
+                  }
+                }
+                
+                // 3. Fallback: Parse season from movie title (e.g. "Game of Thrones (Phần 2)")
+                if (currentEpNum != null && inferredSeason == null) {
+                  final seasonMatch = RegExp(r'(?:phần|mùa|season)\s*(\d+)', caseSensitive: false).firstMatch(widget.movieName);
+                  if (seasonMatch != null) {
+                    inferredSeason = int.tryParse(seasonMatch.group(1)!);
+                  } else {
+                    inferredSeason = 1;
+                  }
+                }
+              }
+              if (inferredSeason != null && currentEpNum != null) {
+                subtitlePath = '${widget.imdbId!}:$inferredSeason:$currentEpNum';
+              } else {
+                subtitlePath = widget.imdbId!;
+              }
+            } catch (e) {
+              debugPrint('Failed to process imdbId: $e');
+            }
+          }
+
+          List<String> args = [
             _currentUrl,
             title,
             bounds.left.toInt().toString(),
             bounds.top.toInt().toString(),
             bounds.width.toInt().toString(),
             bounds.height.toInt().toString()
-          ]);
+          ];
+          if (subtitlePath != null) {
+            args.add(subtitlePath);
+          }
+          
+          final process = await Process.start(exePath, args);
           
           // Wait for the external player to close
           await process.exitCode;
+          
+          // No file to delete since we just passed the IMDB string
+          if (mounted) setState(() { _isExternalPlayerActive = false; });
           
           // Go back to previous screen automatically when player is closed
           if (mounted) {

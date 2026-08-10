@@ -1,3 +1,5 @@
+import '../utils/l10n.dart';
+
 class Movie {
   final String name;
   final String originalName;
@@ -19,6 +21,8 @@ class Movie {
   final List<String> casts;
   final List<EpisodeServer> episodes;
   final String source;
+
+  String get displayName => (L10n.currentLang == 'en' && originalName.isNotEmpty) ? originalName : name;
 
   Movie({
     required this.name,

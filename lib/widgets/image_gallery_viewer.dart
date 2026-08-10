@@ -19,6 +19,7 @@ class ImageGalleryViewer extends StatefulWidget {
 
 class _ImageGalleryViewerState extends State<ImageGalleryViewer> {
   late PageController _pageController;
+  late ScrollController _thumbnailScrollController;
   late int _currentIndex;
 
   @override
@@ -26,11 +27,18 @@ class _ImageGalleryViewerState extends State<ImageGalleryViewer> {
     super.initState();
     _currentIndex = widget.initialIndex;
     _pageController = PageController(initialPage: _currentIndex);
+    _thumbnailScrollController = ScrollController();
+    
+    // Cuộn đến vị trí ban đầu sau khi build xong
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _scrollToThumbnail(_currentIndex);
+    });
   }
 
   @override
   void dispose() {
     _pageController.dispose();
+    _thumbnailScrollController.dispose();
     super.dispose();
   }
 
@@ -70,6 +78,7 @@ class _ImageGalleryViewerState extends State<ImageGalleryViewer> {
                   setState(() {
                     _currentIndex = index;
                   });
+                  _scrollToThumbnail(index);
                 },
                 itemBuilder: (context, index) {
                   return InteractiveViewer(
@@ -182,6 +191,7 @@ class _ImageGalleryViewerState extends State<ImageGalleryViewer> {
                       },
                     ),
                     child: ListView.separated(
+                      controller: _thumbnailScrollController,
                       shrinkWrap: true,
                       scrollDirection: Axis.horizontal,
                       itemCount: widget.images.length,
@@ -252,5 +262,19 @@ class _ImageGalleryViewerState extends State<ImageGalleryViewer> {
         ],
       ),
     );
+  }
+
+  void _scrollToThumbnail(int index) {
+    if (_thumbnailScrollController.hasClients) {
+      final double screenWidth = MediaQuery.of(context).size.width;
+      final double itemWidth = 120.0 + 12.0; // width + gap
+      final double offset = (index * itemWidth) - (screenWidth / 2) + (120.0 / 2);
+      
+      _thumbnailScrollController.animateTo(
+        offset.clamp(0.0, _thumbnailScrollController.position.maxScrollExtent),
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 }
