@@ -20,6 +20,17 @@ void main(List<String> args) async {
   // Khởi tạo đa ngôn ngữ
   await L10n.load();
 
+  // Lấy thông tin RAM bất đồng bộ để phân bổ tài nguyên mà không làm chậm khởi động app
+  SystemUtils.initAsync().then((_) {
+    // Tối ưu hoá bộ nhớ (RAM) của Flutter cho máy cấu hình yếu / Bung sức mạnh cho máy mạnh
+    // Việc tăng RAM cache ảnh (trên máy mạnh) thực chất giúp GIẢM tải CPU rất nhiều,
+    // vì CPU không phải decode lại ảnh khi cuộn lên cuộn xuống liên tục!
+    final optimalImageCacheMB = SystemUtils.getOptimalImageCacheSizeMB();
+    PaintingBinding.instance.imageCache.maximumSize = optimalImageCacheMB * 2; // Khoảng 2 ảnh mỗi MB
+    PaintingBinding.instance.imageCache.maximumSizeBytes = optimalImageCacheMB * 1024 * 1024; // MB sang Bytes
+    debugPrint('Image Cache RAM allocated: ${optimalImageCacheMB}MB');
+  });
+
   // Tắt Hardware Acceleration của WebView2 để tránh lỗi màn hình đen trên máy lỗi GPU
   try {
     await WebviewController.initializeEnvironment(
@@ -30,9 +41,6 @@ void main(List<String> args) async {
   }
 
   MediaKit.ensureInitialized();
-  
-  // Lấy thông tin RAM bất đồng bộ để set Buffer video
-  SystemUtils.initAsync();
   
   // Initialize deep link service (register protocol + parse args)
   await DeepLinkService.instance.initialize(args);

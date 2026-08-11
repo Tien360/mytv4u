@@ -90,6 +90,13 @@ void main(List<String> args) async {
     print('  -> Đã sao chép Lõi Torrent thành công!');
   }
 
+  print('  -> Đang sao chép tv_web_player...');
+  final tvWebPlayerDir = Directory(r'..\tv_web_player\bin\Release\net8.0-windows\win-x64\publish');
+  if (tvWebPlayerDir.existsSync()) {
+    await Process.run('xcopy', [r'..\tv_web_player\bin\Release\net8.0-windows\win-x64\publish\*', r'build\windows\x64\runner\Release\', '/E', '/I', '/Y']);
+    print('  -> Đã sao chép tv_web_player thành công!');
+  }
+
   // 4. Đóng gói Inno Setup
   print('[4/6] Đang đóng gói file Setup.exe bằng Inno Setup...');
   final userProfile = Platform.environment['USERPROFILE'];

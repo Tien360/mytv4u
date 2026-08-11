@@ -45,13 +45,29 @@ class StremioServer {
       // Kill any existing stremio-runtime process on this port
       await _killExisting();
 
+      // [Dynamic RAM Rule] DO NOT REMOVE
+      // Dynamically allocate Node.js RAM limit based on system RAM
+      int totalRamMb = await _getSystemMemoryMB();
+      int nodeRamLimit = 128; // <= 4GB
+      
+      if (totalRamMb > 16384) {
+        nodeRamLimit = 2048; // > 16GB (e.g. 32GB) -> 2GB
+      } else if (totalRamMb > 8192) {
+        nodeRamLimit = 1024; // > 8GB (e.g. 16GB) -> 1GB
+      } else if (totalRamMb > 4096) {
+        nodeRamLimit = 256; // > 4GB (e.g. 8GB) -> 256MB
+      }
+      
       // Start the server process
-      print('StremioServer: Starting server from $serverDir');
+      print('StremioServer: Starting server from $serverDir with ${nodeRamLimit}MB RAM (System RAM: ${totalRamMb}MB)');
       _process = await Process.start(
         runtimeExe,
         [serverScript],
         workingDirectory: serverDir,
         mode: ProcessStartMode.normal,
+        environment: {
+          'NODE_OPTIONS': '--max-old-space-size=$nodeRamLimit', // Dynamic allocation
+        },
       );
       
       // Drain stdout and stderr to prevent the Node process from blocking
@@ -130,5 +146,20 @@ class StremioServer {
             runInShell: true);
       }
     } catch (_) {}
+  }
+
+  /// Get total system physical memory in MB
+  static Future<int> _getSystemMemoryMB() async {
+    try {
+      if (Platform.isWindows) {
+        final res = await Process.run('wmic', ['computersystem', 'get', 'totalphysicalmemory']);
+        final output = res.stdout.toString().replaceAll('\r', '').split('\n');
+        if (output.length > 1) {
+          final bytes = int.tryParse(output[1].trim()) ?? 0;
+          return bytes ~/ (1024 * 1024);
+        }
+      }
+    } catch (_) {}
+    return 8192; // Default to 8GB if failed
   }
 }

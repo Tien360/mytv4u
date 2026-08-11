@@ -356,7 +356,11 @@ class _PlayerScreenState extends State<PlayerScreen> {
         try {
           final bounds = await windowManager.getBounds();
           final title = "${widget.movieName} - ${ep.name}";
-          final exePath = r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
+          final exeDir = File(Platform.resolvedExecutable).parent.path;
+          var exePath = '$exeDir\\tv_web_player.exe';
+          if (!File(exePath).existsSync()) {
+            exePath = r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
+          }
           
           String? subtitlePath;
           if (widget.imdbId != null && widget.imdbId!.isNotEmpty) {
