@@ -1,6 +1,6 @@
 [Setup]
 AppName=MyTV4U
-AppVersion=26.08.11.a.beta
+AppVersion=26.08.14.m.beta
 AppPublisher=Sparky
 AppComments=MyTV4U - Ứng dụng xem phim trực tuyến đa nguồn (Yêu cầu cấp quyền Firewall cho tính năng phát Torrent/P2P)
 DefaultDirName={autopf}\MyTV4U
@@ -8,8 +8,8 @@ DefaultGroupName=MyTV4U
 UninstallDisplayIcon={app}\MyTV4U.exe
 Compression=lzma2
 SolidCompression=yes
-OutputDir=T:\Project\Phim\mytv4u_flutter\Releases\v26.08.11.a.beta
-OutputBaseFilename=MyTV4U_Setup_26.08.11.a.beta
+OutputDir=T:\Project\Phim\mytv4u_flutter\Releases\v26.08.14.m.beta
+OutputBaseFilename=MyTV4U_Setup_26.08.14.m.beta
 SetupIconFile=T:\Project\Phim\mytv4u_flutter\windows\runner\resources\app_icon.ico
 
 [Files]

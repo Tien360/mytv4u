@@ -13,12 +13,16 @@ import 'package:webview_windows/webview_windows.dart';
 import 'api/stremio_server.dart';
 import 'utils/l10n.dart';
 import 'utils/system_utils.dart';
+import 'addons/addon_manager.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   
   // Khởi tạo đa ngôn ngữ
   await L10n.load();
+
+  // Khởi tạo Addon Manager
+  await AddonManager.init();
 
   // Lấy thông tin RAM bất đồng bộ để phân bổ tài nguyên mà không làm chậm khởi động app
   SystemUtils.initAsync().then((_) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../utils/l10n.dart';
 import 'package:flutter/gestures.dart';
 import 'dart:async';
+import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../models/movie.dart';
 import '../api/phim_api.dart';
@@ -139,6 +140,19 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent, // Nền trong suốt để thấy glassmorphism của main_screen
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          setState(() {
+            _isLoadingHero = true;
+            _heroMovies.clear();
+          });
+          await _loadHeroMovies();
+          await _loadHistory();
+        },
+        backgroundColor: const Color(0xFF3B82F6).withOpacity(0.8),
+        child: const Icon(Icons.refresh, color: Colors.white),
+        tooltip: L10n.t('refresh') ?? 'Làm mới',
+      ),
       body: SafeArea(
         child: RefreshIndicator(
         onRefresh: () async {
@@ -443,22 +457,39 @@ class _HomeScreenState extends State<HomeScreen> {
                 ListView.builder(
                   controller: _historyScrollController,
                   scrollDirection: Axis.horizontal,
+                  cacheExtent: 1500, // Giữ các mục đã xem ngoài màn hình
                   padding: const EdgeInsets.symmetric(horizontal: 24),
                   itemCount: _history.length,
                   itemBuilder: (context, index) {
                     final item = _history[index];
                     return GestureDetector(
                       onTap: () {
+                        final Map<String, String> parsedSlugs = {};
+                        if (item['sourceSlugs'] != null && item['sourceSlugs'].toString().isNotEmpty) {
+                          try {
+                            final decoded = jsonDecode(item['sourceSlugs']);
+                            if (decoded is Map) {
+                              parsedSlugs.addAll(decoded.map((k, v) => MapEntry(k.toString(), v.toString())));
+                            }
+                          } catch (_) {}
+                        }
+                        if (parsedSlugs.isEmpty) {
+                          parsedSlugs[item['source'] ?? 'nguonc'] = item['slug'];
+                        }
+
                         final movie = Movie(
                           name: item['name'],
-                          originalName: '',
+                          originalName: item['originalName'] ?? '',
                           slug: item['slug'],
+                          type: item['type'] ?? '',
+                          imdbId: (item['imdbId'] != null && item['imdbId'].toString().isNotEmpty) ? item['imdbId'] : null,
+                          sourceSlugs: parsedSlugs,
                           thumbUrl: item['thumbUrl'],
                           posterUrl: '',
                           currentEpisode: item['currentEpisode'],
                           quality: '',
                           language: '',
-                          year: '',
+                          year: item['year'] ?? '',
                           time: '',
                           description: '',
                           genres: [],
@@ -610,10 +641,13 @@ class HorizontalMovieSection extends StatefulWidget {
   State<HorizontalMovieSection> createState() => _HorizontalMovieSectionState();
 }
 
-class _HorizontalMovieSectionState extends State<HorizontalMovieSection> {
+class _HorizontalMovieSectionState extends State<HorizontalMovieSection> with AutomaticKeepAliveClientMixin {
   List<Movie> _movies = [];
   bool _isLoading = true;
   final ScrollController _sectionScrollController = ScrollController();
+
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   void initState() {
@@ -644,6 +678,7 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (!_isLoading && _movies.isEmpty) return const SizedBox.shrink();
 
     return Padding(
@@ -677,6 +712,7 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> {
                       ListView.builder(
                         controller: _sectionScrollController,
                         scrollDirection: Axis.horizontal,
+                        cacheExtent: 1500, // Giữ các poster ngoài màn hình
                         padding: const EdgeInsets.symmetric(horizontal: 24),
                         itemCount: _movies.length,
                         itemBuilder: (context, index) {

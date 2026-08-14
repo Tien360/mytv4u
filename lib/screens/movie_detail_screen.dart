@@ -192,17 +192,21 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     super.dispose();
   }
 
-  void _pauseTrailer() {
+  Future<void> _pauseTrailer() async {
     if (_isWebviewInitialized) {
-      _webviewController.executeScript(
-        "if(player && player.pauseVideo) { player.pauseVideo(); }",
-      );
+      try {
+        await _webviewController.executeScript(
+          "if(player && player.pauseVideo) { player.pauseVideo(); }",
+        );
+      } catch (e) {}
     }
-    setState(() {
-      _showInlineTrailer = false;
-      _isTrailerPaused = true;
-      _isTrailerExpanded = false;
-    });
+    if (mounted) {
+      setState(() {
+        _showInlineTrailer = false;
+        _isTrailerPaused = true;
+        _isTrailerExpanded = false;
+      });
+    }
   }
 
   void _playTrailer() {
@@ -332,10 +336,13 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _premiumServers.clear();
     _tmServers.clear();
     _vietsubServers.clear();
+    _p2pServers.clear();
 
     for (var server in servers) {
       final name = server.serverName.toLowerCase();
-      if (name.contains('premium') ||
+      if (name.contains('p2p') || name.contains('torrent')) {
+        _p2pServers.add(server);
+      } else if (name.contains('premium') ||
           name.contains('4k') ||
           name.contains('vip')) {
         _premiumServers.add(server);
@@ -348,15 +355,27 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       }
     }
 
-    // Set default server
-    if (_premiumServers.isNotEmpty) {
-      _currentServer = _premiumServers.first;
-    } else if (_vietsubServers.isNotEmpty) {
-      _currentServer = _vietsubServers.first;
-    } else if (_tmServers.isNotEmpty) {
-      _currentServer = _tmServers.first;
-    } else if (servers.isNotEmpty) {
-      _currentServer = servers.first;
+    // Chỉ set default server nếu chưa có server nào được chọn
+    // hoặc server đang chọn không còn tồn tại trong danh sách mới
+    final currentStillExists = _currentServer != null &&
+        servers.any((s) => s.serverName == _currentServer!.serverName);
+
+    if (!currentStillExists) {
+      if (_premiumServers.isNotEmpty) {
+        _currentServer = _premiumServers.first;
+      } else if (_vietsubServers.isNotEmpty) {
+        _currentServer = _vietsubServers.first;
+      } else if (_tmServers.isNotEmpty) {
+        _currentServer = _tmServers.first;
+      } else if (servers.isNotEmpty) {
+        _currentServer = servers.first;
+      }
+    } else {
+      // Cập nhật _currentServer sang object mới nhất (có thể episode list đã update)
+      _currentServer = servers.firstWhere(
+        (s) => s.serverName == _currentServer!.serverName,
+        orElse: () => _currentServer!,
+      );
     }
   }
 
@@ -637,21 +656,25 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   Widget _buildEpisodesGrid() {
     if (_currentServer == null) return const SizedBox();
 
-    final isP2p =
-        _currentServer!.serverName.toLowerCase().contains('p2p') ||
-        _currentServer!.serverName.toLowerCase().contains('torrent');
+    final serverNameLower = _currentServer!.serverName.toLowerCase();
+    final isP2p = serverNameLower.contains('p2p') ||
+        serverNameLower.contains('torrent');
+    // Embed servers (VidSrc, VidAPI) dùng slug S1E1 nhưng không phải P2P,
+    // chúng cần được hiển thị dạng season nhưng mở trực tiếp qua PlayerScreen
+    final isEmbedServer = serverNameLower.contains('vidsrc') ||
+        serverNameLower.contains('vidapi') ||
+        serverNameLower.contains('embed');
 
-    // For normal servers or P2P Movies (which have items loaded with real streams)
-    // Wait, P2P Movies have embedUrl == '' and m3u8Url != 'torrentio://...'?
-    // Actually, P2P TV Series have m3u8Url starting with 'torrentio://'.
-    bool isP2pSeries = false;
-    if (isP2p &&
-        _currentServer!.items.isNotEmpty &&
-        _currentServer!.items.first.m3u8Url.startsWith('torrentio://')) {
-      isP2pSeries = true;
+    // Chỉ kích hoạt season UI khi server là P2P hoặc Embed có slug S1E1
+    bool hasSeasons = false;
+    if ((isP2p || isEmbedServer) && _currentServer!.items.isNotEmpty) {
+      final firstSlug = _currentServer!.items.first.slug;
+      if (firstSlug.isNotEmpty && RegExp(r'S(\d+)E(\d+)').hasMatch(firstSlug)) {
+        hasSeasons = true;
+      }
     }
 
-    if (!isP2pSeries) {
+    if (!hasSeasons) {
       // Normal flat list rendering
       return Wrap(
         spacing: 12,
@@ -661,7 +684,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           final ep = entry.value;
           return HoverEpisodeButton(
             text: ep.name,
-            onTap: () {
+            onTap: () async {
               _pauseTrailer();
               FirebaseApi.saveContinueWatching(_movie!, ep.name);
               Navigator.push(
@@ -755,7 +778,32 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             children: seasonsMap[_selectedSeason!]!.map((ep) {
               final isActive = _selectedP2pEpisode == ep;
               return GestureDetector(
-                onTap: () => _fetchP2pStreamsForEpisode(ep),
+                onTap: () async {
+                  if (isP2p) {
+                    // Chỉ P2P/Torrent mới cần fetch streams riêng
+                    _fetchP2pStreamsForEpisode(ep);
+                  } else {
+                    // Embed servers (VidSrc, VidAPI) và các server thường
+                    // đều mở thẳng PlayerScreen với index đúng trong danh sách
+                    _pauseTrailer();
+                    FirebaseApi.saveContinueWatching(_movie!, ep.name);
+                    final index = _currentServer!.items.indexOf(ep);
+                    final seasonEpMatch = RegExp(r'S(\d+)E(\d+)').firstMatch(ep.slug);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PlayerScreen(
+                          episodes: _currentServer!.items,
+                          currentEpisodeIndex: index,
+                          movieName: _movie!.name,
+                          imdbId: _movie!.imdbId,
+                          season: seasonEpMatch != null ? int.tryParse(seasonEpMatch.group(1)!) : null,
+                          episode: seasonEpMatch != null ? int.tryParse(seasonEpMatch.group(2)!) : null,
+                        ),
+                      ),
+                    );
+                  }
+                },
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
@@ -805,7 +853,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 final stream = entry.value;
                 return HoverEpisodeButton(
                   text: stream.name,
-                  onTap: () {
+                  onTap: () async {
                     _pauseTrailer();
                     FirebaseApi.saveContinueWatching(
                       _movie!,
@@ -1436,10 +1484,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                 cursor:
                                                     SystemMouseCursors.click,
                                                 child: GestureDetector(
-                                                  onTap: () {
+                                                  onTap: () async {
                                                     if (actor['id'] != null &&
-                                                        actor['id']!
-                                                            .isNotEmpty) {
+                                                        actor['id']!.isNotEmpty) {
                                                       _pauseTrailer();
                                                       Navigator.push(
                                                         context,

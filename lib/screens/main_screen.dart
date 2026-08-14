@@ -146,30 +146,9 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                 // Spacer for title bar and search bar
                 const SizedBox(height: 56),
                 Expanded(
-                  child: KeyedSubtree(
-                    key: _stackKey,
-                    child: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 250),
-                      switchInCurve: Curves.easeOut,
-                      switchOutCurve: Curves.easeIn,
-                      transitionBuilder: (child, animation) {
-                        return FadeTransition(
-                          opacity: animation,
-                          child: SlideTransition(
-                            position: Tween<Offset>(
-                              begin: const Offset(0.02, 0),
-                              end: Offset.zero,
-                            ).animate(animation),
-                            child: child,
-                          ),
-                        );
-                      },
-                      child: IndexedStack(
-                        key: ValueKey<int>(_selectedIndex),
-                        index: _selectedIndex,
-                        children: _screens,
-                      ),
-                    ),
+                  child: IndexedStack(
+                    index: _selectedIndex,
+                    children: _screens,
                   ),
                 ),
               ],

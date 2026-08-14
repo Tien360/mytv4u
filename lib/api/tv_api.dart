@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:html/parser.dart' as html_parser;
 
 class TvChannel {
   final String id;
@@ -678,6 +678,67 @@ class TvApi {
   ];
 
   static Future<List<TvChannel>> getChannels() async {
-    return defaultChannels;
+    List<TvChannel> channels = List.from(defaultChannels);
+    try {
+      final response = await http.get(Uri.parse('https://tinhlagi.pro/tivi/'));
+      if (response.statusCode == 200) {
+        final document = html_parser.parse(response.body);
+        final headings = document.querySelectorAll('h2.group-title');
+        
+        for (var heading in headings) {
+          String category = heading.text.trim();
+          category = category.replaceAll(RegExp(r'\s*\(\d+\)$'), '').trim();
+          
+          final grid = heading.nextElementSibling;
+          if (grid != null && grid.classes.contains('channel-grid')) {
+            final aTags = grid.querySelectorAll('a.channel-card');
+            
+            for (var a in aTags) {
+              final href = a.attributes['href'] ?? '';
+              final uri = Uri.parse('https://tinhlagi.pro/tivi/' + href);
+              String streamUrl = uri.queryParameters['url'] ?? '';
+              final name = uri.queryParameters['name'] ?? a.querySelector('.channel-name')?.text.trim() ?? 'Unknown';
+              final logo = a.querySelector('img')?.attributes['src'] ?? '';
+              
+              if (streamUrl.contains('youtube.com') || streamUrl.contains('youtu.be')) continue;
+              
+              String webUrl = '';
+              if (streamUrl.contains('.mpd')) {
+                webUrl = uri.toString();
+                streamUrl = '';
+              }
+              
+              String mappedCategory = category;
+              if (category == '🌐| Thiết yếu' || category == 'LIVE EVENTS 🔴' || category.contains('In The Box')) {
+                mappedCategory = 'Kênh Tổng Hợp';
+              } else if (category == 'Quốc Tế' || category == 'Israel' || category == 'TVB') {
+                mappedCategory = 'Kênh Quốc Tế';
+              } else if (category == 'Địa phương') {
+                mappedCategory = 'Kênh Địa Phương';
+              } else if (category.contains('VTVcab')) {
+                mappedCategory = 'VTVCab';
+              } else if (category == 'ASEAN HUYNDAI CUP 2026') {
+                mappedCategory = 'Kênh Thể Thao';
+              }
+
+              if ((streamUrl.isNotEmpty || webUrl.isNotEmpty) && !channels.any((c) => (streamUrl.isNotEmpty && c.streamUrl == streamUrl) || c.name == name)) {
+                channels.add(TvChannel(
+                  id: 'tl_$name',
+                  name: name,
+                  category: mappedCategory,
+                  logo: logo,
+                  streamUrl: streamUrl,
+                  webUrl: webUrl,
+                ));
+              }
+            }
+          }
+        }
+      }
+    } catch (e) {
+      // Ignored
+    }
+    
+    return channels;
   }
 }

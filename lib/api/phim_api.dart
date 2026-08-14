@@ -422,6 +422,9 @@ class PhimApi {
     if (url.contains('workers.dev') ||
         (url.contains('dpdns.org') && !url.contains('stream/hls'))) {
       final rawId = url.split('/').last;
+      
+      // TODO: Các server cũ đa phần bị 404 (Cloudflare xoá). Giữ lại ở đây để fix sau.
+      /*
       final workers = [
         'demo.cryboiz.workers.dev',
         'sv1.gboiz.workers.dev',
@@ -433,6 +436,10 @@ class PhimApi {
       }
       workers.shuffle();
       return 'https://${workers.first}/$rawId';
+      */
+
+      // Tạm thời ép dùng duy nhất server còn sống do user test
+      return 'https://sv.gboiz7.workers.dev/$rawId';
     }
     return url;
   }

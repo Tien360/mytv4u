@@ -7,9 +7,9 @@ void main() async {
   
   final body = {
     "fields": {
-      "latest_version": {"stringValue": "26.08.11.a.beta"},
-      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/26.08.11.a.beta/MyTV4U_Setup_26.08.11.a.beta.exe"},
-      "release_notes": {"stringValue": "- Phân bổ RAM động cho Stremio Server giúp khai thác sức mạnh phần cứng.\n- Tối ưu bộ đệm hình ảnh (Image Cache) giúp app nhẹ hơn, giảm tải CPU."},
+      "latest_version": {"stringValue": "26.08.14.m.beta"},
+      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/26.08.14.m.beta/MyTV4U_Setup_26.08.14.m.beta.exe"},
+      "release_notes": {"stringValue": "- Sửa lỗi rác màn hình và Error Decoding Audio khi xem HBO bằng mpv.\n- Các kênh có chuẩn mã hoá phức tạp (.mpd/DRM) giờ đây đều được fallback an toàn 100% qua WebView siêu mượt."},
       "is_force_update": {"booleanValue": false}
     }
   };

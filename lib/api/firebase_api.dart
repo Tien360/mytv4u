@@ -35,6 +35,11 @@ class FirebaseApi {
             'movieThumb': {'stringValue': movie.thumbUrl},
             'currentEpisode': {'stringValue': currentEpisode},
             'source': {'stringValue': movie.source},
+            'originalName': {'stringValue': movie.originalName},
+            'type': {'stringValue': movie.type},
+            'year': {'stringValue': movie.year},
+            'imdbId': {'stringValue': movie.imdbId ?? ''},
+            'sourceSlugs': {'stringValue': jsonEncode(movie.sourceSlugs)},
             'lastWatchedAt': {'timestampValue': DateTime.now().toUtc().toIso8601String()},
           }
         }),
@@ -75,6 +80,11 @@ class FirebaseApi {
             'thumbUrl': fields['movieThumb']?['stringValue'] ?? '',
             'currentEpisode': fields['currentEpisode']?['stringValue'] ?? '',
             'source': fields['source']?['stringValue'] ?? 'nguonc',
+            'originalName': fields['originalName']?['stringValue'] ?? '',
+            'type': fields['type']?['stringValue'] ?? '',
+            'year': fields['year']?['stringValue'] ?? '',
+            'imdbId': fields['imdbId']?['stringValue'] ?? '',
+            'sourceSlugs': fields['sourceSlugs']?['stringValue'] ?? '{}',
             'lastWatchedAt': fields['lastWatchedAt']?['timestampValue'] ?? '',
           };
         }).toList();

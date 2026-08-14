@@ -10,10 +10,20 @@ import 'firebase_api.dart';
 class UpdateApi {
   static const String publicUpdateUrl = '${FirebaseApi.baseUrl}/updates/public';
   static const String betaUpdateUrl = '${FirebaseApi.baseUrl}/updates/beta';
-  static final Dio _dio = Dio();
+  static final Dio _dio = Dio(
+    BaseOptions(
+      connectTimeout: const Duration(seconds: 30),
+      receiveTimeout: const Duration(minutes: 10), // file ~70MB cần thời gian dài
+      followRedirects: true,
+      maxRedirects: 10,
+      headers: {
+        'User-Agent': 'MyTV4U-Updater/1.0',
+      },
+    ),
+  );
 
   // BẠN SẼ ĐỔI SỐ NÀY MỖI KHI RA MẮT BẢN CẬP NHẬT MỚI:
-  static const String currentAppVersion = '26.08.11.a.beta';
+  static const String currentAppVersion = '26.08.14.m.beta';
 
   /// Kiểm tra có bản cập nhật mới không
   static Future<UpdateInfo?> checkForUpdate() async {
@@ -95,6 +105,14 @@ class UpdateApi {
       await _dio.download(
         downloadUrl,
         savePath,
+        options: Options(
+          followRedirects: true,
+          receiveTimeout: const Duration(minutes: 10),
+          headers: {
+            'User-Agent': 'MyTV4U-Updater/1.0',
+            'Accept': 'application/octet-stream',
+          },
+        ),
         onReceiveProgress: (received, total) {
           if (total != -1 && onProgress != null) {
             onProgress(received / total);

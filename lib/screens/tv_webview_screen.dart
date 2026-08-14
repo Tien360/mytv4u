@@ -40,11 +40,37 @@ class _TvWebViewScreenState extends State<TvWebViewScreen> {
         }
       });
 
-      if (mounted) {
-        setState(() {
-          _isInitialized = true;
-        });
-      }
+      _controller.loadingState.listen((state) async {
+        if (state == LoadingState.navigationCompleted && mounted) {
+          setState(() {
+            _isInitialized = true;
+          });
+          // Inject Javascript để ẩn giao diện thừa của trang web tinhlagi, chỉ giữ lại khung player
+          await _controller.executeScript('''
+            try {
+              var style = document.createElement('style');
+              style.innerHTML = `
+                .nav-menu, .now-playing, .last-update, .group-title, .channel-grid, .search-container, .footer { display: none !important; }
+                body, html, .container, .player-wrapper, .video-box { 
+                  margin: 0 !important; 
+                  padding: 0 !important; 
+                  max-width: 100% !important; 
+                  width: 100vw !important; 
+                  height: 100vh !important; 
+                  border-radius: 0 !important; 
+                }
+              `;
+              document.head.appendChild(style);
+              
+              // Hide the "Kênh Trước / Kênh Sau" buttons which use inline flex
+              var flexDivs = document.querySelectorAll('div[style*="display: flex"]');
+              flexDivs.forEach(d => {
+                if(d.innerHTML.includes('Kênh Trước') || d.innerHTML.includes('nav-btn')) d.style.display = 'none';
+              });
+            } catch(e) {}
+          ''');
+        }
+      });
     } catch (e) {
       if (mounted) {
         setState(() {
