@@ -76,6 +76,7 @@ class _TvScreenState extends State<TvScreen> {
           movieName: 'TV Live - ${channel.name}',
           episodes: allTvEpisodes,
           currentEpisodeIndex: initialIndex >= 0 ? initialIndex : 0,
+          isLive: true,
         ),
       ),
     );

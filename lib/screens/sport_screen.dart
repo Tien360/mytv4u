@@ -59,6 +59,7 @@ class _SportScreenState extends State<SportScreen> {
           episodes: episodes,
           currentEpisodeIndex: 0,
           movieName: match.title,
+          isLive: true,
         ),
       ),
     );
@@ -74,13 +75,30 @@ class _SportScreenState extends State<SportScreen> {
           children: [
             Padding(
               padding: const EdgeInsets.all(24.0),
-              child: Text(
-                L10n.t('nav_sport') ?? 'Thể Thao',
-                style: const TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+              child: Row(
+                children: [
+                  Text(
+                    L10n.t('nav_sport') ?? 'Thể Thao',
+                    style: const TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  if (_isLoading)
+                    const SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  else
+                    IconButton(
+                      icon: const Icon(Icons.refresh, color: Colors.white70),
+                      onPressed: _fetchMatches,
+                      tooltip: 'Làm mới',
+                    ),
+                ],
               ),
             ),
             Expanded(

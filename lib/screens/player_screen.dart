@@ -27,6 +27,7 @@ class PlayerScreen extends StatefulWidget {
   final String? imdbId;
   final int? season;
   final int? episode;
+  final bool isLive;
 
   const PlayerScreen({
     super.key,
@@ -36,6 +37,7 @@ class PlayerScreen extends StatefulWidget {
     this.imdbId,
     this.season,
     this.episode,
+    this.isLive = false,
   });
 
   @override
@@ -1321,7 +1323,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
                   ),
 
                 // Next Episode Overlay (Near End)
-                if (_duration.inSeconds > 0 &&
+                if (!widget.isLive &&
+                    _duration.inSeconds > 0 &&
                     (_duration.inSeconds - _position.inSeconds) <= 30 &&
                     !_isUsingWebview)
                   Positioned(

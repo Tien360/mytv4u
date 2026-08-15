@@ -7,9 +7,9 @@ void main() async {
   
   final body = {
     "fields": {
-      "latest_version": {"stringValue": "26.08.14.m.beta"},
-      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/26.08.14.m.beta/MyTV4U_Setup_26.08.14.m.beta.exe"},
-      "release_notes": {"stringValue": "- Sửa lỗi rác màn hình và Error Decoding Audio khi xem HBO bằng mpv.\n- Các kênh có chuẩn mã hoá phức tạp (.mpd/DRM) giờ đây đều được fallback an toàn 100% qua WebView siêu mượt."},
+      "latest_version": {"stringValue": "26.08.15.a.beta"},
+      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/26.08.15.a.beta/MyTV4U_Setup_26.08.15.a.beta.exe"},
+      "release_notes": {"stringValue": "- Ra mắt chức năng Thể Thao (Bóng Đá) trực tiếp.\n- Hỗ trợ đổi luồng bình luận viên tự do.\n- Nâng cấp Trình phát Gốc để phát mượt mà m3u8 từ nguồn thể thao."},
       "is_force_update": {"booleanValue": false}
     }
   };
