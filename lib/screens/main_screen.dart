@@ -7,6 +7,7 @@ import 'search_screen.dart';
 import 'settings_screen.dart';
 import 'tv_screen.dart';
 import 'library_screen.dart';
+import 'sport_screen.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/custom_title_bar.dart';
 import 'package:window_manager/window_manager.dart';
@@ -44,6 +45,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
       ExploreScreen(key: _exploreKey),
       SearchScreen(key: _searchKey),
       const TvScreen(key: PageStorageKey('TvScreen')),
+      const SportScreen(key: PageStorageKey('SportScreen')),
       const LibraryScreen(key: PageStorageKey('LibraryScreen')),
     ];
     windowManager.addListener(this);
@@ -209,7 +211,9 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                         const SizedBox(height: 8),
                         _buildNavItem(Icons.live_tv_outlined, Icons.live_tv, L10n.t('nav_tv'), 3),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.favorite_outline, Icons.favorite, L10n.t('nav_favorite'), 4),
+                        _buildNavItem(Icons.sports_soccer_outlined, Icons.sports_soccer, L10n.t('nav_sport') ?? 'Thể Thao', 4),
+                        const SizedBox(height: 8),
+                        _buildNavItem(Icons.favorite_outline, Icons.favorite, L10n.t('nav_favorite'), 5),
                       ],
                     ),
                   ),
