@@ -438,8 +438,12 @@ class PhimApi {
       return 'https://${workers.first}/$rawId';
       */
 
-      // Tạm thời ép dùng duy nhất server còn sống do user test
-      return 'https://sv.gboiz7.workers.dev/$rawId';
+      final activeServers = [
+        'sv.gboiz7.workers.dev',
+        'sv1.p4k.dpdns.org',
+      ];
+      activeServers.shuffle();
+      return 'https://${activeServers.first}/$rawId';
     }
     return url;
   }
