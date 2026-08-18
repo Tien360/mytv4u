@@ -2,21 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:mytv4u_flutter/widgets/glass_container.dart';
 
-class AdvancedControlsPanel extends StatefulWidget {
+class AdvancedControlsTab extends StatefulWidget {
   final Player player;
-  final VoidCallback onClose;
+  
 
-  const AdvancedControlsPanel({
+  const AdvancedControlsTab({
     Key? key,
     required this.player,
-    required this.onClose,
+    
   }) : super(key: key);
 
   @override
-  State<AdvancedControlsPanel> createState() => _AdvancedControlsPanelState();
+  State<AdvancedControlsTab> createState() => _AdvancedControlsTabState();
 }
 
-class _AdvancedControlsPanelState extends State<AdvancedControlsPanel> {
+class _AdvancedControlsTabState extends State<AdvancedControlsTab> {
   double _brightness = 0;
   double _contrast = 0;
   double _saturation = 0;
@@ -69,40 +69,12 @@ class _AdvancedControlsPanelState extends State<AdvancedControlsPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return GlassContainer(
-      borderRadius: 16,
-      color: Colors.black.withOpacity(0.7),
-      blur: 40,
-      padding: const EdgeInsets.all(24),
+    return SingleChildScrollView(
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Bộ lọc & Độ trễ',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              IconButton(
-                icon: const Icon(Icons.close, color: Colors.white),
-                onPressed: widget.onClose,
-              ),
-            ],
-          ),
-          const Divider(color: Colors.white24, height: 24),
-          
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text('Màu sắc Video', style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold)),
+const Text('Màu sắc Video', style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 12),
                   
                   // Presets
@@ -171,10 +143,6 @@ class _AdvancedControlsPanelState extends State<AdvancedControlsPanel> {
                   }, isFloat: true),
                 ],
               ),
-            ),
-          ),
-        ],
-      ),
     );
   }
 

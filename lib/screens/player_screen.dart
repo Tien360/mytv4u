@@ -87,7 +87,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   // UI state
   bool _showControls = true;
   bool _showEpisodePanel = false;
-  bool _showAdvancedPanel = false;
+  
   Timer? _hideControlsTimer;
 
   // media_kit state
@@ -922,7 +922,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
               borderColor: const Color(0x33FFFFFF),
               blur: 40.0,
               child: DefaultTabController(
-                length: 5,
+                length: 6,
                 child: Column(
                   children: [
                     // Header with Tabs
@@ -1993,22 +1993,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                   const BoxConstraints(),
                                             ),
                                             const SizedBox(width: 10),
-                                            // Advanced Filters Button
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.tune,
-                                                color: Colors.white,
-                                                size: 20,
-                                              ),
-                                              onPressed: () => setState(() {
-                                                _showAdvancedPanel = !_showAdvancedPanel;
-                                                _showEpisodePanel = false; // close the other
-                                              }),
-                                              tooltip: 'Bộ lọc & Đồng bộ',
-                                              padding: const EdgeInsets.all(4),
-                                              constraints: const BoxConstraints(),
-                                            ),
-                                            const SizedBox(width: 10),
+
                                             // Settings Gear Button
                                             IconButton(
                                               icon: const Icon(
@@ -2052,20 +2037,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                   ),
                 ),
 
-                // 4. Advanced Controls Panel
-                if (!_isPiPMode)
-                  AnimatedPositioned(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                  top: 0,
-                  bottom: 0,
-                  right: _showAdvancedPanel ? 0 : -350,
-                  width: 350,
-                  child: AdvancedControlsPanel(
-                    player: player,
-                    onClose: () => setState(() => _showAdvancedPanel = false),
-                  ),
-                ),
+
 
                 // 3. Episode Selection Panel (Right Sidebar)
                 if (!_isPiPMode)
