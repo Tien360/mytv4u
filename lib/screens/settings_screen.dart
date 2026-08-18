@@ -388,11 +388,7 @@ SizedBox(key: _systemKey),
                           ),
 
                           const SizedBox(height: 48),
-                          
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              SizedBox(key: _languageKey),
+                          SizedBox(key: _languageKey),
                           _buildSectionTitle(Icons.language, L10n.t('language_settings')),
                           const SizedBox(height: 16),
                           GlassContainer(
