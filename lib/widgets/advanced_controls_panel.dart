@@ -195,7 +195,7 @@ double _secSubDelay = 0.0;
   }
 
   Widget _buildSlider(String label, double value, double min, double max, Function(double) onChanged, {bool isMs = false}) {
-    String valStr = isMs ? ' ms' : '';
+    String valStr = isMs ? ' ms' : value.toInt().toString();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

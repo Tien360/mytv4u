@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:http/http.dart' as http;
@@ -964,7 +964,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           Tab(icon: Icon(Icons.speed), text: L10n.t('tab_general')),
                           Tooltip(
                             message:
-                                'Đang chọn: ${_selectedAudioTrack != null ? _getTrackShortName(_selectedAudioTrack) : "Tự động"}',
+                                (L10n.t('currently_selected') ?? 'Selected: ') + (_selectedAudioTrack != null ? _getTrackShortName(_selectedAudioTrack) : (L10n.t('auto') ?? 'Auto')),
                             child: Tab(
                               icon: Icon(Icons.audiotrack),
                               text: L10n.t('tab_audio'),
@@ -972,7 +972,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           ),
                           Tooltip(
                             message:
-                                'Đang chọn: ${_selectedSubtitleTrack != null ? _getTrackShortName(_selectedSubtitleTrack) : "Tự động"}',
+                                (L10n.t('currently_selected') ?? 'Selected: ') + (_selectedSubtitleTrack != null ? _getTrackShortName(_selectedSubtitleTrack) : (L10n.t('auto') ?? 'Auto')),
                             child: Tab(
                               icon: Icon(Icons.subtitles),
                               text: L10n.t('tab_sub_main'),
@@ -980,7 +980,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           ),
                           Tooltip(
                             message:
-                                'Đang chọn: ${_selectedSecondarySubtitleTrack != null ? _getTrackShortName(_selectedSecondarySubtitleTrack) : "Tắt"}',
+                                (L10n.t('currently_selected') ?? 'Selected: ') + (_selectedSecondarySubtitleTrack != null ? _getTrackShortName(_selectedSecondarySubtitleTrack) : (L10n.t('off') ?? 'Off')),
                             child: Tab(
                               icon: Icon(Icons.subtitles_outlined),
                               text: L10n.t('tab_sub_sec'),
@@ -2060,7 +2060,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 size: 20,
                                               ),
                                               onPressed: _showSettingsDialog,
-                                              tooltip: 'Cài đặt',
+                                              tooltip: L10n.t('settings_tooltip') ?? 'Settings',
                                               padding: const EdgeInsets.all(4),
                                               constraints:
                                                   const BoxConstraints(),
@@ -2137,53 +2137,51 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                         ),
                         const Divider(color: Colors.white24, height: 32),
                         Expanded(
-                          child: GridView.builder(
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 4,
-                                  crossAxisSpacing: 8,
-                                  mainAxisSpacing: 8,
-                                  childAspectRatio: 1.5,
-                                ),
-                            itemCount: widget.episodes.length,
-                            itemBuilder: (context, index) {
-                              final isCurrent = index == _currentIndex;
-                              return Material(
-                                color: Colors.transparent,
-                                child: InkWell(
-                                  borderRadius: BorderRadius.circular(8),
-                                  onTap: () {
-                                    _initEpisode(index);
-                                    setState(() => _showEpisodePanel = false);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: isCurrent
-                                          ? Colors.blueAccent.withOpacity(0.4)
-                                          : Colors.white10,
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
+                          child: SingleChildScrollView(
+                            child: Wrap(
+                              spacing: 8,
+                              runSpacing: 8,
+                              children: widget.episodes.asMap().entries.map((entry) {
+                                final index = entry.key;
+                                final ep = entry.value;
+                                final isCurrent = index == _currentIndex;
+                                return Material(
+                                  color: Colors.transparent,
+                                  child: InkWell(
+                                    borderRadius: BorderRadius.circular(8),
+                                    onTap: () {
+                                      _initEpisode(index);
+                                      setState(() => _showEpisodePanel = false);
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                      decoration: BoxDecoration(
                                         color: isCurrent
-                                            ? Colors.blueAccent
-                                            : Colors.transparent,
+                                            ? Colors.blueAccent.withValues(alpha: 0.4)
+                                            : Colors.white10,
+                                        borderRadius: BorderRadius.circular(8),
+                                        border: Border.all(
+                                          color: isCurrent
+                                              ? Colors.blueAccent
+                                              : Colors.transparent,
+                                        ),
                                       ),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      widget.episodes[index].name,
-                                      style: TextStyle(
-                                        color: isCurrent
-                                            ? Colors.blueAccent
-                                            : Colors.white,
-                                        fontWeight: isCurrent
-                                            ? FontWeight.bold
-                                            : FontWeight.normal,
+                                      child: Text(
+                                        ep.name,
+                                        style: TextStyle(
+                                          color: isCurrent
+                                              ? Colors.blueAccent
+                                              : Colors.white,
+                                          fontWeight: isCurrent
+                                              ? FontWeight.bold
+                                              : FontWeight.normal,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              );
-                            },
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
                       ],
