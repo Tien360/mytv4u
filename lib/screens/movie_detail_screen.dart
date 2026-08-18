@@ -58,6 +58,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   HttpServer? _trailerServer;
   int _trailerPort = 0;
   bool _showInlineTrailer = false;
+  bool _userPausedTrailer = false;
   bool _trailerEnded = false;
   bool _isTrailerExpanded = false;
   bool _isTrailerPaused = false;
@@ -193,10 +194,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   Future<void> _pauseTrailer() async {
+    _userPausedTrailer = true;
     if (_isWebviewInitialized) {
       try {
         await _webviewController.executeScript(
-          "if(player && player.pauseVideo) { player.pauseVideo(); }",
+          "window.dartShouldPause = true; if(typeof player !== 'undefined' && player && player.pauseVideo) { player.pauseVideo(); }",
         );
       } catch (e) {}
     }
@@ -210,6 +212,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   void _playTrailer() {
+    _userPausedTrailer = false;
     if (_isWebviewInitialized) {
       _webviewController.executeScript(
         "if(player && player.playVideo) { player.seekTo(0); player.playVideo(); }",
@@ -226,6 +229,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   void _resumeTrailer() {
+    _userPausedTrailer = false;
     if (_isWebviewInitialized) {
       _webviewController.executeScript(
         "if(player && player.playVideo) { player.playVideo(); }",
@@ -462,7 +466,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
       var player;
-      function onYouTubeIframeAPIReady() {
+      window.dartShouldPause = false;
+        setInterval(function() {
+          if (window.dartShouldPause && typeof player !== 'undefined' && player && player.pauseVideo) {
+            player.pauseVideo();
+            window.dartShouldPause = false;
+          }
+        }, 500);
+        function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '100%',
           width: '100%',
