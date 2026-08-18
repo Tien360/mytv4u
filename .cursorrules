@@ -1,0 +1,18 @@
+﻿# MyTV4U Flutter Project Rules
+
+## Localization (i18n)
+- **NEVER** hardcode UI strings in Dart files (e.g. Text('Chữ tiếng Việt')).
+- **ALWAYS** use the localization system:
+  1. Add the new key-value pair to ssets/langs/vi.json and ssets/langs/en.json.
+  2. Use L10n.t('your_key') in the Dart code.
+  3. Example: Text(L10n.t('my_key')).
+- For variables, use string interpolation in the JSON (e.g. "welcome": "Hello {name}") and pass params: L10n.t('welcome', {'name': userName}).
+
+## UI/UX
+- Use Glassmorphism (blur backgrounds, translucent colors) consistently as per the app's theme.
+- Ensure all screens are responsive (Desktop/TV vs Mobile). Use LayoutBuilder or MediaQuery to adapt UI.
+- Use UIUtils.showCustomSnackBar for snackbars.
+
+## Code Quality
+- Follow standard Flutter/Dart linting rules.
+- Keep build methods clean and modularize large widgets into smaller components or methods.

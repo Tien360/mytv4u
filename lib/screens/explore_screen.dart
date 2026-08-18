@@ -136,7 +136,7 @@ class ExploreScreenState extends State<ExploreScreen> {
                 itemCount: _movies.length + (_isLoading ? 1 : 0),
                 itemBuilder: (context, index) {
                   if (index == _movies.length) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator());
                   }
                   final movie = _movies[index];
                   return HoverMovieCard(

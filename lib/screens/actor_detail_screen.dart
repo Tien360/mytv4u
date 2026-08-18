@@ -8,6 +8,7 @@ import '../widgets/custom_title_bar.dart';
 import '../widgets/glass_container.dart';
 import 'movie_detail_screen.dart';
 
+import '../utils/l10n.dart';
 class ActorDetailScreen extends StatefulWidget {
   final String actorId;
   final String actorName;
@@ -158,7 +159,7 @@ class _ActorDetailScreenState extends State<ActorDetailScreen> {
               const CustomTitleBar(),
               Expanded(
                 child: _isLoadingInfo 
-                    ? const Center(child: CircularProgressIndicator())
+                    ? Center(child: CircularProgressIndicator())
                     : CustomScrollView(
                         slivers: [
                           _buildActorInfo(profilePath),
@@ -254,7 +255,7 @@ class _ActorDetailScreenState extends State<ActorDetailScreen> {
                   ),
                   const SizedBox(height: 24),
                   if (bio.isNotEmpty) ...[
-                    const Text('Tiểu sử', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
+                    Text(L10n.t('biography'), style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                     const SizedBox(height: 12),
                     Text(
                       displayBio,
@@ -299,7 +300,7 @@ class _ActorDetailScreenState extends State<ActorDetailScreen> {
           children: [
             Row(
               children: [
-                const Text('Phim trên hệ thống', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+                Text('Phim trên hệ thống', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
                 const SizedBox(width: 16),
                 if (_isSearching)
                   Container(

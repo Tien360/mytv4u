@@ -108,7 +108,7 @@ class _TvWebViewScreenState extends State<TvWebViewScreen> {
               widget.title,
               style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const Text(
+            Text(
               'Trình phát WebView TV360 Trực tiếp',
               style: TextStyle(color: Colors.blueAccent, fontSize: 12),
             ),
@@ -141,7 +141,7 @@ class _TvWebViewScreenState extends State<TvWebViewScreen> {
               ),
             )
           : !_isInitialized
-              ? const Center(
+              ? Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

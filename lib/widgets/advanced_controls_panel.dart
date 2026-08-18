@@ -2,6 +2,7 @@
 import 'package:media_kit/media_kit.dart';
 import 'glass_container.dart';
 
+import '../utils/l10n.dart';
 enum SidePanelMode { none, color, subtitle, audio }
 
 class SideControlPanel extends StatefulWidget {
@@ -21,7 +22,7 @@ class SideControlPanel extends StatefulWidget {
 }
 
 class _SideControlPanelState extends State<SideControlPanel> {
-  String _preset = 'Mặc định';
+  String _preset = L10n.t('default');
   double _brightness = 0.0;
   double _contrast = 0.0;
   double _saturation = 0.0;
@@ -30,14 +31,14 @@ class _SideControlPanelState extends State<SideControlPanel> {
   double _audioDelay = 0.0;
 
   final Map<String, Map<String, double>> _presets = {
-    'Mặc định': {'brightness': 0.0, 'contrast': 0.0, 'saturation': 0.0},
-    'Sống động': {'brightness': 5.0, 'contrast': 10.0, 'saturation': 25.0},
-    'Rạp phim': {'brightness': -5.0, 'contrast': 15.0, 'saturation': 5.0},
-    'Sáng rực': {'brightness': 20.0, 'contrast': 5.0, 'saturation': 0.0},
-    'Đen trắng': {'brightness': 0.0, 'contrast': 5.0, 'saturation': -100.0},
-    'Ấm áp': {'brightness': 0.0, 'contrast': 5.0, 'saturation': 15.0},
-    'Lạnh': {'brightness': 5.0, 'contrast': 5.0, 'saturation': -10.0},
-    'Tùy chỉnh': {},
+    L10n.t('default'): {'brightness': 0.0, 'contrast': 0.0, 'saturation': 0.0},
+    L10n.t('vivid'): {'brightness': 5.0, 'contrast': 10.0, 'saturation': 25.0},
+    L10n.t('cinema'): {'brightness': -5.0, 'contrast': 15.0, 'saturation': 5.0},
+    L10n.t('bright'): {'brightness': 20.0, 'contrast': 5.0, 'saturation': 0.0},
+    L10n.t('bw'): {'brightness': 0.0, 'contrast': 5.0, 'saturation': -100.0},
+    L10n.t('warm'): {'brightness': 0.0, 'contrast': 5.0, 'saturation': 15.0},
+    L10n.t('cool'): {'brightness': 5.0, 'contrast': 5.0, 'saturation': -10.0},
+    L10n.t('custom'): {},
   };
 
   @override
@@ -66,7 +67,7 @@ class _SideControlPanelState extends State<SideControlPanel> {
   }
 
   void _onPresetSelected(String presetName) {
-    if (presetName == 'Tùy chỉnh') return;
+    if (presetName == L10n.t('custom')) return;
     setState(() {
       _preset = presetName;
       _brightness = _presets[presetName]!['brightness']!;
@@ -78,9 +79,9 @@ class _SideControlPanelState extends State<SideControlPanel> {
 
   void _onSliderChanged(String type, double val) {
     setState(() {
-      if (type == 'brightness') { _brightness = val; _preset = 'Tùy chỉnh'; }
-      if (type == 'contrast') { _contrast = val; _preset = 'Tùy chỉnh'; }
-      if (type == 'saturation') { _saturation = val; _preset = 'Tùy chỉnh'; }
+      if (type == 'brightness') { _brightness = val; _preset = L10n.t('custom'); }
+      if (type == 'contrast') { _contrast = val; _preset = L10n.t('custom'); }
+      if (type == 'saturation') { _saturation = val; _preset = L10n.t('custom'); }
       if (type == 'sub-delay') { _subDelay = val; _applyDelay(type, val); return; }
       if (type == 'audio-delay') { _audioDelay = val; _applyDelay(type, val); return; }
       _applyPropertiesToPlayer();
@@ -89,10 +90,10 @@ class _SideControlPanelState extends State<SideControlPanel> {
 
   @override
   Widget build(BuildContext context) {
-    String title = 'Điều chỉnh';
-    if (widget.mode == SidePanelMode.color) title = 'Màu sắc Video';
-    if (widget.mode == SidePanelMode.subtitle) title = 'Đồng bộ Phụ đề';
-    if (widget.mode == SidePanelMode.audio) title = 'Đồng bộ Âm thanh';
+    String title = L10n.t('adjust');
+    if (widget.mode == SidePanelMode.color) title = L10n.t('video_color');
+    if (widget.mode == SidePanelMode.subtitle) title = L10n.t('sync_subtitle');
+    if (widget.mode == SidePanelMode.audio) title = L10n.t('sync_audio');
 
     return Container(
       width: 350,
@@ -120,7 +121,7 @@ class _SideControlPanelState extends State<SideControlPanel> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   if (widget.mode == SidePanelMode.color) ...[
-                    const Text('Bộ lọc:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    Text(L10n.t('filter_label'), style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
                     const SizedBox(height: 8),
                     Wrap(
                       spacing: 8,
@@ -138,32 +139,32 @@ class _SideControlPanelState extends State<SideControlPanel> {
                       }).toList(),
                     ),
                     const SizedBox(height: 24),
-                    _buildSlider('Độ sáng', _brightness, -100, 100, (v) => _onSliderChanged('brightness', v)),
-                    _buildSlider('Tương phản', _contrast, -100, 100, (v) => _onSliderChanged('contrast', v)),
-                    _buildSlider('Độ bão hòa màu', _saturation, -100, 100, (v) => _onSliderChanged('saturation', v)),
+                    _buildSlider(L10n.t('brightness'), _brightness, -100, 100, (v) => _onSliderChanged('brightness', v)),
+                    _buildSlider(L10n.t('contrast'), _contrast, -100, 100, (v) => _onSliderChanged('contrast', v)),
+                    _buildSlider(L10n.t('saturation'), _saturation, -100, 100, (v) => _onSliderChanged('saturation', v)),
                   ],
                   if (widget.mode == SidePanelMode.subtitle) ...[
-                    const Text('Chỉnh độ trễ hiển thị phụ đề so với video. Số âm (-) nghĩa là phụ đề hiện sớm hơn.', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    Text(L10n.t('sub_delay_desc'), style: TextStyle(color: Colors.white70, fontSize: 13)),
                     const SizedBox(height: 16),
-                    _buildSlider('Độ trễ (ms)', _subDelay, -5000, 5000, (v) => _onSliderChanged('sub-delay', v), isMs: true),
+                    _buildSlider(L10n.t('delay_ms'), _subDelay, -5000, 5000, (v) => _onSliderChanged('sub-delay', v), isMs: true),
                     const SizedBox(height: 8),
                     Center(
                       child: TextButton.icon(
                         icon: const Icon(Icons.restore),
-                        label: const Text('Mặc định (0 ms)'),
+                        label: Text(L10n.t('default_0ms')),
                         onPressed: () => _onSliderChanged('sub-delay', 0),
                       ),
                     ),
                   ],
                   if (widget.mode == SidePanelMode.audio) ...[
-                    const Text('Chỉnh độ trễ âm thanh so với video. Số âm (-) nghĩa là âm thanh phát sớm hơn.', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    Text(L10n.t('audio_delay_desc'), style: TextStyle(color: Colors.white70, fontSize: 13)),
                     const SizedBox(height: 16),
-                    _buildSlider('Độ trễ (ms)', _audioDelay, -5000, 5000, (v) => _onSliderChanged('audio-delay', v), isMs: true),
+                    _buildSlider(L10n.t('delay_ms'), _audioDelay, -5000, 5000, (v) => _onSliderChanged('audio-delay', v), isMs: true),
                     const SizedBox(height: 8),
                     Center(
                       child: TextButton.icon(
                         icon: const Icon(Icons.restore),
-                        label: const Text('Mặc định (0 ms)'),
+                        label: Text(L10n.t('default_0ms')),
                         onPressed: () => _onSliderChanged('audio-delay', 0),
                       ),
                     ),

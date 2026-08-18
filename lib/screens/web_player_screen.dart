@@ -132,7 +132,7 @@ class _WebPlayerScreenState extends State<WebPlayerScreen> {
       ),
       body: _isWebviewInitialized
           ? Webview(_controller)
-          : const Center(child: CircularProgressIndicator()),
+          : Center(child: CircularProgressIndicator()),
     );
   }
 

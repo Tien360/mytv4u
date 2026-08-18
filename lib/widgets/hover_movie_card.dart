@@ -59,7 +59,7 @@ class _HoverMovieCardState extends State<HoverMovieCard> {
                       if (_isHovered)
                         Container(
                           color: Colors.black26,
-                          child: const Center(
+                          child: Center(
                             child: Icon(Icons.play_circle_fill, size: 48, color: Colors.white70),
                           ),
                         ),
@@ -74,7 +74,7 @@ class _HoverMovieCardState extends State<HoverMovieCard> {
                               borderRadius: BorderRadius.circular(4),
                               boxShadow: const [BoxShadow(color: Colors.black54, blurRadius: 4)],
                             ),
-                            child: const Text('PREMIUM', style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)),
+                            child: Text('PREMIUM', style: TextStyle(color: Colors.black, fontSize: 10, fontWeight: FontWeight.bold)),
                           ),
                         ),
                       // Hiển thị tên phim ở dưới khi hover

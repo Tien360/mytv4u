@@ -111,14 +111,14 @@ class SportScreenState extends State<SportScreen> {
                     IconButton(
                       icon: const Icon(Icons.refresh, color: Colors.white70),
                       onPressed: _fetchMatches,
-                      tooltip: 'Làm mới',
+                      tooltip: L10n.t('refresh'),
                     ),
                 ],
               ),
             ),
             Expanded(
               child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(child: CircularProgressIndicator())
                   : _matches.isEmpty
                       ? Center(
                           child: Text(

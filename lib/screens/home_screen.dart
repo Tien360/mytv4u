@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     {'title': L10n.t('category_chinese') ?? 'Trung Quốc', 'type': 'country', 'slug': 'trung-quoc'},
     {'title': L10n.t('category_western') ?? 'Âu Mỹ', 'type': 'country', 'slug': 'au-my'},
     {'title': L10n.t('category_anime') ?? 'Hoạt hình', 'type': 'category', 'slug': 'hoat-hinh'},
-    {'title': L10n.t('category_tv_shows') ?? 'TV Shows', 'type': 'category', 'slug': 'tv-shows'},
+    {'title': L10n.t('category_tv_shows') ?? L10n.t('tv_shows_vi'), 'type': 'category', 'slug': 'tv-shows'},
   ];
 
   @override
@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         backgroundColor: const Color(0xFF3B82F6).withOpacity(0.8),
         child: const Icon(Icons.refresh, color: Colors.white),
-        tooltip: L10n.t('refresh') ?? 'Làm mới',
+        tooltip: L10n.t('refresh') ?? L10n.t('refresh'),
       ),
       body: SafeArea(
         child: RefreshIndicator(
@@ -547,7 +547,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ],
                               ),
                             ),
-                            const Center(
+                            Center(
                               child: Icon(Icons.play_circle_outline, color: Colors.white54, size: 48),
                             ),
                           ],
@@ -703,7 +703,7 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> with Au
           SizedBox(
             height: 360,
             child: _isLoading
-                ? const Center(child: CircularProgressIndicator())
+                ? Center(child: CircularProgressIndicator())
                 : Stack(
                     children: [
                       ListView.builder(

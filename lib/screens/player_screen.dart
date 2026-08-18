@@ -23,6 +23,7 @@ import '../api/config_api.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/custom_title_bar.dart';
 
+import '../utils/l10n.dart';
 class PlayerScreen extends StatefulWidget {
   final List<Episode> episodes;
   final int currentEpisodeIndex;
@@ -641,7 +642,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     'Tiếp tục xem?',
                     style: TextStyle(
                       color: Colors.white,
@@ -664,7 +665,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           player.play();
                           prefs.remove(key);
                         },
-                        child: const Text(
+                        child: Text(
                           'Từ đầu',
                           style: TextStyle(color: Colors.white54, fontSize: 16),
                         ),
@@ -698,7 +699,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             });
                           }
                         },
-                        child: const Text(
+                        child: Text(
                           'Xem tiếp',
                           style: TextStyle(
                             color: Colors.white,
@@ -776,14 +777,14 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   String _getTrackShortName(dynamic track) {
-    if (track.id == 'auto') return 'Tự động';
-    if (track.id == 'no') return 'Tắt';
+    if (track.id == 'auto') return L10n.t('auto');
+    if (track.id == 'no') return L10n.t('off');
     return track.title ?? track.language ?? track.id ?? 'Không rõ';
   }
 
   String _getTrackFullName(dynamic track) {
     if (track.id == 'auto') return 'Tự động (Mặc định)';
-    if (track.id == 'no') return 'Tắt';
+    if (track.id == 'no') return L10n.t('off');
 
     List<String> details = [];
     if (track.title != null && track.title.toString().trim().isNotEmpty)
@@ -916,7 +917,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 Navigator.pop(context);
               }
             },
-            child: Text(hasNext ? 'Chuyển Tập Ngay' : 'Đóng'),
+            child: Text(hasNext ? L10n.t('next_ep_now') : L10n.t('close')),
           ),
         ],
       ),
@@ -960,34 +961,34 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                         isScrollable: true,
                         tabAlignment: TabAlignment.center,
                         tabs: [
-                          const Tab(icon: Icon(Icons.speed), text: 'Chung'),
+                          Tab(icon: Icon(Icons.speed), text: L10n.t('tab_general')),
                           Tooltip(
                             message:
                                 'Đang chọn: ${_selectedAudioTrack != null ? _getTrackShortName(_selectedAudioTrack) : "Tự động"}',
-                            child: const Tab(
+                            child: Tab(
                               icon: Icon(Icons.audiotrack),
-                              text: 'Âm thanh',
+                              text: L10n.t('tab_audio'),
                             ),
                           ),
                           Tooltip(
                             message:
                                 'Đang chọn: ${_selectedSubtitleTrack != null ? _getTrackShortName(_selectedSubtitleTrack) : "Tự động"}',
-                            child: const Tab(
+                            child: Tab(
                               icon: Icon(Icons.subtitles),
-                              text: 'Phụ đề chính',
+                              text: L10n.t('tab_sub_main'),
                             ),
                           ),
                           Tooltip(
                             message:
                                 'Đang chọn: ${_selectedSecondarySubtitleTrack != null ? _getTrackShortName(_selectedSecondarySubtitleTrack) : "Tắt"}',
-                            child: const Tab(
+                            child: Tab(
                               icon: Icon(Icons.subtitles_outlined),
-                              text: 'Phụ đề phụ',
+                              text: L10n.t('tab_sub_sec'),
                             ),
                           ),
-                          const Tab(
+                          Tab(
                             icon: Icon(Icons.info_outline),
-                            text: 'Thông tin',
+                            text: L10n.t('tab_info'),
                           ),
                         ],
                       ),
@@ -1003,7 +1004,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               children: [
                                 ListTile(
                                   leading: const Icon(Icons.color_lens, color: Colors.blueAccent),
-                                  title: const Text('Bộ lọc màu Video', style: TextStyle(color: Colors.white)),
+                                  title: Text(L10n.t('video_color_filter'), style: TextStyle(color: Colors.white)),
                                   trailing: const Icon(Icons.chevron_right, color: Colors.white54),
                                   onTap: () {
                                     Navigator.pop(context);
@@ -1012,8 +1013,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                 ),
                                 const Divider(color: Colors.white24),
                                 ListTile(
-                                  title: const Text(
-                                    'Tốc độ phát',
+                                  title: Text(
+                                    L10n.t('playback_speed'),
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   trailing: DropdownButton<double>(
@@ -1022,14 +1023,14 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                     style: const TextStyle(
                                       color: Colors.blueAccent,
                                     ),
-                                    items: const [
+                                    items: [
                                       DropdownMenuItem(
                                         value: 0.5,
                                         child: Text('0.5x'),
                                       ),
                                       DropdownMenuItem(
                                         value: 1.0,
-                                        child: Text('1x (Chuẩn)'),
+                                        child: Text(L10n.t('speed_normal')),
                                       ),
                                       DropdownMenuItem(
                                         value: 1.25,
@@ -1054,8 +1055,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                 ),
                                 SwitchListTile(
                                   activeColor: Colors.blueAccent,
-                                  title: const Text(
-                                    'Tự động chuyển tập',
+                                  title: Text(
+                                    L10n.t('auto_next_ep'),
                                     style: TextStyle(color: Colors.white),
                                   ),
                                   value: _autoNext,
@@ -1066,12 +1067,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                 ),
                                 SwitchListTile(
                                   activeColor: Colors.blueAccent,
-                                  title: const Text(
-                                    'Tăng tốc phần cứng (HW Accel)',
+                                  title: Text(
+                                    L10n.t('hw_accel'),
                                     style: TextStyle(color: Colors.white),
                                   ),
-                                  subtitle: const Text(
-                                    'Tắt nếu gặp lỗi màn hình đen',
+                                  subtitle: Text(
+                                    L10n.t('hw_accel_desc'),
                                     style: TextStyle(
                                       color: Colors.white54,
                                       fontSize: 12,
@@ -1095,7 +1096,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             children: [
                               ListTile(
                                 leading: const Icon(Icons.av_timer, color: Colors.blueAccent),
-                                title: const Text('Đồng bộ Âm thanh', style: TextStyle(color: Colors.white)),
+                                title: Text(L10n.t('sync_audio'), style: TextStyle(color: Colors.white)),
                                 trailing: const Icon(Icons.chevron_right, color: Colors.white54),
                                 onTap: () {
                                   Navigator.pop(context);
@@ -1106,7 +1107,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               OutlinedButton.icon(
                                 onPressed: _addExternalAudio,
                                 icon: const Icon(Icons.add),
-                                label: const Text('Thêm tệp âm thanh rời...'),
+                                label: Text(L10n.t('add_external_audio')),
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: Colors.blueAccent,
                                   side: const BorderSide(
@@ -1135,7 +1136,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             children: [
                               ListTile(
                                 leading: const Icon(Icons.av_timer, color: Colors.blueAccent),
-                                title: const Text('Đồng bộ Phụ đề', style: TextStyle(color: Colors.white)),
+                                title: Text(L10n.t('sync_subtitle'), style: TextStyle(color: Colors.white)),
                                 trailing: const Icon(Icons.chevron_right, color: Colors.white54),
                                 onTap: () {
                                   Navigator.pop(context);
@@ -1146,7 +1147,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               OutlinedButton.icon(
                                 onPressed: _addExternalSubtitle,
                                 icon: const Icon(Icons.add),
-                                label: const Text('Thêm tệp phụ đề rời...'),
+                                label: Text(L10n.t('add_external_sub')),
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: Colors.blueAccent,
                                   side: const BorderSide(
@@ -1178,7 +1179,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               OutlinedButton.icon(
                                 onPressed: _addExternalSubtitle,
                                 icon: const Icon(Icons.add),
-                                label: const Text('Thêm tệp phụ đề rời...'),
+                                label: Text(L10n.t('add_external_sub')),
                                 style: OutlinedButton.styleFrom(
                                   foregroundColor: Colors.blueAccent,
                                   side: const BorderSide(
@@ -1273,7 +1274,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
       child: Row(
         children: [
-          const Text(
+          Text(
             'Nguồn phụ: ',
             style: TextStyle(
               color: Colors.white70,
@@ -1329,7 +1330,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
             children: [
               const CircularProgressIndicator(color: Colors.blueAccent),
               const SizedBox(height: 20),
-              const Text(
+              Text(
                 "Đang mở trình phát độ phân giải cao...\n(Bấm ESC bên cửa sổ kia để thoát)",
                 textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.white, fontSize: 16),
@@ -1404,7 +1405,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
               children: [
                 // 1. Video Layer
                 if (_isLoadingServers)
-                  const Center(
+                  Center(
                     child: CircularProgressIndicator(color: Colors.blueAccent),
                   )
                 else if (_isUsingWebview && _isWebviewInitialized)
@@ -1445,8 +1446,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               size: 48,
                             ),
                             const SizedBox(height: 16),
-                            const Text(
-                              'Thông Báo Trình Phát',
+                            Text(
+                              L10n.t('player_notice'),
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 18,
@@ -1456,9 +1457,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             const SizedBox(height: 8),
                             Text(
                               errorMsg!.toLowerCase().contains('truehd')
-                                  ? 'Phim chứa định dạng âm thanh Dolby TrueHD nhưng bản dựng mpv hiện tại chưa được tích hợp codec này.\n\n👉 Cách xử lý: Bấm vào nút Cài đặt (⚙️) -> Tab Âm thanh, và đổi sang một luồng âm thanh khác (như AC3 hoặc AAC) để có tiếng.'
+                                  ? L10n.t('truehd_error')
                                   : errorMsg!.contains('11470')
-                                  ? 'Không thể tải dữ liệu Torrent.\n\nNguyên nhân: Link torrent này hiện không có đủ người chia sẻ (Seeders) hoặc bị lỗi kết nối mạng ngang hàng. Vui lòng thử chọn một server/chất lượng khác.'
+                                  ? L10n.t('torrent_error')
                                   : 'Đã xảy ra lỗi:\n$errorMsg',
                               textAlign: TextAlign.center,
                               style: const TextStyle(
@@ -1470,7 +1471,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             ElevatedButton.icon(
                               onPressed: () => setState(() => errorMsg = null),
                               icon: const Icon(Icons.close),
-                              label: const Text('Đóng thông báo'),
+                              label: Text(L10n.t('close_notice')),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.redAccent.withOpacity(
                                   0.2,
@@ -2106,7 +2107,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text(
+                            Text(
                               'Chọn tập',
                               style: TextStyle(
                                 color: Colors.white,

@@ -131,7 +131,7 @@ class TvScreenState extends State<TvScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
+                          Text(
                             'Kênh Truyền Hình TV Trực Tuyến',
                             style: TextStyle(
                               color: Colors.white,
@@ -338,7 +338,7 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [BoxShadow(color: Colors.red.withOpacity(0.3), blurRadius: 8)],
         ),
-        child: const Text('HTV 7', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
+        child: Text('HTV 7', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
       );
     } else if (id.contains('htv9')) {
       return Container(
@@ -352,7 +352,7 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [BoxShadow(color: Colors.blue.withOpacity(0.3), blurRadius: 8)],
         ),
-        child: const Text('HTV 9', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
+        child: Text('HTV 9', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
       );
     } else if (id.contains('antv')) {
       return Container(
@@ -408,7 +408,7 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [BoxShadow(color: Colors.purple.withOpacity(0.3), blurRadius: 8)],
         ),
-        child: const Text('TVB VIETNAM', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        child: Text('TVB VIETNAM', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
       );
     } else if (id.contains('sctv')) {
       return Container(
@@ -434,7 +434,7 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Text('HÀ NỘI 1', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+        child: Text('HÀ NỘI 1', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
       );
     } else if (id.contains('dongthap')) {
       return Container(
@@ -447,7 +447,7 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: const Text('ĐỒNG THÁP', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        child: Text('ĐỒNG THÁP', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
       );
     } else if (id.contains('cantho')) {
       return Container(

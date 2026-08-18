@@ -66,12 +66,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           onWillPop: () async => false, // Chặn nút back
           child: AlertDialog(
             backgroundColor: Colors.grey[900],
-            title: const Text('Ứng dụng đã ngừng hoạt động', style: TextStyle(color: Colors.redAccent)),
+            title: Text('Ứng dụng đã ngừng hoạt động', style: TextStyle(color: Colors.redAccent)),
             content: Text(status['killMessage'] ?? 'Vui lòng liên hệ nhà phát triển.', style: const TextStyle(color: Colors.white, fontSize: 16)),
             actions: [
               TextButton(
                 onPressed: () => exit(0),
-                child: const Text('Thoát ứng dụng', style: TextStyle(color: Colors.white70)),
+                child: Text('Thoát ứng dụng', style: TextStyle(color: Colors.white70)),
               ),
             ],
           ),

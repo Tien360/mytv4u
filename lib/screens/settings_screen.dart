@@ -889,7 +889,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       showDialog(
                         context: context,
                         barrierDismissible: false,
-                        builder: (_) => const Center(child: CircularProgressIndicator()),
+                        builder: (_) => Center(child: CircularProgressIndicator()),
                       );
                       
                       final publicInfo = await UpdateApi.getPublicUpdateInfo();
@@ -920,7 +920,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
-                      builder: (_) => const Center(child: CircularProgressIndicator()),
+                      builder: (_) => Center(child: CircularProgressIndicator()),
                     );
                     
                     final updateInfo = await UpdateApi.checkForUpdate();

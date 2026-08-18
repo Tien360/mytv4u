@@ -66,7 +66,7 @@ class LibraryScreenState extends State<LibraryScreen> {
             ),
             Expanded(
               child: _isLoading
-                  ? const Center(child: CircularProgressIndicator())
+                  ? Center(child: CircularProgressIndicator())
                   : _watchlist.isEmpty
                       ? Center(
                           child: Text(

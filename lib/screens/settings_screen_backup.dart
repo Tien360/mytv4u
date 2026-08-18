@@ -205,8 +205,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           GlassContainer(
                             padding: const EdgeInsets.all(16),
                             child: SwitchListTile(
-                              title: const Text('Tăng tốc phần cứng (GPU)'),
-                              subtitle: const Text('Bật để xem mượt hơn. Tắt đi nếu xem phim bị lỗi hình ảnh hoặc văng ứng dụng.'),
+                              title: Text('Tăng tốc phần cứng (GPU)'),
+                              subtitle: Text('Bật để xem mượt hơn. Tắt đi nếu xem phim bị lỗi hình ảnh hoặc văng ứng dụng.'),
                               value: _hwAccel,
                               activeColor: Colors.redAccent,
                               onChanged: (val) async {
@@ -291,7 +291,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(width: 8),
-                                    const Text('Kích thước chữ', style: TextStyle(color: Colors.white, fontSize: 16)),
+                                    Text('Kích thước chữ', style: TextStyle(color: Colors.white, fontSize: 16)),
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Slider(
@@ -318,7 +318,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                 Row(
                                   children: [
                                     const SizedBox(width: 8),
-                                    const Text('Độ mờ nền chữ', style: TextStyle(color: Colors.white, fontSize: 16)),
+                                    Text('Độ mờ nền chữ', style: TextStyle(color: Colors.white, fontSize: 16)),
                                     const SizedBox(width: 16),
                                     Expanded(
                                       child: Slider(
@@ -521,14 +521,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             ],
                           ),
                           const SizedBox(height: 8),
-                          const Text(
+                          Text(
                             'Chọn các nguồn phim bạn muốn sử dụng. Các nguồn bị tắt sẽ không xuất hiện khi tìm kiếm và duyệt phim.',
                             style: TextStyle(color: Colors.white54, fontSize: 14),
                           ),
                           const SizedBox(height: 24),
                           
                           // Nhóm Nguồn Promax
-                          const Text(
+                          Text(
                             'Nguồn Promax',
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber),
                           ),
@@ -545,7 +545,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           const SizedBox(height: 24),
                           
                           // Nhóm Nguồn Standard
-                          const Text(
+                          Text(
                             'Nguồn Standard',
                             style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent),
                           ),
@@ -649,7 +649,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(color: Colors.green.withOpacity(0.5)),
                   ),
-                  child: const Text('Đã đồng bộ với TV4U Web', style: TextStyle(color: Colors.greenAccent, fontSize: 12, fontWeight: FontWeight.bold)),
+                  child: Text('Đã đồng bộ với TV4U Web', style: TextStyle(color: Colors.greenAccent, fontSize: 12, fontWeight: FontWeight.bold)),
                 ),
               ],
             ),
@@ -657,7 +657,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           OutlinedButton.icon(
             onPressed: _handleLogout,
             icon: const Icon(Icons.logout, size: 18),
-            label: const Text('Đăng xuất'),
+            label: Text('Đăng xuất'),
             style: OutlinedButton.styleFrom(
               foregroundColor: Colors.redAccent,
               side: const BorderSide(color: Colors.redAccent),
@@ -678,7 +678,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: [
           const Icon(Icons.cloud_sync, size: 48, color: Colors.white54),
           const SizedBox(height: 16),
-          const Text(
+          Text(
             'Đăng nhập để đồng bộ lịch sử xem phim và danh sách yêu thích của bạn giữa phiên bản Web và Ứng dụng Desktop.',
             textAlign: TextAlign.center,
             style: TextStyle(color: Colors.white70, fontSize: 15),
@@ -816,7 +816,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       showDialog(
                         context: context,
                         barrierDismissible: false,
-                        builder: (_) => const Center(child: CircularProgressIndicator()),
+                        builder: (_) => Center(child: CircularProgressIndicator()),
                       );
                       
                       final publicInfo = await UpdateApi.getPublicUpdateInfo();
@@ -835,7 +835,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       }
                     },
                     icon: const Icon(Icons.download, size: 16, color: Colors.blueAccent),
-                    label: const Text('Trở về bản Public', style: TextStyle(color: Colors.blueAccent)),
+                    label: Text('Trở về bản Public', style: TextStyle(color: Colors.blueAccent)),
                     style: OutlinedButton.styleFrom(
                       side: const BorderSide(color: Colors.blueAccent),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -847,7 +847,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     showDialog(
                       context: context,
                       barrierDismissible: false,
-                      builder: (_) => const Center(child: CircularProgressIndicator()),
+                      builder: (_) => Center(child: CircularProgressIndicator()),
                     );
                     
                     final updateInfo = await UpdateApi.checkForUpdate();
@@ -867,7 +867,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     }
                   },
                   icon: const Icon(Icons.system_update, size: 16, color: Colors.amber),
-                  label: const Text('Kiểm tra phiên bản mới', style: TextStyle(color: Colors.amber)),
+                  label: Text('Kiểm tra phiên bản mới', style: TextStyle(color: Colors.amber)),
                   style: OutlinedButton.styleFrom(
                     side: const BorderSide(color: Colors.amber),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -890,7 +890,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             child: OutlinedButton.icon(
               onPressed: _showTermsDialog,
               icon: const Icon(Icons.gavel, color: Colors.blueAccent, size: 18),
-              label: const Text('Điều khoản sử dụng & Miễn trừ trách nhiệm', style: TextStyle(color: Colors.blueAccent)),
+              label: Text('Điều khoản sử dụng & Miễn trừ trách nhiệm', style: TextStyle(color: Colors.blueAccent)),
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: Colors.blueAccent),
                 padding: const EdgeInsets.symmetric(vertical: 14),
@@ -1027,7 +1027,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                             elevation: 0,
                           ),
-                          child: const Text('Tôi đã hiểu & Đồng ý', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                          child: Text('Tôi đã hiểu & Đồng ý', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                         ),
                       ),
                     ],

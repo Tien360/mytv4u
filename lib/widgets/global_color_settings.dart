@@ -3,6 +3,7 @@ import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../utils/l10n.dart';
 class GlobalColorSettings extends StatefulWidget {
   final SharedPreferences prefs;
   final Function(Map<String, dynamic>) onSettingsChanged;
@@ -22,20 +23,20 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
   late final VideoController _previewController;
   bool _isPlayerInitialized = false;
 
-  String _preset = 'Mặc định';
+  String _preset = L10n.t('default');
   double _brightness = 0.0;
   double _contrast = 0.0;
   double _saturation = 0.0;
 
   final Map<String, Map<String, double>> _presets = {
-    'Mặc định': {'brightness': 0.0, 'contrast': 0.0, 'saturation': 0.0},
-    'Sống động': {'brightness': 5.0, 'contrast': 10.0, 'saturation': 25.0},
-    'Rạp phim': {'brightness': -5.0, 'contrast': 15.0, 'saturation': 5.0},
-    'Sáng rực': {'brightness': 20.0, 'contrast': 5.0, 'saturation': 0.0},
-    'Đen trắng': {'brightness': 0.0, 'contrast': 5.0, 'saturation': -100.0},
-    'Ấm áp': {'brightness': 0.0, 'contrast': 5.0, 'saturation': 15.0},
-    'Lạnh': {'brightness': 5.0, 'contrast': 5.0, 'saturation': -10.0},
-    'Tùy chỉnh': {},
+    L10n.t('default'): {'brightness': 0.0, 'contrast': 0.0, 'saturation': 0.0},
+    L10n.t('vivid'): {'brightness': 5.0, 'contrast': 10.0, 'saturation': 25.0},
+    L10n.t('cinema'): {'brightness': -5.0, 'contrast': 15.0, 'saturation': 5.0},
+    L10n.t('bright'): {'brightness': 20.0, 'contrast': 5.0, 'saturation': 0.0},
+    L10n.t('bw'): {'brightness': 0.0, 'contrast': 5.0, 'saturation': -100.0},
+    L10n.t('warm'): {'brightness': 0.0, 'contrast': 5.0, 'saturation': 15.0},
+    L10n.t('cool'): {'brightness': 5.0, 'contrast': 5.0, 'saturation': -10.0},
+    L10n.t('custom'): {},
   };
 
   @override
@@ -46,7 +47,7 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
   }
 
   void _loadSettings() {
-    _preset = widget.prefs.getString('color_preset') ?? 'Mặc định';
+    _preset = widget.prefs.getString('color_preset') ?? L10n.t('default');
     _brightness = widget.prefs.getDouble('color_brightness') ?? 0.0;
     _contrast = widget.prefs.getDouble('color_contrast') ?? 0.0;
     _saturation = widget.prefs.getDouble('color_saturation') ?? 0.0;
@@ -92,7 +93,7 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
   }
 
   void _onPresetSelected(String presetName) {
-    if (presetName == 'Tùy chỉnh') return;
+    if (presetName == L10n.t('custom')) return;
     setState(() {
       _preset = presetName;
       _brightness = _presets[presetName]!['brightness']!;
@@ -105,7 +106,7 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
 
   void _onSliderChanged(String type, double val) {
     setState(() {
-      _preset = 'Tùy chỉnh';
+      _preset = L10n.t('custom');
       if (type == 'brightness') _brightness = val;
       if (type == 'contrast') _contrast = val;
       if (type == 'saturation') _saturation = val;
@@ -122,7 +123,7 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Video chạy mẫu:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        Text('Video chạy mẫu:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         Container(
           height: 180,
@@ -134,10 +135,10 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
           clipBehavior: Clip.hardEdge,
           child: _isPlayerInitialized 
               ? Video(controller: _previewController, fit: BoxFit.cover)
-              : const Center(child: CircularProgressIndicator()),
+              : Center(child: CircularProgressIndicator()),
         ),
         const SizedBox(height: 16),
-        const Text('Bộ lọc có sẵn:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        Text('Bộ lọc có sẵn:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,
@@ -155,9 +156,9 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
           }).toList(),
         ),
         const SizedBox(height: 16),
-        _buildSlider('Độ sáng', _brightness, -100, 100, (v) => _onSliderChanged('brightness', v)),
-        _buildSlider('Tương phản', _contrast, -100, 100, (v) => _onSliderChanged('contrast', v)),
-        _buildSlider('Độ bão hòa màu', _saturation, -100, 100, (v) => _onSliderChanged('saturation', v)),
+        _buildSlider(L10n.t('brightness'), _brightness, -100, 100, (v) => _onSliderChanged('brightness', v)),
+        _buildSlider(L10n.t('contrast'), _contrast, -100, 100, (v) => _onSliderChanged('contrast', v)),
+        _buildSlider(L10n.t('saturation'), _saturation, -100, 100, (v) => _onSliderChanged('saturation', v)),
       ],
     );
   }

@@ -829,7 +829,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
         // Streams Display
         if (_selectedP2pEpisode != null) ...[
-          const Text(
+          Text(
             'Chọn Luồng phát (Chất lượng):',
             style: TextStyle(color: Colors.white70),
           ),
@@ -977,7 +977,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           titleSpacing: 0,
           title: Image.asset('assets/logo.png', height: 24),
         ),
-        body: const Center(child: CircularProgressIndicator()),
+        body: Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -990,7 +990,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           titleSpacing: 0,
           title: Image.asset('assets/logo.png', height: 24),
         ),
-        body: const Center(
+        body: Center(
           child: Text(
             'Không tìm thấy thông tin phim.',
             style: TextStyle(color: Colors.white),
@@ -1702,7 +1702,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           ? _vietsubServers
                                           : _tmServers;
                                       if (targetServers.isEmpty)
-                                        return const Text(
+                                        return Text(
                                           'Không có nguồn nào trong mục này.',
                                           style: TextStyle(
                                             color: Colors.white54,
@@ -2180,9 +2180,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
         // Comments List
         if (_isLoadingComments)
-          const Center(child: CircularProgressIndicator())
+          Center(child: CircularProgressIndicator())
         else if (_comments.isEmpty)
-          const Text(
+          Text(
             'Chưa có bình luận nào.',
             style: TextStyle(color: Colors.white54),
           )
@@ -2256,7 +2256,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               }
                             });
                           },
-                          child: const Text(
+                          child: Text(
                             'Trả lời',
                             style: TextStyle(
                               color: Colors.blueAccent,
@@ -2419,7 +2419,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   _visibleComments += 5;
                 });
               },
-              child: const Text(
+              child: Text(
                 'Xem thêm bình luận',
                 style: TextStyle(color: Colors.blueAccent),
               ),

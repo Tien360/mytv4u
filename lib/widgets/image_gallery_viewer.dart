@@ -88,7 +88,7 @@ class _ImageGalleryViewerState extends State<ImageGalleryViewer> {
                       child: CachedNetworkImage(
                         imageUrl: widget.images[index],
                         fit: BoxFit.contain,
-                        placeholder: (context, url) => const Center(
+                        placeholder: (context, url) => Center(
                           child: CircularProgressIndicator(color: Colors.amber),
                         ),
                         errorWidget: (context, url, error) => const Icon(

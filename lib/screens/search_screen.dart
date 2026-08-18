@@ -53,7 +53,7 @@ class SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return _isLoading
-        ? const Center(child: CircularProgressIndicator())
+        ? Center(child: CircularProgressIndicator())
         : _movies.isEmpty && _lastQuery.isNotEmpty
             ? Center(child: Text(L10n.t('search_no_results'), style: const TextStyle(color: Colors.white, fontSize: 16)))
             : GridView.builder(

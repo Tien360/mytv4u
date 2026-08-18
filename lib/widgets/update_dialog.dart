@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../models/update_info.dart';
 import '../api/update_api.dart';
 
+import '../utils/l10n.dart';
 class UpdateDialog extends StatefulWidget {
   final UpdateInfo updateInfo;
 
@@ -90,7 +91,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 const SizedBox(height: 16),
               ],
               if (!_isDownloading) ...[
-                const Text(
+                Text(
                   'Chi tiết bản cập nhật:',
                   style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold),
                 ),
@@ -100,7 +101,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                   style: const TextStyle(color: Colors.white70),
                 ),
               ] else ...[
-                const Text(
+                Text(
                   'Đang tải xuống bản cập nhật...',
                   style: TextStyle(color: Colors.white70),
                 ),
@@ -127,12 +128,12 @@ class _UpdateDialogState extends State<UpdateDialog> {
           if (!_isDownloading && !widget.updateInfo.isForceUpdate)
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('Để sau', style: TextStyle(color: Colors.white54)),
+              child: Text(L10n.t('later'), style: TextStyle(color: Colors.white54)),
             ),
           if (!_isDownloading && widget.updateInfo.isForceUpdate)
             TextButton(
               onPressed: () => exit(0),
-              child: const Text('Thoát ứng dụng', style: TextStyle(color: Colors.white54)),
+              child: Text('Thoát ứng dụng', style: TextStyle(color: Colors.white54)),
             ),
           if (!_isDownloading)
             ElevatedButton(
@@ -142,7 +143,7 @@ class _UpdateDialogState extends State<UpdateDialog> {
                 foregroundColor: Colors.black,
               ),
               child: Text(
-                widget.updateInfo.isDowngrade ? 'Hạ cấp ngay' : 'Cập nhật ngay',
+                widget.updateInfo.isDowngrade ? 'Hạ cấp ngay' : L10n.t('update_now'),
               ),
             ),
         ],
