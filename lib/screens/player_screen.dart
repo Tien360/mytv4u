@@ -64,6 +64,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   bool _isWebviewInitialized = false;
   bool _isUsingWebview = false;
   bool _isExternalPlayerActive = false;
+  SidePanelMode _activePanel = SidePanelMode.none;
 
   // Player state
   String? errorMsg;

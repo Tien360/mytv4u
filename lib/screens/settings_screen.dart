@@ -250,7 +250,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                           _buildSectionTitle(Icons.color_lens, L10n.t('global_color_settings') ?? 'Cài đặt màu toàn cục'),
                           const SizedBox(height: 16),
-                          const GlobalColorSettings(),
+                          if (_prefs != null) GlobalColorSettings(prefs: _prefs!),
                           
                           const SizedBox(height: 48),
 
