@@ -1,0 +1,2 @@
+﻿- Thêm Bộ lọc màu Video (Sống động, Rạp phim, Đen trắng...)
+- Thêm Tinh chỉnh độ trễ Phụ đề & Âm thanh.

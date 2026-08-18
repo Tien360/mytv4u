@@ -1,0 +1,2 @@
+﻿- Cơ chế tự động fallback máy chủ khi quá tải.
+- Tải cấu hình linh hoạt từ xa thông qua GitHub RAW.

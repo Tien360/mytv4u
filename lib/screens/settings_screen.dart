@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import '../api/auth_api.dart';
 import '../api/firebase_api.dart';
 import '../widgets/glass_container.dart';
+import '../widgets/global_color_settings.dart';
 import '../widgets/custom_title_bar.dart';
 import '../api/update_api.dart';
 import '../widgets/update_dialog.dart';
@@ -22,6 +23,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Map<String, String>? _currentUser;
   bool _isLoggingIn = false;
   
+  SharedPreferences? _prefs;
   Map<String, dynamic>? _appSettings;
   bool _isLoadingAppInfo = true;
   bool _hwAccel = true;
@@ -46,7 +48,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
     'phim4k': true,
     'free1': true,
     'motchill': true,
-    'torrentio': false, // Torrent is experimental, default to off
+    'torrentio': false,
+    'vidsrc': true,
+    'vidapi': true,
   };
 
   @override
@@ -57,7 +61,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
   }
 
   Future<void> _loadSettings() async {
-    final prefs = await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
+    
+    // Sync from Firebase
+    final fbSettings = await FirebaseApi.loadUserSettings();
+    if (fbSettings != null) {
+      if (fbSettings.containsKey('enabled_sources')) {
+        final sourcesList = fbSettings['enabled_sources'] as List<String>;
+        await _prefs!.setStringList('enabled_sources', sourcesList);
+      }
+      if (fbSettings.containsKey('enable_hw_accel')) await _prefs!.setBool('enable_hw_accel', fbSettings['enable_hw_accel']);
+      if (fbSettings.containsKey('sub_size')) await _prefs!.setDouble('sub_size', fbSettings['sub_size']);
+      if (fbSettings.containsKey('sub_opacity')) await _prefs!.setDouble('sub_opacity', fbSettings['sub_opacity']);
+      if (fbSettings.containsKey('sub_color')) await _prefs!.setString('sub_color', fbSettings['sub_color']);
+      if (fbSettings.containsKey('sub_font')) await _prefs!.setString('sub_font', fbSettings['sub_font']);
+      if (fbSettings.containsKey('auto_next')) await _prefs!.setBool('auto_next', fbSettings['auto_next']);
+      if (fbSettings.containsKey('auto_play_trailer')) await _prefs!.setBool('auto_play_trailer', fbSettings['auto_play_trailer']);
+      if (fbSettings.containsKey('default_speed')) await _prefs!.setDouble('default_speed', fbSettings['default_speed']);
+      if (fbSettings.containsKey('watch_limit')) await _prefs!.setInt('watch_limit', fbSettings['watch_limit']);
+      if (fbSettings.containsKey('app_lang')) await _prefs!.setString('app_lang', fbSettings['app_lang']);
+      if (fbSettings.containsKey('background_playback')) await _prefs!.setBool('background_playback', fbSettings['background_playback']);
+      if (fbSettings.containsKey('color_preset')) await _prefs!.setString('color_preset', fbSettings['color_preset']);
+      if (fbSettings.containsKey('color_brightness')) await _prefs!.setDouble('color_brightness', fbSettings['color_brightness']);
+      if (fbSettings.containsKey('color_contrast')) await _prefs!.setDouble('color_contrast', fbSettings['color_contrast']);
+      if (fbSettings.containsKey('color_saturation')) await _prefs!.setDouble('color_saturation', fbSettings['color_saturation']);
+    }
+
+    final prefs = _prefs!;
     
     // Tải cấu hình nguồn phim
     final enabledSources = prefs.getStringList('enabled_sources');
@@ -110,10 +140,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
+    void _syncToFirebase() {
+    if (_prefs == null) return;
+    final keys = [
+      'enabled_sources', 'enable_hw_accel', 'sub_size', 'sub_opacity', 'sub_color', 'sub_font',
+      'auto_next', 'auto_play_trailer', 'default_speed', 'watch_limit', 'app_lang', 'background_playback',
+      'color_preset', 'color_brightness', 'color_contrast', 'color_saturation'
+    ];
+    final Map<String, dynamic> data = {};
+    for (final key in keys) {
+      final val = _prefs!.get(key);
+      if (val != null) data[key] = val;
+    }
+    FirebaseApi.saveUserSettings(data);
+  }
+
   Future<void> _saveSources() async {
     final prefs = await SharedPreferences.getInstance();
     final enabledList = _sources.entries.where((e) => e.value).map((e) => e.key).toList();
     await prefs.setStringList('enabled_sources', enabledList);
+    _syncToFirebase();
   }
 
   Future<void> _handleLogin() async {
@@ -287,7 +333,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         onChanged: (val) async {
                                           setState(() => _subSize = val);
                                           final prefs = await SharedPreferences.getInstance();
-                                          await prefs.setDouble('sub_size', val);
+                                          await prefs.setDouble('sub_size', val); _syncToFirebase();
                                         },
                                       ),
                                     ),
@@ -314,7 +360,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         onChanged: (val) async {
                                           setState(() => _subOpacity = val);
                                           final prefs = await SharedPreferences.getInstance();
-                                          await prefs.setDouble('sub_opacity', val);
+                                          await prefs.setDouble('sub_opacity', val); _syncToFirebase();
                                         },
                                       ),
                                     ),
@@ -345,7 +391,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         if (val != null) {
                                           setState(() => _subColor = val);
                                           final prefs = await SharedPreferences.getInstance();
-                                          await prefs.setString('sub_color', val);
+                                          await prefs.setString('sub_color', val); _syncToFirebase();
                                         }
                                       },
                                     ),
@@ -372,7 +418,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         if (val != null) {
                                           setState(() => _subFont = val);
                                           final prefs = await SharedPreferences.getInstance();
-                                          await prefs.setString('sub_font', val);
+                                          await prefs.setString('sub_font', val); _syncToFirebase();
                                         }
                                       },
                                     ),
@@ -428,7 +474,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   onChanged: (val) async {
                                     setState(() => _autoNext = val);
                                     final prefs = await SharedPreferences.getInstance();
-                                    await prefs.setBool('auto_next', val);
+                                    await prefs.setBool('auto_next', val); _syncToFirebase();
                                   },
                                 ),
                                 const Divider(color: Colors.white12, height: 1),
@@ -439,7 +485,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   onChanged: (val) async {
                                     setState(() => _autoPlayTrailer = val);
                                     final prefs = await SharedPreferences.getInstance();
-                                    await prefs.setBool('auto_play_trailer', val);
+                                    await prefs.setBool('auto_play_trailer', val); _syncToFirebase();
                                   },
                                 ),
                                 const Divider(color: Colors.white12, height: 1),
@@ -460,7 +506,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                       if (val != null) {
                                         setState(() => _defaultSpeed = val);
                                         final prefs = await SharedPreferences.getInstance();
-                                        await prefs.setDouble('default_speed', val);
+                                        await prefs.setDouble('default_speed', val); _syncToFirebase();
                                       }
                                     },
                                   ),
@@ -473,7 +519,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   activeColor: Colors.redAccent,
                                   onChanged: (val) async {
                                     final prefs = await SharedPreferences.getInstance();
-                                    await prefs.setBool('enable_hw_accel', val);
+                                    await prefs.setBool('enable_hw_accel', val); _syncToFirebase();
                                     setState(() {
                                       _hwAccel = val;
                                     });

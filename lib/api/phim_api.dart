@@ -1235,7 +1235,7 @@ class PhimApi {
       }
 
 
-      if (enabledSources.contains('torrentio') && initialMovie != null) {
+      if ((enabledSources.contains('torrentio') || enabledSources.contains('vidsrc') || enabledSources.contains('vidapi')) && initialMovie != null) {
         futures.add(() async {
           try {
             String imdbId = initialMovie.sourceSlugs['torrentio'] ??
@@ -1336,9 +1336,9 @@ class PhimApi {
                 return;
               }
 
-              final servers = await TorrentioApi.fetchStreams(imdbId);
+              final servers = enabledSources.contains('torrentio') ? await TorrentioApi.fetchStreams(imdbId) : <EpisodeServer>[];
               
-              final vidsrcServer = tmdbId != null ? EpisodeServer(
+              final vidsrcServer = (tmdbId != null && enabledSources.contains('vidsrc')) ? EpisodeServer(
                   serverName: 'VidSrc (Embed)',
                   items: [
                     Episode(
@@ -1350,7 +1350,7 @@ class PhimApi {
                   ],
                 ) : null;
                 
-                final vidApiServer = EpisodeServer(
+                final vidApiServer = enabledSources.contains('vidapi') ? EpisodeServer(
                   serverName: 'VidAPI (Embed)',
                   items: [
                     Episode(
@@ -1364,7 +1364,7 @@ class PhimApi {
                 
                 if (servers.isNotEmpty) {
                   if (vidsrcServer != null) servers.add(vidsrcServer);
-                  servers.add(vidApiServer);
+                  if (vidApiServer != null) servers.add(vidApiServer as EpisodeServer);
                   serversMap[9] = servers;
                   processAndEmit();
                 } else {

@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 void main() async {
-  String version = '26.08.18.c.beta';
-  String notes = '- Thêm chế độ Picture-in-Picture.\n- Tuỳ chọn Phát dưới nền.';
+  String version = '26.08.18.d.beta';
+  String notes = '- Thêm Bộ lọc màu Video (Sống động, Rạp phim, Đen trắng...)\n- Thêm Tinh chỉnh độ trễ Phụ đề & Âm thanh.';
   String channel = 'beta';
 
   final url = Uri.parse('https://firestore.googleapis.com/v1/projects/tv4u-ec4ae/databases/(default)/documents/updates/$channel');

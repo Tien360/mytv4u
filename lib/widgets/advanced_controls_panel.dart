@@ -1,152 +1,184 @@
-import 'package:flutter/material.dart';
+﻿import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
-import 'package:mytv4u_flutter/widgets/glass_container.dart';
+import 'glass_container.dart';
 
-class AdvancedControlsTab extends StatefulWidget {
+enum SidePanelMode { none, color, subtitle, audio }
+
+class SideControlPanel extends StatefulWidget {
   final Player player;
-  
+  final SidePanelMode mode;
+  final VoidCallback onClose;
 
-  const AdvancedControlsTab({
-    Key? key,
+  const SideControlPanel({
+    super.key,
     required this.player,
-    
-  }) : super(key: key);
+    required this.mode,
+    required this.onClose,
+  });
 
   @override
-  State<AdvancedControlsTab> createState() => _AdvancedControlsTabState();
+  State<SideControlPanel> createState() => _SideControlPanelState();
 }
 
-class _AdvancedControlsTabState extends State<AdvancedControlsTab> {
-  double _brightness = 0;
-  double _contrast = 0;
-  double _saturation = 0;
-  double _audioDelay = 0;
-  double _subDelay = 0;
+class _SideControlPanelState extends State<SideControlPanel> {
+  String _preset = 'Mặc định';
+  double _brightness = 0.0;
+  double _contrast = 0.0;
+  double _saturation = 0.0;
+  
+  double _subDelay = 0.0;
+  double _audioDelay = 0.0;
 
-  // Cấu hình các bộ lọc mẫu
   final Map<String, Map<String, double>> _presets = {
-    'Mặc định': {'brightness': 0, 'contrast': 0, 'saturation': 0},
-    'Sống động': {'brightness': 5, 'contrast': 10, 'saturation': 20},
-    'Rạp phim': {'brightness': -5, 'contrast': 15, 'saturation': -5},
-    'Sáng rực': {'brightness': 15, 'contrast': 5, 'saturation': 10},
-    'Đen trắng': {'brightness': 0, 'contrast': 0, 'saturation': -100},
+    'Mặc định': {'brightness': 0.0, 'contrast': 0.0, 'saturation': 0.0},
+    'Sống động': {'brightness': 5.0, 'contrast': 10.0, 'saturation': 25.0},
+    'Rạp phim': {'brightness': -5.0, 'contrast': 15.0, 'saturation': 5.0},
+    'Sáng rực': {'brightness': 20.0, 'contrast': 5.0, 'saturation': 0.0},
+    'Đen trắng': {'brightness': 0.0, 'contrast': 5.0, 'saturation': -100.0},
+    'Ấm áp': {'brightness': 0.0, 'contrast': 5.0, 'saturation': 15.0},
+    'Lạnh': {'brightness': 5.0, 'contrast': 5.0, 'saturation': -10.0},
+    'Tùy chỉnh': {},
   };
-  String _selectedPreset = 'Mặc định';
 
-  Future<void> _setMpvProperty(String name, String value) async {
+  @override
+  void initState() {
+    super.initState();
+    _loadProperties();
+  }
+
+  void _loadProperties() {
+    // MediaKit MPV doesn't easily expose getters for these dynamically without async.
+    // In a real app we'd track these in the parent. For now, default to 0.
+  }
+
+  void _applyPropertiesToPlayer() {
     try {
-      final dynamic platform = widget.player.platform;
-      await platform.setProperty(name, value);
-    } catch (e) {
-      print('Lỗi setProperty $name: $e');
-    }
+      (widget.player.platform as dynamic).setProperty('brightness', _brightness.toString());
+      (widget.player.platform as dynamic).setProperty('contrast', _contrast.toString());
+      (widget.player.platform as dynamic).setProperty('saturation', _saturation.toString());
+    } catch (e) {}
+  }
+  
+  void _applyDelay(String type, double val) {
+    try {
+      (widget.player.platform as dynamic).setProperty(type, (val / 1000.0).toString());
+    } catch (e) {}
   }
 
-  void _applyPreset(String name) {
-    if (!_presets.containsKey(name)) return;
-    final preset = _presets[name]!;
-    
+  void _onPresetSelected(String presetName) {
+    if (presetName == 'Tùy chỉnh') return;
     setState(() {
-      _selectedPreset = name;
-      _brightness = preset['brightness']!;
-      _contrast = preset['contrast']!;
-      _saturation = preset['saturation']!;
+      _preset = presetName;
+      _brightness = _presets[presetName]!['brightness']!;
+      _contrast = _presets[presetName]!['contrast']!;
+      _saturation = _presets[presetName]!['saturation']!;
+      _applyPropertiesToPlayer();
     });
-
-    _setMpvProperty('brightness', _brightness.toInt().toString());
-    _setMpvProperty('contrast', _contrast.toInt().toString());
-    _setMpvProperty('saturation', _saturation.toInt().toString());
   }
 
-  void _resetDelay() {
+  void _onSliderChanged(String type, double val) {
     setState(() {
-      _audioDelay = 0;
-      _subDelay = 0;
+      if (type == 'brightness') { _brightness = val; _preset = 'Tùy chỉnh'; }
+      if (type == 'contrast') { _contrast = val; _preset = 'Tùy chỉnh'; }
+      if (type == 'saturation') { _saturation = val; _preset = 'Tùy chỉnh'; }
+      if (type == 'sub-delay') { _subDelay = val; _applyDelay(type, val); return; }
+      if (type == 'audio-delay') { _audioDelay = val; _applyDelay(type, val); return; }
+      _applyPropertiesToPlayer();
     });
-    _setMpvProperty('audio-delay', '0');
-    _setMpvProperty('sub-delay', '0');
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
+    String title = 'Điều chỉnh';
+    if (widget.mode == SidePanelMode.color) title = 'Màu sắc Video';
+    if (widget.mode == SidePanelMode.subtitle) title = 'Đồng bộ Phụ đề';
+    if (widget.mode == SidePanelMode.audio) title = 'Đồng bộ Âm thanh';
+
+    return Container(
+      width: 350,
+      height: double.infinity,
+      color: Colors.black.withOpacity(0.85),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-const Text('Màu sắc Video', style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold)),
-                  const SizedBox(height: 12),
-                  
-                  // Presets
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: _presets.keys.map((name) {
-                        final isSelected = _selectedPreset == name;
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 8),
-                          child: ChoiceChip(
-                            label: Text(name, style: TextStyle(color: isSelected ? Colors.white : Colors.white70)),
-                            selected: isSelected,
-                            selectedColor: Colors.blueAccent,
-                            backgroundColor: Colors.white10,
-                            onSelected: (val) => _applyPreset(name),
-                          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: const BoxDecoration(
+              border: Border(bottom: BorderSide(color: Colors.white24, width: 1)),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                IconButton(icon: const Icon(Icons.close, color: Colors.white), onPressed: widget.onClose),
+              ],
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (widget.mode == SidePanelMode.color) ...[
+                    const Text('Bộ lọc:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 8),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: _presets.keys.map((p) {
+                        final isSelected = p == _preset;
+                        return ChoiceChip(
+                          label: Text(p),
+                          selected: isSelected,
+                          selectedColor: Colors.blueAccent,
+                          backgroundColor: Colors.white10,
+                          labelStyle: TextStyle(color: isSelected ? Colors.white : Colors.white70),
+                          onSelected: (val) => _onPresetSelected(p),
                         );
                       }).toList(),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  
-                  // Sliders
-                  _buildSlider('Độ sáng', _brightness, -100, 100, (val) {
-                    setState(() {
-                      _brightness = val;
-                      _selectedPreset = 'Tùy chỉnh';
-                    });
-                    _setMpvProperty('brightness', val.toInt().toString());
-                  }),
-                  _buildSlider('Tương phản', _contrast, -100, 100, (val) {
-                    setState(() {
-                      _contrast = val;
-                      _selectedPreset = 'Tùy chỉnh';
-                    });
-                    _setMpvProperty('contrast', val.toInt().toString());
-                  }),
-                  _buildSlider('Bão hòa', _saturation, -100, 100, (val) {
-                    setState(() {
-                      _saturation = val;
-                      _selectedPreset = 'Tùy chỉnh';
-                    });
-                    _setMpvProperty('saturation', val.toInt().toString());
-                  }),
-                  
-                  const Divider(color: Colors.white24, height: 32),
-                  
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('Đồng bộ (Audio/Sub)', style: TextStyle(color: Colors.orangeAccent, fontWeight: FontWeight.bold)),
-                      TextButton(onPressed: _resetDelay, child: const Text('Reset', style: TextStyle(color: Colors.white54))),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  
-                  _buildSlider('Trễ Âm thanh', _audioDelay, -5, 5, (val) {
-                    setState(() => _audioDelay = val);
-                    _setMpvProperty('audio-delay', val.toStringAsFixed(2));
-                  }, isFloat: true),
-                  
-                  _buildSlider('Trễ Phụ đề', _subDelay, -5, 5, (val) {
-                    setState(() => _subDelay = val);
-                    _setMpvProperty('sub-delay', val.toStringAsFixed(2));
-                  }, isFloat: true),
+                    const SizedBox(height: 24),
+                    _buildSlider('Độ sáng', _brightness, -100, 100, (v) => _onSliderChanged('brightness', v)),
+                    _buildSlider('Tương phản', _contrast, -100, 100, (v) => _onSliderChanged('contrast', v)),
+                    _buildSlider('Độ bão hòa màu', _saturation, -100, 100, (v) => _onSliderChanged('saturation', v)),
+                  ],
+                  if (widget.mode == SidePanelMode.subtitle) ...[
+                    const Text('Chỉnh độ trễ hiển thị phụ đề so với video. Số âm (-) nghĩa là phụ đề hiện sớm hơn.', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    const SizedBox(height: 16),
+                    _buildSlider('Độ trễ (ms)', _subDelay, -5000, 5000, (v) => _onSliderChanged('sub-delay', v), isMs: true),
+                    const SizedBox(height: 8),
+                    Center(
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.restore),
+                        label: const Text('Mặc định (0 ms)'),
+                        onPressed: () => _onSliderChanged('sub-delay', 0),
+                      ),
+                    ),
+                  ],
+                  if (widget.mode == SidePanelMode.audio) ...[
+                    const Text('Chỉnh độ trễ âm thanh so với video. Số âm (-) nghĩa là âm thanh phát sớm hơn.', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                    const SizedBox(height: 16),
+                    _buildSlider('Độ trễ (ms)', _audioDelay, -5000, 5000, (v) => _onSliderChanged('audio-delay', v), isMs: true),
+                    const SizedBox(height: 8),
+                    Center(
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.restore),
+                        label: const Text('Mặc định (0 ms)'),
+                        onPressed: () => _onSliderChanged('audio-delay', 0),
+                      ),
+                    ),
+                  ],
                 ],
               ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildSlider(String label, double value, double min, double max, Function(double) onChanged, {bool isFloat = false}) {
+  Widget _buildSlider(String label, double value, double min, double max, Function(double) onChanged, {bool isMs = false}) {
+    String valStr = isMs ? ' ms' : '';
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -154,18 +186,19 @@ const Text('Màu sắc Video', style: TextStyle(color: Colors.blueAccent, fontWe
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(label, style: const TextStyle(color: Colors.white70, fontSize: 13)),
-            Text(isFloat ? '${value > 0 ? '+' : ''}${value.toStringAsFixed(1)}s' : '${value > 0 ? '+' : ''}${value.toInt()}', style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
+            Text(valStr, style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
           ],
         ),
         Slider(
           value: value,
           min: min,
           max: max,
-          divisions: isFloat ? ((max - min) * 10).toInt() : (max - min).toInt(),
-          activeColor: isFloat ? Colors.orangeAccent : Colors.blueAccent,
+          divisions: isMs ? (max - min) ~/ 100 : (max - min).toInt(),
+          activeColor: Colors.blueAccent,
           inactiveColor: Colors.white24,
           onChanged: onChanged,
         ),
+        const SizedBox(height: 16),
       ],
     );
   }

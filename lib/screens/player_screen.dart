@@ -922,7 +922,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
               borderColor: const Color(0x33FFFFFF),
               blur: 40.0,
               child: DefaultTabController(
-                length: 6,
+                length: 5,
                 child: Column(
                   children: [
                     // Header with Tabs
