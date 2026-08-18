@@ -51,6 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (key.currentContext != null) {
       Scrollable.ensureVisible(
         key.currentContext!,
+        alignment: 0.0, // Top align
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
@@ -75,10 +76,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       padding: const EdgeInsets.symmetric(vertical: 24),
       children: [
         _buildSidebarItem(L10n.t('sync_account') ?? 'Tài khoản', Icons.account_circle, _accountKey),
-        _buildSidebarItem(L10n.t('global_color_settings') ?? 'Màu sắc', Icons.color_lens, _colorKey),
-        _buildSidebarItem(L10n.t('subtitles') ?? 'Phụ đề', Icons.subtitles, _subtitleKey),
         _buildSidebarItem(L10n.t('health_utilities') ?? 'Hệ thống', Icons.settings_suggest, _systemKey),
         _buildSidebarItem(L10n.t('sources') ?? 'Nguồn phim', Icons.source, _sourcesKey),
+        _buildSidebarItem(L10n.t('global_color_settings') ?? 'Màu sắc', Icons.color_lens, _colorKey),
+        _buildSidebarItem(L10n.t('subtitles') ?? 'Phụ đề', Icons.subtitles, _subtitleKey),
         _buildSidebarItem(L10n.t('info_contact') ?? 'Thông tin', Icons.info_outline, _infoKey),
       ],
     );
@@ -329,6 +330,126 @@ SizedBox(key: _accountKey),
                           else
                             _buildLoginCard(),
                           
+                          const SizedBox(height: 48),
+
+SizedBox(key: _systemKey),
+                          _buildSectionTitle(Icons.health_and_safety, L10n.t('health_utilities')),
+                          const SizedBox(height: 16),
+                          GlassContainer(
+                            padding: const EdgeInsets.all(16),
+                            child: ListTile(
+                                  title: Text(L10n.t('watch_limit'), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                  trailing: DropdownButton<int>(
+                                    value: _watchLimit,
+                                    dropdownColor: Colors.black87,
+                                    style: const TextStyle(color: Colors.amber, fontSize: 16),
+                                    underline: const SizedBox(),
+                                    items: [
+                                      DropdownMenuItem(value: 0, child: Text(L10n.t('limit_off'))),
+                                      DropdownMenuItem(value: 60, child: Text('60 ${L10n.t('limit_minutes')}')),
+                                      DropdownMenuItem(value: 90, child: Text('90 ${L10n.t('limit_minutes')}')),
+                                      DropdownMenuItem(value: 120, child: Text('120 ${L10n.t('limit_minutes')}')),
+                                      DropdownMenuItem(value: 180, child: Text('180 ${L10n.t('limit_minutes')}')),
+                                    ],
+                                    onChanged: (val) async {
+                                      if (val != null) {
+                                        setState(() => _watchLimit = val);
+                                        final prefs = await SharedPreferences.getInstance();
+                                        await prefs.setInt('watch_limit', val);
+                                      }
+                                    },
+                                  ),
+                                ),
+                          ),
+
+                          const SizedBox(height: 48),
+                          
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(key: _sourcesKey),
+                              _buildSectionTitle(Icons.source, L10n.t('movie_sources')),
+                              TextButton.icon(
+                                onPressed: () {
+                                  bool allSelected = _sources.values.every((v) => v);
+                                  setState(() {
+                                    for (var key in _sources.keys) {
+                                      _sources[key] = !allSelected;
+                                    }
+                                  });
+                                  _saveSources();
+                                },
+                                icon: Icon(
+                                  _sources.values.every((v) => v) ? Icons.deselect : Icons.select_all,
+                                  color: Colors.white70,
+                                ),
+                                label: Text(
+                                  _sources.values.every((v) => v) ? L10n.t('deselect_all') : L10n.t('select_all'),
+                                  style: const TextStyle(color: Colors.white70),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            L10n.t('sources_desc'),
+                            style: const TextStyle(color: Colors.white54, fontSize: 14),
+                          ),
+                          const SizedBox(height: 24),
+                          
+                          // Nhóm Nguồn Promax
+                          Text(
+                            L10n.t('source_promax'),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber),
+                          ),
+                          const SizedBox(height: 12),
+                          Wrap(
+                            spacing: 16,
+                            runSpacing: 16,
+                            children: _sources.keys
+                                .where((key) => key == 'premium' || key == 'torrentio')
+                                .map((key) => _buildModernSourceCard(key))
+                                .toList(),
+                          ),
+                          
+                          const SizedBox(height: 24),
+                          
+                          // Nhóm Nguồn Standard
+                          Text(
+                            L10n.t('source_standard'),
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent),
+                          ),
+                          const SizedBox(height: 12),
+                          Wrap(
+                            spacing: 16,
+                            runSpacing: 16,
+                            children: _sources.keys
+                                .where((key) => key != 'premium' && key != 'torrentio')
+                                .map((key) => _buildModernSourceCard(key))
+                                .toList(),
+                          ),
+
+                          const SizedBox(height: 48),
+
+                          _buildSectionTitle(Icons.keyboard, L10n.t('shortcuts')),
+                          const SizedBox(height: 16),
+                          GlassContainer(
+                            padding: const EdgeInsets.all(20),
+                            child: Column(
+                              children: [
+                                _buildShortcutRow('F11', L10n.t('shortcut_fullscreen')),
+                                const Divider(color: Colors.white12, height: 32),
+                                _buildShortcutRow('ESC', L10n.t('shortcut_escape')),
+                                const Divider(color: Colors.white12, height: 32),
+                                _buildShortcutRow('Space (Cách)', L10n.t('shortcut_play_pause')),
+                                const Divider(color: Colors.white12, height: 32),
+                                _buildShortcutRow('F', L10n.t('shortcut_zoom')),
+                                const Divider(color: Colors.white12, height: 32),
+                                _buildShortcutRow('Mũi tên Trái / Phải', L10n.t('shortcut_seek')),
+                              ],
+                            ),
+                          ),
+
                           const SizedBox(height: 48),
 
 SizedBox(key: _colorKey),
@@ -622,125 +743,7 @@ SizedBox(key: _subtitleKey),
                           
                           const SizedBox(height: 48),
 
-                          _buildSectionTitle(Icons.health_and_safety, L10n.t('health_utilities')),
-                          const SizedBox(height: 16),
-                          GlassContainer(
-                            padding: const EdgeInsets.all(16),
-                            child: ListTile(
-                                  title: Text(L10n.t('watch_limit'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                  trailing: DropdownButton<int>(
-                                    value: _watchLimit,
-                                    dropdownColor: Colors.black87,
-                                    style: const TextStyle(color: Colors.amber, fontSize: 16),
-                                    underline: const SizedBox(),
-                                    items: [
-                                      DropdownMenuItem(value: 0, child: Text(L10n.t('limit_off'))),
-                                      DropdownMenuItem(value: 60, child: Text('60 ${L10n.t('limit_minutes')}')),
-                                      DropdownMenuItem(value: 90, child: Text('90 ${L10n.t('limit_minutes')}')),
-                                      DropdownMenuItem(value: 120, child: Text('120 ${L10n.t('limit_minutes')}')),
-                                      DropdownMenuItem(value: 180, child: Text('180 ${L10n.t('limit_minutes')}')),
-                                    ],
-                                    onChanged: (val) async {
-                                      if (val != null) {
-                                        setState(() => _watchLimit = val);
-                                        final prefs = await SharedPreferences.getInstance();
-                                        await prefs.setInt('watch_limit', val);
-                                      }
-                                    },
-                                  ),
-                                ),
-                          ),
-
-                          const SizedBox(height: 48),
-                          
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildSectionTitle(Icons.source, L10n.t('movie_sources')),
-                              TextButton.icon(
-                                onPressed: () {
-                                  bool allSelected = _sources.values.every((v) => v);
-                                  setState(() {
-                                    for (var key in _sources.keys) {
-                                      _sources[key] = !allSelected;
-                                    }
-                                  });
-                                  _saveSources();
-                                },
-                                icon: Icon(
-                                  _sources.values.every((v) => v) ? Icons.deselect : Icons.select_all,
-                                  color: Colors.white70,
-                                ),
-                                label: Text(
-                                  _sources.values.every((v) => v) ? L10n.t('deselect_all') : L10n.t('select_all'),
-                                  style: const TextStyle(color: Colors.white70),
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            L10n.t('sources_desc'),
-                            style: const TextStyle(color: Colors.white54, fontSize: 14),
-                          ),
-                          const SizedBox(height: 24),
-                          
-                          // Nhóm Nguồn Promax
-                          Text(
-                            L10n.t('source_promax'),
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber),
-                          ),
-                          const SizedBox(height: 12),
-                          Wrap(
-                            spacing: 16,
-                            runSpacing: 16,
-                            children: _sources.keys
-                                .where((key) => key == 'premium' || key == 'torrentio')
-                                .map((key) => _buildModernSourceCard(key))
-                                .toList(),
-                          ),
-                          
-                          const SizedBox(height: 24),
-                          
-                          // Nhóm Nguồn Standard
-                          Text(
-                            L10n.t('source_standard'),
-                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent),
-                          ),
-                          const SizedBox(height: 12),
-                          Wrap(
-                            spacing: 16,
-                            runSpacing: 16,
-                            children: _sources.keys
-                                .where((key) => key != 'premium' && key != 'torrentio')
-                                .map((key) => _buildModernSourceCard(key))
-                                .toList(),
-                          ),
-
-                          const SizedBox(height: 48),
-
-                          _buildSectionTitle(Icons.keyboard, L10n.t('shortcuts')),
-                          const SizedBox(height: 16),
-                          GlassContainer(
-                            padding: const EdgeInsets.all(20),
-                            child: Column(
-                              children: [
-                                _buildShortcutRow('F11', L10n.t('shortcut_fullscreen')),
-                                const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('ESC', L10n.t('shortcut_escape')),
-                                const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('Space (Cách)', L10n.t('shortcut_play_pause')),
-                                const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('F', L10n.t('shortcut_zoom')),
-                                const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('Mũi tên Trái / Phải', L10n.t('shortcut_seek')),
-                              ],
-                            ),
-                          ),
-
-                          const SizedBox(height: 48),
-
-SizedBox(key: _infoKey),
+                          SizedBox(key: _infoKey),
                           _buildSectionTitle(Icons.info_outline, L10n.t('info_contact')),
                           const SizedBox(height: 16),
                           _buildAppInfoCard(),
