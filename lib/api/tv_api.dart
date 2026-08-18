@@ -20,6 +20,26 @@ class TvChannel {
     this.description = '',
   });
 
+  TvChannel copyWith({
+    String? id,
+    String? name,
+    String? category,
+    String? logo,
+    String? streamUrl,
+    String? webUrl,
+    String? description,
+  }) {
+    return TvChannel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      category: category ?? this.category,
+      logo: logo ?? this.logo,
+      streamUrl: streamUrl ?? this.streamUrl,
+      webUrl: webUrl ?? this.webUrl,
+      description: description ?? this.description,
+    );
+  }
+
   factory TvChannel.fromJson(Map<String, dynamic> json) {
     return TvChannel(
       id: json['id'] ?? json['name'] ?? '',
@@ -721,15 +741,22 @@ class TvApi {
                 mappedCategory = 'Kênh Thể Thao';
               }
 
-              if ((streamUrl.isNotEmpty || webUrl.isNotEmpty) && !channels.any((c) => (streamUrl.isNotEmpty && c.streamUrl == streamUrl) || c.name == name)) {
-                channels.add(TvChannel(
-                  id: 'tl_$name',
-                  name: name,
-                  category: mappedCategory,
-                  logo: logo,
-                  streamUrl: streamUrl,
-                  webUrl: webUrl,
-                ));
+              if ((streamUrl.isNotEmpty || webUrl.isNotEmpty)) {
+                int existingIdx = channels.indexWhere((c) => (streamUrl.isNotEmpty && c.streamUrl == streamUrl) || c.name == name);
+                if (existingIdx != -1) {
+                  if (channels[existingIdx].logo.isEmpty && logo.isNotEmpty) {
+                    channels[existingIdx] = channels[existingIdx].copyWith(logo: logo);
+                  }
+                } else {
+                  channels.add(TvChannel(
+                    id: 'tl_$name',
+                    name: name,
+                    category: mappedCategory,
+                    logo: logo,
+                    streamUrl: streamUrl,
+                    webUrl: webUrl,
+                  ));
+                }
               }
             }
           }

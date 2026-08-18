@@ -300,18 +300,17 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         });
       }
 
-      if (movie.posterUrl.isEmpty || movie.posterUrl == movie.thumbUrl) {
-        final backdrop = await PhimApi.getMovieTmdbBackdrop(
-          movie.name,
-          movie.originalName,
-          movie.year,
-          isTvSeries,
-        );
-        if (mounted && backdrop != null && backdrop.isNotEmpty) {
-          setState(() {
-            _movie = movie.copyWith(posterUrl: backdrop);
-          });
-        }
+      // Luôn cố gắng lấy backdrop chất lượng cao từ TMDB để làm poster ngang
+      final backdrop = await PhimApi.getMovieTmdbBackdrop(
+        movie.name,
+        movie.originalName,
+        movie.year,
+        isTvSeries,
+      );
+      if (mounted && backdrop != null && backdrop.isNotEmpty) {
+        setState(() {
+          _movie = movie.copyWith(posterUrl: backdrop);
+        });
       }
     } catch (e) {
       print('Fetch TMDB rating/backdrop error: $e');

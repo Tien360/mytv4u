@@ -25,6 +25,8 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
 
   final GlobalKey<ExploreScreenState> _exploreKey = GlobalKey<ExploreScreenState>();
   final GlobalKey<SearchScreenState> _searchKey = GlobalKey<SearchScreenState>();
+  final GlobalKey<TvScreenState> _tvKey = GlobalKey<TvScreenState>();
+  final GlobalKey<SportScreenState> _sportKey = GlobalKey<SportScreenState>();
   final TextEditingController _searchController = TextEditingController();
   late List<Widget> _screens;
   bool _isSidebarCollapsed = false;
@@ -44,8 +46,8 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
       ),
       ExploreScreen(key: _exploreKey),
       SearchScreen(key: _searchKey),
-      const TvScreen(key: PageStorageKey('TvScreen')),
-      const SportScreen(key: PageStorageKey('SportScreen')),
+      TvScreen(key: _tvKey),
+      SportScreen(key: _sportKey),
       const LibraryScreen(key: PageStorageKey('LibraryScreen')),
     ];
     windowManager.addListener(this);
@@ -263,18 +265,36 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                     child: TextField(
                       controller: _searchController,
                       style: const TextStyle(color: Colors.white, fontSize: 14),
-                      decoration: const InputDecoration(
-                        hintText: 'Tìm kiếm phim...',
-                        hintStyle: TextStyle(color: Colors.white38, fontSize: 14),
+                      decoration: InputDecoration(
+                        hintText: _selectedIndex == 3 ? 'Tìm kiếm kênh TV...' : _selectedIndex == 4 ? 'Tìm kiếm sự kiện thể thao...' : 'Tìm kiếm phim...',
+                        hintStyle: const TextStyle(color: Colors.white38, fontSize: 14),
                         border: InputBorder.none,
-                        contentPadding: EdgeInsets.symmetric(vertical: 9), // Better hit area
+                        contentPadding: const EdgeInsets.symmetric(vertical: 9),
                         isDense: true,
                       ),
                       onChanged: (query) {
-                        if (_selectedIndex != 2) {
-                          setState(() => _selectedIndex = 2);
+                        if (_selectedIndex == 3) {
+                          _tvKey.currentState?.performSearch(query);
+                        } else if (_selectedIndex == 4) {
+                          _sportKey.currentState?.performSearch(query);
+                        } else {
+                          if (_selectedIndex != 2) {
+                            setState(() => _selectedIndex = 2);
+                          }
+                          _searchKey.currentState?.performSearch(query);
                         }
-                        _searchKey.currentState?.performSearch(query);
+                      },
+                      onSubmitted: (value) {
+                        if (_selectedIndex == 3) {
+                          _tvKey.currentState?.performSearch(value);
+                        } else if (_selectedIndex == 4) {
+                          _sportKey.currentState?.performSearch(value);
+                        } else {
+                          if (_selectedIndex != 2) {
+                            setState(() => _selectedIndex = 2);
+                          }
+                          _searchKey.currentState?.performSearch(value);
+                        }
                       },
                     ),
                   ),
@@ -284,7 +304,11 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                       onPressed: () {
                         _searchController.clear();
                         setState(() {});
-                        if (_selectedIndex == 2) {
+                        if (_selectedIndex == 3) {
+                          _tvKey.currentState?.performSearch('');
+                        } else if (_selectedIndex == 4) {
+                          _sportKey.currentState?.performSearch('');
+                        } else if (_selectedIndex == 2) {
                           _searchKey.currentState?.performSearch('');
                         }
                       },

@@ -9,21 +9,36 @@ class TvScreen extends StatefulWidget {
   const TvScreen({Key? key}) : super(key: key);
 
   @override
-  State<TvScreen> createState() => _TvScreenState();
+  State<TvScreen> createState() => TvScreenState();
 }
 
-class _TvScreenState extends State<TvScreen> {
+class TvScreenState extends State<TvScreen> {
+  final ScrollController _categoryScrollController = ScrollController();
   List<TvChannel> _channels = [];
   bool _isLoading = true;
   String _selectedCategory = 'Tất cả';
+  String _searchQuery = '';
 
-  final List<String> _categories = [
-    'Tất cả',
-    'VTV',
-    'HTV & VTC',
-    'Truyền Hình Tỉnh',
-    'Kênh Quốc Tế',
-  ];
+  List<String> get _categories {
+    final cats = _channels.map((c) => c.category).toSet().toList();
+    cats.insert(0, 'Tất cả');
+    return cats;
+  }
+
+
+  void performSearch(String query) {
+    if (mounted) {
+      setState(() {
+        _searchQuery = query;
+      });
+    }
+  }
+
+  @override
+  void dispose() {
+    _categoryScrollController.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -42,8 +57,14 @@ class _TvScreenState extends State<TvScreen> {
   }
 
   List<TvChannel> get _filteredChannels {
-    if (_selectedCategory == 'Tất cả') return _channels;
-    return _channels.where((c) => c.category == _selectedCategory).toList();
+    var list = _channels;
+    if (_selectedCategory != 'Tất cả') {
+      list = list.where((c) => c.category == _selectedCategory).toList();
+    }
+    if (_searchQuery.isNotEmpty) {
+      list = list.where((c) => c.name.toLowerCase().contains(_searchQuery.toLowerCase())).toList();
+    }
+    return list;
   }
 
   void _playTvChannel(TvChannel channel) {
@@ -132,11 +153,26 @@ class _TvScreenState extends State<TvScreen> {
                     ],
                   ),
                   const SizedBox(height: 24),
+                  
                   // Category Filter Pills in Electric Blue
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      children: _categories.map((cat) {
+                  Row(
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.chevron_left, color: Colors.white54),
+                          onPressed: () {
+                            _categoryScrollController.animateTo(
+                              _categoryScrollController.offset - 200,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            controller: _categoryScrollController,
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              children: _categories.map((cat) {
                         final isSelected = _selectedCategory == cat;
                         return Padding(
                           padding: const EdgeInsets.only(right: 12.0),
@@ -177,8 +213,21 @@ class _TvScreenState extends State<TvScreen> {
                           ),
                         );
                       }).toList(),
+                            ),
+                          ),
+                        ),
+                        IconButton(
+                          icon: const Icon(Icons.chevron_right, color: Colors.white54),
+                          onPressed: () {
+                            _categoryScrollController.animateTo(
+                              _categoryScrollController.offset + 200,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
+                      ],
                     ),
-                  ),
                 ],
               ),
             ),

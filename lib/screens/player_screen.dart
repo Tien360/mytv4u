@@ -17,6 +17,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../models/movie.dart';
 import '../api/motchill_scraper.dart';
 import '../api/opensubtitles_api.dart';
+import '../api/firebase_api.dart';
+import '../api/config_api.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/custom_title_bar.dart';
 
@@ -44,7 +46,7 @@ class PlayerScreen extends StatefulWidget {
   State<PlayerScreen> createState() => _PlayerScreenState();
 }
 
-class _PlayerScreenState extends State<PlayerScreen> {
+class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   // media_kit
   late Player player;
   late VideoController controller;
@@ -52,6 +54,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
   double _subSize = 24.0;
   double _subOpacity = 0.3;
   bool _isPlayerInit = false;
+  bool _isPlayerInitialized = false;
+  bool _isDisposed = false;
   final List<StreamSubscription> _playerSubs = [];
 
   // webview_windows
@@ -65,6 +69,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
   late int _currentIndex;
   late String _currentUrl;
   late String _currentTitle;
+
+  // Fallback Domain State
+  List<String> _fallbackDomains = ['sv.gboiz7.workers.dev'];
+  int _currentFallbackDomainIndex = 0;
 
   // Motchill Servers
   List<Map<String, String>> _motchillServers = [];
@@ -101,6 +109,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
   @override
   void initState() {
     super.initState();
+    windowManager.addListener(this);
     _focusNode.requestFocus();
     _startHideControlsTimer();
     _loadSettingsAndInit();
@@ -110,6 +119,16 @@ class _PlayerScreenState extends State<PlayerScreen> {
         _saveLocalProgress();
       }
     });
+  }
+
+  @override
+  void onWindowEnterFullScreen() {
+    if (mounted) setState(() => _isFullscreen = true);
+  }
+
+  @override
+  void onWindowLeaveFullScreen() {
+    if (mounted) setState(() => _isFullscreen = false);
   }
 
   Future<void> _saveLocalProgress() async {
@@ -122,6 +141,17 @@ class _PlayerScreenState extends State<PlayerScreen> {
   }
 
   Future<void> _loadSettingsAndInit() async {
+    try {
+      final domains = await ConfigApi.getFallbackDomains();
+      if (mounted && domains.isNotEmpty) {
+        setState(() {
+          _fallbackDomains = domains;
+        });
+      }
+    } catch (e) {
+      debugPrint('Error loading fallback domains: $e');
+    }
+
     final prefs = await SharedPreferences.getInstance();
     if (mounted) {
       setState(() {
@@ -139,14 +169,53 @@ class _PlayerScreenState extends State<PlayerScreen> {
     }
   }
 
+  bool _tryFallbackDomain() {
+    if (_currentUrl.contains('dpdns.org') || _currentUrl.contains('workers.dev')) {
+      final rawId = _currentUrl.split('/').last;
+      _currentFallbackDomainIndex++;
+      
+      if (_currentFallbackDomainIndex < _fallbackDomains.length) {
+         final newDomain = _fallbackDomains[_currentFallbackDomainIndex];
+         final newUrl = 'https://$newDomain/$rawId';
+         setState(() {
+           _currentUrl = newUrl;
+           errorMsg = null;
+         });
+         ScaffoldMessenger.of(context).showSnackBar(
+             SnackBar(
+               content: Text('Máy chủ quá tải. Đang chuyển sang luồng dự phòng ($newDomain)...'),
+               backgroundColor: Colors.orange,
+               duration: const Duration(seconds: 3),
+             )
+         );
+         player.open(Media(newUrl));
+         return true;
+      }
+    }
+    return false;
+  }
+
   void _initMediaKit() {
     player = Player(
       configuration: const PlayerConfiguration(
-        bufferSize: 32 * 1024 * 1024, // 32MB buffer to prevent underruns
-        pitch:
-            false, // Disable pitch correction to prevent audio crackling on HLS stream desyncs
+        bufferSize: 32 * 1024 * 1024,
+        pitch: false,
       ),
     );
+    
+    // Tối ưu tốc độ tải luồng HLS/m3u8 (giảm độ trễ ban đầu)
+    try {
+      final platform = player.platform as dynamic;
+      platform.setProperty('cache', 'yes');
+      platform.setProperty('cache-pause', 'no'); // Phát ngay khi có dữ liệu, không chờ đầy buffer
+      platform.setProperty('demuxer-max-bytes', '32M');
+      platform.setProperty('demuxer-max-back-bytes', '10M');
+      platform.setProperty('network-timeout', '10'); // Tránh treo lâu khi mạng lỗi
+      platform.setProperty('demuxer-lavf-o-add', 'fflags=+fastseek');
+    } catch (e) {
+      debugPrint('Error setting MPV properties: $e');
+    }
+
     controller = VideoController(
       player,
       configuration: VideoControllerConfiguration(
@@ -156,7 +225,10 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
     _playerSubs.add(
       player.stream.error.listen((error) {
-        if (mounted) setState(() => errorMsg = error.toString());
+        if (mounted) {
+          if (_tryFallbackDomain()) return;
+          setState(() => errorMsg = error.toString());
+        }
       }),
     );
     _playerSubs.add(
@@ -271,6 +343,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
     setState(() {
       _currentIndex = index;
       errorMsg = null;
+      _currentFallbackDomainIndex = 0; // Reset fallback domain
       _isLoadingServers = false;
       _openSubtitles = []; // clear old subs
       _selectedSubtitleTrack = null;
@@ -334,6 +407,12 @@ class _PlayerScreenState extends State<PlayerScreen> {
     } else {
       _motchillServers = [];
       _currentUrl = targetUrl;
+    }
+
+    // Proactively switch to the first working premium server config
+    if (_fallbackDomains.isNotEmpty && (_currentUrl.contains('dpdns.org') || _currentUrl.contains('workers.dev'))) {
+      final rawId = _currentUrl.split('/').last;
+      _currentUrl = 'https://${_fallbackDomains.first}/$rawId';
     }
 
     await _playCurrentUrl(ep);
@@ -602,6 +681,7 @@ class _PlayerScreenState extends State<PlayerScreen> {
 
   @override
   void dispose() {
+    windowManager.removeListener(this);
     _saveProgressTimer?.cancel();
     _saveLocalProgress();
     _focusNode.dispose();

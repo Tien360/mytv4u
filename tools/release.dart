@@ -118,14 +118,16 @@ void main(List<String> args) async {
 
   // 5. QuÄƒng lÃªn GitHub
   print('[5/6] Äang Ä‘áº©y lÃªn GitHub...');
+  print('[5/6] Ä ang Ä‘áº©y lÃªn GitHub...');
   final setupExePath = 'Releases\\v$version\\MyTV4U_Setup_$version.exe';
   final ghPath = 'C:\\Program Files\\GitHub CLI\\gh.exe';
   if (File(ghPath).existsSync()) {
     bool isBeta = version.contains('.beta');
     List<String> ghArgs = [
       'release', 'create', version, setupExePath, 
-      '--title', 'PhiÃªn báº£n $version', 
-      '--notes', notes
+      '--title', 'Phiên bản $version', 
+      '--notes', notes,
+      '--target', 'master'
     ];
     if (isBeta) {
       ghArgs.add('--prerelease');

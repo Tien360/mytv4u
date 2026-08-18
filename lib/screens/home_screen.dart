@@ -35,15 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> _history = [];
 
   // Định nghĩa các hàng
-  final List<Map<String, dynamic>> _sections = [
-    {'title': L10n.t('category_trending_stremio'), 'type': 'stremio', 'slug': 'top'},
-    {'title': L10n.t('category_movies'), 'type': 'category', 'slug': 'phim-le'},
-    {'title': L10n.t('category_series'), 'type': 'category', 'slug': 'phim-bo'},
-    {'title': L10n.t('category_korean'), 'type': 'country', 'slug': 'han-quoc'},
-    {'title': L10n.t('category_chinese'), 'type': 'country', 'slug': 'trung-quoc'},
-    {'title': L10n.t('category_western'), 'type': 'country', 'slug': 'au-my'},
-    {'title': L10n.t('category_anime'), 'type': 'category', 'slug': 'hoat-hinh'},
-    {'title': L10n.t('category_tv_shows'), 'type': 'category', 'slug': 'tv-shows'},
+  List<Map<String, dynamic>> get _sections => [
+    {'title': L10n.t('category_movies') ?? 'Phim lẻ', 'type': 'category', 'slug': 'phim-le'},
+    {'title': L10n.t('category_series') ?? 'Phim bộ', 'type': 'category', 'slug': 'phim-bo'},
+    {'title': L10n.t('category_korean') ?? 'Hàn Quốc', 'type': 'country', 'slug': 'han-quoc'},
+    {'title': L10n.t('category_chinese') ?? 'Trung Quốc', 'type': 'country', 'slug': 'trung-quoc'},
+    {'title': L10n.t('category_western') ?? 'Âu Mỹ', 'type': 'country', 'slug': 'au-my'},
+    {'title': L10n.t('category_anime') ?? 'Hoạt hình', 'type': 'category', 'slug': 'hoat-hinh'},
+    {'title': L10n.t('category_tv_shows') ?? 'TV Shows', 'type': 'category', 'slug': 'tv-shows'},
   ];
 
   @override
@@ -83,17 +82,15 @@ class _HomeScreenState extends State<HomeScreen> {
         });
         _startHeroTimer();
 
-        // Fetch backdrops for movies that lack a true horizontal poster
+        // Fetch backdrops for movies from TMDB for better quality
         for (int i = 0; i < selected.length; i++) {
           final m = selected[i];
-          if (m.posterUrl == m.thumbUrl) {
-            final isTvSeries = m.episodes.isNotEmpty && m.episodes.first.items.length > 1;
-            final backdrop = await PhimApi.getMovieTmdbBackdrop(m.name, m.originalName, m.year, isTvSeries);
-            if (mounted && backdrop != null && backdrop.isNotEmpty) {
-              setState(() {
-                _heroMovies[i] = m.copyWith(posterUrl: backdrop);
-              });
-            }
+          final isTvSeries = m.episodes.isNotEmpty && m.episodes.first.items.length > 1;
+          final backdrop = await PhimApi.getMovieTmdbBackdrop(m.name, m.originalName, m.year, isTvSeries);
+          if (mounted && backdrop != null && backdrop.isNotEmpty) {
+            setState(() {
+              _heroMovies[i] = m.copyWith(posterUrl: backdrop);
+            });
           }
         }
       }

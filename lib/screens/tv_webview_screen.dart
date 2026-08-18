@@ -44,7 +44,10 @@ class _TvWebViewScreenState extends State<TvWebViewScreen> {
         if (state == LoadingState.navigationCompleted && mounted) {
           setState(() {
             _isInitialized = true;
+            _isFullscreen = true;
           });
+          await windowManager.setFullScreen(true);
+          
           // Inject Javascript để ẩn giao diện thừa của trang web tinhlagi, chỉ giữ lại khung player
           await _controller.executeScript('''
             try {
@@ -82,6 +85,7 @@ class _TvWebViewScreenState extends State<TvWebViewScreen> {
 
   @override
   void dispose() {
+    windowManager.setFullScreen(false);
     _controller.dispose();
     super.dispose();
   }

@@ -7,9 +7,9 @@ void main() async {
   
   final body = {
     "fields": {
-      "latest_version": {"stringValue": "26.08.15.a.beta"},
-      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/26.08.15.a.beta/MyTV4U_Setup_26.08.15.a.beta.exe"},
-      "release_notes": {"stringValue": "- Ra mắt chức năng Thể Thao (Bóng Đá) trực tiếp.\n- Hỗ trợ đổi luồng bình luận viên tự do.\n- Nâng cấp Trình phát Gốc để phát mượt mà m3u8 từ nguồn thể thao."},
+      "latest_version": {"stringValue": "26.08.16.a.beta"},
+      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/26.08.16.a.beta/MyTV4U_Setup_26.08.16.a.beta.exe"},
+      "release_notes": {"stringValue": "- Ra mắt chức năng Thể Thao (Bóng Đá) trực tiếp.\n- Tắt hộp thoại đếm ngược kết thúc với tính năng xem Live/TV.\n- Thêm nút làm mới nhanh trong tab Thể thao."},
       "is_force_update": {"booleanValue": false}
     }
   };

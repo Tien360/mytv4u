@@ -249,7 +249,23 @@ class PhimApi {
     mergeList(itemsPremium); // Cao nhất
     mergeList(itemsStremio); // Rất cao để lấy poster
 
-    return mergedMap.values.toList();
+    int getPriority(Movie m) {
+      if (m.sourceSlugs.containsKey('premium')) return 0;
+      if (m.sourceSlugs.containsKey('stremio')) return 1;
+      if (m.sourceSlugs.containsKey('nguonc')) return 2;
+      if (m.sourceSlugs.containsKey('ophim')) return 3;
+      if (m.sourceSlugs.containsKey('kkphim')) return 4;
+      if (m.sourceSlugs.containsKey('phim4k')) return 5;
+      if (m.sourceSlugs.containsKey('free1')) return 6;
+      if (m.sourceSlugs.containsKey('vsmov')) return 7;
+      if (m.sourceSlugs.containsKey('motchill')) return 8;
+      return 9;
+    }
+
+    final resultList = mergedMap.values.toList();
+    resultList.sort((a, b) => getPriority(a).compareTo(getPriority(b)));
+    
+    return resultList;
   }
 
   // --- Fetch And Merge Wrapper ---

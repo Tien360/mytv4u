@@ -12,12 +12,22 @@ class SportScreen extends StatefulWidget {
   const SportScreen({super.key});
 
   @override
-  State<SportScreen> createState() => _SportScreenState();
+  State<SportScreen> createState() => SportScreenState();
 }
 
-class _SportScreenState extends State<SportScreen> {
+class SportScreenState extends State<SportScreen> {
+  String _searchQuery = "";
   List<SportMatch> _matches = [];
   bool _isLoading = true;
+
+
+  void performSearch(String query) {
+    if (mounted) {
+      setState(() {
+        _searchQuery = query;
+      });
+    }
+  }
 
   @override
   void initState() {
@@ -67,6 +77,11 @@ class _SportScreenState extends State<SportScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final displayMatches = _searchQuery.isEmpty 
+        ? _matches 
+        : _matches.where((m) => m.title.toLowerCase().contains(_searchQuery.toLowerCase()) || 
+                                m.league.toLowerCase().contains(_searchQuery.toLowerCase())).toList();
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: SafeArea(
@@ -121,9 +136,9 @@ class _SportScreenState extends State<SportScreen> {
                               crossAxisSpacing: 16,
                               mainAxisSpacing: 16,
                             ),
-                            itemCount: _matches.length,
+                            itemCount: displayMatches.length,
                             itemBuilder: (context, index) {
-                              final match = _matches[index];
+                              final match = displayMatches[index];
                               return _buildMatchCard(match);
                             },
                           ),
