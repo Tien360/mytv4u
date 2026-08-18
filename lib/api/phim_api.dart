@@ -1360,7 +1360,7 @@ class PhimApi {
                       embedUrl: 'https://vaplayer.ru/embed/movie/$imdbId',
                     )
                   ],
-                );
+                ) : null;
                 
                 if (servers.isNotEmpty) {
                   if (vidsrcServer != null) servers.add(vidsrcServer);
