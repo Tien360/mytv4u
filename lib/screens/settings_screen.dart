@@ -1,4 +1,4 @@
-import 'dart:ui';
+﻿import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -99,18 +99,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 24),
       children: [
-        _buildSidebarItem(L10n.t('sync_account') ?? 'Tài khoản', Icons.account_circle, _accountKey),
-        _buildSidebarItem(L10n.t('health_utilities') ?? 'Hệ thống', Icons.settings_suggest, _systemKey),
-        _buildSidebarItem(L10n.t('language_settings') ?? 'Ngôn ngữ', Icons.language, _languageKey),
-        _buildSidebarItem(L10n.t('sources') ?? 'Nguồn phim', Icons.source, _sourcesKey),
-        _buildSidebarItem(L10n.t('global_color_settings') ?? 'Màu sắc', Icons.color_lens, _colorKey),
-        _buildSidebarItem(L10n.t('subtitles') ?? 'Phụ đề', Icons.subtitles, _subtitleKey),
-        _buildSidebarItem(L10n.t('info_contact') ?? 'Thông tin', Icons.info_outline, _infoKey),
+        _buildSidebarItem(L10n.t('sync_account') ?? 'TÃ i khoáº£n', Icons.account_circle, _accountKey),
+        _buildSidebarItem(L10n.t('health_utilities') ?? 'Há»‡ thá»‘ng', Icons.settings_suggest, _systemKey),
+        _buildSidebarItem(L10n.t('language_settings') ?? 'NgÃ´n ngá»¯', Icons.language, _languageKey),
+        _buildSidebarItem(L10n.t('sources') ?? 'Nguá»“n phim', Icons.source, _sourcesKey),
+        _buildSidebarItem(L10n.t('global_color_settings') ?? 'MÃ u sáº¯c', Icons.color_lens, _colorKey),
+        _buildSidebarItem(L10n.t('subtitles') ?? 'Phá»¥ Ä‘á»', Icons.subtitles, _subtitleKey),
+        _buildSidebarItem(L10n.t('info_contact') ?? 'ThÃ´ng tin', Icons.info_outline, _infoKey),
       ],
     );
   }
 
-  // Nguồn phim mặc định
+  // Nguá»“n phim máº·c Ä‘á»‹nh
   final Map<String, bool> _sources = {
     'premium': true,
     'nguonc': true,
@@ -161,7 +161,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
     final prefs = _prefs!;
     
-    // Tải cấu hình nguồn phim
+    // Táº£i cáº¥u hÃ¬nh nguá»“n phim
     final enabledSources = prefs.getStringList('enabled_sources');
     if (enabledSources != null) {
       setState(() {
@@ -171,7 +171,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       });
     }
 
-    // Tải cấu hình GPU, Subtitle & Tiện ích
+    // Táº£i cáº¥u hÃ¬nh GPU, Subtitle & Tiá»‡n Ã­ch
     if (mounted) {
       setState(() {
         _hwAccel = prefs.getBool('enable_hw_accel') ?? true;
@@ -188,7 +188,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       });
     }
 
-    // Tải user
+    // Táº£i user
     final user = await AuthApi.getCurrentUser();
     if (mounted && user != null) {
       setState(() {
@@ -520,7 +520,7 @@ SizedBox(key: _systemKey),
                           ),
                           const SizedBox(height: 24),
                           
-                          // Nhóm Nguồn Promax
+                          // NhÃ³m Nguá»“n Promax
                           Text(
                             L10n.t('source_promax'),
                             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.amber),
@@ -537,7 +537,7 @@ SizedBox(key: _systemKey),
                           
                           const SizedBox(height: 24),
                           
-                          // Nhóm Nguồn Standard
+                          // NhÃ³m Nguá»“n Standard
                           Text(
                             L10n.t('source_standard'),
                             style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.blueAccent),
@@ -564,11 +564,11 @@ SizedBox(key: _systemKey),
                                 const Divider(color: Colors.white12, height: 32),
                                 _buildShortcutRow('ESC', L10n.t('shortcut_escape')),
                                 const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('Space (Cách)', L10n.t('shortcut_play_pause')),
+                                _buildShortcutRow('Space (CÃ¡ch)', L10n.t('shortcut_play_pause')),
                                 const Divider(color: Colors.white12, height: 32),
                                 _buildShortcutRow('F', L10n.t('shortcut_zoom')),
                                 const Divider(color: Colors.white12, height: 32),
-                                _buildShortcutRow('Mũi tên Trái / Phải', L10n.t('shortcut_seek')),
+                                _buildShortcutRow('MÅ©i tÃªn TrÃ¡i / Pháº£i', L10n.t('shortcut_seek')),
                               ],
                             ),
                           ),
@@ -578,7 +578,7 @@ SizedBox(key: _systemKey),
 SizedBox(key: _colorKey),
                           _buildSectionTitle(Icons.color_lens, L10n.t('global_color_settings') ),
                           const SizedBox(height: 16),
-                          if (_prefs != null) GlobalColorSettings(prefs: _prefs!, onSettingsChanged: (_) {}),
+                          _prefs == null ? const SizedBox() : GlobalColorSettings(prefs: _prefs!, onSettingsChanged: (_) {}),
                           
                           const SizedBox(height: 48),
 
@@ -615,7 +615,7 @@ SizedBox(key: _subtitleKey),
                             padding: const EdgeInsets.all(16),
                             child: Column(
                               children: [
-                                // Khu vực xem trước phụ đề
+                                // Khu vá»±c xem trÆ°á»›c phá»¥ Ä‘á»
                                 Container(
                                   height: 120,
                                   width: double.infinity,
@@ -623,7 +623,7 @@ SizedBox(key: _subtitleKey),
                                     color: Colors.black,
                                     borderRadius: BorderRadius.circular(12),
                                     image: const DecorationImage(
-                                      image: AssetImage('assets/logo.png'), // Dùng tạm logo làm nền
+                                      image: AssetImage('assets/logo.png'), // DÃ¹ng táº¡m logo lÃ m ná»n
                                       fit: BoxFit.cover,
                                       opacity: 0.3,
                                     ),
@@ -1029,7 +1029,7 @@ SizedBox(key: _subtitleKey),
                   ),
                 OutlinedButton.icon(
                   onPressed: () async {
-                    // Hiển thị dialog đang tải
+                    // Hiá»ƒn thá»‹ dialog Ä‘ang táº£i
                     showDialog(
                       context: context,
                       barrierDismissible: false,
@@ -1039,7 +1039,7 @@ SizedBox(key: _subtitleKey),
                     final updateInfo = await UpdateApi.checkForUpdate();
                     
                     if (mounted) {
-                      Navigator.of(context).pop(); // Đóng loading
+                      Navigator.of(context).pop(); // ÄÃ³ng loading
                       
                       if (updateInfo != null) {
                         showDialog(
@@ -1087,7 +1087,7 @@ SizedBox(key: _subtitleKey),
           
           const SizedBox(height: 48),
 
-          // Nút Khôi phục cài đặt gốc
+          // NÃºt KhÃ´i phá»¥c cÃ i Ä‘áº·t gá»‘c
           Center(
             child: ElevatedButton.icon(
               onPressed: () async {
@@ -1356,3 +1356,4 @@ SizedBox(key: _subtitleKey),
     );
   }
 }
+
