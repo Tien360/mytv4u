@@ -378,6 +378,21 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     _startHideControlsTimer();
   }
 
+  Future<void> _applyGlobalColorSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final brightness = prefs.getDouble('color_brightness') ?? 0.0;
+    final contrast = prefs.getDouble('color_contrast') ?? 0.0;
+    final saturation = prefs.getDouble('color_saturation') ?? 0.0;
+
+    try {
+      (player.platform as dynamic).setProperty('brightness', brightness.toString());
+      (player.platform as dynamic).setProperty('contrast', contrast.toString());
+      (player.platform as dynamic).setProperty('saturation', saturation.toString());
+    } catch (e) {
+      print('Cannot apply color properties to player: $e');
+    }
+  }
+
   Future<void> _initEpisode(int index) async {
     if (index < 0 || index >= widget.episodes.length) return;
     setState(() {
@@ -600,6 +615,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       }
 
       player.open(Media(_currentUrl, httpHeaders: headers), play: false);
+      await _applyGlobalColorSettings();
       if (ep.slug == 'trailer' &&
           ep.embedUrl.isNotEmpty &&
           ep.embedUrl.startsWith('http')) {
@@ -2153,6 +2169,24 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                     height: 36,
                     child: CustomTitleBar(),
                   ),
+              if (_activePanel != SidePanelMode.none)
+                Positioned.fill(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => _activePanel = SidePanelMode.none),
+                          child: Container(color: Colors.transparent),
+                        ),
+                      ),
+                      SideControlPanel(
+                        player: player,
+                        mode: _activePanel,
+                        onClose: () => setState(() => _activePanel = SidePanelMode.none),
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
