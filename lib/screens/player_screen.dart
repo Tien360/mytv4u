@@ -68,6 +68,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   String? errorMsg;
   late int _currentIndex;
   late String _currentUrl;
+  bool _backgroundPlayback = false;
+  bool _wasPlayingBeforeMinimize = false;
+  bool _isPiPMode = false;
+  Rect? _prePiPBounds;
   late String _currentTitle;
 
   // Fallback Domain State
@@ -124,6 +128,39 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   @override
   void onWindowEnterFullScreen() {
     if (mounted) setState(() => _isFullscreen = true);
+  }
+
+  @override
+  void onWindowMinimize() async {
+    if (!_backgroundPlayback && mounted && _isPlayerInitialized) {
+      _wasPlayingBeforeMinimize = player.state.playing;
+      if (_wasPlayingBeforeMinimize) {
+        await player.pause();
+      }
+    }
+  }
+
+  @override
+  void onWindowRestore() async {
+    if (!_backgroundPlayback && mounted && _isPlayerInitialized && _wasPlayingBeforeMinimize) {
+      await player.play();
+    }
+  }
+
+  Future<void> _togglePiPMode() async {
+    if (_isPiPMode) {
+      setState(() => _isPiPMode = false);
+      await windowManager.setAlwaysOnTop(false);
+      if (_prePiPBounds != null) {
+        await windowManager.setBounds(_prePiPBounds!);
+      }
+    } else {
+      _prePiPBounds = await windowManager.getBounds();
+      setState(() => _isPiPMode = true);
+      await windowManager.setAlwaysOnTop(true);
+      await windowManager.setSize(const Size(400, 225));
+      await windowManager.setAlignment(Alignment.bottomRight);
+    }
   }
 
   @override
@@ -1551,6 +1588,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
+                                  if (!_isPiPMode)
                                   // YouTube Red Seekbar with Hover Time Tooltip
                                   MouseRegion(
                                     key: _seekbarKey,
@@ -1700,6 +1738,30 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                     ),
                                   ),
                                   const SizedBox(height: 8),
+                                  if (_isPiPMode)
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        IconButton(
+                                          icon: Icon(
+                                            _isPlaying ? Icons.pause : Icons.play_arrow,
+                                            color: Colors.white,
+                                            size: 40,
+                                          ),
+                                          onPressed: () => player.playOrPause(),
+                                        ),
+                                        const SizedBox(width: 20),
+                                        IconButton(
+                                          icon: const Icon(
+                                            Icons.fullscreen,
+                                            color: Colors.white,
+                                            size: 40,
+                                          ),
+                                          onPressed: _togglePiPMode,
+                                        ),
+                                      ],
+                                    ),
+                                  if (!_isPiPMode)
                                   // YouTube Button Row
                                   Row(
                                     children: [
@@ -1973,6 +2035,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 ),
 
                 // 3. Episode Selection Panel (Right Sidebar)
+                if (!_isPiPMode)
                 AnimatedPositioned(
                   duration: const Duration(milliseconds: 300),
                   curve: Curves.easeInOut,
@@ -2066,7 +2129,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 ),
 
                 // Window Title Bar (Positioned at VERY TOP of Stack so Close/Minimize/Maximize ALWAYS work!)
-                if (!_isFullscreen)
+                if (!_isFullscreen && !_isPiPMode)
                   const Positioned(
                     top: 0,
                     left: 0,

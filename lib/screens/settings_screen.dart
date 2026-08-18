@@ -34,6 +34,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   double _defaultSpeed = 1.0;
   int _watchLimit = 0;
   String _appLang = 'vi';
+  bool _backgroundPlayback = false;
 
   // Nguồn phim mặc định
   final Map<String, bool> _sources = {
@@ -81,6 +82,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _defaultSpeed = prefs.getDouble('default_speed') ?? 1.0;
         _watchLimit = prefs.getInt('watch_limit') ?? 0;
         _appLang = prefs.getString('app_lang') ?? 'vi';
+        _backgroundPlayback = prefs.getBool('background_playback') ?? false;
       });
     }
 
@@ -937,6 +939,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 await prefs.remove('watch_limit');
                 await prefs.remove('enabled_sources');
                 await prefs.remove('app_lang');
+                await prefs.remove('background_playback');
 
                 await L10n.load('vi');
                 
