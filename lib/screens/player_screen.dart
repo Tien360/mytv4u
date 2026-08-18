@@ -666,7 +666,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           prefs.remove(key);
                         },
                         child: Text(
-                          'Từ đầu',
+                          L10n.t('from_beginning') ?? 'Từ đầu',
                           style: TextStyle(color: Colors.white54, fontSize: 16),
                         ),
                       ),
@@ -700,7 +700,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           }
                         },
                         child: Text(
-                          'Xem tiếp',
+                          L10n.t('resume_playing') ?? 'Xem tiếp',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 16,
@@ -779,11 +779,11 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   String _getTrackShortName(dynamic track) {
     if (track.id == 'auto') return L10n.t('auto');
     if (track.id == 'no') return L10n.t('off');
-    return track.title ?? track.language ?? track.id ?? 'Không rõ';
+    return track.title ?? track.language ?? track.id ?? L10n.t('unknown') ?? 'Không rõ';
   }
 
   String _getTrackFullName(dynamic track) {
-    if (track.id == 'auto') return 'Tự động (Mặc định)';
+    if (track.id == 'auto') return L10n.t('auto_default') ?? 'Tự động (Mặc định)';
     if (track.id == 'no') return L10n.t('off');
 
     List<String> details = [];
@@ -891,7 +891,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
               ),
               const SizedBox(height: 4),
               Text(
-                hasNext ? widget.episodes[_currentIndex + 1].name : 'Kết thúc',
+                hasNext ? widget.episodes[_currentIndex + 1].name : L10n.t('finished') ?? 'Kết thúc',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -1220,25 +1220,25 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               vertical: 24,
                             ),
                             children: [
-                              _buildInfoRow('Tên phim', widget.movieName),
+                              _buildInfoRow(L10n.t('movie_title') ?? 'Tên phim', widget.movieName),
                               _buildInfoRow(
-                                'Tập đang phát',
+                                L10n.t('current_ep') ?? 'Tập đang phát',
                                 widget.episodes[_currentIndex].name,
                               ),
                               _buildInfoRow(
-                                'Thời lượng',
+                                L10n.t('duration') ?? 'Thời lượng',
                                 _formatDuration(_duration),
                               ),
                               if (!_isUsingWebview)
                                 _buildInfoRow(
-                                  'Độ phân giải',
+                                  L10n.t('resolution') ?? 'Độ phân giải',
                                   '${player.state.width ?? "Đang tải"} x ${player.state.height ?? "Đang tải"}',
                                 ),
                               _buildInfoRow(
-                                'Nguồn phát',
+                                L10n.t('streaming_source') ?? 'Nguồn phát',
                                 _isUsingWebview
-                                    ? 'Trình duyệt Web (Embed)'
-                                    : 'Trình phát Video gốc',
+                                    ? L10n.t('web_browser_embed') ?? 'Trình duyệt Web (Embed)'
+                                    : L10n.t('native_video_player') ?? 'Trình phát Video gốc',
                               ),
                               if (_isUsingWebview)
                                 _buildInfoRow('URL', _currentUrl),
@@ -1285,7 +1285,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       child: Row(
         children: [
           Text(
-            'Nguồn phụ: ',
+            (L10n.t('sub_source') ?? 'Nguồn phụ:') + ' ',
             style: TextStyle(
               color: Colors.white70,
               fontWeight: FontWeight.bold,
@@ -1569,7 +1569,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                     }
                                     if (mounted) Navigator.pop(context);
                                   },
-                                  tooltip: 'Quay lại',
+                                  tooltip: L10n.t('go_back') ?? 'Quay lại',
                                 ),
                                 const SizedBox(width: 12),
                                 Container(
@@ -1844,8 +1844,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                           onPressed: () => player.playOrPause(),
                                           padding: EdgeInsets.zero,
                                           tooltip: _isPlaying
-                                              ? 'Tạm dừng (Space)'
-                                              : 'Phát (Space)',
+                                              ? L10n.t('pause_space') ?? 'Tạm dừng (Space)'
+                                              : L10n.t('play_space') ?? 'Phát (Space)',
                                         ),
                                       ),
                                       const SizedBox(width: 10),
@@ -1868,7 +1868,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 const Duration(seconds: 10),
                                           ),
                                           padding: EdgeInsets.zero,
-                                          tooltip: 'Lùi 10s (←)',
+                                          tooltip: L10n.t('rewind_10s') ?? 'Lùi 10s (←)',
                                         ),
                                       ),
                                       const SizedBox(width: 10),
@@ -1891,7 +1891,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 const Duration(seconds: 10),
                                           ),
                                           padding: EdgeInsets.zero,
-                                          tooltip: 'Tới 10s (→)',
+                                          tooltip: L10n.t('forward_10s') ?? 'Tới 10s (→)',
                                         ),
                                       ),
                                       const SizedBox(width: 10),
@@ -1937,7 +1937,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                       minWidth: 38,
                                                       minHeight: 38,
                                                     ),
-                                                tooltip: 'Âm lượng',
+                                                tooltip: L10n.t('volume') ?? 'Âm lượng',
                                               ),
                                               if (_isVolumeHovered)
                                                 Expanded(
@@ -2028,7 +2028,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 size: 22,
                                               ),
                                               onPressed: _playNextEpisode,
-                                              tooltip: 'Tập tiếp theo',
+                                              tooltip: L10n.t('next_episode') ?? 'Tập tiếp theo',
                                               padding: const EdgeInsets.all(4),
                                               constraints:
                                                   const BoxConstraints(),
@@ -2045,7 +2045,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 () => _showEpisodePanel =
                                                     !_showEpisodePanel,
                                               ),
-                                              tooltip: 'Danh sách tập',
+                                              tooltip: L10n.t('ep_list') ?? 'Danh sách tập',
                                               padding: const EdgeInsets.all(4),
                                               constraints:
                                                   const BoxConstraints(),
@@ -2076,7 +2076,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 size: 22,
                                               ),
                                               onPressed: _toggleFullscreen,
-                                              tooltip: 'Toàn màn hình',
+                                              tooltip: L10n.t('fullscreen') ?? 'Toàn màn hình',
                                               padding: const EdgeInsets.all(4),
                                               constraints:
                                                   const BoxConstraints(),
@@ -2118,7 +2118,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              'Chọn tập',
+                              L10n.t('select_episode') ?? 'Chọn tập',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,

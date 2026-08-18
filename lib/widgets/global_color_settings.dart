@@ -123,7 +123,7 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Video chạy mẫu:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        Text(L10n.t('sample_video') ?? 'Video chạy mẫu:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         Container(
           height: 180,
@@ -138,7 +138,7 @@ class _GlobalColorSettingsState extends State<GlobalColorSettings> {
               : Center(child: CircularProgressIndicator()),
         ),
         const SizedBox(height: 16),
-        Text('Bộ lọc có sẵn:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        Text(L10n.t('available_filters') ?? 'Bộ lọc có sẵn:', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         const SizedBox(height: 8),
         Wrap(
           spacing: 8,

@@ -2137,8 +2137,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       maxLines: 3,
                       decoration: InputDecoration(
                         hintText: _currentUser == null
-                            ? 'Đăng nhập để bình luận...'
-                            : 'Viết bình luận của bạn...',
+                            ? L10n.t('login_to_comment') ?? 'Đăng nhập để bình luận...'
+                            : L10n.t('write_your_comment') ?? 'Viết bình luận của bạn...',
                         hintStyle: TextStyle(
                           color: Colors.white.withOpacity(0.4),
                         ),
@@ -2162,7 +2162,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       )
                     : const Icon(Icons.send, size: 18),
                 label: Text(
-                  _currentUser == null ? 'Đăng nhập & Gửi' : 'Gửi bình luận',
+                  _currentUser == null ? L10n.t('login_and_send') ?? 'Đăng nhập & Gửi' : L10n.t('send_comment') ?? 'Gửi bình luận',
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blueAccent,
@@ -2183,7 +2183,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           Center(child: CircularProgressIndicator())
         else if (_comments.isEmpty)
           Text(
-            'Chưa có bình luận nào.',
+            L10n.t('no_comments_yet') ?? 'Chưa có bình luận nào.',
             style: TextStyle(color: Colors.white54),
           )
         else
@@ -2420,7 +2420,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 });
               },
               child: Text(
-                'Xem thêm bình luận',
+                L10n.t('view_more_comments') ?? 'Xem thêm bình luận',
                 style: TextStyle(color: Colors.blueAccent),
               ),
             ),

@@ -1,0 +1,346 @@
+auth_api.dart: <h2>Đăng nhập thành công! Bạn có thể đóng tab này và quay lại ứng dụng.</h2>
+auth_api.dart: Lỗi đăng nhập: 
+firebase_api.dart: Chưa cập nhật
+firebase_api.dart: Chưa cập nhật
+firebase_api.dart: Ứng dụng đã bị ngừng hoạt động.
+motchill_scraper.dart: Năm phát hành
+motchill_scraper.dart: .*Năm phát hành
+motchill_scraper.dart: Thời lượng
+motchill_scraper.dart: .*Thời lượng
+motchill_scraper.dart: Trạng thái
+motchill_scraper.dart: .*Trạng thái
+motchill_scraper.dart: Chất lượng
+motchill_scraper.dart: .*Chất lượng
+motchill_scraper.dart: Ngôn ngữ
+motchill_scraper.dart: .*Ngôn ngữ
+motchill_scraper.dart: Phụ đề
+opensubtitles_api.dart: [OpenSub] Tiếng Việt $vieCount
+phim_api.dart: Đang cập nhật
+phim_api.dart: Đang cập nhật
+phim_api.dart: tập
+phim_api.dart: tập
+phim_api.dart: tập
+phim_api.dart: tập
+phim_api.dart: Tập ${e[
+phim_api.dart: Tập ${e[
+phim_api.dart: Tập ${e[
+sport_api.dart: Giải đấu khác
+sport_api.dart: Sắp diễn ra
+torrentio_api.dart: (?:\s*-\s*)?(?:season|phần|part)\s*\d+
+tv_api.dart: Kênh Thời sự - Chính trị - Tổng hợp Đài Truyền hình Việt Nam
+tv_api.dart: Kênh Khoa học - Giáo dục
+tv_api.dart: Kênh Thể thao - Văn hóa - Giải trí Thông tin
+tv_api.dart: Kênh Đối ngoại Đài Truyền hình Việt Nam
+tv_api.dart: Kênh Truyền hình tiếng Dân tộc
+tv_api.dart: VTV5 Tây Nam Bộ
+tv_api.dart: Kênh Truyền hình khu vực Tây Nam Bộ
+tv_api.dart: VTV5 Tây Nguyên
+tv_api.dart: Kênh Truyền hình khu vực Tây Nguyên
+tv_api.dart: Kênh Truyền hình Giáo dục Quốc gia
+tv_api.dart: Kênh Truyền hình Miền Trung - Tây Nguyên
+tv_api.dart: Kênh Truyền hình khu vực Nam Bộ
+tv_api.dart: VTV Cần Thơ
+tv_api.dart: Kênh Truyền hình Quốc gia VTV Cần Thơ
+tv_api.dart: VTVcab 1 - ON Vie Giải Trí
+tv_api.dart: Kênh Phim & Giải trí Hàng đầu VTVcab (Xem qua WebView TV360)
+tv_api.dart: VTVcab 2 - ON Phim Việt
+tv_api.dart: Kênh Phim Việt Nam Đặc Sắc VTVcab (Xem qua WebView TV360)
+tv_api.dart: Kênh Điện ảnh Quốc tế VTVcab (Xem qua WebView TV360)
+tv_api.dart: Kênh Phim Truyền hình Châu Á VTVcab (Xem qua WebView TV360)
+tv_api.dart: Kênh Thiếu Nhi BiBi VTVcab (Xem qua WebView TV360)
+tv_api.dart: Kênh Phim Điện Ảnh bom tấn (Xem qua WebView TV360)
+tv_api.dart: Kênh Giải trí Phong cách sống (Xem qua WebView TV360)
+tv_api.dart: Kênh Âm nhạc Giải trí (Xem qua WebView TV360)
+tv_api.dart: Kênh Thông tin Công cộng Đài HTV
+tv_api.dart: Kênh Thanh Thiếu nhi & Gia đình Đài HTV
+tv_api.dart: Kênh Dạy học & Tri thức Đài HTV
+tv_api.dart: Kênh Văn hóa - Giải trí Đài HTV
+tv_api.dart: Kênh Thông tin - Thời sự Đài HTV
+tv_api.dart: Kênh Giáo dục & Khoa học Đài HTV
+tv_api.dart: HTV Thể thao HD
+tv_api.dart: Kênh Thể thao Chuyên biệt Đài HTV
+tv_api.dart: Kênh Truyền hình Công an Nhân dân
+tv_api.dart: Kênh Truyền hình Quốc phòng Việt Nam
+tv_api.dart: Kênh Phim truyện SCTV
+tv_api.dart: Kênh Phim tổng hợp SCTV6
+tv_api.dart: THVL1 HD (Vĩnh Long 1)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Tổng hợp Truyền hình Vĩnh Long 1
+tv_api.dart: THVL2 HD (Vĩnh Long 2)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Phim & Giải trí Truyền hình Vĩnh Long 2
+tv_api.dart: THVL3 HD (Vĩnh Long 3)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Văn hóa - Nông nghiệp Truyền hình Vĩnh Long 3
+tv_api.dart: Hà Nội 1 (HN1)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Thời sự - Chính trị Đài Hà Nội
+tv_api.dart: Hà Nội 2 (HN2)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Văn hóa - Xã hội Đài Hà Nội
+tv_api.dart: Hải Phòng TV (THP)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Thành phố Hải Phòng
+tv_api.dart: Đà Nẵng TV1 HD
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Thành phố Đà Nẵng 1
+tv_api.dart: Nghệ An TV HD
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Nghệ An
+tv_api.dart: Quảng Ngãi TV
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Quảng Ngãi
+tv_api.dart: Đồng Tháp 1 HD
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Thời sự - Tổng hợp Đồng Tháp
+tv_api.dart: Cần Thơ 1 HD
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Thành phố Cần Thơ
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình An Giang 1
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình An Giang 2
+tv_api.dart: Cà Mau TV
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Cà Mau
+tv_api.dart: Cao Bằng TV
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Cao Bằng
+tv_api.dart: Điện Biên TV
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Điện Biên
+tv_api.dart: Đồng Nai 1
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Đồng Nai 1
+tv_api.dart: Đồng Nai 2
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Đồng Nai 2
+tv_api.dart: Đồng Tháp 2
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Đồng Tháp 2
+tv_api.dart: Thừa Thiên Huế (TRT)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Thừa Thiên Huế
+tv_api.dart: Lâm Đồng TV (LTV)
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Lâm Đồng
+tv_api.dart: Tây Ninh TV
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Tây Ninh
+tv_api.dart: Thái Nguyên TV
+tv_api.dart: Truyền Hình Tỉnh
+tv_api.dart: Kênh Truyền hình Thái Nguyên
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Thể Thao Dã Ngoại Quốc Tế (Xem qua WebView TV360)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Ẩm Thực Châu Á Hàng Đầu (Xem qua WebView TV360)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Lịch Sử & Khám Phá Thế Giới (Xem qua WebView TV360)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Phim Hành Động Võ Thuật Châu Á (Xem qua WebView TV360)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Nhà Đẹp & Trang Trí Nội Thất (Xem qua WebView TV360)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Giáo Dục & Khám Phá Trẻ Em (Xem qua WebView TV360)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin Tức Kinh Tế Tài Chính Mỹ (Xem qua WebView TV360)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Truyền hình Quốc tế Tiếng Pháp Châu Á (TV5Monde)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin tức Quốc tế Hàng đầu Châu Âu
+tv_api.dart: DW News HD (Đức)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin tức Thời sự Quốc tế Deutsche Welle (Đức)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin tức Quốc tế Tiếng Anh (Pháp)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin tức Quốc tế Tiếng Pháp
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Truyền hình Tin tức & Văn hóa Nhật Bản
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Truyền hình Văn hóa & Giải trí Hàn Quốc
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin tức Quốc tế Hàng đầu Anh Quốc (BBC)
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin tức Tài chính & Kinh tế Quốc tế Mỹ
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Thời trang & Phong cách sống Đỉnh cao Pháp
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Truyền hình Khoa học & Vũ trụ Cơ quan NASA Mỹ
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Phim TVB Lồng Tiếng Việt
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Kênh Tin tức & Văn hóa Việt Nam Quốc tế
+tv_api.dart: 🌐| Thiết yếu
+tv_api.dart: Kênh Tổng Hợp
+tv_api.dart: Quốc Tế
+tv_api.dart: Kênh Quốc Tế
+tv_api.dart: Địa phương
+tv_api.dart: Kênh Địa Phương
+tv_api.dart: Kênh Thể Thao
+update_api.dart: Lỗi kiểm tra cập nhật: $e
+update_api.dart: Lỗi tải/cài đặt cập nhật: $e
+comment.dart: Khách
+comment.dart: Khách
+movie.dart: Xem thêm
+actor_detail_screen.dart: Ngày sinh: ${_actorInfo![
+actor_detail_screen.dart: Thu gọn
+actor_detail_screen.dart: Xem thêm
+actor_detail_screen.dart: Phim trên hệ thống
+actor_detail_screen.dart: Đang dò tìm... ($_checkedMovies/$_totalMovies)
+actor_detail_screen.dart: Chưa có phim nào của diễn viên này trên hệ thống.
+movie_detail_screen.dart: thuyết minh
+movie_detail_screen.dart: lồng tiếng
+movie_detail_screen.dart: tập
+movie_detail_screen.dart: Thuyết Minh
+movie_detail_screen.dart: (?:season|phần|part)\s*(\d+)
+movie_detail_screen.dart: Mùa $s
+movie_detail_screen.dart: Chọn Luồng phát (Chất lượng):
+movie_detail_screen.dart: \s*-\s*(vietsub|thuyết minh|lồng tiếng|tm|thuyet minh)
+movie_detail_screen.dart: Không tìm thấy thông tin phim.
+movie_detail_screen.dart: 🎟️ Đã copy link Xem Phim: $shareUrl
+movie_detail_screen.dart: Phụ đề
+movie_detail_screen.dart: Thuyết Minh
+movie_detail_screen.dart: Thuyết minh / Lồng tiếng
+movie_detail_screen.dart: Không có nguồn nào trong mục này.
+movie_detail_screen.dart: ${_averageRating.toStringAsFixed(1)}/5 ($_totalRatings lượt)
+movie_detail_screen.dart: Đăng nhập để bình luận...
+movie_detail_screen.dart: Viết bình luận của bạn...
+movie_detail_screen.dart: Đăng nhập & Gửi
+movie_detail_screen.dart: Gửi bình luận
+movie_detail_screen.dart: Chưa có bình luận nào.
+movie_detail_screen.dart: Trả lời
+movie_detail_screen.dart: Đăng nhập để trả lời...
+movie_detail_screen.dart: Nhập câu trả lời...
+movie_detail_screen.dart: Xem thêm bình luận
+movie_detail_screen.dart: ${(diff.inDays / 365).floor()} năm trước
+movie_detail_screen.dart: ${(diff.inDays / 30).floor()} tháng trước
+movie_detail_screen.dart: ${diff.inDays} ngày trước
+movie_detail_screen.dart: ${diff.inHours} giờ trước
+movie_detail_screen.dart: ${diff.inMinutes} phút trước
+movie_detail_screen.dart: Vừa xong
+movie_detail_screen.dart: Không tìm thấy hình ảnh nào từ TMDB
+player_screen.dart: Máy chủ quá tải. Đang chuyển sang luồng dự phòng ($newDomain)...
+player_screen.dart: Luồng bị ngắt giữa chừng. Không tự động nhảy tập.
+player_screen.dart: Luồng bị ngắt kết nối. Vui lòng thử lại!
+player_screen.dart: tập
+player_screen.dart: Tập ${ep.name}
+player_screen.dart: tập
+player_screen.dart: tập\s*(\d+)
+player_screen.dart: tập
+player_screen.dart: Tập ${ep.name}
+player_screen.dart: tập
+player_screen.dart: tập\s*(\d+)
+player_screen.dart: (?:phần|mùa|season)\s*(\d+)
+player_screen.dart: Tiếp tục xem?
+player_screen.dart: Bạn đã xem đến ${_formatDuration(Duration(milliseconds: savedPos))}. Bạn muốn xem tiếp hay xem lại từ đầu?
+player_screen.dart: Từ đầu
+player_screen.dart: Xem tiếp
+player_screen.dart: Không rõ
+player_screen.dart: Tự động (Mặc định)
+player_screen.dart: Luồng ${track.id}
+player_screen.dart: Tập tiếp theo sẽ phát sau $remaining giây
+player_screen.dart: Phim sẽ đóng sau $remaining giây
+player_screen.dart: Kết thúc
+player_screen.dart: Đang chọn: ${_selectedAudioTrack != null ? _getTrackShortName(_selectedAudioTrack) : "Tự động"}
+player_screen.dart: Đang chọn: ${_selectedSubtitleTrack != null ? _getTrackShortName(_selectedSubtitleTrack) : "Tự động"}
+player_screen.dart: Đang chọn: ${_selectedSecondarySubtitleTrack != null ? _getTrackShortName(_selectedSecondarySubtitleTrack) : "Tắt"}
+player_screen.dart: Tên phim
+player_screen.dart: Tập đang phát
+player_screen.dart: Thời lượng
+player_screen.dart: Độ phân giải
+player_screen.dart: ${player.state.width ?? "Đang tải"} x ${player.state.height ?? "Đang tải"}
+player_screen.dart: Nguồn phát
+player_screen.dart: Trình duyệt Web (Embed)
+player_screen.dart: Trình phát Video gốc
+player_screen.dart: Nguồn phụ: 
+player_screen.dart: Đang mở trình phát độ phân giải cao...\n(Bấm ESC bên cửa sổ kia để thoát)
+player_screen.dart: Đã xảy ra lỗi:\n$errorMsg
+player_screen.dart: Quay lại
+player_screen.dart: Tạm dừng (Space)
+player_screen.dart: Phát (Space)
+player_screen.dart: Lùi 10s (←)
+player_screen.dart: Tới 10s (→)
+player_screen.dart: Âm lượng
+player_screen.dart: Tập tiếp theo
+player_screen.dart: Danh sách tập
+player_screen.dart: Cài đặt
+player_screen.dart: Toàn màn hình
+player_screen.dart: Chọn tập
+settings_screen.dart: Space (Cách)
+settings_screen.dart: Mũi tên Trái / Phải
+settings_screen_backup.dart: Tài khoản đồng bộ
+settings_screen_backup.dart: Trình phát video
+settings_screen_backup.dart: Tăng tốc phần cứng (GPU)
+settings_screen_backup.dart: Bật để xem mượt hơn. Tắt đi nếu xem phim bị lỗi hình ảnh hoặc văng ứng dụng.
+settings_screen_backup.dart: Ví dụ: Phụ đề sẽ hiển thị như thế này.
+settings_screen_backup.dart: Kích thước chữ
+settings_screen_backup.dart: Độ mờ nền chữ
+settings_screen_backup.dart: Tiếng Việt
+settings_screen_backup.dart: Nguồn phim
+settings_screen_backup.dart: Bỏ chọn tất cả
+settings_screen_backup.dart: Chọn tất cả
+settings_screen_backup.dart: Chọn các nguồn phim bạn muốn sử dụng. Các nguồn bị tắt sẽ không xuất hiện khi tìm kiếm và duyệt phim.
+settings_screen_backup.dart: Nguồn Promax
+settings_screen_backup.dart: Nguồn Standard
+settings_screen_backup.dart: Phím tắt
+settings_screen_backup.dart: Phóng to / Thu nhỏ toàn màn hình (Full Screen)
+settings_screen_backup.dart: Thoát / Đóng hộp thoại
+settings_screen_backup.dart: Space (Cách)
+settings_screen_backup.dart: Tạm dừng / Phát video
+settings_screen_backup.dart: Phóng to video (khi đang xem)
+settings_screen_backup.dart: Mũi tên Trái / Phải
+settings_screen_backup.dart: Tua video 10 giây
+settings_screen_backup.dart: Thông tin & Liên hệ
+settings_screen_backup.dart: Đã đồng bộ với TV4U Web
+settings_screen_backup.dart: Đăng xuất
+settings_screen_backup.dart: Đăng nhập để đồng bộ lịch sử xem phim và danh sách yêu thích của bạn giữa phiên bản Web và Ứng dụng Desktop.
+settings_screen_backup.dart: Đang mở trình duyệt...
+settings_screen_backup.dart: Đăng nhập với Google
+settings_screen_backup.dart: Phiên bản
+settings_screen_backup.dart: Không tìm thấy bản Public!
+settings_screen_backup.dart: Trở về bản Public
+settings_screen_backup.dart: Bạn đang sử dụng phiên bản mới nhất!
+settings_screen_backup.dart: Kiểm tra phiên bản mới
+settings_screen_backup.dart: Nhà phát triển
+settings_screen_backup.dart: Liên hệ
+settings_screen_backup.dart: Điều khoản sử dụng & Miễn trừ trách nhiệm
+settings_screen_backup.dart: Điều Khoản Sử Dụng & DMCA
+settings_screen_backup.dart: 1. Tổng Hợp Nguồn & Bản Quyền
+settings_screen_backup.dart: MyTV4U là công cụ tự động tìm kiếm và tổng hợp liên kết phát trực tuyến công khai. Ứng dụng TUYỆT ĐỐI KHÔNG sở hữu, KHÔNG lưu trữ (host), KHÔNG tải lên và KHÔNG phân phối bất kỳ tệp tin phương tiện nào. Tất cả nội dung số hiển thị trên MyTV4U đều được truyền tải trực tiếp từ các máy chủ bên thứ ba độc lập.
+settings_screen_backup.dart: 2. Tính Khả Dụng Của Nguồn
+settings_screen_backup.dart: Các nguồn phát trực tuyến (M3U8) phụ thuộc 100% vào máy chủ bên ngoài (NguonC, KKPhim, TV360, VSMov...). Chúng có thể bị gián đoạn, đổi cấu hình hoặc ngừng hoạt động vĩnh viễn bất kỳ lúc nào bởi quyết định của máy chủ bên thứ ba. Đội ngũ phát triển MyTV4U không có thẩm quyền can thiệp hay đảm bảo tính ổn định.
+settings_screen_backup.dart: 3. Phạm Vi Phát Triển
+settings_screen_backup.dart: MyTV4U định vị là một công cụ phần mềm. Đội ngũ phát triển chỉ nghiên cứu và xây dựng UI/UX đồng bộ đa nền tảng, thuật toán tìm kiếm, framework ứng dụng, custom video player engine, và hệ thống đồng bộ lịch sử xem.
+settings_screen_backup.dart: 4. Yêu Cầu Gỡ Bỏ (DMCA)
+settings_screen_backup.dart: Người dùng tự chịu trách nhiệm đối với hành vi truy cập. Nếu bạn là chủ sở hữu bản quyền, vui lòng gửi yêu cầu gỡ bỏ trực tiếp (DMCA Takedown) đến đơn vị quản lý máy chủ lưu trữ (Host Provider) của bên thứ ba đang trực tiếp chứa tệp tin đó.
+settings_screen_backup.dart: Tôi đã hiểu & Đồng ý
+splash_screen.dart: Ứng dụng đã ngừng hoạt động
+splash_screen.dart: Vui lòng liên hệ nhà phát triển.
+splash_screen.dart: Thoát ứng dụng
+sport_screen.dart: ) ?? "Nguồn phát"}
+tv_screen.dart: Tất cả
+tv_screen.dart: Tất cả
+tv_screen.dart: Tất cả
+tv_screen.dart: Kênh Truyền Hình TV Trực Tuyến
+tv_screen.dart: Xem trực tiếp các kênh VTV, HTV, VTC, Truyền hình tỉnh chất lượng cao
+tv_screen.dart: Không tìm thấy kênh truyền hình nào
+tv_screen.dart: HÀ NỘI 1
+tv_screen.dart: ĐỒNG THÁP
+tv_webview_screen.dart: Kênh Trước
+tv_webview_screen.dart: Trình phát WebView TV360 Trực tiếp
+tv_webview_screen.dart: Tải lại trang
+tv_webview_screen.dart: Không thể tải WebView: $_error
+tv_webview_screen.dart: Đang mở TV360 Web Player trong ứng dụng...
+global_color_settings.dart: Video chạy mẫu:
+global_color_settings.dart: Bộ lọc có sẵn:
+image_gallery_viewer.dart: Đóng (ESC)
+update_dialog.dart: Trở về phiên bản Public (${widget.updateInfo.latestVersion})
+update_dialog.dart: Phiên bản thử nghiệm Beta (${widget.updateInfo.latestVersion})
+update_dialog.dart: Cập nhật phiên bản mới (${widget.updateInfo.latestVersion})
+update_dialog.dart: Lỗi: $_error
+update_dialog.dart: Cảnh báo: Đây là phiên bản thử nghiệm (Beta). Có thể chứa một số lỗi. Hãy sao lưu cấu hình trước khi cài.
+update_dialog.dart: Chi tiết bản cập nhật:
+update_dialog.dart: Đang tải xuống bản cập nhật...
+update_dialog.dart: Thoát ứng dụng
+update_dialog.dart: Hạ cấp ngay
