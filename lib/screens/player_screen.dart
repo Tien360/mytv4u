@@ -1410,6 +1410,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
           onHover: (_) => _onHoverOrTap(),
           child: GestureDetector(
             onTap: _onHoverOrTap,
+            onSecondaryTap: _showSettingsDialog,
             child: Stack(
               fit: StackFit.expand,
               children: [
