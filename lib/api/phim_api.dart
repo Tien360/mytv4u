@@ -1370,7 +1370,7 @@ class PhimApi {
                 } else {
                   serversMap[9] = [
                     if (vidsrcServer != null) vidsrcServer,
-                    vidApiServer
+                    if (vidApiServer != null) vidApiServer
                   ];
                   processAndEmit();
                 }
