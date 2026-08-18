@@ -1093,6 +1093,16 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               vertical: 16,
                             ),
                             children: [
+                              ListTile(
+                                leading: const Icon(Icons.av_timer, color: Colors.blueAccent),
+                                title: const Text('Đồng bộ Âm thanh', style: TextStyle(color: Colors.white)),
+                                trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setState(() => _activePanel = SidePanelMode.audio);
+                                },
+                              ),
+                              const Divider(color: Colors.white24),
                               OutlinedButton.icon(
                                 onPressed: _addExternalAudio,
                                 icon: const Icon(Icons.add),
@@ -1123,6 +1133,16 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               vertical: 16,
                             ),
                             children: [
+                              ListTile(
+                                leading: const Icon(Icons.av_timer, color: Colors.blueAccent),
+                                title: const Text('Đồng bộ Phụ đề', style: TextStyle(color: Colors.white)),
+                                trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setState(() => _activePanel = SidePanelMode.subtitle);
+                                },
+                              ),
+                              const Divider(color: Colors.white24),
                               OutlinedButton.icon(
                                 onPressed: _addExternalSubtitle,
                                 icon: const Icon(Icons.add),
