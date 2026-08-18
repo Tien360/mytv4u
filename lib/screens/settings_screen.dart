@@ -691,7 +691,7 @@ SizedBox(key: _subtitleKey),
                                   children: [
                                     const SizedBox(width: 8),
                                     Text(L10n.t('sub_color'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                    const SizedBox(width: 16),
+                                      const Spacer(),
                                     DropdownButton<String>(
                                       value: _subColor,
                                       dropdownColor: Colors.black87,
@@ -718,7 +718,7 @@ SizedBox(key: _subtitleKey),
                                   children: [
                                     const SizedBox(width: 8),
                                     Text(L10n.t('sub_font'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                    const SizedBox(width: 16),
+                                      const Spacer(),
                                     DropdownButton<String>(
                                       value: _subFont,
                                       dropdownColor: Colors.black87,
