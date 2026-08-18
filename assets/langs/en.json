@@ -117,7 +117,9 @@
   "unknown": "Unknown",
   "auto_default": "Auto (Default)",
   "stream_prefix": "Stream",
-  "next_ep_in": "Next episode in {time}s",
+  "next_ep_in": "Next episode in {time,
+  "hello": "Hello"
+}s",
   "movie_closes_in": "The movie will close later",
   "seconds": "second",
   "the_end": "End",
@@ -178,9 +180,13 @@
   "search_no_results": "No movies found!",
   "search_error": "Search error",
   "search_results": "Search results",
-  "server_overload": "Server overloaded. Switching to backup stream ({newDomain})...",
+  "server_overload": "Server overloaded. Switching to backup stream ({newDomain,
+  "hello": "Hello"
+})...",
   "truehd_error": "The video contains Dolby TrueHD audio, but the current mpv build lacks this codec.\\n\\n👉 Fix: Click Settings (⚙️) -> Audio tab, and switch to another audio stream (like AC3 or AAC).",
-  "generic_error": "An error occurred:\\n{errorMsg}",
+  "generic_error": "An error occurred:\\n{errorMsg,
+  "hello": "Hello"
+}",
   "close_notice": "Close notice",
   "video_color_filter": "Video Color Filter",
   "speed_normal": "1x (Normal)",
@@ -244,17 +250,29 @@
   "view_more_comments": "View more comments",
   "sample_video": "Sample video:",
   "available_filters": "Available filters:",
-  "ep_name": "Episode {name}",
+  "ep_name": "Episode {name,
+  "hello": "Hello"
+}",
   "resume_playing": "Resume",
-  "resume_prompt": "You stopped at {time}. Resume playing or start from the beginning?",
-  "stream_id": "Stream {id}",
-  "closing_in": "Closing in {time}s",
+  "resume_prompt": "You stopped at {time,
+  "hello": "Hello"
+}. Resume playing or start from the beginning?",
+  "stream_id": "Stream {id,
+  "hello": "Hello"
+}",
+  "closing_in": "Closing in {time,
+  "hello": "Hello"
+}s",
   "finished": "Finished",
-  "selecting_track": "Selecting: {track}",
+  "selecting_track": "Selecting: {track,
+  "hello": "Hello"
+}",
   "movie_title": "Title",
   "streaming_source": "Source",
   "sub_source": "Sub-source:",
   "opening_high_res": "Opening high-res player...\n(Press ESC on the other window to exit)",
   "ep_list": "Episodes list",
   "fullscreen": "Fullscreen"
+,
+  "hello": "Hello"
 }

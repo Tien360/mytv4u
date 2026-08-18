@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _currentHeroIndex = 0;
   bool _isLoadingHero = true;
   bool _isLoggedIn = false;
+  String? _userName;
   List<Map<String, dynamic>> _history = [];
 
   // Định nghĩa các hàng
@@ -123,6 +124,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = await AuthApi.getCurrentUser();
     if (user != null) {
       _isLoggedIn = true;
+      _userName = user['name'];
+    } else {
+      _isLoggedIn = false;
+      _userName = null;
     }
     // Always load history, even anonymously
     final history = await FirebaseApi.getContinueWatching();
@@ -162,12 +167,13 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: ListView.builder(
           controller: _scrollController,
-          itemCount: _sections.length + 2, // Hero + History + Sections
+          itemCount: _sections.length + 3, // Header + Hero + History + Sections
           itemBuilder: (context, index) {
-            if (index == 0) return _buildHeroCarousel();
-            if (index == 1) return _buildHistorySection();
+            if (index == 0) return _buildGreetingHeader();
+            if (index == 1) return _buildHeroCarousel();
+            if (index == 2) return _buildHistorySection();
             
-            final section = _sections[index - 2];
+            final section = _sections[index - 3];
             return HorizontalMovieSection(
               title: section['title'],
               fetchType: section['type'],
@@ -181,6 +187,28 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
       ),
+      ),
+    );
+  }
+
+  Widget _buildGreetingHeader() {
+    if (!_isLoggedIn || _userName == null) return const SizedBox.shrink();
+    return Padding(
+      padding: const EdgeInsets.only(left: 32, right: 32, top: 24, bottom: 16),
+      child: Row(
+        children: [
+          Image.asset('assets/logo.png', height: 40),
+          const SizedBox(width: 16),
+          Text(
+            (L10n.t('hello') ?? 'Xin chào') + ' $_userName!',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+              letterSpacing: 0.5,
+            ),
+          ),
+        ],
       ),
     );
   }
