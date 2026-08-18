@@ -61,7 +61,7 @@ void main(List<String> args) async {
 
   // 3. Cháº¡y Flutter Build
   print('[3/6] Äang cháº¡y Flutter Build...');
-  final buildProcess = await Process.start('flutter', ['build', 'windows', '--no-pub'], runInShell: true);
+  final buildProcess = await Process.start('flutter', ['build', 'windows', '--verbose', '--no-pub'], runInShell: true);
   await stdout.addStream(buildProcess.stdout);
   await stderr.addStream(buildProcess.stderr);
   final buildCode = await buildProcess.exitCode;
