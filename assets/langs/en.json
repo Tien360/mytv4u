@@ -232,5 +232,8 @@
   "later": "Later",
   "global_color_settings": "Global Color Settings",
   "sources": "Movie Sources",
-  "system_settings": "Player & System"
+  "system_settings": "Player & System",
+  "search_tv": "Search TV channels...",
+  "search_sports": "Search sports events...",
+  "search_movies": "Search movies..."
 }

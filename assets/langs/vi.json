@@ -232,5 +232,8 @@
   "later": "Để sau",
   "global_color_settings": "Màu sắc toàn cục",
   "sources": "Nguồn phim",
-  "system_settings": "Trình phát & Hệ thống"
+  "system_settings": "Trình phát & Hệ thống",
+  "search_tv": "Tìm kiếm kênh TV...",
+  "search_sports": "Tìm kiếm sự kiện thể thao...",
+  "search_movies": "Tìm kiếm phim..."
 }

@@ -266,7 +266,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                       controller: _searchController,
                       style: const TextStyle(color: Colors.white, fontSize: 14),
                       decoration: InputDecoration(
-                        hintText: _selectedIndex == 3 ? 'Tìm kiếm kênh TV...' : _selectedIndex == 4 ? 'Tìm kiếm sự kiện thể thao...' : 'Tìm kiếm phim...',
+                        hintText: _selectedIndex == 3 ? L10n.t('search_tv') ?? 'Tìm kiếm kênh TV...' : _selectedIndex == 4 ? L10n.t('search_sports') ?? 'Tìm kiếm sự kiện thể thao...' : L10n.t('search_movies') ?? 'Tìm kiếm phim...',
                         hintStyle: const TextStyle(color: Colors.white38, fontSize: 14),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.symmetric(vertical: 9),
