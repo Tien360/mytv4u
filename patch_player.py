@@ -1,121 +1,85 @@
 ﻿import re
 
 with open('lib/screens/player_screen.dart', 'r', encoding='utf-8') as f:
-    lines = f.readlines()
+    content = f.read()
 
-# 1. Add variables
-for i, line in enumerate(lines):
-    if 'late String _currentUrl;' in line:
-        lines.insert(i+1, '  bool _backgroundPlayback = false;\n  bool _wasPlayingBeforeMinimize = false;\n  bool _isPiPMode = false;\n  Rect? _prePiPBounds;\n')
-        break
+# 1. Imports
+if 'advanced_controls_panel.dart' not in content:
+    content = content.replace("import '../widgets/glass_container.dart';", "import '../widgets/glass_container.dart';\nimport '../widgets/advanced_controls_panel.dart';\nimport 'package:shared_preferences/shared_preferences.dart';")
 
-# 2. Add methods
-for i, line in enumerate(lines):
-    if 'void onWindowLeaveFullScreen() {' in line:
-        methods = '''  @override
-  void onWindowMinimize() async {
-    if (!_backgroundPlayback && mounted && _isPlayerInitialized) {
-      _wasPlayingBeforeMinimize = player.state.playing;
-      if (_wasPlayingBeforeMinimize) {
-        await player.pause();
-      }
+# 2. Add state variable
+if 'SidePanelMode _activePanel' not in content:
+    content = content.replace('bool _isLocked = false;', 'bool _isLocked = false;\n  SidePanelMode _activePanel = SidePanelMode.none;')
+
+# 3. Add _applyGlobalColorSettings
+if '_applyGlobalColorSettings' not in content:
+    func = '''
+  Future<void> _applyGlobalColorSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    final brightness = prefs.getDouble('color_brightness') ?? 0.0;
+    final contrast = prefs.getDouble('color_contrast') ?? 0.0;
+    final saturation = prefs.getDouble('color_saturation') ?? 0.0;
+
+    try {
+      (_player.platform as dynamic).setProperty('brightness', brightness.toString());
+      (_player.platform as dynamic).setProperty('contrast', contrast.toString());
+      (_player.platform as dynamic).setProperty('saturation', saturation.toString());
+    } catch (e) {
+      print('Cannot apply color properties to player: \');
     }
   }
-
-  @override
-  void onWindowRestore() async {
-    if (!_backgroundPlayback && mounted && _isPlayerInitialized && _wasPlayingBeforeMinimize) {
-      await player.play();
-    }
-  }
-
-  Future<void> _togglePiPMode() async {
-    if (_isPiPMode) {
-      setState(() => _isPiPMode = false);
-      await windowManager.setAlwaysOnTop(false);
-      if (_prePiPBounds != null) {
-        await windowManager.setBounds(_prePiPBounds!);
-      }
-    } else {
-      _prePiPBounds = await windowManager.getBounds();
-      setState(() => _isPiPMode = true);
-      await windowManager.setAlwaysOnTop(true);
-      await windowManager.setSize(const Size(400, 225));
-      await windowManager.setAlignment(Alignment.bottomRight);
-    }
-  }
-
 '''
-        lines.insert(i-1, methods)
-        break
+    content = content.replace('Future<void> _initEpisode() async {', func + '\n  Future<void> _initEpisode() async {')
+    content = content.replace("await _player.open(Media(episode.m3u8Url!));", "await _player.open(Media(episode.m3u8Url!));\n      await _applyGlobalColorSettings();")
 
-# 3. Load background playback setting
-for i, line in enumerate(lines):
-    if '_playbackSpeed = prefs.getDouble(\'default_speed\') ?? 1.0;' in line:
-        lines.insert(i+1, '        _backgroundPlayback = prefs.getBool(\'background_playback\') ?? false;\n')
-        break
+# 4. Add to Stack
+if 'SideControlPanel' not in content:
+    stack_end = '''              if (_activePanel != SidePanelMode.none)
+                Positioned.fill(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => setState(() => _activePanel = SidePanelMode.none),
+                          child: Container(color: Colors.transparent),
+                        ),
+                      ),
+                      SideControlPanel(
+                        player: _player,
+                        mode: _activePanel,
+                        onClose: () => setState(() => _activePanel = SidePanelMode.none),
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+      ),
+    );'''
+    # We replace the end of the stack. Let's find it.
+    content = content.replace('''            ],
+          ),
+        ),
+      ),
+    );
+  }
 
-# 4. Hide CustomTitleBar
-for i, line in enumerate(lines):
-    if 'if (!_isFullscreen)' in line and 'CustomTitleBar' in ''.join(lines[i:i+10]):
-        lines[i] = '                if (!_isFullscreen && !_isPiPMode)\n'
-        break
+  void _showSettingsDialog() {''', stack_end + '\n  }\n\n  void _showSettingsDialog() {')
 
-# 5. Hide Episode panel
-for i, line in enumerate(lines):
-    if '// 3. Episode Selection Panel (Right Sidebar)' in line:
-        lines.insert(i+1, '                if (!_isPiPMode)\n')
-        break
-
-# 6. PiP Button in Bottom Toolbar
-for i, line in enumerate(lines):
-    if '// Fullscreen Button' in line and 'icon: Icon(' in lines[i+1]:
-        pip_btn = '''                                            // PiP Button
-                                            IconButton(
-                                              icon: const Icon(Icons.picture_in_picture_alt, color: Colors.white, size: 20),
-                                              onPressed: _togglePiPMode,
-                                              tooltip: 'Chế độ PiP',
-                                            ),
-                                            const SizedBox(width: 10),
-'''
-        lines.insert(i, pip_btn)
-        break
-
-# 7. Hide/simplify bottom controls when PiP
-for i, line in enumerate(lines):
-    if '// YouTube Red Seekbar with Hover Time Tooltip' in line:
-        lines.insert(i, '                                  if (!_isPiPMode)\n')
-        break
-
-for i, line in enumerate(lines):
-    if '// YouTube Button Row' in line:
-        lines.insert(i, '''                                  if (_isPiPMode)
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(
-                                            _isPlaying ? Icons.pause : Icons.play_arrow,
-                                            color: Colors.white,
-                                            size: 40,
-                                          ),
-                                          onPressed: () => player.playOrPause(),
-                                        ),
-                                        const SizedBox(width: 20),
-                                        IconButton(
-                                          icon: const Icon(
-                                            Icons.fullscreen,
-                                            color: Colors.white,
-                                            size: 40,
-                                          ),
-                                          onPressed: _togglePiPMode,
-                                        ),
-                                      ],
-                                    ),
-                                  if (!_isPiPMode)\n''')
-        break
-
+# 5. Add Buttons in Tabs
+if 'Lọc màu Video' not in content:
+    btn_color = '''                                ListTile(
+                                  leading: const Icon(Icons.color_lens, color: Colors.blueAccent),
+                                  title: const Text('Bá»™ lá» c mÃ u Video', style: TextStyle(color: Colors.white)),
+                                  trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    setState(() => _activePanel = SidePanelMode.color);
+                                  },
+                                ),'''
+    content = content.replace("children: [", "children: [\n" + btn_color, 1)
 
 with open('lib/screens/player_screen.dart', 'w', encoding='utf-8') as f:
-    f.writelines(lines)
-print('Done!')
+    f.write(content)
+print('Patched player_screen.dart')

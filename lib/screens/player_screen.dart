@@ -985,6 +985,16 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               padding: const EdgeInsets.all(16),
                               children: [
                                 ListTile(
+                                  leading: const Icon(Icons.color_lens, color: Colors.blueAccent),
+                                  title: const Text('Bộ lọc màu Video', style: TextStyle(color: Colors.white)),
+                                  trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                    setState(() => _activePanel = SidePanelMode.color);
+                                  },
+                                ),
+                                const Divider(color: Colors.white24),
+                                ListTile(
                                   title: const Text(
                                     'Tốc độ phát',
                                     style: TextStyle(color: Colors.white),
