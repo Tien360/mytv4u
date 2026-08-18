@@ -41,6 +41,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final GlobalKey _accountKey = GlobalKey();
   final GlobalKey _colorKey = GlobalKey();
   final GlobalKey _subtitleKey = GlobalKey();
+  final GlobalKey _languageKey = GlobalKey();
   final GlobalKey _systemKey = GlobalKey();
   final GlobalKey _sourcesKey = GlobalKey();
   final GlobalKey _infoKey = GlobalKey();
@@ -77,6 +78,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       children: [
         _buildSidebarItem(L10n.t('sync_account') ?? 'Tài khoản', Icons.account_circle, _accountKey),
         _buildSidebarItem(L10n.t('health_utilities') ?? 'Hệ thống', Icons.settings_suggest, _systemKey),
+        _buildSidebarItem(L10n.t('language_settings') ?? 'Ngôn ngữ', Icons.language, _languageKey),
         _buildSidebarItem(L10n.t('sources') ?? 'Nguồn phim', Icons.source, _sourcesKey),
         _buildSidebarItem(L10n.t('global_color_settings') ?? 'Màu sắc', Icons.color_lens, _colorKey),
         _buildSidebarItem(L10n.t('subtitles') ?? 'Phụ đề', Icons.subtitles, _subtitleKey),
@@ -367,7 +369,109 @@ SizedBox(key: _systemKey),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              SizedBox(key: _sourcesKey),
+                              SizedBox(key: _languageKey),
+                          _buildSectionTitle(Icons.language, L10n.t('language_settings')),
+                          const SizedBox(height: 16),
+                          GlassContainer(
+                            padding: const EdgeInsets.all(16),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(L10n.t('language'), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                DropdownButton<String>(
+                                  value: _appLang,
+                                  dropdownColor: Colors.black87,
+                                  style: const TextStyle(color: Colors.amber, fontSize: 16),
+                                  underline: const SizedBox(),
+                                  items: [
+                                    DropdownMenuItem(value: 'vi', child: Text(L10n.t('lang_vi'))),
+                                    DropdownMenuItem(value: 'en', child: Text('English')),
+                                  ],
+                                  onChanged: (val) async {
+                                    if (val != null) {
+                                      await L10n.load(val);
+                                      setState(() {
+                                        _appLang = val;
+                                      });
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(height: 48),
+
+                          _buildSectionTitle(Icons.play_circle_outline, L10n.t('video_player')),
+                          const SizedBox(height: 16),
+                          GlassContainer(
+                            padding: const EdgeInsets.all(16),
+                            child: Column(
+                              children: [
+                                SwitchListTile(
+                                  title: Text(L10n.t('auto_next'), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                  value: _autoNext,
+                                  activeColor: Colors.amber,
+                                  onChanged: (val) async {
+                                    setState(() => _autoNext = val);
+                                    final prefs = await SharedPreferences.getInstance();
+                                    await prefs.setBool('auto_next', val); _syncToFirebase();
+                                  },
+                                ),
+                                const Divider(color: Colors.white12, height: 1),
+                                SwitchListTile(
+                                  title: Text(L10n.t('auto_play_trailer'), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                  value: _autoPlayTrailer,
+                                  activeColor: Colors.amber,
+                                  onChanged: (val) async {
+                                    setState(() => _autoPlayTrailer = val);
+                                    final prefs = await SharedPreferences.getInstance();
+                                    await prefs.setBool('auto_play_trailer', val); _syncToFirebase();
+                                  },
+                                ),
+                                const Divider(color: Colors.white12, height: 1),
+                                ListTile(
+                                  title: Text(L10n.t('default_speed'), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                  trailing: DropdownButton<double>(
+                                    value: _defaultSpeed,
+                                    dropdownColor: Colors.black87,
+                                    style: const TextStyle(color: Colors.amber, fontSize: 16),
+                                    underline: const SizedBox(),
+                                    items: const [
+                                      DropdownMenuItem(value: 1.0, child: Text('1.0x')),
+                                      DropdownMenuItem(value: 1.25, child: Text('1.25x')),
+                                      DropdownMenuItem(value: 1.5, child: Text('1.5x')),
+                                      DropdownMenuItem(value: 2.0, child: Text('2.0x')),
+                                    ],
+                                    onChanged: (val) async {
+                                      if (val != null) {
+                                        setState(() => _defaultSpeed = val);
+                                        final prefs = await SharedPreferences.getInstance();
+                                        await prefs.setDouble('default_speed', val); _syncToFirebase();
+                                      }
+                                    },
+                                  ),
+                                ),
+                                const Divider(color: Colors.white12, height: 1),
+                                SwitchListTile(
+                                  title: Text(L10n.t('hw_accel')),
+                                  subtitle: Text(L10n.t('hw_accel_desc')),
+                                  value: _hwAccel,
+                                  activeColor: Colors.redAccent,
+                                  onChanged: (val) async {
+                                    final prefs = await SharedPreferences.getInstance();
+                                    await prefs.setBool('enable_hw_accel', val); _syncToFirebase();
+                                    setState(() {
+                                      _hwAccel = val;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          
+                          const SizedBox(height: 48),
+
+                          SizedBox(key: _sourcesKey),
                               _buildSectionTitle(Icons.source, L10n.t('movie_sources')),
                               TextButton.icon(
                                 onPressed: () {
@@ -635,107 +739,6 @@ SizedBox(key: _subtitleKey),
                                       },
                                     ),
                                   ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          
-                          const SizedBox(height: 48),
-
-                          _buildSectionTitle(Icons.language, L10n.t('language_settings')),
-                          const SizedBox(height: 16),
-                          GlassContainer(
-                            padding: const EdgeInsets.all(16),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(L10n.t('language'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                DropdownButton<String>(
-                                  value: _appLang,
-                                  dropdownColor: Colors.black87,
-                                  style: const TextStyle(color: Colors.amber, fontSize: 16),
-                                  underline: const SizedBox(),
-                                  items: [
-                                    DropdownMenuItem(value: 'vi', child: Text(L10n.t('lang_vi'))),
-                                    DropdownMenuItem(value: 'en', child: Text('English')),
-                                  ],
-                                  onChanged: (val) async {
-                                    if (val != null) {
-                                      await L10n.load(val);
-                                      setState(() {
-                                        _appLang = val;
-                                      });
-                                    }
-                                  },
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 48),
-
-                          _buildSectionTitle(Icons.play_circle_outline, L10n.t('video_player')),
-                          const SizedBox(height: 16),
-                          GlassContainer(
-                            padding: const EdgeInsets.all(16),
-                            child: Column(
-                              children: [
-                                SwitchListTile(
-                                  title: Text(L10n.t('auto_next'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                  value: _autoNext,
-                                  activeColor: Colors.amber,
-                                  onChanged: (val) async {
-                                    setState(() => _autoNext = val);
-                                    final prefs = await SharedPreferences.getInstance();
-                                    await prefs.setBool('auto_next', val); _syncToFirebase();
-                                  },
-                                ),
-                                const Divider(color: Colors.white12, height: 1),
-                                SwitchListTile(
-                                  title: Text(L10n.t('auto_play_trailer'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                  value: _autoPlayTrailer,
-                                  activeColor: Colors.amber,
-                                  onChanged: (val) async {
-                                    setState(() => _autoPlayTrailer = val);
-                                    final prefs = await SharedPreferences.getInstance();
-                                    await prefs.setBool('auto_play_trailer', val); _syncToFirebase();
-                                  },
-                                ),
-                                const Divider(color: Colors.white12, height: 1),
-                                ListTile(
-                                  title: Text(L10n.t('default_speed'), style: const TextStyle(color: Colors.white, fontSize: 16)),
-                                  trailing: DropdownButton<double>(
-                                    value: _defaultSpeed,
-                                    dropdownColor: Colors.black87,
-                                    style: const TextStyle(color: Colors.amber, fontSize: 16),
-                                    underline: const SizedBox(),
-                                    items: const [
-                                      DropdownMenuItem(value: 1.0, child: Text('1.0x')),
-                                      DropdownMenuItem(value: 1.25, child: Text('1.25x')),
-                                      DropdownMenuItem(value: 1.5, child: Text('1.5x')),
-                                      DropdownMenuItem(value: 2.0, child: Text('2.0x')),
-                                    ],
-                                    onChanged: (val) async {
-                                      if (val != null) {
-                                        setState(() => _defaultSpeed = val);
-                                        final prefs = await SharedPreferences.getInstance();
-                                        await prefs.setDouble('default_speed', val); _syncToFirebase();
-                                      }
-                                    },
-                                  ),
-                                ),
-                                const Divider(color: Colors.white12, height: 1),
-                                SwitchListTile(
-                                  title: Text(L10n.t('hw_accel')),
-                                  subtitle: Text(L10n.t('hw_accel_desc')),
-                                  value: _hwAccel,
-                                  activeColor: Colors.redAccent,
-                                  onChanged: (val) async {
-                                    final prefs = await SharedPreferences.getInstance();
-                                    await prefs.setBool('enable_hw_accel', val); _syncToFirebase();
-                                    setState(() {
-                                      _hwAccel = val;
-                                    });
-                                  },
                                 ),
                               ],
                             ),

@@ -22,7 +22,7 @@ class SideControlPanel extends StatefulWidget {
 }
 
 class _SideControlPanelState extends State<SideControlPanel> {
-  String _preset = L10n.t('default');
+  String _preset = 'default';
   double _brightness = 0.0;
   double _contrast = 0.0;
   double _saturation = 0.0;
@@ -32,14 +32,14 @@ double _secSubDelay = 0.0;
   double _audioDelay = 0.0;
 
   final Map<String, Map<String, double>> _presets = {
-    L10n.t('default'): {'brightness': 0.0, 'contrast': 0.0, 'saturation': 0.0},
-    L10n.t('vivid'): {'brightness': 5.0, 'contrast': 10.0, 'saturation': 25.0},
-    L10n.t('cinema'): {'brightness': -5.0, 'contrast': 15.0, 'saturation': 5.0},
-    L10n.t('bright'): {'brightness': 20.0, 'contrast': 5.0, 'saturation': 0.0},
-    L10n.t('bw'): {'brightness': 0.0, 'contrast': 5.0, 'saturation': -100.0},
-    L10n.t('warm'): {'brightness': 0.0, 'contrast': 5.0, 'saturation': 15.0},
-    L10n.t('cool'): {'brightness': 5.0, 'contrast': 5.0, 'saturation': -10.0},
-    L10n.t('custom'): {},
+    'default': {'brightness': 0.0, 'contrast': 0.0, 'saturation': 0.0},
+    'vivid': {'brightness': 5.0, 'contrast': 10.0, 'saturation': 25.0},
+    'cinema': {'brightness': -5.0, 'contrast': 15.0, 'saturation': 5.0},
+    'bright': {'brightness': 20.0, 'contrast': 5.0, 'saturation': 0.0},
+    'bw': {'brightness': 0.0, 'contrast': 5.0, 'saturation': -100.0},
+    'warm': {'brightness': 0.0, 'contrast': 5.0, 'saturation': 15.0},
+    'cool': {'brightness': 5.0, 'contrast': 5.0, 'saturation': -10.0},
+    'custom': {},
   };
 
   @override
@@ -68,7 +68,7 @@ double _secSubDelay = 0.0;
   }
 
   void _onPresetSelected(String presetName) {
-    if (presetName == L10n.t('custom')) return;
+    if (presetName == 'custom') return;
     setState(() {
       _preset = presetName;
       _brightness = _presets[presetName]!['brightness']!;
@@ -80,9 +80,9 @@ double _secSubDelay = 0.0;
 
   void _onSliderChanged(String type, double val) {
     setState(() {
-      if (type == 'brightness') { _brightness = val; _preset = L10n.t('custom'); }
-      if (type == 'contrast') { _contrast = val; _preset = L10n.t('custom'); }
-      if (type == 'saturation') { _saturation = val; _preset = L10n.t('custom'); }
+      if (type == 'brightness') { _brightness = val; _preset = 'custom'; }
+      if (type == 'contrast') { _contrast = val; _preset = 'custom'; }
+      if (type == 'saturation') { _saturation = val; _preset = 'custom'; }
       if (type == 'sub-delay') { _subDelay = val; _applyDelay(type, val); return; }
       if (type == 'secondary-sub-delay') { _secSubDelay = val; _applyDelay(type, val); return; }
       if (type == 'audio-delay') { _audioDelay = val; _applyDelay(type, val); return; }
@@ -132,7 +132,7 @@ double _secSubDelay = 0.0;
                       children: _presets.keys.map((p) {
                         final isSelected = p == _preset;
                         return ChoiceChip(
-                          label: Text(p),
+                          label: Text(L10n.t(p) ?? p),
                           selected: isSelected,
                           selectedColor: Colors.blueAccent,
                           backgroundColor: Colors.white10,
