@@ -1176,6 +1176,16 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               vertical: 16,
                             ),
                             children: [
+                              ListTile(
+                                leading: const Icon(Icons.sync, color: Colors.blueAccent),
+                                title: Text(L10n.t('sync_subtitle')),
+                                trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  setState(() => _activePanel = SidePanelMode.secondarySubtitle);
+                                },
+                              ),
+                              const Divider(color: Colors.white24),
                               OutlinedButton.icon(
                                 onPressed: _addExternalSubtitle,
                                 icon: const Icon(Icons.add),

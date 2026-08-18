@@ -1,9 +1,9 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'glass_container.dart';
 
 import '../utils/l10n.dart';
-enum SidePanelMode { none, color, subtitle, audio }
+enum SidePanelMode { none, color, subtitle, audio, secondarySubtitle }
 
 class SideControlPanel extends StatefulWidget {
   final Player player;
@@ -28,6 +28,7 @@ class _SideControlPanelState extends State<SideControlPanel> {
   double _saturation = 0.0;
   
   double _subDelay = 0.0;
+double _secSubDelay = 0.0;
   double _audioDelay = 0.0;
 
   final Map<String, Map<String, double>> _presets = {
@@ -83,6 +84,7 @@ class _SideControlPanelState extends State<SideControlPanel> {
       if (type == 'contrast') { _contrast = val; _preset = L10n.t('custom'); }
       if (type == 'saturation') { _saturation = val; _preset = L10n.t('custom'); }
       if (type == 'sub-delay') { _subDelay = val; _applyDelay(type, val); return; }
+      if (type == 'secondary-sub-delay') { _secSubDelay = val; _applyDelay(type, val); return; }
       if (type == 'audio-delay') { _audioDelay = val; _applyDelay(type, val); return; }
       _applyPropertiesToPlayer();
     });
@@ -93,6 +95,7 @@ class _SideControlPanelState extends State<SideControlPanel> {
     String title = L10n.t('adjust');
     if (widget.mode == SidePanelMode.color) title = L10n.t('video_color');
     if (widget.mode == SidePanelMode.subtitle) title = L10n.t('sync_subtitle');
+    if (widget.mode == SidePanelMode.secondarySubtitle) title = L10n.t('sync_subtitle');
     if (widget.mode == SidePanelMode.audio) title = L10n.t('sync_audio');
 
     return Container(
@@ -153,6 +156,19 @@ class _SideControlPanelState extends State<SideControlPanel> {
                         icon: const Icon(Icons.restore),
                         label: Text(L10n.t('default_0ms')),
                         onPressed: () => _onSliderChanged('sub-delay', 0),
+                      ),
+                    ),
+                  ],
+                                    if (widget.mode == SidePanelMode.secondarySubtitle) ...[
+                    Text(L10n.t('sub_delay_desc') ?? '', style: const TextStyle(color: Colors.white70, fontSize: 13)),
+                    const SizedBox(height: 16),
+                    _buildSlider(L10n.t('delay_ms') ?? '', _secSubDelay, -5000, 5000, (v) => _onSliderChanged('secondary-sub-delay', v), isMs: true),
+                    const SizedBox(height: 8),
+                    Center(
+                      child: TextButton.icon(
+                        icon: const Icon(Icons.restore),
+                        label: Text(L10n.t('default_0ms') ?? ''),
+                        onPressed: () => _onSliderChanged('secondary-sub-delay', 0),
                       ),
                     ),
                   ],
