@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 import 'package:http/http.dart' as http;
@@ -24,6 +24,7 @@ import '../widgets/glass_container.dart';
 import '../widgets/custom_title_bar.dart';
 
 import '../utils/l10n.dart';
+
 class PlayerScreen extends StatefulWidget {
   final List<Episode> episodes;
   final int currentEpisodeIndex;
@@ -89,7 +90,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   // UI state
   bool _showControls = true;
   bool _showEpisodePanel = false;
-  
+
   Timer? _hideControlsTimer;
 
   // media_kit state
@@ -103,9 +104,11 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   double? _hoverSeekFraction;
   final GlobalKey _seekbarKey = GlobalKey();
 
+  List<VideoTrack> _videoTracks = [];
   List<AudioTrack> _audioTracks = [];
   List<SubtitleTrack> _subtitleTracks = [];
   List<SubtitleTrack> _openSubtitles = [];
+  VideoTrack? _selectedVideoTrack;
   AudioTrack? _selectedAudioTrack;
   SubtitleTrack? _selectedSubtitleTrack;
   SubtitleTrack? _selectedSecondarySubtitleTrack;
@@ -146,7 +149,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
   @override
   void onWindowRestore() async {
-    if (!_backgroundPlayback && mounted && _isPlayerInitialized && _wasPlayingBeforeMinimize) {
+    if (!_backgroundPlayback &&
+        mounted &&
+        _isPlayerInitialized &&
+        _wasPlayingBeforeMinimize) {
       await player.play();
     }
   }
@@ -211,26 +217,29 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   bool _tryFallbackDomain() {
-    if (_currentUrl.contains('dpdns.org') || _currentUrl.contains('workers.dev')) {
+    if (_currentUrl.contains('dpdns.org') ||
+        _currentUrl.contains('workers.dev')) {
       final rawId = _currentUrl.split('/').last;
       _currentFallbackDomainIndex++;
-      
+
       if (_currentFallbackDomainIndex < _fallbackDomains.length) {
-         final newDomain = _fallbackDomains[_currentFallbackDomainIndex];
-         final newUrl = 'https://$newDomain/$rawId';
-         setState(() {
-           _currentUrl = newUrl;
-           errorMsg = null;
-         });
-         ScaffoldMessenger.of(context).showSnackBar(
-             SnackBar(
-               content: Text('Máy chủ quá tải. Đang chuyển sang luồng dự phòng ($newDomain)...'),
-               backgroundColor: Colors.orange,
-               duration: const Duration(seconds: 3),
-             )
-         );
-         player.open(Media(newUrl));
-         return true;
+        final newDomain = _fallbackDomains[_currentFallbackDomainIndex];
+        final newUrl = 'https://$newDomain/$rawId';
+        setState(() {
+          _currentUrl = newUrl;
+          errorMsg = null;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Máy chủ quá tải. Đang chuyển sang luồng dự phòng ($newDomain)...',
+            ),
+            backgroundColor: Colors.orange,
+            duration: const Duration(seconds: 3),
+          ),
+        );
+        player.open(Media(newUrl));
+        return true;
       }
     }
     return false;
@@ -243,15 +252,21 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         pitch: false,
       ),
     );
-    
+
     // Tối ưu tốc độ tải luồng HLS/m3u8 (giảm độ trễ ban đầu)
     try {
       final platform = player.platform as dynamic;
       platform.setProperty('cache', 'yes');
-      platform.setProperty('cache-pause', 'no'); // Phát ngay khi có dữ liệu, không chờ đầy buffer
+      platform.setProperty(
+        'cache-pause',
+        'no',
+      ); // Phát ngay khi có dữ liệu, không chờ đầy buffer
       platform.setProperty('demuxer-max-bytes', '32M');
       platform.setProperty('demuxer-max-back-bytes', '10M');
-      platform.setProperty('network-timeout', '10'); // Tránh treo lâu khi mạng lỗi
+      platform.setProperty(
+        'network-timeout',
+        '10',
+      ); // Tránh treo lâu khi mạng lỗi
       platform.setProperty('demuxer-lavf-o-add', 'fflags=+fastseek');
     } catch (e) {
       debugPrint('Error setting MPV properties: $e');
@@ -295,13 +310,17 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     _playerSubs.add(
       player.stream.completed.listen((completed) {
         if (completed && _autoNext) {
-          final isNearEnd = _duration.inSeconds > 0 && 
+          final isNearEnd =
+              _duration.inSeconds > 0 &&
               (_position.inSeconds >= _duration.inSeconds - 120);
           if (isNearEnd) {
             _playNextEpisode();
           } else {
             debugPrint('Luồng bị ngắt giữa chừng. Không tự động nhảy tập.');
-            if (mounted) setState(() => errorMsg = 'Luồng bị ngắt kết nối. Vui lòng thử lại!');
+            if (mounted)
+              setState(
+                () => errorMsg = 'Luồng bị ngắt kết nối. Vui lòng thử lại!',
+              );
           }
         }
       }),
@@ -310,6 +329,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       player.stream.tracks.listen((tracks) {
         if (mounted)
           setState(() {
+            _videoTracks = tracks.video;
             _audioTracks = tracks.audio;
             _subtitleTracks = tracks.subtitle;
           });
@@ -319,6 +339,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       player.stream.track.listen((track) {
         if (mounted)
           setState(() {
+            _selectedVideoTrack = track.video;
             _selectedAudioTrack = track.audio;
             _selectedSubtitleTrack = track.subtitle;
           });
@@ -386,9 +407,15 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     final saturation = prefs.getDouble('color_saturation') ?? 0.0;
 
     try {
-      (player.platform as dynamic).setProperty('brightness', brightness.toString());
+      (player.platform as dynamic).setProperty(
+        'brightness',
+        brightness.toString(),
+      );
       (player.platform as dynamic).setProperty('contrast', contrast.toString());
-      (player.platform as dynamic).setProperty('saturation', saturation.toString());
+      (player.platform as dynamic).setProperty(
+        'saturation',
+        saturation.toString(),
+      );
     } catch (e) {
       print('Cannot apply color properties to player: $e');
     }
@@ -466,7 +493,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     }
 
     // Proactively switch to the first working premium server config
-    if (_fallbackDomains.isNotEmpty && (_currentUrl.contains('dpdns.org') || _currentUrl.contains('workers.dev'))) {
+    if (_fallbackDomains.isNotEmpty &&
+        (_currentUrl.contains('dpdns.org') ||
+            _currentUrl.contains('workers.dev'))) {
       final rawId = _currentUrl.split('/').last;
       _currentUrl = 'https://${_fallbackDomains.first}/$rawId';
     }
@@ -487,42 +516,57 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
     if (_isUsingWebview) {
       player.pause();
-      
+
       if (Platform.isWindows) {
-        if (mounted) setState(() { _isExternalPlayerActive = true; });
+        if (mounted)
+          setState(() {
+            _isExternalPlayerActive = true;
+          });
         try {
           final bounds = await windowManager.getBounds();
           final title = "${widget.movieName} - ${ep.name}";
           final exeDir = File(Platform.resolvedExecutable).parent.path;
           var exePath = '$exeDir\\tv_web_player.exe';
           if (!File(exePath).existsSync()) {
-            exePath = r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
+            exePath =
+                r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
           }
-          
+
           String? subtitlePath;
           if (widget.imdbId != null && widget.imdbId!.isNotEmpty) {
             try {
               int? inferredSeason = widget.season;
               int? currentEpNum = widget.episode;
-              final epName = ep.name.toLowerCase().startsWith('tập') ? ep.name : 'Tập ${ep.name}';
-              
+              final epName = ep.name.toLowerCase().startsWith('tập')
+                  ? ep.name
+                  : 'Tập ${ep.name}';
+
               // 1. Try to extract exact Season and Episode from P2P slug (e.g. S2E3)
-              final slugMatch = RegExp(r'^S(\d+)E(\d+)$', caseSensitive: false).firstMatch(ep.slug);
+              final slugMatch = RegExp(
+                r'^S(\d+)E(\d+)$',
+                caseSensitive: false,
+              ).firstMatch(ep.slug);
               if (slugMatch != null) {
                 inferredSeason = int.tryParse(slugMatch.group(1)!);
                 currentEpNum = int.tryParse(slugMatch.group(2)!);
               } else {
                 // 2. Fallback: Parse episode from name (e.g. "Tập 3")
-                if (currentEpNum == null && epName.toLowerCase().contains('tập')) {
-                  final match = RegExp(r'tập\s*(\d+)').firstMatch(epName.toLowerCase());
+                if (currentEpNum == null &&
+                    epName.toLowerCase().contains('tập')) {
+                  final match = RegExp(
+                    r'tập\s*(\d+)',
+                  ).firstMatch(epName.toLowerCase());
                   if (match != null) {
                     currentEpNum = int.tryParse(match.group(1)!);
                   }
                 }
-                
+
                 // 3. Fallback: Parse season from movie title (e.g. "Game of Thrones (Phần 2)")
                 if (currentEpNum != null && inferredSeason == null) {
-                  final seasonMatch = RegExp(r'(?:phần|mùa|season)\s*(\d+)', caseSensitive: false).firstMatch(widget.movieName);
+                  final seasonMatch = RegExp(
+                    r'(?:phần|mùa|season)\s*(\d+)',
+                    caseSensitive: false,
+                  ).firstMatch(widget.movieName);
                   if (seasonMatch != null) {
                     inferredSeason = int.tryParse(seasonMatch.group(1)!);
                   } else {
@@ -531,7 +575,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 }
               }
               if (inferredSeason != null && currentEpNum != null) {
-                subtitlePath = '${widget.imdbId!}:$inferredSeason:$currentEpNum';
+                subtitlePath =
+                    '${widget.imdbId!}:$inferredSeason:$currentEpNum';
               } else {
                 subtitlePath = widget.imdbId!;
               }
@@ -546,20 +591,23 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
             bounds.left.toInt().toString(),
             bounds.top.toInt().toString(),
             bounds.width.toInt().toString(),
-            bounds.height.toInt().toString()
+            bounds.height.toInt().toString(),
           ];
           if (subtitlePath != null) {
             args.add(subtitlePath);
           }
-          
+
           final process = await Process.start(exePath, args);
-          
+
           // Wait for the external player to close
           await process.exitCode;
-          
+
           // No file to delete since we just passed the IMDB string
-          if (mounted) setState(() { _isExternalPlayerActive = false; });
-          
+          if (mounted)
+            setState(() {
+              _isExternalPlayerActive = false;
+            });
+
           // Go back to previous screen automatically when player is closed
           if (mounted) {
             Navigator.pop(context);
@@ -567,10 +615,13 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
           return;
         } catch (e) {
           debugPrint("Failed to start external player: $e");
-          if (mounted) setState(() { _isExternalPlayerActive = false; });
+          if (mounted)
+            setState(() {
+              _isExternalPlayerActive = false;
+            });
         }
       }
-      
+
       if (!_isWebviewInitialized) {
         await _webController.initialize();
         await _webController.setUserAgent(
@@ -758,6 +809,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     return "$twoDigitMinutes:$twoDigitSeconds";
   }
 
+  void _selectVideoTrack(VideoTrack track) {
+    setState(() => _selectedVideoTrack = track);
+    player.setVideoTrack(track);
+    if (Navigator.canPop(context)) Navigator.pop(context);
+  }
+
   void _selectAudioTrack(AudioTrack track) {
     setState(() => _selectedAudioTrack = track);
     player.setAudioTrack(track);
@@ -779,11 +836,26 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   String _getTrackShortName(dynamic track) {
     if (track.id == 'auto') return L10n.t('auto');
     if (track.id == 'no') return L10n.t('off');
-    return track.title ?? track.language ?? track.id ?? L10n.t('unknown') ?? 'Không rõ';
+    return track.title ??
+        track.language ??
+        track.id ??
+        L10n.t('unknown') ??
+        'Không rõ';
+  }
+
+  String _getVideoTrackName(VideoTrack track) {
+    if (track.id == 'auto')
+      return L10n.t('auto_default') ?? 'Tự động (Mặc định)';
+    if (track.id == 'no') return L10n.t('off') ?? 'Tắt';
+    if (track.w != null && track.h != null) {
+      return 'x';
+    }
+    return track.title ?? track.id ?? L10n.t('unknown') ?? 'Không rõ';
   }
 
   String _getTrackFullName(dynamic track) {
-    if (track.id == 'auto') return L10n.t('auto_default') ?? 'Tự động (Mặc định)';
+    if (track.id == 'auto')
+      return L10n.t('auto_default') ?? 'Tự động (Mặc định)';
     if (track.id == 'no') return L10n.t('off');
 
     List<String> details = [];
@@ -891,7 +963,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
               ),
               const SizedBox(height: 4),
               Text(
-                hasNext ? widget.episodes[_currentIndex + 1].name : L10n.t('finished') ?? 'Kết thúc',
+                hasNext
+                    ? widget.episodes[_currentIndex + 1].name
+                    : L10n.t('finished') ?? 'Kết thúc',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 18,
@@ -961,10 +1035,16 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                         isScrollable: true,
                         tabAlignment: TabAlignment.center,
                         tabs: [
-                          Tab(icon: Icon(Icons.speed), text: L10n.t('tab_general')),
+                          Tab(
+                            icon: Icon(Icons.speed),
+                            text: L10n.t('tab_general'),
+                          ),
                           Tooltip(
                             message:
-                                (L10n.t('currently_selected') ?? 'Selected: ') + (_selectedAudioTrack != null ? _getTrackShortName(_selectedAudioTrack) : (L10n.t('auto') ?? 'Auto')),
+                                (L10n.t('currently_selected') ?? 'Selected: ') +
+                                (_selectedAudioTrack != null
+                                    ? _getTrackShortName(_selectedAudioTrack)
+                                    : (L10n.t('auto') ?? 'Auto')),
                             child: Tab(
                               icon: Icon(Icons.audiotrack),
                               text: L10n.t('tab_audio'),
@@ -972,7 +1052,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           ),
                           Tooltip(
                             message:
-                                (L10n.t('currently_selected') ?? 'Selected: ') + (_selectedSubtitleTrack != null ? _getTrackShortName(_selectedSubtitleTrack) : (L10n.t('auto') ?? 'Auto')),
+                                (L10n.t('currently_selected') ?? 'Selected: ') +
+                                (_selectedSubtitleTrack != null
+                                    ? _getTrackShortName(_selectedSubtitleTrack)
+                                    : (L10n.t('auto') ?? 'Auto')),
                             child: Tab(
                               icon: Icon(Icons.subtitles),
                               text: L10n.t('tab_sub_main'),
@@ -980,7 +1063,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           ),
                           Tooltip(
                             message:
-                                (L10n.t('currently_selected') ?? 'Selected: ') + (_selectedSecondarySubtitleTrack != null ? _getTrackShortName(_selectedSecondarySubtitleTrack) : (L10n.t('off') ?? 'Off')),
+                                (L10n.t('currently_selected') ?? 'Selected: ') +
+                                (_selectedSecondarySubtitleTrack != null
+                                    ? _getTrackShortName(
+                                        _selectedSecondarySubtitleTrack,
+                                      )
+                                    : (L10n.t('off') ?? 'Off')),
                             child: Tab(
                               icon: Icon(Icons.subtitles_outlined),
                               text: L10n.t('tab_sub_sec'),
@@ -1002,13 +1090,61 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             builder: (context, setTabState) => ListView(
                               padding: const EdgeInsets.all(16),
                               children: [
+                                if (_videoTracks.isNotEmpty) ...[
+                                  ListTile(
+                                    title: Text(
+                                      L10n.t('tab_video') ?? 'Quality',
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    trailing: DropdownButton<String>(
+                                      dropdownColor: Colors.grey[900],
+                                      value: _selectedVideoTrack?.id ?? 'auto',
+                                      style: const TextStyle(
+                                        color: Colors.blueAccent,
+                                      ),
+                                      items: _videoTracks.map((track) {
+                                        return DropdownMenuItem<String>(
+                                          value: track.id,
+                                          child: Text(
+                                            _getVideoTrackName(track),
+                                          ),
+                                        );
+                                      }).toList(),
+                                      onChanged: (val) {
+                                        if (val != null) {
+                                          final track = _videoTracks.firstWhere(
+                                            (t) => t.id == val,
+                                          );
+                                          setState(
+                                            () => _selectedVideoTrack = track,
+                                          );
+                                          player.setVideoTrack(track);
+                                          setTabState(() {});
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  const Divider(color: Colors.white24),
+                                ],
+
                                 ListTile(
-                                  leading: const Icon(Icons.color_lens, color: Colors.blueAccent),
-                                  title: Text(L10n.t('video_color_filter'), style: TextStyle(color: Colors.white)),
-                                  trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                  leading: const Icon(
+                                    Icons.color_lens,
+                                    color: Colors.blueAccent,
+                                  ),
+                                  title: Text(
+                                    L10n.t('video_color_filter'),
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  trailing: const Icon(
+                                    Icons.chevron_right,
+                                    color: Colors.white54,
+                                  ),
                                   onTap: () {
                                     Navigator.pop(context);
-                                    setState(() => _activePanel = SidePanelMode.color);
+                                    setState(
+                                      () => _activePanel = SidePanelMode.color,
+                                    );
                                   },
                                 ),
                                 const Divider(color: Colors.white24),
@@ -1095,12 +1231,23 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             ),
                             children: [
                               ListTile(
-                                leading: const Icon(Icons.av_timer, color: Colors.blueAccent),
-                                title: Text(L10n.t('sync_audio'), style: TextStyle(color: Colors.white)),
-                                trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                leading: const Icon(
+                                  Icons.av_timer,
+                                  color: Colors.blueAccent,
+                                ),
+                                title: Text(
+                                  L10n.t('sync_audio'),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                trailing: const Icon(
+                                  Icons.chevron_right,
+                                  color: Colors.white54,
+                                ),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  setState(() => _activePanel = SidePanelMode.audio);
+                                  setState(
+                                    () => _activePanel = SidePanelMode.audio,
+                                  );
                                 },
                               ),
                               const Divider(color: Colors.white24),
@@ -1135,12 +1282,23 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             ),
                             children: [
                               ListTile(
-                                leading: const Icon(Icons.av_timer, color: Colors.blueAccent),
-                                title: Text(L10n.t('sync_subtitle'), style: TextStyle(color: Colors.white)),
-                                trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                leading: const Icon(
+                                  Icons.av_timer,
+                                  color: Colors.blueAccent,
+                                ),
+                                title: Text(
+                                  L10n.t('sync_subtitle'),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                trailing: const Icon(
+                                  Icons.chevron_right,
+                                  color: Colors.white54,
+                                ),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  setState(() => _activePanel = SidePanelMode.subtitle);
+                                  setState(
+                                    () => _activePanel = SidePanelMode.subtitle,
+                                  );
                                 },
                               ),
                               const Divider(color: Colors.white24),
@@ -1177,12 +1335,21 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             ),
                             children: [
                               ListTile(
-                                leading: const Icon(Icons.sync, color: Colors.blueAccent),
+                                leading: const Icon(
+                                  Icons.sync,
+                                  color: Colors.blueAccent,
+                                ),
                                 title: Text(L10n.t('sync_subtitle')),
-                                trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                trailing: const Icon(
+                                  Icons.chevron_right,
+                                  color: Colors.white54,
+                                ),
                                 onTap: () {
                                   Navigator.pop(context);
-                                  setState(() => _activePanel = SidePanelMode.secondarySubtitle);
+                                  setState(
+                                    () => _activePanel =
+                                        SidePanelMode.secondarySubtitle,
+                                  );
                                 },
                               ),
                               const Divider(color: Colors.white24),
@@ -1220,7 +1387,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               vertical: 24,
                             ),
                             children: [
-                              _buildInfoRow(L10n.t('movie_title') ?? 'Tên phim', widget.movieName),
+                              _buildInfoRow(
+                                L10n.t('movie_title') ?? 'Tên phim',
+                                widget.movieName,
+                              ),
                               _buildInfoRow(
                                 L10n.t('current_ep') ?? 'Tập đang phát',
                                 widget.episodes[_currentIndex].name,
@@ -1237,8 +1407,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               _buildInfoRow(
                                 L10n.t('streaming_source') ?? 'Nguồn phát',
                                 _isUsingWebview
-                                    ? L10n.t('web_browser_embed') ?? 'Trình duyệt Web (Embed)'
-                                    : L10n.t('native_video_player') ?? 'Trình phát Video gốc',
+                                    ? L10n.t('web_browser_embed') ??
+                                          'Trình duyệt Web (Embed)'
+                                    : L10n.t('native_video_player') ??
+                                          'Trình phát Video gốc',
                               ),
                               if (_isUsingWebview)
                                 _buildInfoRow('URL', _currentUrl),
@@ -1430,7 +1602,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                         style: TextStyle(
                           fontSize: _subSize,
                           color: Colors.white,
-                          backgroundColor: Colors.black.withOpacity(_subOpacity),
+                          backgroundColor: Colors.black.withOpacity(
+                            _subOpacity,
+                          ),
                         ),
                       ),
                     ),
@@ -1650,162 +1824,165 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   if (!_isPiPMode)
-                                  // YouTube Red Seekbar with Hover Time Tooltip
-                                  MouseRegion(
-                                    key: _seekbarKey,
-                                    onEnter: (_) => setState(
-                                      () => _isSeekbarHovered = true,
-                                    ),
-                                    onHover: (event) {
-                                      final RenderBox? box =
-                                          _seekbarKey.currentContext
-                                                  ?.findRenderObject()
-                                              as RenderBox?;
-                                      if (box != null &&
-                                          _duration.inMilliseconds > 0) {
-                                        final localPos = box.globalToLocal(
-                                          event.position,
-                                        );
-                                        final fraction =
-                                            (localPos.dx / box.size.width)
-                                                .clamp(0.0, 1.0);
-                                        setState(
-                                          () => _hoverSeekFraction = fraction,
-                                        );
-                                      }
-                                    },
-                                    onExit: (_) => setState(() {
-                                      _isSeekbarHovered = false;
-                                      _hoverSeekFraction = null;
-                                    }),
-                                    child: Stack(
-                                      clipBehavior: Clip.none,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Expanded(
-                                              child: SliderTheme(
-                                                data: SliderTheme.of(context).copyWith(
-                                                  trackHeight: 3,
-                                                  thumbShape:
-                                                      const RoundSliderThumbShape(
-                                                        enabledThumbRadius: 6,
-                                                      ),
-                                                  overlayShape:
-                                                      const RoundSliderOverlayShape(
-                                                        overlayRadius: 14,
-                                                      ),
-                                                  activeTrackColor: const Color(
-                                                    0xFFFF0000,
-                                                  ),
-                                                  inactiveTrackColor:
-                                                      Colors.white24,
-                                                  thumbColor: const Color(
-                                                    0xFFFF0000,
-                                                  ),
-                                                  overlayColor: const Color(
-                                                    0xFFFF0000,
-                                                  ).withOpacity(0.2),
-                                                ),
-                                                child: Slider(
-                                                  value: _position
-                                                      .inMilliseconds
-                                                      .toDouble()
-                                                      .clamp(
-                                                        0,
-                                                        _duration.inMilliseconds
-                                                            .toDouble(),
-                                                      ),
-                                                  max:
-                                                      _duration.inMilliseconds
-                                                              .toDouble() >
-                                                          0
-                                                      ? _duration.inMilliseconds
-                                                            .toDouble()
-                                                      : 1.0,
-                                                  onChanged: (val) =>
-                                                      player.seek(
-                                                        Duration(
-                                                          milliseconds: val
-                                                              .toInt(),
+                                    // YouTube Red Seekbar with Hover Time Tooltip
+                                    MouseRegion(
+                                      key: _seekbarKey,
+                                      onEnter: (_) => setState(
+                                        () => _isSeekbarHovered = true,
+                                      ),
+                                      onHover: (event) {
+                                        final RenderBox? box =
+                                            _seekbarKey.currentContext
+                                                    ?.findRenderObject()
+                                                as RenderBox?;
+                                        if (box != null &&
+                                            _duration.inMilliseconds > 0) {
+                                          final localPos = box.globalToLocal(
+                                            event.position,
+                                          );
+                                          final fraction =
+                                              (localPos.dx / box.size.width)
+                                                  .clamp(0.0, 1.0);
+                                          setState(
+                                            () => _hoverSeekFraction = fraction,
+                                          );
+                                        }
+                                      },
+                                      onExit: (_) => setState(() {
+                                        _isSeekbarHovered = false;
+                                        _hoverSeekFraction = null;
+                                      }),
+                                      child: Stack(
+                                        clipBehavior: Clip.none,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                child: SliderTheme(
+                                                  data: SliderTheme.of(context).copyWith(
+                                                    trackHeight: 3,
+                                                    thumbShape:
+                                                        const RoundSliderThumbShape(
+                                                          enabledThumbRadius: 6,
                                                         ),
-                                                      ),
+                                                    overlayShape:
+                                                        const RoundSliderOverlayShape(
+                                                          overlayRadius: 14,
+                                                        ),
+                                                    activeTrackColor:
+                                                        const Color(0xFFFF0000),
+                                                    inactiveTrackColor:
+                                                        Colors.white24,
+                                                    thumbColor: const Color(
+                                                      0xFFFF0000,
+                                                    ),
+                                                    overlayColor: const Color(
+                                                      0xFFFF0000,
+                                                    ).withOpacity(0.2),
+                                                  ),
+                                                  child: Slider(
+                                                    value: _position
+                                                        .inMilliseconds
+                                                        .toDouble()
+                                                        .clamp(
+                                                          0,
+                                                          _duration
+                                                              .inMilliseconds
+                                                              .toDouble(),
+                                                        ),
+                                                    max:
+                                                        _duration.inMilliseconds
+                                                                .toDouble() >
+                                                            0
+                                                        ? _duration
+                                                              .inMilliseconds
+                                                              .toDouble()
+                                                        : 1.0,
+                                                    onChanged: (val) =>
+                                                        player.seek(
+                                                          Duration(
+                                                            milliseconds: val
+                                                                .toInt(),
+                                                          ),
+                                                        ),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                        if (_isSeekbarHovered &&
-                                            _hoverSeekFraction != null &&
-                                            _duration.inMilliseconds > 0)
-                                          Positioned(
-                                            left:
-                                                (_hoverSeekFraction! *
-                                                        (MediaQuery.of(
+                                            ],
+                                          ),
+                                          if (_isSeekbarHovered &&
+                                              _hoverSeekFraction != null &&
+                                              _duration.inMilliseconds > 0)
+                                            Positioned(
+                                              left:
+                                                  (_hoverSeekFraction! *
+                                                          (MediaQuery.of(
+                                                                context,
+                                                              ).size.width -
+                                                              64))
+                                                      .clamp(
+                                                        0.0,
+                                                        MediaQuery.of(
                                                               context,
                                                             ).size.width -
-                                                            64))
-                                                    .clamp(
-                                                      0.0,
-                                                      MediaQuery.of(
-                                                            context,
-                                                          ).size.width -
-                                                          100,
+                                                            100,
+                                                      ),
+                                              top: -36,
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                      horizontal: 10,
+                                                      vertical: 5,
                                                     ),
-                                            top: -36,
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 10,
-                                                    vertical: 5,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.black
+                                                      .withOpacity(0.9),
+                                                  borderRadius:
+                                                      BorderRadius.circular(8),
+                                                  border: Border.all(
+                                                    color: Colors.white24,
+                                                    width: 1,
                                                   ),
-                                              decoration: BoxDecoration(
-                                                color: Colors.black.withOpacity(
-                                                  0.9,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.black
+                                                          .withOpacity(0.5),
+                                                      blurRadius: 6,
+                                                    ),
+                                                  ],
                                                 ),
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                                border: Border.all(
-                                                  color: Colors.white24,
-                                                  width: 1,
-                                                ),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.black
-                                                        .withOpacity(0.5),
-                                                    blurRadius: 6,
+                                                child: Text(
+                                                  _formatDuration(
+                                                    Duration(
+                                                      milliseconds:
+                                                          (_hoverSeekFraction! *
+                                                                  _duration
+                                                                      .inMilliseconds)
+                                                              .toInt(),
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
-                                              child: Text(
-                                                _formatDuration(
-                                                  Duration(
-                                                    milliseconds:
-                                                        (_hoverSeekFraction! *
-                                                                _duration
-                                                                    .inMilliseconds)
-                                                            .toInt(),
+                                                  style: const TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 12,
+                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                                ),
-                                                style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.bold,
                                                 ),
                                               ),
                                             ),
-                                          ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
                                   const SizedBox(height: 8),
                                   if (_isPiPMode)
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         IconButton(
                                           icon: Icon(
-                                            _isPlaying ? Icons.pause : Icons.play_arrow,
+                                            _isPlaying
+                                                ? Icons.pause
+                                                : Icons.play_arrow,
                                             color: Colors.white,
                                             size: 40,
                                           ),
@@ -1823,93 +2000,212 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                       ],
                                     ),
                                   if (!_isPiPMode)
-                                  // YouTube Button Row
-                                  Row(
-                                    children: [
-                                      // Play / Pause Circle Pill
-                                      Container(
-                                        width: 38,
-                                        height: 38,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: IconButton(
-                                          icon: Icon(
-                                            _isPlaying
-                                                ? Icons.pause
-                                                : Icons.play_arrow,
-                                            color: Colors.white,
-                                            size: 22,
-                                          ),
-                                          onPressed: () => player.playOrPause(),
-                                          padding: EdgeInsets.zero,
-                                          tooltip: _isPlaying
-                                              ? L10n.t('pause_space') ?? 'Tạm dừng (Space)'
-                                              : L10n.t('play_space') ?? 'Phát (Space)',
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      // Rewind -10s Circle Pill
-                                      Container(
-                                        width: 38,
-                                        height: 38,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Icons.replay_10,
-                                            color: Colors.white,
-                                            size: 20,
-                                          ),
-                                          onPressed: () => player.seek(
-                                            _position -
-                                                const Duration(seconds: 10),
-                                          ),
-                                          padding: EdgeInsets.zero,
-                                          tooltip: L10n.t('rewind_10s') ?? 'Lùi 10s (←)',
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      // Forward +10s Circle Pill
-                                      Container(
-                                        width: 38,
-                                        height: 38,
-                                        decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: IconButton(
-                                          icon: const Icon(
-                                            Icons.forward_10,
-                                            color: Colors.white,
-                                            size: 20,
-                                          ),
-                                          onPressed: () => player.seek(
-                                            _position +
-                                                const Duration(seconds: 10),
-                                          ),
-                                          padding: EdgeInsets.zero,
-                                          tooltip: L10n.t('forward_10s') ?? 'Tới 10s (→)',
-                                        ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      // Expandable Volume Button on Hover
-                                      MouseRegion(
-                                        onEnter: (_) => setState(
-                                          () => _isVolumeHovered = true,
-                                        ),
-                                        onExit: (_) => setState(
-                                          () => _isVolumeHovered = false,
-                                        ),
-                                        child: AnimatedContainer(
-                                          duration: const Duration(
-                                            milliseconds: 200,
-                                          ),
-                                          width: _isVolumeHovered ? 160 : 38,
+                                    // YouTube Button Row
+                                    Row(
+                                      children: [
+                                        // Play / Pause Circle Pill
+                                        Container(
+                                          width: 38,
                                           height: 38,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white.withOpacity(
+                                              0.2,
+                                            ),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: IconButton(
+                                            icon: Icon(
+                                              _isPlaying
+                                                  ? Icons.pause
+                                                  : Icons.play_arrow,
+                                              color: Colors.white,
+                                              size: 22,
+                                            ),
+                                            onPressed: () =>
+                                                player.playOrPause(),
+                                            padding: EdgeInsets.zero,
+                                            tooltip: _isPlaying
+                                                ? L10n.t('pause_space') ??
+                                                      'Tạm dừng (Space)'
+                                                : L10n.t('play_space') ??
+                                                      'Phát (Space)',
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        // Rewind -10s Circle Pill
+                                        Container(
+                                          width: 38,
+                                          height: 38,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white.withOpacity(
+                                              0.2,
+                                            ),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: IconButton(
+                                            icon: const Icon(
+                                              Icons.replay_10,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                            onPressed: () => player.seek(
+                                              _position -
+                                                  const Duration(seconds: 10),
+                                            ),
+                                            padding: EdgeInsets.zero,
+                                            tooltip:
+                                                L10n.t('rewind_10s') ??
+                                                'Lùi 10s (←)',
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        // Forward +10s Circle Pill
+                                        Container(
+                                          width: 38,
+                                          height: 38,
+                                          decoration: BoxDecoration(
+                                            color: Colors.white.withOpacity(
+                                              0.2,
+                                            ),
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: IconButton(
+                                            icon: const Icon(
+                                              Icons.forward_10,
+                                              color: Colors.white,
+                                              size: 20,
+                                            ),
+                                            onPressed: () => player.seek(
+                                              _position +
+                                                  const Duration(seconds: 10),
+                                            ),
+                                            padding: EdgeInsets.zero,
+                                            tooltip:
+                                                L10n.t('forward_10s') ??
+                                                'Tới 10s (→)',
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        // Expandable Volume Button on Hover
+                                        MouseRegion(
+                                          onEnter: (_) => setState(
+                                            () => _isVolumeHovered = true,
+                                          ),
+                                          onExit: (_) => setState(
+                                            () => _isVolumeHovered = false,
+                                          ),
+                                          child: AnimatedContainer(
+                                            duration: const Duration(
+                                              milliseconds: 200,
+                                            ),
+                                            width: _isVolumeHovered ? 160 : 38,
+                                            height: 38,
+                                            decoration: BoxDecoration(
+                                              color: Colors.white.withOpacity(
+                                                0.2,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                            ),
+                                            child: Row(
+                                              children: [
+                                                IconButton(
+                                                  icon: Icon(
+                                                    _volume == 0
+                                                        ? Icons.volume_off
+                                                        : Icons.volume_up,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ),
+                                                  onPressed: () =>
+                                                      player.setVolume(
+                                                        _volume == 0 ? 100 : 0,
+                                                      ),
+                                                  padding: EdgeInsets.zero,
+                                                  constraints:
+                                                      const BoxConstraints(
+                                                        minWidth: 38,
+                                                        minHeight: 38,
+                                                      ),
+                                                  tooltip:
+                                                      L10n.t('volume') ??
+                                                      'Âm lượng',
+                                                ),
+                                                if (_isVolumeHovered)
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                            right: 12,
+                                                          ),
+                                                      child: SliderTheme(
+                                                        data:
+                                                            SliderTheme.of(
+                                                              context,
+                                                            ).copyWith(
+                                                              trackHeight: 3,
+                                                              thumbShape:
+                                                                  const RoundSliderThumbShape(
+                                                                    enabledThumbRadius:
+                                                                        5,
+                                                                  ),
+                                                              overlayShape:
+                                                                  SliderComponentShape
+                                                                      .noOverlay,
+                                                              activeTrackColor:
+                                                                  Colors.white,
+                                                              inactiveTrackColor:
+                                                                  Colors
+                                                                      .white30,
+                                                              thumbColor:
+                                                                  Colors.white,
+                                                            ),
+                                                        child: Slider(
+                                                          value: _volume,
+                                                          max: 100,
+                                                          onChanged: (val) =>
+                                                              player.setVolume(
+                                                                val,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(width: 10),
+                                        // Time Display Pill (4:04 / 14:40)
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 16,
+                                            vertical: 8,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: Colors.white.withOpacity(
+                                              0.2,
+                                            ),
+                                            borderRadius: BorderRadius.circular(
+                                              20,
+                                            ),
+                                          ),
+                                          child: Text(
+                                            '${_formatDuration(_position)} / ${_formatDuration(_duration)}',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        // Right Controls Capsule Container
+                                        Container(
+                                          padding: const EdgeInsets.symmetric(
+                                            horizontal: 12,
+                                            vertical: 6,
+                                          ),
                                           decoration: BoxDecoration(
                                             color: Colors.white.withOpacity(
                                               0.2,
@@ -1919,174 +2215,92 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                             ),
                                           ),
                                           child: Row(
+                                            mainAxisSize: MainAxisSize.min,
                                             children: [
+                                              // Next Episode Button (Right side)
                                               IconButton(
-                                                icon: Icon(
-                                                  _volume == 0
-                                                      ? Icons.volume_off
-                                                      : Icons.volume_up,
+                                                icon: const Icon(
+                                                  Icons.skip_next,
+                                                  color: Colors.white,
+                                                  size: 22,
+                                                ),
+                                                onPressed: _playNextEpisode,
+                                                tooltip:
+                                                    L10n.t('next_episode') ??
+                                                    'Tập tiếp theo',
+                                                padding: const EdgeInsets.all(
+                                                  4,
+                                                ),
+                                                constraints:
+                                                    const BoxConstraints(),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              // Episode List Button
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.format_list_bulleted,
                                                   color: Colors.white,
                                                   size: 20,
                                                 ),
-                                                onPressed: () =>
-                                                    player.setVolume(
-                                                      _volume == 0 ? 100 : 0,
-                                                    ),
-                                                padding: EdgeInsets.zero,
-                                                constraints:
-                                                    const BoxConstraints(
-                                                      minWidth: 38,
-                                                      minHeight: 38,
-                                                    ),
-                                                tooltip: L10n.t('volume') ?? 'Âm lượng',
-                                              ),
-                                              if (_isVolumeHovered)
-                                                Expanded(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                          right: 12,
-                                                        ),
-                                                    child: SliderTheme(
-                                                      data:
-                                                          SliderTheme.of(
-                                                            context,
-                                                          ).copyWith(
-                                                            trackHeight: 3,
-                                                            thumbShape:
-                                                                const RoundSliderThumbShape(
-                                                                  enabledThumbRadius:
-                                                                      5,
-                                                                ),
-                                                            overlayShape:
-                                                                SliderComponentShape
-                                                                    .noOverlay,
-                                                            activeTrackColor:
-                                                                Colors.white,
-                                                            inactiveTrackColor:
-                                                                Colors.white30,
-                                                            thumbColor:
-                                                                Colors.white,
-                                                          ),
-                                                      child: Slider(
-                                                        value: _volume,
-                                                        max: 100,
-                                                        onChanged: (val) =>
-                                                            player.setVolume(
-                                                              val,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                  ),
+                                                onPressed: () => setState(
+                                                  () => _showEpisodePanel =
+                                                      !_showEpisodePanel,
                                                 ),
+                                                tooltip:
+                                                    L10n.t('ep_list') ??
+                                                    'Danh sách tập',
+                                                padding: const EdgeInsets.all(
+                                                  4,
+                                                ),
+                                                constraints:
+                                                    const BoxConstraints(),
+                                              ),
+                                              const SizedBox(width: 10),
+
+                                              // Settings Gear Button
+                                              IconButton(
+                                                icon: const Icon(
+                                                  Icons.settings,
+                                                  color: Colors.white,
+                                                  size: 20,
+                                                ),
+                                                onPressed: _showSettingsDialog,
+                                                tooltip:
+                                                    L10n.t(
+                                                      'settings_tooltip',
+                                                    ) ??
+                                                    'Settings',
+                                                padding: const EdgeInsets.all(
+                                                  4,
+                                                ),
+                                                constraints:
+                                                    const BoxConstraints(),
+                                              ),
+                                              const SizedBox(width: 10),
+                                              // Fullscreen Button
+                                              IconButton(
+                                                icon: Icon(
+                                                  _isFullscreen
+                                                      ? Icons.fullscreen_exit
+                                                      : Icons.fullscreen,
+                                                  color: Colors.white,
+                                                  size: 22,
+                                                ),
+                                                onPressed: _toggleFullscreen,
+                                                tooltip:
+                                                    L10n.t('fullscreen') ??
+                                                    'Toàn màn hình',
+                                                padding: const EdgeInsets.all(
+                                                  4,
+                                                ),
+                                                constraints:
+                                                    const BoxConstraints(),
+                                              ),
                                             ],
                                           ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 10),
-                                      // Time Display Pill (4:04 / 14:40)
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 16,
-                                          vertical: 8,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          '${_formatDuration(_position)} / ${_formatDuration(_duration)}',
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                      const Spacer(),
-                                      // Right Controls Capsule Container
-                                      Container(
-                                        padding: const EdgeInsets.symmetric(
-                                          horizontal: 12,
-                                          vertical: 6,
-                                        ),
-                                        decoration: BoxDecoration(
-                                          color: Colors.white.withOpacity(0.2),
-                                          borderRadius: BorderRadius.circular(
-                                            20,
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            // Next Episode Button (Right side)
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.skip_next,
-                                                color: Colors.white,
-                                                size: 22,
-                                              ),
-                                              onPressed: _playNextEpisode,
-                                              tooltip: L10n.t('next_episode') ?? 'Tập tiếp theo',
-                                              padding: const EdgeInsets.all(4),
-                                              constraints:
-                                                  const BoxConstraints(),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            // Episode List Button
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.format_list_bulleted,
-                                                color: Colors.white,
-                                                size: 20,
-                                              ),
-                                              onPressed: () => setState(
-                                                () => _showEpisodePanel =
-                                                    !_showEpisodePanel,
-                                              ),
-                                              tooltip: L10n.t('ep_list') ?? 'Danh sách tập',
-                                              padding: const EdgeInsets.all(4),
-                                              constraints:
-                                                  const BoxConstraints(),
-                                            ),
-                                            const SizedBox(width: 10),
-
-                                            // Settings Gear Button
-                                            IconButton(
-                                              icon: const Icon(
-                                                Icons.settings,
-                                                color: Colors.white,
-                                                size: 20,
-                                              ),
-                                              onPressed: _showSettingsDialog,
-                                              tooltip: L10n.t('settings_tooltip') ?? 'Settings',
-                                              padding: const EdgeInsets.all(4),
-                                              constraints:
-                                                  const BoxConstraints(),
-                                            ),
-                                            const SizedBox(width: 10),
-                                            // Fullscreen Button
-                                            IconButton(
-                                              icon: Icon(
-                                                _isFullscreen
-                                                    ? Icons.fullscreen_exit
-                                                    : Icons.fullscreen,
-                                                color: Colors.white,
-                                                size: 22,
-                                              ),
-                                              onPressed: _toggleFullscreen,
-                                              tooltip: L10n.t('fullscreen') ?? 'Toàn màn hình',
-                                              padding: const EdgeInsets.all(4),
-                                              constraints:
-                                                  const BoxConstraints(),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                      ],
+                                    ),
                                 ],
                               ),
                             ),
@@ -2096,99 +2310,108 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                   ),
                 ),
 
-
-
                 // 3. Episode Selection Panel (Right Sidebar)
                 if (!_isPiPMode)
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 300),
-                  curve: Curves.easeInOut,
-                  top: 0,
-                  bottom: 0,
-                  right: _showEpisodePanel ? 0 : -350,
-                  width: 350,
-                  child: GlassContainer(
-                    borderRadius: 0,
-                    color: Colors.black.withOpacity(0.7),
-                    blur: 40,
-                    padding: const EdgeInsets.all(24),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              L10n.t('select_episode') ?? 'Chọn tập',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                  AnimatedPositioned(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
+                    top: 0,
+                    bottom: 0,
+                    right: _showEpisodePanel ? 0 : -350,
+                    width: 350,
+                    child: GlassContainer(
+                      borderRadius: 0,
+                      color: Colors.black.withOpacity(0.7),
+                      blur: 40,
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                L10n.t('select_episode') ?? 'Chọn tập',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.close,
-                                color: Colors.white,
+                              IconButton(
+                                icon: const Icon(
+                                  Icons.close,
+                                  color: Colors.white,
+                                ),
+                                onPressed: () =>
+                                    setState(() => _showEpisodePanel = false),
                               ),
-                              onPressed: () =>
-                                  setState(() => _showEpisodePanel = false),
-                            ),
-                          ],
-                        ),
-                        const Divider(color: Colors.white24, height: 32),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            child: Wrap(
-                              spacing: 8,
-                              runSpacing: 8,
-                              children: widget.episodes.asMap().entries.map((entry) {
-                                final index = entry.key;
-                                final ep = entry.value;
-                                final isCurrent = index == _currentIndex;
-                                return Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(8),
-                                    onTap: () {
-                                      _initEpisode(index);
-                                      setState(() => _showEpisodePanel = false);
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                                      decoration: BoxDecoration(
-                                        color: isCurrent
-                                            ? Colors.blueAccent.withValues(alpha: 0.4)
-                                            : Colors.white10,
-                                        borderRadius: BorderRadius.circular(8),
-                                        border: Border.all(
-                                          color: isCurrent
-                                              ? Colors.blueAccent
-                                              : Colors.transparent,
+                            ],
+                          ),
+                          const Divider(color: Colors.white24, height: 32),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              child: Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: widget.episodes.asMap().entries.map((
+                                  entry,
+                                ) {
+                                  final index = entry.key;
+                                  final ep = entry.value;
+                                  final isCurrent = index == _currentIndex;
+                                  return Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(8),
+                                      onTap: () {
+                                        _initEpisode(index);
+                                        setState(
+                                          () => _showEpisodePanel = false,
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 16,
+                                          vertical: 10,
                                         ),
-                                      ),
-                                      child: Text(
-                                        ep.name,
-                                        style: TextStyle(
+                                        decoration: BoxDecoration(
                                           color: isCurrent
-                                              ? Colors.blueAccent
-                                              : Colors.white,
-                                          fontWeight: isCurrent
-                                              ? FontWeight.bold
-                                              : FontWeight.normal,
+                                              ? Colors.blueAccent.withValues(
+                                                  alpha: 0.4,
+                                                )
+                                              : Colors.white10,
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                          border: Border.all(
+                                            color: isCurrent
+                                                ? Colors.blueAccent
+                                                : Colors.transparent,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          ep.name,
+                                          style: TextStyle(
+                                            color: isCurrent
+                                                ? Colors.blueAccent
+                                                : Colors.white,
+                                            fontWeight: isCurrent
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
-                              }).toList(),
+                                  );
+                                }).toList(),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
 
                 // Window Title Bar (Positioned at VERY TOP of Stack so Close/Minimize/Maximize ALWAYS work!)
                 if (!_isFullscreen && !_isPiPMode)
@@ -2199,24 +2422,27 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                     height: 36,
                     child: CustomTitleBar(),
                   ),
-              if (_activePanel != SidePanelMode.none)
-                Positioned.fill(
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: GestureDetector(
-                          onTap: () => setState(() => _activePanel = SidePanelMode.none),
-                          child: Container(color: Colors.transparent),
+                if (_activePanel != SidePanelMode.none)
+                  Positioned.fill(
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: GestureDetector(
+                            onTap: () => setState(
+                              () => _activePanel = SidePanelMode.none,
+                            ),
+                            child: Container(color: Colors.transparent),
+                          ),
                         ),
-                      ),
-                      SideControlPanel(
-                        player: player,
-                        mode: _activePanel,
-                        onClose: () => setState(() => _activePanel = SidePanelMode.none),
-                      ),
-                    ],
+                        SideControlPanel(
+                          player: player,
+                          mode: _activePanel,
+                          onClose: () =>
+                              setState(() => _activePanel = SidePanelMode.none),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
               ],
             ),
           ),
