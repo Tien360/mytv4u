@@ -188,13 +188,14 @@ class PhimApi {
                 item.language != 'N/A')
             ? item.language
             : existing.language,
-        description: (item.source == 'stremio' && existing.description.isNotEmpty)
+        description:
+            (item.source == 'stremio' && existing.description.isNotEmpty)
             ? existing.description
             : (isPremium && existing.description.isNotEmpty)
-                ? existing.description
-                : (item.description.isNotEmpty
-                    ? item.description
-                    : existing.description),
+            ? existing.description
+            : (item.description.isNotEmpty
+                  ? item.description
+                  : existing.description),
         year: item.year.isNotEmpty ? item.year : existing.year,
         genres: (isPremium && existing.genres.isNotEmpty)
             ? existing.genres
@@ -264,7 +265,7 @@ class PhimApi {
 
     final resultList = mergedMap.values.toList();
     resultList.sort((a, b) => getPriority(a).compareTo(getPriority(b)));
-    
+
     return resultList;
   }
 
@@ -438,7 +439,7 @@ class PhimApi {
     if (url.contains('workers.dev') ||
         (url.contains('dpdns.org') && !url.contains('stream/hls'))) {
       final rawId = url.split('/').last;
-      
+
       // TODO: Các server cũ đa phần bị 404 (Cloudflare xoá). Giữ lại ở đây để fix sau.
       /*
       final workers = [
@@ -454,10 +455,7 @@ class PhimApi {
       return 'https://${workers.first}/$rawId';
       */
 
-      final activeServers = [
-        'sv.gboiz7.workers.dev',
-        'sv1.p4k.dpdns.org',
-      ];
+      final activeServers = ['sv.gboiz7.workers.dev', 'sv1.p4k.dpdns.org'];
       activeServers.shuffle();
       return 'https://${activeServers.first}/$rawId';
     }
@@ -613,11 +611,27 @@ class PhimApi {
             'ophim',
             'kkphim',
             'vsmov',
+            'film4knet',
             'phim4k',
             'free1',
             'motchill',
           ];
       final timeout = const Duration(seconds: 5);
+
+      if (enabledSources.contains('film4knet')) {
+        final querySlug = initialMovie?.sourceSlugs['film4knet'] ?? slug;
+        futures.add(
+          Film4kNetApi.getDetail(querySlug).then((fetchedMovie) {
+            if (fetchedMovie != null &&
+                _isSimilarMovieGlobal(initialMovie, fetchedMovie)) {
+              parsedMap[10] = fetchedMovie;
+              serversMap[10] = fetchedMovie.episodes;
+              processAndEmit();
+            }
+          }),
+        );
+      }
+
       final List<Future> futures = [];
 
       if (enabledSources.contains('nguonc')) {
@@ -1206,10 +1220,14 @@ class PhimApi {
         );
       } // Added missing brace
 
-      if (initialMovie != null && (initialMovie.imdbId == null || initialMovie.imdbId!.isEmpty || initialMovie.imdbId == 'N/A')) {
+      if (initialMovie != null &&
+          (initialMovie.imdbId == null ||
+              initialMovie.imdbId!.isEmpty ||
+              initialMovie.imdbId == 'N/A')) {
         futures.add(() async {
           try {
-            final isTv = initialMovie.type.toLowerCase() == 'series' ||
+            final isTv =
+                initialMovie.type.toLowerCase() == 'series' ||
                 initialMovie.type.toLowerCase() == 'tvshows' ||
                 initialMovie.currentEpisode.toLowerCase().contains('tập') ||
                 initialMovie.currentEpisode.contains('/') ||
@@ -1234,14 +1252,18 @@ class PhimApi {
         }());
       }
 
-
-      if ((enabledSources.contains('torrentio') || enabledSources.contains('vidsrc') || enabledSources.contains('vidapi')) && initialMovie != null) {
+      if ((enabledSources.contains('torrentio') ||
+              enabledSources.contains('vidsrc') ||
+              enabledSources.contains('vidapi')) &&
+          initialMovie != null) {
         futures.add(() async {
           try {
-            String imdbId = initialMovie.sourceSlugs['torrentio'] ??
+            String imdbId =
+                initialMovie.sourceSlugs['torrentio'] ??
                 initialMovie.sourceSlugs['stremio'] ??
                 '';
-            final isTv = initialMovie.type.toLowerCase() == 'series' ||
+            final isTv =
+                initialMovie.type.toLowerCase() == 'series' ||
                 initialMovie.type.toLowerCase() == 'tvshows' ||
                 initialMovie.currentEpisode.toLowerCase().contains('tập') ||
                 initialMovie.currentEpisode.contains('/') ||
@@ -1250,14 +1272,19 @@ class PhimApi {
 
             if (initialMovie.source == 'stremio' && imdbId.isNotEmpty) {
               // Fetch full metadata from Cinemeta
-              final meta = await CinemetaApi.getMetaDetail(imdbId, isSeries: isTv);
+              final meta = await CinemetaApi.getMetaDetail(
+                imdbId,
+                isSeries: isTv,
+              );
               if (meta != null) {
                 parsedMap[8] = meta; // Use index 8 for stremio meta
                 processAndEmit();
               }
             }
 
-            if (imdbId.isEmpty && initialMovie.imdbId != null && initialMovie.imdbId!.isNotEmpty) {
+            if (imdbId.isEmpty &&
+                initialMovie.imdbId != null &&
+                initialMovie.imdbId!.isNotEmpty) {
               imdbId = initialMovie.imdbId!;
             }
 
@@ -1300,19 +1327,21 @@ class PhimApi {
                         ),
                       )
                       .toList();
-                      
-                  final vidsrcItems = tmdbId != null ? cinemetaEpisodes
-                      .map(
-                        (e) => Episode(
-                          name: 'Tập ${e['episode']}',
-                          slug: 'S${e['season']}E${e['episode']}',
-                          m3u8Url: '',
-                          embedUrl:
-                              'https://vidsrc.sbs/embed/tv/$tmdbId/${e['season']}/${e['episode']}',
-                        ),
-                      )
-                      .toList() : <Episode>[];
-                      
+
+                  final vidsrcItems = tmdbId != null
+                      ? cinemetaEpisodes
+                            .map(
+                              (e) => Episode(
+                                name: 'Tập ${e['episode']}',
+                                slug: 'S${e['season']}E${e['episode']}',
+                                m3u8Url: '',
+                                embedUrl:
+                                    'https://vidsrc.sbs/embed/tv/$tmdbId/${e['season']}/${e['episode']}',
+                              ),
+                            )
+                            .toList()
+                      : <Episode>[];
+
                   final vidApiItems = cinemetaEpisodes
                       .map(
                         (e) => Episode(
@@ -1328,52 +1357,66 @@ class PhimApi {
                   serversMap[9] = [
                     EpisodeServer(serverName: 'P2P (Torrent)', items: p2pItems),
                     if (vidsrcItems.isNotEmpty)
-                      EpisodeServer(serverName: 'VidSrc (Embed)', items: vidsrcItems),
-                    EpisodeServer(serverName: 'VidAPI (Embed)', items: vidApiItems),
+                      EpisodeServer(
+                        serverName: 'VidSrc (Embed)',
+                        items: vidsrcItems,
+                      ),
+                    EpisodeServer(
+                      serverName: 'VidAPI (Embed)',
+                      items: vidApiItems,
+                    ),
                   ];
                 }
                 processAndEmit();
                 return;
               }
 
-              final servers = enabledSources.contains('torrentio') ? await TorrentioApi.fetchStreams(imdbId) : <EpisodeServer>[];
-              
-              final vidsrcServer = (tmdbId != null && enabledSources.contains('vidsrc')) ? EpisodeServer(
-                  serverName: 'VidSrc (Embed)',
-                  items: [
-                    Episode(
-                      name: 'Full',
-                      slug: 'full',
-                      m3u8Url: '',
-                      embedUrl: 'https://vidsrc.sbs/embed/movie/$tmdbId',
+              final servers = enabledSources.contains('torrentio')
+                  ? await TorrentioApi.fetchStreams(imdbId)
+                  : <EpisodeServer>[];
+
+              final vidsrcServer =
+                  (tmdbId != null && enabledSources.contains('vidsrc'))
+                  ? EpisodeServer(
+                      serverName: 'VidSrc (Embed)',
+                      items: [
+                        Episode(
+                          name: 'Full',
+                          slug: 'full',
+                          m3u8Url: '',
+                          embedUrl: 'https://vidsrc.sbs/embed/movie/$tmdbId',
+                        ),
+                      ],
                     )
-                  ],
-                ) : null;
-                
-                final vidApiServer = enabledSources.contains('vidapi') ? EpisodeServer(
-                  serverName: 'VidAPI (Embed)',
-                  items: [
-                    Episode(
-                      name: 'Full',
-                      slug: 'full',
-                      m3u8Url: '',
-                      embedUrl: 'https://vaplayer.ru/embed/movie/$imdbId',
+                  : null;
+
+              final vidApiServer = enabledSources.contains('vidapi')
+                  ? EpisodeServer(
+                      serverName: 'VidAPI (Embed)',
+                      items: [
+                        Episode(
+                          name: 'Full',
+                          slug: 'full',
+                          m3u8Url: '',
+                          embedUrl: 'https://vaplayer.ru/embed/movie/$imdbId',
+                        ),
+                      ],
                     )
-                  ],
-                ) : null;
-                
-                if (servers.isNotEmpty) {
-                  if (vidsrcServer != null) servers.add(vidsrcServer);
-                  if (vidApiServer != null) servers.add(vidApiServer as EpisodeServer);
-                  serversMap[9] = servers;
-                  processAndEmit();
-                } else {
-                  serversMap[9] = [
-                    if (vidsrcServer != null) vidsrcServer,
-                    if (vidApiServer != null) vidApiServer
-                  ];
-                  processAndEmit();
-                }
+                  : null;
+
+              if (servers.isNotEmpty) {
+                if (vidsrcServer != null) servers.add(vidsrcServer);
+                if (vidApiServer != null)
+                  servers.add(vidApiServer as EpisodeServer);
+                serversMap[9] = servers;
+                processAndEmit();
+              } else {
+                serversMap[9] = [
+                  if (vidsrcServer != null) vidsrcServer,
+                  if (vidApiServer != null) vidApiServer,
+                ];
+                processAndEmit();
+              }
             }
           } catch (e) {
             print('PhimApi torrentio error: $e');
@@ -1441,18 +1484,27 @@ class PhimApi {
   static Future<List<String>> getMovieImages(Movie movie) async {
     try {
       String? tmdbId;
-      String type = (movie.type == 'series' || movie.type == 'hoathinh') ? 'tv' : 'movie';
+      String type = (movie.type == 'series' || movie.type == 'hoathinh')
+          ? 'tv'
+          : 'movie';
 
       // 1. Cố gắng tìm bằng IMDB ID trước nếu có (chính xác nhất)
-      if (movie.imdbId != null && movie.imdbId!.isNotEmpty && movie.imdbId != 'N/A') {
-        final findUrl = 'https://api.themoviedb.org/3/find/${movie.imdbId}?external_source=imdb_id&api_key=$_tmdbApiKey';
-        final findRes = await http.get(Uri.parse(findUrl)).timeout(const Duration(seconds: 10));
+      if (movie.imdbId != null &&
+          movie.imdbId!.isNotEmpty &&
+          movie.imdbId != 'N/A') {
+        final findUrl =
+            'https://api.themoviedb.org/3/find/${movie.imdbId}?external_source=imdb_id&api_key=$_tmdbApiKey';
+        final findRes = await http
+            .get(Uri.parse(findUrl))
+            .timeout(const Duration(seconds: 10));
         if (findRes.statusCode == 200) {
           final findData = json.decode(findRes.body);
-          if (findData['movie_results'] != null && findData['movie_results'].isNotEmpty) {
+          if (findData['movie_results'] != null &&
+              findData['movie_results'].isNotEmpty) {
             tmdbId = findData['movie_results'][0]['id'].toString();
             type = 'movie';
-          } else if (findData['tv_results'] != null && findData['tv_results'].isNotEmpty) {
+          } else if (findData['tv_results'] != null &&
+              findData['tv_results'].isNotEmpty) {
             tmdbId = findData['tv_results'][0]['id'].toString();
             type = 'tv';
           }
@@ -1475,21 +1527,38 @@ class PhimApi {
 
       // 3. Lấy ảnh từ TMDB
       if (tmdbId != null) {
-        final imgUrl = 'https://api.themoviedb.org/3/$type/$tmdbId/images?api_key=$_tmdbApiKey';
-        final imgRes = await http.get(Uri.parse(imgUrl)).timeout(const Duration(seconds: 10));
+        final imgUrl =
+            'https://api.themoviedb.org/3/$type/$tmdbId/images?api_key=$_tmdbApiKey';
+        final imgRes = await http
+            .get(Uri.parse(imgUrl))
+            .timeout(const Duration(seconds: 10));
         if (imgRes.statusCode == 200) {
           final imgData = json.decode(imgRes.body);
           List<String> imageUrls = [];
-          
+
           if (imgData['backdrops'] != null) {
             final backdrops = imgData['backdrops'] as List;
-            imageUrls.addAll(backdrops.take(20).map((e) => 'https://image.tmdb.org/t/p/original${e['file_path']}'));
+            imageUrls.addAll(
+              backdrops
+                  .take(20)
+                  .map(
+                    (e) =>
+                        'https://image.tmdb.org/t/p/original${e['file_path']}',
+                  ),
+            );
           }
           if (imgData['posters'] != null) {
             final posters = imgData['posters'] as List;
-            imageUrls.addAll(posters.take(10).map((e) => 'https://image.tmdb.org/t/p/original${e['file_path']}'));
+            imageUrls.addAll(
+              posters
+                  .take(10)
+                  .map(
+                    (e) =>
+                        'https://image.tmdb.org/t/p/original${e['file_path']}',
+                  ),
+            );
           }
-          
+
           return imageUrls;
         }
       }
@@ -1595,11 +1664,17 @@ class PhimApi {
     // Fallback: Tìm kiếm trực tiếp trên YouTube bằng tên gốc (Original Title) + "trailer"
     try {
       final query = Uri.encodeComponent('$originalTitle trailer');
-      final ytUrl = Uri.parse('https://www.youtube.com/results?search_query=$query');
-      final ytRes = await http.get(ytUrl, headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      });
-      
+      final ytUrl = Uri.parse(
+        'https://www.youtube.com/results?search_query=$query',
+      );
+      final ytRes = await http.get(
+        ytUrl,
+        headers: {
+          'User-Agent':
+              'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        },
+      );
+
       if (ytRes.statusCode == 200) {
         final regex = RegExp(r'/watch\?v=([a-zA-Z0-9_-]{11})');
         final match = regex.firstMatch(ytRes.body);
