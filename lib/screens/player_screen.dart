@@ -65,10 +65,36 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   final _webController = WebviewController();
   bool _isWebviewInitialized = false;
   bool _isUsingWebview = false;
+  bool _autoDetectedLive = false;
   bool _isExternalPlayerActive = false;
   SidePanelMode _activePanel = SidePanelMode.none;
 
   // Player state
+
+  bool get _isLiveStream {
+    if (widget.isLive) return true;
+    if (_autoDetectedLive) return true;
+
+    final currentEp = widget.episodes[_currentIndex];
+    final url = currentEp.m3u8Url.toLowerCase();
+
+    // Auto-detect by URL keywords common in TV / live streams
+    if (url.contains('live') ||
+        url.contains('tv360') ||
+        url.contains('channel') ||
+        url.contains('stream')) {
+      // Exclude some edge cases if needed, but 'live' usually means livestream
+      return true;
+    }
+
+    // Auto-detect by MediaKit duration:
+    // If playing, position is advancing, but duration stays 0 or very large
+    if (_duration.inSeconds == 0 && _position.inSeconds > 0) return true;
+    if (_duration.inHours > 24) return true; // Unlikely to be a real VOD
+
+    return false;
+  }
+
   String? errorMsg;
   late int _currentIndex;
   late String _currentUrl;
@@ -261,13 +287,23 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         'cache-pause',
         'no',
       ); // Phát ngay khi có dữ liệu, không chờ đầy buffer
-      platform.setProperty('demuxer-max-bytes', '32M');
-      platform.setProperty('demuxer-max-back-bytes', '10M');
+      platform.setProperty('demuxer-max-bytes', '64M');
+      platform.setProperty('demuxer-max-back-bytes', '32M');
       platform.setProperty(
         'network-timeout',
         '10',
       ); // Tránh treo lâu khi mạng lỗi
-      platform.setProperty('demuxer-lavf-o-add', 'fflags=+fastseek');
+
+      // Cấu hình FFmpeg bên dưới MPV để tăng tốc HLS
+      platform.setProperty('demuxer-lavf-o-append', 'fflags=+fastseek');
+      platform.setProperty(
+        'demuxer-lavf-o-append',
+        'http_persistent=1',
+      ); // Giữ kết nối TCP (Keep-Alive) để không phải bắt tay TLS lại mỗi mảnh 4s
+      platform.setProperty(
+        'demuxer-lavf-o-append',
+        'hls_flags=+independent_segments',
+      ); // Xử lý các mảnh độc lập
     } catch (e) {
       debugPrint('Error setting MPV properties: $e');
     }
@@ -292,11 +328,29 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         if (mounted) setState(() => _position = pos);
       }),
     );
+
     _playerSubs.add(
       player.stream.duration.listen((dur) {
-        if (mounted) setState(() => _duration = dur);
+        if (mounted) {
+          setState(() {
+            // Detect livestreams where duration keeps expanding (event streams)
+            if (_duration != Duration.zero &&
+                dur > _duration &&
+                (dur.inSeconds - _duration.inSeconds).abs() > 2) {
+              _autoDetectedLive = true;
+            }
+            // Sliding window: duration is small and position is close, and it resets or stays small
+            if (dur.inSeconds > 0 &&
+                dur.inSeconds < 60 &&
+                _position.inSeconds > 0) {
+              _autoDetectedLive = true;
+            }
+            _duration = dur;
+          });
+        }
       }),
     );
+
     _playerSubs.add(
       player.stream.playing.listen((playing) {
         if (mounted) setState(() => _isPlaying = playing);
@@ -311,15 +365,19 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       player.stream.completed.listen((completed) {
         if (completed && _autoNext) {
           final isNearEnd =
+              !_isLiveStream &&
               _duration.inSeconds > 0 &&
               (_position.inSeconds >= _duration.inSeconds - 120);
+
           if (isNearEnd) {
             _playNextEpisode();
           } else {
             debugPrint('Luồng bị ngắt giữa chừng. Không tự động nhảy tập.');
             if (mounted)
               setState(
-                () => errorMsg = 'Luồng bị ngắt kết nối. Vui lòng thử lại!',
+                () => errorMsg =
+                    L10n.t('stream_disconnected') ??
+                    'Luồng bị ngắt kết nối. Vui lòng thử lại!',
               );
           }
         }
@@ -835,7 +893,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
   String _getTrackShortName(dynamic track) {
     if (track.id == 'auto') return L10n.t('auto');
-    if (track.id == 'no') return L10n.t('off');
+    if (track.id == 'no') return L10n.t('off') ?? 'Tắt';
     return track.title ??
         track.language ??
         track.id ??
@@ -848,7 +906,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       return L10n.t('auto_default') ?? 'Tự động (Mặc định)';
     if (track.id == 'no') return L10n.t('off') ?? 'Tắt';
     if (track.w != null && track.h != null) {
-      return 'x';
+      return '${track.w}x${track.h}';
     }
     return track.title ?? track.id ?? L10n.t('unknown') ?? 'Không rõ';
   }
@@ -869,23 +927,23 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   Future<void> _addExternalSubtitle() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    var result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['srt', 'vtt', 'ass', 'ssa'],
     );
-    if (result != null && result.files.single.path != null) {
-      player.setSubtitleTrack(SubtitleTrack.uri(result.files.single.path!));
+    if (result != null && result.isNotEmpty && result.single.path != null) {
+      player.setSubtitleTrack(SubtitleTrack.uri(result.single.path!));
       if (Navigator.canPop(context)) Navigator.pop(context);
     }
   }
 
   Future<void> _addExternalAudio() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
+    var result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['m4a', 'mp3', 'aac', 'wav', 'flac'],
     );
-    if (result != null && result.files.single.path != null) {
-      player.setAudioTrack(AudioTrack.uri(result.files.single.path!));
+    if (result != null && result.isNotEmpty && result.single.path != null) {
+      player.setAudioTrack(AudioTrack.uri(result.single.path!));
       if (Navigator.canPop(context)) Navigator.pop(context);
     }
   }
@@ -1093,7 +1151,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                 if (_videoTracks.isNotEmpty) ...[
                                   ListTile(
                                     title: Text(
-                                      L10n.t('tab_video') ?? 'Quality',
+                                      L10n.t('video_quality') ??
+                                          'Chất lượng video',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                     trailing: DropdownButton<String>(
@@ -2227,6 +2286,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 onPressed: _playNextEpisode,
                                                 tooltip:
                                                     L10n.t('next_episode') ??
+                                                    L10n.t('next_ep_tooltip') ??
                                                     'Tập tiếp theo',
                                                 padding: const EdgeInsets.all(
                                                   4,
@@ -2248,6 +2308,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 ),
                                                 tooltip:
                                                     L10n.t('ep_list') ??
+                                                    L10n.t('ep_list_tooltip') ??
                                                     'Danh sách tập',
                                                 padding: const EdgeInsets.all(
                                                   4,
@@ -2289,6 +2350,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 onPressed: _toggleFullscreen,
                                                 tooltip:
                                                     L10n.t('fullscreen') ??
+                                                    L10n.t(
+                                                      'fullscreen_tooltip',
+                                                    ) ??
                                                     'Toàn màn hình',
                                                 padding: const EdgeInsets.all(
                                                   4,

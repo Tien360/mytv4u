@@ -20,9 +20,9 @@ class GlassContainer extends StatelessWidget {
     this.margin,
     this.width,
     this.height,
-    this.color = const Color(0x0CFFFFFF), // ~5% white
-    this.borderColor = const Color(0x1AFFFFFF), // ~10% white
-    this.blur = 20.0,
+    this.color = const Color(0x1AFFFFFF), // ~5% white
+    this.borderColor = const Color(0x33FFFFFF), // ~10% white
+    this.blur = 30.0,
   });
 
   @override

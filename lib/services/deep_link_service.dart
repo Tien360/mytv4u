@@ -12,7 +12,8 @@ class DeepLinkService {
   DeepLinkService._();
 
   /// Global navigator key for deep link navigation
-  static final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+  static final GlobalKey<NavigatorState> navigatorKey =
+      GlobalKey<NavigatorState>();
 
   /// Stream controller for deep link events
   final _deepLinkController = StreamController<DeepLinkData>.broadcast();
@@ -33,35 +34,212 @@ class DeepLinkService {
 
     try {
       final exePath = Platform.resolvedExecutable;
-      
-      // Use cmd /c reg to properly handle quotes in registry values
-      await Process.run('cmd', ['/c', 'reg', 'add',
-        r'HKCU\Software\Classes\mytv4u',
-        '/ve', '/d', 'URL:MyTV4u Protocol', '/f']);
+      final exeDir = File(exePath).parent.path;
+      final audioIcoPath = '$exeDir\\audio.ico';
 
-      await Process.run('cmd', ['/c', 'reg', 'add',
+      // 1. Register custom URL protocol
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
         r'HKCU\Software\Classes\mytv4u',
-        '/v', 'URL Protocol', '/d', '', '/f']);
-
-      await Process.run('cmd', ['/c', 'reg', 'add',
+        '/ve',
+        '/d',
+        'URL:MyTV4u Protocol',
+        '/f',
+      ]);
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        r'HKCU\Software\Classes\mytv4u',
+        '/v',
+        'URL Protocol',
+        '/d',
+        '',
+        '/f',
+      ]);
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
         r'HKCU\Software\Classes\mytv4u\shell\open\command',
-        '/ve', '/d', '"$exePath" "%1"', '/f']);
+        '/ve',
+        '/d',
+        '"$exePath" "%1"',
+        '/f',
+      ]);
 
-      debugPrint('[DeepLink] Protocol mytv4u:// registered → $exePath');
+      // 2. Register ProgIDs for "Open With" and Default Icons
+      const videoProgId = 'MyTV4U.VideoFile';
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        'HKCU\\Software\\Classes\\$videoProgId',
+        '/ve',
+        '/d',
+        'MyTV4U Video File',
+        '/f',
+      ]);
+      // For video, we set DefaultIcon to the exe, Windows will generate a thumbnail and put the exe icon in the corner!
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        'HKCU\\Software\\Classes\\$videoProgId\\DefaultIcon',
+        '/ve',
+        '/d',
+        '"$exePath",0',
+        '/f',
+      ]);
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        'HKCU\\Software\\Classes\\$videoProgId\\shell\\open\\command',
+        '/ve',
+        '/d',
+        '"$exePath" "%1"',
+        '/f',
+      ]);
+
+      const audioProgId = 'MyTV4U.AudioFile';
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        'HKCU\\Software\\Classes\\$audioProgId',
+        '/ve',
+        '/d',
+        'MyTV4U Audio File',
+        '/f',
+      ]);
+      // For audio, we use the custom audio.ico we generated
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        'HKCU\\Software\\Classes\\$audioProgId\\DefaultIcon',
+        '/ve',
+        '/d',
+        '"$audioIcoPath"',
+        '/f',
+      ]);
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        'HKCU\\Software\\Classes\\$audioProgId\\shell\\open\\command',
+        '/ve',
+        '/d',
+        '"$exePath" "%1"',
+        '/f',
+      ]);
+
+      // 3. Register Applications for "Open With" (Modern Windows)
+      final exeName = exePath.split('\\').last;
+      await Process.run('cmd', [
+        '/c',
+        'reg',
+        'add',
+        'HKCU\\Software\\Classes\\Applications\\$exeName\\shell\\open\\command',
+        '/ve',
+        '/d',
+        '"$exePath" "%1"',
+        '/f',
+      ]);
+
+      // 4. Add to OpenWithProgids for each extension
+      final videoExts = [
+        '.mp4',
+        '.mkv',
+        '.avi',
+        '.flv',
+        '.webm',
+        '.mov',
+        '.ts',
+      ];
+      final audioExts = ['.mp3', '.m4a', '.wav', '.flac', '.aac'];
+
+      for (final ext in videoExts) {
+        await Process.run('cmd', [
+          '/c',
+          'reg',
+          'add',
+          'HKCU\\Software\\Classes\\$ext\\OpenWithProgids',
+          '/v',
+          videoProgId,
+          '/d',
+          '',
+          '/f',
+        ]);
+        await Process.run('cmd', [
+          '/c',
+          'reg',
+          'add',
+          'HKCU\\Software\\Classes\\Applications\\$exeName\\SupportedTypes',
+          '/v',
+          ext,
+          '/d',
+          '',
+          '/f',
+        ]);
+      }
+      for (final ext in audioExts) {
+        await Process.run('cmd', [
+          '/c',
+          'reg',
+          'add',
+          'HKCU\\Software\\Classes\\$ext\\OpenWithProgids',
+          '/v',
+          audioProgId,
+          '/d',
+          '',
+          '/f',
+        ]);
+        await Process.run('cmd', [
+          '/c',
+          'reg',
+          'add',
+          'HKCU\\Software\\Classes\\Applications\\$exeName\\SupportedTypes',
+          '/v',
+          ext,
+          '/d',
+          '',
+          '/f',
+        ]);
+      }
+
+      // Notify Windows Explorer to refresh icons
+      // await Process.run('cmd', ['/c', 'ie4uinit.exe', '-show']);
+
+      debugPrint('[DeepLink] Protocol & Context Menus registered -> $exePath');
     } catch (e) {
       debugPrint('[DeepLink] Failed to register protocol: $e');
     }
   }
 
   /// Parse command line arguments for a deep link
+
   void _parseLaunchArgs(List<String> args) {
     for (final arg in args) {
       if (arg.startsWith('mytv4u://')) {
         final data = _parseUri(arg);
         if (data != null) {
           initialDeepLink = data;
-          debugPrint('[DeepLink] Launch deep link: ${data.action} slug=${data.slug}');
+          debugPrint(
+            '[DeepLink] Launch deep link: ${data.action} slug=${data.slug}',
+          );
         }
+        break;
+      } else if (File(arg).existsSync()) {
+        initialDeepLink = DeepLinkData(
+          action: 'local_file',
+          slug: arg,
+          source: 'local',
+        );
+        debugPrint('[DeepLink] Launch local file: $arg');
         break;
       }
     }
@@ -72,7 +250,9 @@ class DeepLinkService {
     try {
       // mytv4u://movie?slug=abc&source=nguonc
       final uri = Uri.parse(rawUri);
-      final action = uri.host.isNotEmpty ? uri.host : uri.pathSegments.firstOrNull ?? '';
+      final action = uri.host.isNotEmpty
+          ? uri.host
+          : uri.pathSegments.firstOrNull ?? '';
       final slug = uri.queryParameters['slug'] ?? '';
       final source = uri.queryParameters['source'] ?? 'nguonc';
 

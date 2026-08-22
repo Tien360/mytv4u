@@ -1,0 +1,5158 @@
+{
+  "locale": "vi",
+  "list": [
+    {
+      "slug": "dao-hai-tac",
+      "backdrop": "https://phimimg.com/upload/vod/20240310-1/d61250d0c1670917fd783a1b48cbb29c.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Hài Hước",
+          "Hành Động",
+          "Phiêu Lưu"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Phim Đảo Hải Tặc - One Piece là chuyện về cậu bé Monkey D. Luffy do ăn nhầm Trái Ác Quỷ, bị biến thành người cao su và sẽ không bao giờ biết bơi. 10 năm sau sự việc đó, cậu rời quê mình và kiếm đủ 10 thành viên để thành một băng hải tặc, biệt hiệu Hải tặc Mũ Rơm.\r\n\r\nKhi đó của phiêu lưu tìm kiếm kho báu One Piece bắt đầu. Trong cuộc phiêu lưu tìm kiếm One Piece, băng Hải tặc mũ rơm phải chiến đấu với nhiều băng hải tặc xấu khác cũng muốn độc chiếm One Piece và Hải quân của Chính phủ muốn diệt trừ hải tặc. Băng Hải tặc Mũ Rơm phải trải qua biết bao nhiêu khó khăn, không lùi bước với ước mơ \"Trở thành Vua Hải Tặc và chiếm được kho báu One Piece\".",
+        "vi": "Phim Đảo Hải Tặc - One Piece là chuyện về cậu bé Monkey D. Luffy do ăn nhầm Trái Ác Quỷ, bị biến thành người cao su và sẽ không bao giờ biết bơi. 10 năm sau sự việc đó, cậu rời quê mình và kiếm đủ 10 thành viên để thành một băng hải tặc, biệt hiệu Hải tặc Mũ Rơm.\r\n\r\nKhi đó của phiêu lưu tìm kiếm kho báu One Piece bắt đầu. Trong cuộc phiêu lưu tìm kiếm One Piece, băng Hải tặc mũ rơm phải chiến đấu với nhiều băng hải tặc xấu khác cũng muốn độc chiếm One Piece và Hải quân của Chính phủ muốn diệt trừ hải tặc. Băng Hải tặc Mũ Rơm phải trải qua biết bao nhiêu khó khăn, không lùi bước với ước mơ \"Trở thành Vua Hải Tặc và chiếm được kho báu One Piece\"."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20240310-1/31e6c244a0673838a46732d3b4f0b190.jpg",
+        "vi": "https://phimimg.com/upload/vod/20240310-1/d61250d0c1670917fd783a1b48cbb29c.jpg"
+      },
+      "score": null,
+      "title": {
+        "en": "One Piece",
+        "vi": "Đảo Hải Tặc"
+      },
+      "year": 1999,
+      "_id": "6a7d9593916d65ebc7f62a54"
+    },
+    {
+      "slug": "one-piece-nu-hung",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/hUkFUI5wKYAihLOks7RVU0TfzUS.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action",
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Phim Hành Động",
+          "Phim Hài"
+        ]
+      },
+      "hlsUrl": "https://v7.kkphimplayer7.com/20260706/lPvisZyw/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "After failing to stop the thieves due to ill-fitting shoes, Nami storms into the shop where she bought them for a refund. However, the head designer offers to make her a new pair from scratch on one condition: she must walk in their upcoming fashion show.",
+        "vi": "Bị đôi giày kém chất lượng làm đau chân, Nami quay lại cửa hàng. Nhà thiết kế Lebno đề nghị làm lại đôi giày cho cô – nếu cô chịu làm người mẫu cho buổi diễn thời trang của ông."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/mrONQ5gkWIVSf3hp5n6w7qoK2oN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/hbRXvcckbdKMhCea1JalPnSQQge.jpg"
+      },
+      "score": 6.947,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://v7.kkphimplayer7.com/20260706/lPvisZyw/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece Heroines",
+        "vi": "One Piece: Nữ Hùng"
+      },
+      "year": 2026,
+      "_id": "6a7d99e7916d65ebc7f659fb"
+    },
+    {
+      "slug": "one-piece-film-red",
+      "backdrop": "https://phimimg.com/upload/vod/20230922-1/61f686b92d5f29ed34ab75e998895b9b.jpg",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Sci-Fi"
+        ],
+        "vi": [
+          "Phiêu Lưu",
+          "Hành Động",
+          "Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20230922/rMnz64Gv/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Đây là phần phim thứ mười lăm trong loạt phim điện ảnh của One Piece, dựa trên bộ truyện manga nổi tiếng cùng tên của tác giả Eiichiro Oda. Phim được công bố lần đầu tiên vào ngày 21 tháng 11, 2021 để kỷ niệm sự ra mắt của tập phim thứ 1000 của bộ anime One Piece và sau khi tập phim này được phát sóng, đoạn quảng cáo và áp phích chính thức của phim cũng chính thức được công bố. Phim dự kiến sẽ phát hành vào ngày 6 tháng 8 năm 2022. Bộ phim được giới thiệu sẽ là hành trình xoay quanh một nhân vật nữ mới cùng với Shanks \"Tóc Đỏ\".",
+        "vi": "Đây là phần phim thứ mười lăm trong loạt phim điện ảnh của One Piece, dựa trên bộ truyện manga nổi tiếng cùng tên của tác giả Eiichiro Oda. Phim được công bố lần đầu tiên vào ngày 21 tháng 11, 2021 để kỷ niệm sự ra mắt của tập phim thứ 1000 của bộ anime One Piece và sau khi tập phim này được phát sóng, đoạn quảng cáo và áp phích chính thức của phim cũng chính thức được công bố. Phim dự kiến sẽ phát hành vào ngày 6 tháng 8 năm 2022. Bộ phim được giới thiệu sẽ là hành trình xoay quanh một nhân vật nữ mới cùng với Shanks \"Tóc Đỏ\"."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20230922-1/c787c4458260fac226233ec52ce4fa36.jpg",
+        "vi": "https://phimimg.com/upload/vod/20230922-1/61f686b92d5f29ed34ab75e998895b9b.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20230922/rMnz64Gv/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "ONE PIECE FILM RED",
+        "vi": "ONE PIECE FILM RED"
+      },
+      "year": 2022,
+      "_id": "6a7db1a4916d65ebc7f9df07"
+    },
+    {
+      "slug": "dao-hai-tac-13-gold",
+      "backdrop": "https://phimimg.com/upload/vod/20231026-1/e3eb24b5f2b6af748928b076e2f4ba07.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Animation",
+          "Adventure",
+          "Comedy"
+        ],
+        "vi": [
+          "Hành Động",
+          "Hoạt Hình",
+          "Phiêu Lưu",
+          "Hài Hước"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231028/lonjtWGK/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Bối cảnh phim lấy mốc thời gian từ tập 80 trong loạt manga, sau khi băng hải tặc Mũ Rơm chiến thắng thất vũ hải Donquixote Doflamingo tại Dressrosa. Trong chuyến hành trình phiêu lưu trên biển cả mênh mông, họ bất ngờ bắt gặp Gran Tesoro - Một sòng bạc khổng lồ xa hoa dát vàng nằm trên một con tàu đặc biệt.  Tại đây, Luffy và đồng đội đã rơi vào bẫy của Gild Tesoro - thuyền trưởng và là kẻ đã ăn trái ác quỷ Goru Goru, giúp hắn ta có thể biến mọi thứ thành vàng. Theo nhiều khán giả nhận định, phim có chất lượng đồ họa tuyệt vời, ánh vàng chủ đạo xuất hiện ở hầu hết các chi tiết trong phim, xen kẽ với màu tối tương phản giúp người xem cân bằng về mặt thị giác. Con tàu Gran Tesoro được hoàn thiện một cách tỉ mỉ và kỳ công, không khác gì một thành phố giữa lòng đại dương.",
+        "vi": "Bối cảnh phim lấy mốc thời gian từ tập 80 trong loạt manga, sau khi băng hải tặc Mũ Rơm chiến thắng thất vũ hải Donquixote Doflamingo tại Dressrosa. Trong chuyến hành trình phiêu lưu trên biển cả mênh mông, họ bất ngờ bắt gặp Gran Tesoro - Một sòng bạc khổng lồ xa hoa dát vàng nằm trên một con tàu đặc biệt.  Tại đây, Luffy và đồng đội đã rơi vào bẫy của Gild Tesoro - thuyền trưởng và là kẻ đã ăn trái ác quỷ Goru Goru, giúp hắn ta có thể biến mọi thứ thành vàng. Theo nhiều khán giả nhận định, phim có chất lượng đồ họa tuyệt vời, ánh vàng chủ đạo xuất hiện ở hầu hết các chi tiết trong phim, xen kẽ với màu tối tương phản giúp người xem cân bằng về mặt thị giác. Con tàu Gran Tesoro được hoàn thiện một cách tỉ mỉ và kỳ công, không khác gì một thành phố giữa lòng đại dương."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231026-1/aae845c98a184787b71a8b4744098089.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231026-1/e3eb24b5f2b6af748928b076e2f4ba07.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231028/lonjtWGK/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece Film: GOLD",
+        "vi": "Đảo Hải Tặc 13: GOLD"
+      },
+      "year": 2016,
+      "_id": "6a7db09c916d65ebc7f9d677"
+    },
+    {
+      "slug": "dao-hai-tac-live-action-phan-2",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qD211Hb5XwFxrszzBBe5EUYJerh.jpg",
+      "genres": {
+        "en": [
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "With his straw hat and ragtag crew, young pirate Monkey D. Luffy goes on an epic voyage for treasure.",
+        "vi": "Với chiếc mũ rơm và nhóm bạn đủ thành phần, hải tặc trẻ Monkey D. Luffy có hành trình săn kho báu hoành tráng trong bản chuyển thể người đóng này của bộ manga nổi tiếng."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/blWCPEqDGLBuLB9u89CxP9ORQP4.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/kdAOhC8IIS5jqzruRk7To3AEsHH.jpg"
+      },
+      "score": 8.1,
+      "title": {
+        "en": "ONE PIECE",
+        "vi": "Đảo Hải Tặc (Live Action) (Phần 2)"
+      },
+      "year": 2026,
+      "_id": "6a7d9c6d916d65ebc7f6b30e"
+    },
+    {
+      "slug": "thu-cua-fan-onepiece",
+      "backdrop": "https://phimimg.com/upload/vod/20241108-1/d0a56e150ee0d7fb985d842fa66b6ee0.jpg",
+      "genres": {
+        "en": [
+          "Drama"
+        ],
+        "vi": [
+          "Chính Kịch"
+        ]
+      },
+      "hlsUrl": "https://s5.phim1280.tv/20241108/hnQWM8LD/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Được Nami truyền cảm hứng, cô bé nọ bắt đầu cuộc phiêu lưu của một trong số nhiều câu chuyện cho thấy ảnh hưởng của băng Mũ Rơm đối với cư dân trong thế giới của họ.",
+        "vi": "Được Nami truyền cảm hứng, cô bé nọ bắt đầu cuộc phiêu lưu của một trong số nhiều câu chuyện cho thấy ảnh hưởng của băng Mũ Rơm đối với cư dân trong thế giới của họ."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20241108-1/06dc91253f83e917fed02f73bf723eeb.jpg",
+        "vi": "https://phimimg.com/upload/vod/20241108-1/d0a56e150ee0d7fb985d842fa66b6ee0.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s5.phim1280.tv/20241108/hnQWM8LD/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece Fan Letter",
+        "vi": "Thư Của Fan Onepiece"
+      },
+      "year": 2024,
+      "_id": "6a7da57a916d65ebc7f87319"
+    },
+    {
+      "slug": "dao-hai-tac-1-dao-chau-bau",
+      "backdrop": "https://phimimg.com/upload/vod/20231015-1/97899d5d5dc170c905ea3045882c7fb6.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Comedy",
+          "Sci-Fi"
+        ],
+        "vi": [
+          "Hành Động",
+          "Phiêu Lưu",
+          "Hài Hước",
+          "Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s1.phim1280.tv/20231018/J2JWnlTf/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Đảo Hải Tặc 1: Đảo Châu Báu – Tương truyền rằng, 1/3 số vàng trên thế giới được nắm giữa trong tay một hải tặc ngoại hiệu là Woonan Vĩ Đại. Nhiều năm sau đó, bí mật nơi tên hải tặc vĩ đại này cất giấu số của cải trở thành mục tiêu săn tìm của bọn cướp biển và cả những tên săn trộm máu mặt khắp đại dương.",
+        "vi": "Đảo Hải Tặc 1: Đảo Châu Báu – Tương truyền rằng, 1/3 số vàng trên thế giới được nắm giữa trong tay một hải tặc ngoại hiệu là Woonan Vĩ Đại. Nhiều năm sau đó, bí mật nơi tên hải tặc vĩ đại này cất giấu số của cải trở thành mục tiêu săn tìm của bọn cướp biển và cả những tên săn trộm máu mặt khắp đại dương."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231015-1/2ade79773796bd12b5980b9a0d94e71d.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231015-1/97899d5d5dc170c905ea3045882c7fb6.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s1.phim1280.tv/20231018/J2JWnlTf/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: The Movie",
+        "vi": "Đảo Hải Tặc 1: Đảo Châu Báu"
+      },
+      "year": 2000,
+      "_id": "6a7db111916d65ebc7f9d94d"
+    },
+    {
+      "slug": "dao-hai-tac-14-le-hoi-hai-tac",
+      "backdrop": "https://phimimg.com/upload/vod/20231111-1/868387abd36f75a62c4288f55ef3d3ec.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action",
+          "Adventure",
+          "Family",
+          "Giả Tượng"
+        ],
+        "vi": [
+          "Hoạt Hình",
+          "Hành Động",
+          "Phiêu Lưu",
+          "Gia Đình",
+          "Giả Tượng"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231122/OMVqY6Gk/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Băng Mũ Rơm cùng Luffy và vô số hải tặc trên thế giới nhận lời mời đến lễ hội Hải Tặc để Tranh đoạt chìa khóa dẫn đến kho báu Vua Hải tặc do Buena Festa tổ chức. Ngay cả tên quái vật Douglas Bullet biệt danh \"Hậu duệ của quỷ cũng tham chiến. Hơn thế nữa, với mong muốn tóm gọn Hải tặc, đội ngũ Hải Quân cũng bí mật tham gia. Những thế lực mạnh nhất đều góp mặt trong đại chiến. Cái kết nào sẽ xảy đến và liệu còn nhân vật bất ngờ nào xuất hiện không?",
+        "vi": "Băng Mũ Rơm cùng Luffy và vô số hải tặc trên thế giới nhận lời mời đến lễ hội Hải Tặc để Tranh đoạt chìa khóa dẫn đến kho báu Vua Hải tặc do Buena Festa tổ chức. Ngay cả tên quái vật Douglas Bullet biệt danh \"Hậu duệ của quỷ cũng tham chiến. Hơn thế nữa, với mong muốn tóm gọn Hải tặc, đội ngũ Hải Quân cũng bí mật tham gia. Những thế lực mạnh nhất đều góp mặt trong đại chiến. Cái kết nào sẽ xảy đến và liệu còn nhân vật bất ngờ nào xuất hiện không?"
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231111-1/e1f9cc3bf7362db210bd184ecd0f4ac0.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231111-1/868387abd36f75a62c4288f55ef3d3ec.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231122/OMVqY6Gk/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Stampede",
+        "vi": "Đảo Hải Tặc 14: Lễ Hội Hải Tặc"
+      },
+      "year": 2019,
+      "_id": "6a7daf7a916d65ebc7f9cfdf"
+    },
+    {
+      "slug": "dao-hai-tac-12-z-ky-phung-dich-thu",
+      "backdrop": "https://phimimg.com/upload/vod/20231026-1/6ae4010c6a52dacb539afd8370803143.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Giả Tượng",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Hoạt Hình",
+          "Giả Tượng",
+          "Hành Động",
+          "Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "https://s1.phim1280.tv/20231028/OooWZaVe/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Đảo Hải Tặc: Z - Kỳ Phùng Địch Thủ có nội dung là được so sánh với Vũ khí cổ đại, con át chủ bài của hải quân, viên đá Dyan đột nhiên bị đánh cắp bởi một người đàn ông vô cùng mạnh mẽ, cựu đô đốc hải quân Z sẽ là đối thủ của băng hải tặc Mũ Rơm.  Tổng bộ Hải Quân tiến tới việc đối phó với âm mưu đe dọa làm lung lay các trụ cột của Tân Thế Giới. Ở nơi khác, Kuzan trợ giúp cho băng Mũ Rơm. Cuối cùng, Luffy và đồng đội của mình tiến lên chống lại Z cùng sức mạnh kinh hoàng của ông ta.",
+        "vi": "Đảo Hải Tặc: Z - Kỳ Phùng Địch Thủ có nội dung là được so sánh với Vũ khí cổ đại, con át chủ bài của hải quân, viên đá Dyan đột nhiên bị đánh cắp bởi một người đàn ông vô cùng mạnh mẽ, cựu đô đốc hải quân Z sẽ là đối thủ của băng hải tặc Mũ Rơm.  Tổng bộ Hải Quân tiến tới việc đối phó với âm mưu đe dọa làm lung lay các trụ cột của Tân Thế Giới. Ở nơi khác, Kuzan trợ giúp cho băng Mũ Rơm. Cuối cùng, Luffy và đồng đội của mình tiến lên chống lại Z cùng sức mạnh kinh hoàng của ông ta."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231026-1/1412579ced243aef8308a926fbb0853e.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231026-1/6ae4010c6a52dacb539afd8370803143.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s1.phim1280.tv/20231028/OooWZaVe/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece Film: Z",
+        "vi": "Đảo Hải Tặc 12: Z - Kỳ Phùng Địch Thủ"
+      },
+      "year": 2012,
+      "_id": "6a7db0af916d65ebc7f9d6ee"
+    },
+    {
+      "slug": "dao-hai-tac-chuong-skypiea",
+      "backdrop": "https://phimimg.com/upload/vod/20231113-1/9537eccf5b24ab788f10201865b6ecb3.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action",
+          "Adventure",
+          "Comedy"
+        ],
+        "vi": [
+          "Hoạt Hình",
+          "Hành Động",
+          "Phiêu Lưu",
+          "Hài Hước"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231125/gL7c3IBa/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Cốt truyện xoay quanh băng Mũ Rơm trên đường đến đảo Skypeia. Sau khi tình cờ có vài manh mối về đảo trên trời, băng Mũ Rơm đã dừng chân tại đảo Jaya và vô tình gặp gỡ \"Râu Đen\" Marshall D. Teach - một kẻ cũng có tham vọng làm Vua Hải Tặc.Với sự giúp đỡ của Montblanc Cricket và Liên hợp quân núi khỉ đã đưa băng Mũ Rơm lên trên trời thành công. Sau khi lên đến đảo trên trời Skypie, băng Mũ Rơm đã vướng vào cuộc chiến tranh giành quyền làm chủ hòn đảo giữa hai tộc người Skypie và Shandia. Enel, kẻ sở hữu sức mạnh của sấm sét là người đứng đầu bên Skypie. Luffy đã đánh bại Enel và cứu Skypie khỏi thảm họa diệt vọng, cuộc chiến kết thúc.",
+        "vi": "Cốt truyện xoay quanh băng Mũ Rơm trên đường đến đảo Skypeia. Sau khi tình cờ có vài manh mối về đảo trên trời, băng Mũ Rơm đã dừng chân tại đảo Jaya và vô tình gặp gỡ \"Râu Đen\" Marshall D. Teach - một kẻ cũng có tham vọng làm Vua Hải Tặc.Với sự giúp đỡ của Montblanc Cricket và Liên hợp quân núi khỉ đã đưa băng Mũ Rơm lên trên trời thành công. Sau khi lên đến đảo trên trời Skypie, băng Mũ Rơm đã vướng vào cuộc chiến tranh giành quyền làm chủ hòn đảo giữa hai tộc người Skypie và Shandia. Enel, kẻ sở hữu sức mạnh của sấm sét là người đứng đầu bên Skypie. Luffy đã đánh bại Enel và cứu Skypie khỏi thảm họa diệt vọng, cuộc chiến kết thúc."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231113-1/3a658ad416584c76fe026da1c848330d.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231113-1/9537eccf5b24ab788f10201865b6ecb3.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231125/gL7c3IBa/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Episode of Skypiea",
+        "vi": "Đảo Hải Tặc: Chương Skypiea"
+      },
+      "year": 2018,
+      "_id": "6a7daf47916d65ebc7f9ceac"
+    },
+    {
+      "slug": "dao-hai-tac-le-hoi-hai-tac-2019",
+      "backdrop": "https://phimimg.com/upload/vod/20240104-1/8ecc1a18820213953f29a7b7ca466f37.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Hành Động",
+          "Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20240120/sahEzSdV/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Bộ phim là câu chuyện về Lễ hội Hải tặc, một dịp cho cướp biển, hải quân và lực lượng cách mạng tranh giành quyền bá chủ.",
+        "vi": "Bộ phim là câu chuyện về Lễ hội Hải tặc, một dịp cho cướp biển, hải quân và lực lượng cách mạng tranh giành quyền bá chủ."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20240104-1/cd4363169ea63709e1adc3ed3730bbc9.jpg",
+        "vi": "https://phimimg.com/upload/vod/20240104-1/8ecc1a18820213953f29a7b7ca466f37.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20240120/sahEzSdV/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "ONE PIECE STAMPEDE 2019",
+        "vi": "Đảo Hải Tặc: Lễ Hội Hải Tặc (2019)"
+      },
+      "year": 2019,
+      "_id": "6a7dab58916d65ebc7f9906f"
+    },
+    {
+      "slug": "dao-hai-tac-4-cuoc-dua-tu-than",
+      "backdrop": "https://phimimg.com/upload/vod/20231030-1/8e4a089fd195361f2754b56cc4e7df6e.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Animation",
+          "Adventure"
+        ],
+        "vi": [
+          "Hành Động",
+          "Hoạt Hình",
+          "Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231101/D2mVlExd/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Đảo Hải Tặc 4: Cuộc Đua Tử Thần – Nhóm Luffy có cuộc hành trính tới bến cảng Anabaru. Tại đây đang tổ chức một cuộc thi mà người chiến thắng sẽ có được một món tiền thưởng rất lớn nếu như giành vị trí quán quân. Nami vô cùng phấn khích và đã quyết định tham gia cuộc thi này.",
+        "vi": "Đảo Hải Tặc 4: Cuộc Đua Tử Thần – Nhóm Luffy có cuộc hành trính tới bến cảng Anabaru. Tại đây đang tổ chức một cuộc thi mà người chiến thắng sẽ có được một món tiền thưởng rất lớn nếu như giành vị trí quán quân. Nami vô cùng phấn khích và đã quyết định tham gia cuộc thi này."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231030-1/9ffa2b27de79217b6528deb3ba7b7c64.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231030-1/8e4a089fd195361f2754b56cc4e7df6e.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231101/D2mVlExd/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Dead End Adventure",
+        "vi": "Đảo Hải Tặc 4: Cuộc Đua Tử Thần"
+      },
+      "year": 2003,
+      "_id": "6a7db094916d65ebc7f9d644"
+    },
+    {
+      "slug": "dao-hai-tac-11-truy-tim-mu-rom",
+      "backdrop": "https://phimimg.com/upload/vod/20231123-1/cfbc1c2c3b13620b3b367574fdadec38.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Adventure"
+        ],
+        "vi": [
+          "Hoạt Hình",
+          "Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "https://s1.phim1280.tv/20231201/O7Lfr8Pi/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Vua Hải Tặc 3D: Truy tìm mũ rơm – Câu chuyện nói về một ngày của nhóm Mũ Rơm. Khi thức dậy, vị thuyền trưởng phát hiện chiếc mũ yêu quý của mình đã đi đâu mất và cuống cuồng đi tìm khắp nơi. Và thế là tất cả thuyền viên trên Sunny Going bắt đầu lao vào tìm kiếm. Trong quá trình tìm kiếm, nhóm phải chống lại từ hải quân đến quái vật biển và cuối cùng là đến ngay một căn cứ hải quân. Cuộc chiến hải tặc – hải quân lại bắt đầu và một câu chuyện cảm động giữa 2 thuyền viên “không bình thường” trên một con tàu hải tặc vừa giải tán.",
+        "vi": "Vua Hải Tặc 3D: Truy tìm mũ rơm – Câu chuyện nói về một ngày của nhóm Mũ Rơm. Khi thức dậy, vị thuyền trưởng phát hiện chiếc mũ yêu quý của mình đã đi đâu mất và cuống cuồng đi tìm khắp nơi. Và thế là tất cả thuyền viên trên Sunny Going bắt đầu lao vào tìm kiếm. Trong quá trình tìm kiếm, nhóm phải chống lại từ hải quân đến quái vật biển và cuối cùng là đến ngay một căn cứ hải quân. Cuộc chiến hải tặc – hải quân lại bắt đầu và một câu chuyện cảm động giữa 2 thuyền viên “không bình thường” trên một con tàu hải tặc vừa giải tán."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231123-1/39a0c2f4c49f4c07a578ae130b28d30d.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231123-1/cfbc1c2c3b13620b3b367574fdadec38.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s1.phim1280.tv/20231201/O7Lfr8Pi/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece 3D: Straw Hat Chase",
+        "vi": "Đảo Hải Tặc 11: Truy Tìm Mũ Rơm"
+      },
+      "year": 2011,
+      "_id": "6a7daece916d65ebc7f9cbe0"
+    },
+    {
+      "slug": "dao-hai-tac-live-action-phan-1",
+      "backdrop": "https://phimimg.com/upload/vod/20260310-1/fad63813186f00a3c206f4c7d04211b2.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Comedy"
+        ],
+        "vi": [
+          "Hành Động",
+          "Phiêu Lưu",
+          "Hài Hước"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Với chiếc mũ rơm và nhóm bạn đủ thành phần, hải tặc trẻ Monkey Monkey D. Luffy có hành trình săn kho báu hoành tráng trong bản chuyển thể người đóng này của bộ manga nổi tiếng.",
+        "vi": "Với chiếc mũ rơm và nhóm bạn đủ thành phần, hải tặc trẻ Monkey Monkey D. Luffy có hành trình săn kho báu hoành tráng trong bản chuyển thể người đóng này của bộ manga nổi tiếng."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20260310-1/8013044ff3248265d4125729933e1413.jpg",
+        "vi": "https://phimimg.com/upload/vod/20260310-1/fad63813186f00a3c206f4c7d04211b2.jpg"
+      },
+      "score": null,
+      "title": {
+        "en": "ONE PIECE (Live Action) (Season 1)",
+        "vi": "Đảo Hải Tặc (Live Action) (Phần 1)"
+      },
+      "year": 2023,
+      "_id": "6a7d9c6d916d65ebc7f6b30c"
+    },
+    {
+      "slug": "dao-hai-tac-dao-tren-troi-2018",
+      "backdrop": "https://phimimg.com/upload/vod/20231211-1/32841f520ee4493e28eb315e30e26f4b.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Sci-Fi",
+          "Adventure"
+        ],
+        "vi": [
+          "Hành Động",
+          "Viễn Tưởng",
+          "Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20240103/mMcMidW5/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Cricket là hậu duệ của một nhà thám hiểm đáng xấu hổ được gọi là Noland Nói Dối, người đã được tưởng nhớ trong một câu chuyện cổ tích 400 năm trước. Tuy nhiên, Noland không nói dối và thực sự đã đến Đảo Trời. Luffy và những người khác vô tình có được bản đồ đến Đảo Trời, và biết được rằng họ phải bị nuốt chửng bởi dòng nước biển để đến đó. Sau khi vượt qua dòng hải lưu, họ đến Skypiea, vùng đất của các vị thần, một nơi được cai trị bởi Chúa Trời Enel.",
+        "vi": "Cricket là hậu duệ của một nhà thám hiểm đáng xấu hổ được gọi là Noland Nói Dối, người đã được tưởng nhớ trong một câu chuyện cổ tích 400 năm trước. Tuy nhiên, Noland không nói dối và thực sự đã đến Đảo Trời. Luffy và những người khác vô tình có được bản đồ đến Đảo Trời, và biết được rằng họ phải bị nuốt chửng bởi dòng nước biển để đến đó. Sau khi vượt qua dòng hải lưu, họ đến Skypiea, vùng đất của các vị thần, một nơi được cai trị bởi Chúa Trời Enel."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231211-1/1172faf8822cda089a34eb755d262760.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231211-1/32841f520ee4493e28eb315e30e26f4b.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20240103/mMcMidW5/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "ONE PIECE Episode Of Skypiea  2018",
+        "vi": "Đảo Hải Tặc: Đảo Trên Trời (2018)"
+      },
+      "year": 2018,
+      "_id": "6a7daca4916d65ebc7f9aa26"
+    },
+    {
+      "slug": "dao-hai-tac-5-loi-nguyen-thanh-kiem",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/lgtg04cn0AZ89ua4S2CbQbajZRg.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "https://v7.kkphimplayer7.com/20260719/wKsVjkCy/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The Straw Hat Pirates landed at Asuka Island, home of the most valuable sword in the world: The Seven Star Sword. Which was said to curse anyone who takes it in possession. When they got back to the Going Merry, they discovered that Zoro is missing from his guard duty. Before they could plan out a search party to relocate him. Luffy and friends escape from the port as Marines were on their tail. They found a new place to dock, which is near a village. Whose job is to keep the Seven Star Sword sealed. Soon it was attacked by the Marines, and among them is Zoro. Luffy and the others don't know why he's helping out the Marines. But it all comes to conclusion when Luffy encounters Saga: Zoro's childhood friend from Swordsman training.",
+        "vi": "Đảo Hải Tặc 5: Lời Nguyền Thánh Kiếm – Trên Asuka Island, băng Mũ Rơm được biết về một thanh kiếm huyền thoại và đó còn là thanh kiếm đắt nhất trên thế giới, nhưng thanh kiếm này cũng mang theo lời nguyền chết người. Khi trở về thuyền, họ phát hiện Zoro – người được giao nhiệm vụ canh thuyền đã biến mất... Hai sự kiện trùng hợp này có liên quan đến nhau hay không? Điều gì đang chờ đợi họ ở phía trước?"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/fSqxVnjHE7zGAdWkhnQNYLJ2FUj.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/h5gbvY5DFAxah8l0JalpmV2qLcM.jpg"
+      },
+      "score": 6.842,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://v7.kkphimplayer7.com/20260719/wKsVjkCy/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Curse of the Sacred Sword",
+        "vi": "Đảo Hải Tặc 5: Lời Nguyền Thành Kiếm"
+      },
+      "year": 2004,
+      "_id": "6a7d9995916d65ebc7f650b2"
+    },
+    {
+      "slug": "vua-hai-tac-cuoc-dua-tu-than",
+      "backdrop": "https://phimimg.com/upload/vod/20231211-1/c8b17e74cd76eb5e2d7cd449d547fc84.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Adventure",
+          "Mystery"
+        ],
+        "vi": [
+          "Hài Hước",
+          "Phiêu Lưu",
+          "Bí Ẩn"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231231/RhiqvJEF/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Luffy và thủy thủ đoàn đến bến cảng Anabaru. Sòng bạc địa phương đang tổ chức một cuộc thi, trong đó người chiến thắng sẽ nhận được phần thưởng lớn bằng tiền nếu anh ta về đích trước. Nami rất phấn khởi và quyết định tham gia cuộc thi. Tuy nhiên, có một âm mưu đằng sau cuộc thi và kẻ chủ mưu là một cựu chỉ huy quân đội, Gasparde. Kế hoạch của anh ta là dụ tất cả những tên cướp biển đến căn cứ quân sự và đưa họ đến chỗ chết. Luffy và cả nhóm phải vượt qua vô số thử thách và khổ nạn trên đường đi để hoàn thành cuộc phiêu lưu không có hồi kết này.",
+        "vi": "Luffy và thủy thủ đoàn đến bến cảng Anabaru. Sòng bạc địa phương đang tổ chức một cuộc thi, trong đó người chiến thắng sẽ nhận được phần thưởng lớn bằng tiền nếu anh ta về đích trước. Nami rất phấn khởi và quyết định tham gia cuộc thi. Tuy nhiên, có một âm mưu đằng sau cuộc thi và kẻ chủ mưu là một cựu chỉ huy quân đội, Gasparde. Kế hoạch của anh ta là dụ tất cả những tên cướp biển đến căn cứ quân sự và đưa họ đến chỗ chết. Luffy và cả nhóm phải vượt qua vô số thử thách và khổ nạn trên đường đi để hoàn thành cuộc phiêu lưu không có hồi kết này."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231211-1/86f73ae1fa3992612e4abbc03f2a970a.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231211-1/c8b17e74cd76eb5e2d7cd449d547fc84.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231231/RhiqvJEF/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece The Movie Dead End No Bouken (Movie 4)",
+        "vi": "Vua Hải Tặc: Cuộc Đua Tử Thần"
+      },
+      "year": 2003,
+      "_id": "6a7dacc6916d65ebc7f9ac92"
+    },
+    {
+      "slug": "vua-hai-tac-bao-ve-vo-dien-lon-cuoi-cung",
+      "backdrop": "https://phimimg.com/upload/vod/20231110-1/b9ea5e36087c4d6d3be88daaaa289628.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Animation",
+          "Adventure",
+          "Comedy"
+        ],
+        "vi": [
+          "Hành Động",
+          "Hoạt Hình",
+          "Phiêu Lưu",
+          "Hài Hước"
+        ]
+      },
+      "hlsUrl": "https://s1.phim1280.tv/20231118/q8c8q23i/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Vua Hải Tặc: Bảo vệ! Vở diễn lớn cuối cùng là chương trình truyền hình đặc biệt của anime One Piece. Phim được phát sóng vào ngày 14 tháng 12 năm 2003 và sau tập 174 của anime. Bộ phim kể về Trung Úy Hải Quân Randolph - người đã mất gia đình vì Hải Tặc, đang dự định tổ chức một buổi biểu diễn cuối cùng trước khi về hưu. Thật không may cho ông vì bị một kẻ dưới quyền phản bội – Governor, đã lập ra một kế hoạch độc ác để bắt Randolph. Băng Mũ Rơm vô tình biết được kế hoạch đó nên đã tìm mọi cách để bảo vệ danh dự của ông và buổi biểu diễn cuối cùng này.",
+        "vi": "Vua Hải Tặc: Bảo vệ! Vở diễn lớn cuối cùng là chương trình truyền hình đặc biệt của anime One Piece. Phim được phát sóng vào ngày 14 tháng 12 năm 2003 và sau tập 174 của anime. Bộ phim kể về Trung Úy Hải Quân Randolph - người đã mất gia đình vì Hải Tặc, đang dự định tổ chức một buổi biểu diễn cuối cùng trước khi về hưu. Thật không may cho ông vì bị một kẻ dưới quyền phản bội – Governor, đã lập ra một kế hoạch độc ác để bắt Randolph. Băng Mũ Rơm vô tình biết được kế hoạch đó nên đã tìm mọi cách để bảo vệ danh dự của ông và buổi biểu diễn cuối cùng này."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231110-1/ca76c367690231c46579119aa9fb152b.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231110-1/b9ea5e36087c4d6d3be88daaaa289628.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s1.phim1280.tv/20231118/q8c8q23i/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Mamore! Saigo no Dai Butai",
+        "vi": "Vua Hải Tặc: Bảo vệ! Vở diễn lớn cuối cùng"
+      },
+      "year": 2003,
+      "_id": "6a7dafc5916d65ebc7f9d19e"
+    },
+    {
+      "slug": "dao-hai-tac-2-cuoc-phieu-luu-tren-dao-dong-ho",
+      "backdrop": "https://phimimg.com/upload/vod/20231030-1/23c3b38132faa5a3aebfb1c4955112c2.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Animation",
+          "Adventure"
+        ],
+        "vi": [
+          "Hành Động",
+          "Hoạt Hình",
+          "Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231031/MLO5V63u/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Đảo Hải Tặc Movie 2 : Cuộc Phiêu Lưu Trên Đảo Đồng Hồ – Trong khi băng hải tặc Mũ Rơm đang thưởng thức một ngày ấm áp tại bãi biển, thuyền của họ – Going Merry, đã bị đánh cắp. Họ không thể làm gì ngoài việc đứng nhìn, trong khi chiếc thuyền biến mất vào khoảng không.",
+        "vi": "Đảo Hải Tặc Movie 2 : Cuộc Phiêu Lưu Trên Đảo Đồng Hồ – Trong khi băng hải tặc Mũ Rơm đang thưởng thức một ngày ấm áp tại bãi biển, thuyền của họ – Going Merry, đã bị đánh cắp. Họ không thể làm gì ngoài việc đứng nhìn, trong khi chiếc thuyền biến mất vào khoảng không."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231030-1/ce7d7e02a3567f8b916f6a8dd2a0f727.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231030-1/23c3b38132faa5a3aebfb1c4955112c2.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231031/MLO5V63u/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Clockwork Island Adventure",
+        "vi": "Đảo Hải Tặc 2 : Cuộc Phiêu Lưu Trên Đảo Đồng Hồ"
+      },
+      "year": 2001,
+      "_id": "6a7db08a916d65ebc7f9d609"
+    },
+    {
+      "slug": "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca",
+      "backdrop": "https://phimimg.com/upload/vod/20241114-1/d0dd76a6d1828df65fca9fcb141e8f9a.jpg",
+      "genres": {
+        "en": [
+          "Sci-Fi",
+          "Trẻ Em",
+          "Adventure"
+        ],
+        "vi": [
+          "Viễn Tưởng",
+          "Trẻ Em",
+          "Phiêu Lưu"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Phiên bản đặc biệt đã chỉnh sửa - One Piece: Fish-Man Island Saga là phiên bản chỉnh sửa và cô đọng của bảnchuyển thể anime One Piece của Fish-Man Island Saga . Hiện tại, phim đang được phát sóng trong thời gian nghỉ năm tháng của anime gốc từ ngày 3 tháng 11 năm 2024, [1] đến ngày 6 tháng 4 năm 2025, trước khi bộ phim chuyển sang khung giờ mới. [2] Số tập phim sẽ được cô đọng từ 57 xuống còn 21.",
+        "vi": "Phiên bản đặc biệt đã chỉnh sửa - One Piece: Fish-Man Island Saga là phiên bản chỉnh sửa và cô đọng của bảnchuyển thể anime One Piece của Fish-Man Island Saga . Hiện tại, phim đang được phát sóng trong thời gian nghỉ năm tháng của anime gốc từ ngày 3 tháng 11 năm 2024, [1] đến ngày 6 tháng 4 năm 2025, trước khi bộ phim chuyển sang khung giờ mới. [2] Số tập phim sẽ được cô đọng từ 57 xuống còn 21."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20241114-1/b145f04a857ff4f425308b1592da0cf0.jpg",
+        "vi": "https://phimimg.com/upload/vod/20241114-1/d0dd76a6d1828df65fca9fcb141e8f9a.jpg"
+      },
+      "score": null,
+      "title": {
+        "en": "One Piece Log: Fish-Man Island Saga",
+        "vi": "Nhật Ký Hải Trình: One Piece Truyền Kỳ Đảo Người Cá"
+      },
+      "year": 2024,
+      "_id": "6a7da2da916d65ebc7f7e08d"
+    },
+    {
+      "slug": "dao-hai-tac-7-ten-khong-lo-trong-lau-dai-karakuri",
+      "backdrop": "https://phimimg.com/upload/vod/20231111-1/36715c6c7718095c64923f0ee7111917.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Adventure",
+          "Action",
+          "Comedy",
+          "Science",
+          "Sci-Fi",
+          "Giả Tượng"
+        ],
+        "vi": [
+          "Hoạt Hình",
+          "Phiêu Lưu",
+          "Hành Động",
+          "Hài Hước",
+          "Khoa Học",
+          "Viễn Tưởng",
+          "Giả Tượng"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231120/CsHNe4ym/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Băng Mũ Rơm đã vớt được hòm kho báu từ một con tàu chìm. Chiếc hòm được mở và bên trong chỉ có một bà lão đang trốn ở đó. Để được đưa về nhà, bà lão đã cho họ biết về chiếc vương miện vàng trên hòn đảo bà ta sống - Mecha Island. Khi đến nơi, tàu của họ đã bị chủ hòn đảo tấn công. Nhưng sau đó, người chủ đã nhờ hải tặc để khám phá bí mật của chiếc vương miện vàng. Chiếc vương miện này có phải là may mắn cho nhóm hải tặc Mũ Rơm hay không? Lời nguyền nào đang chờ đợi họ?",
+        "vi": "Băng Mũ Rơm đã vớt được hòm kho báu từ một con tàu chìm. Chiếc hòm được mở và bên trong chỉ có một bà lão đang trốn ở đó. Để được đưa về nhà, bà lão đã cho họ biết về chiếc vương miện vàng trên hòn đảo bà ta sống - Mecha Island. Khi đến nơi, tàu của họ đã bị chủ hòn đảo tấn công. Nhưng sau đó, người chủ đã nhờ hải tặc để khám phá bí mật của chiếc vương miện vàng. Chiếc vương miện này có phải là may mắn cho nhóm hải tặc Mũ Rơm hay không? Lời nguyền nào đang chờ đợi họ?"
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231111-1/55403f22575b8e95d33c6f2085b91d83.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231111-1/36715c6c7718095c64923f0ee7111917.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231120/CsHNe4ym/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Karakuri shiro no Mecha Kyohei",
+        "vi": "Đảo Hải Tặc 7: Tên Khổng Lồ Trong Lâu Đài Karakuri"
+      },
+      "year": 2006,
+      "_id": "6a7daf94916d65ebc7f9d06d"
+    },
+    {
+      "slug": "vua-hai-tac-thanh-kiem-bi-nguyen-rua",
+      "backdrop": "https://phimimg.com/upload/vod/20231215-1/eac8f1c4961475612e2047947f54c0c0.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Adventure",
+          "Mystery"
+        ],
+        "vi": [
+          "Hài Hước",
+          "Phiêu Lưu",
+          "Bí Ẩn"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20240108/O18tXvbY/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Vì sự truy đuổi của hải quân, Rufu và nhóm của anh đã đến đảo Aska trên đường trốn thoát. Nami nghe nói rằng có một Thất tinh kiếm trên hòn đảo này. Cô luôn muốn được tận mắt nhìn thấy vẻ đẹp của Thất Tinh Kiếm. Sauron biến mất sau khi nhìn thấy một con dao đã được bắn vào mình. Trong khi băng hải tặc Mũ Rơm đang tìm kiếm Sauron, họ đã gặp một cô gái tên Maya đang giữ ba viên đá quý. Họ đã nghe về bảy ngôi sao huyền thoại. Đằng sau thanh kiếm, có một truyền thuyết chưa được biết đến. Người được điều khiển bởi thanh kiếm bảy sao này là Saka, đồng minh trẻ tuổi của Sauron. Để cứu Saka, Sauron đã quyết định cắt bỏ vận đỏ đáng ngại trên đảo. Mặt trăng...",
+        "vi": "Vì sự truy đuổi của hải quân, Rufu và nhóm của anh đã đến đảo Aska trên đường trốn thoát. Nami nghe nói rằng có một Thất tinh kiếm trên hòn đảo này. Cô luôn muốn được tận mắt nhìn thấy vẻ đẹp của Thất Tinh Kiếm. Sauron biến mất sau khi nhìn thấy một con dao đã được bắn vào mình. Trong khi băng hải tặc Mũ Rơm đang tìm kiếm Sauron, họ đã gặp một cô gái tên Maya đang giữ ba viên đá quý. Họ đã nghe về bảy ngôi sao huyền thoại. Đằng sau thanh kiếm, có một truyền thuyết chưa được biết đến. Người được điều khiển bởi thanh kiếm bảy sao này là Saka, đồng minh trẻ tuổi của Sauron. Để cứu Saka, Sauron đã quyết định cắt bỏ vận đỏ đáng ngại trên đảo. Mặt trăng..."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231215-1/bc0130111285c5ccbb13381368008054.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231215-1/eac8f1c4961475612e2047947f54c0c0.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20240108/O18tXvbY/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece Cursed Holy Sword One Piece: Norowareta Seiken (Movie 5)",
+        "vi": "Vua Hải Tặc: Thánh Kiếm Bị Nguyền Rủa"
+      },
+      "year": 2004,
+      "_id": "6a7dac36916d65ebc7f99efa"
+    },
+    {
+      "slug": "vua-hai-tac-ten-linh-may-khong-lo-trong-lau-dai-karakuri",
+      "backdrop": "https://phimimg.com/upload/vod/20231210-1/c2fde95c1c85eb26eaab1da1c0acb6fc.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Adventure",
+          "Mystery"
+        ],
+        "vi": [
+          "Hài Hước",
+          "Phiêu Lưu",
+          "Bí Ẩn"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231230/dxtsGsIE/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Vua Hải Tặc: Tên lính máy khổng lồ trong lâu đài Karakuri là movie thứ 7 trong loạt anime và manga của One Piece. Phim diễn ra trước các sự kiện trong Water 7 Arc, và được phát hành vào ngày 4 tháng 3 năm 2016. Movie thứ 7 bắt dầu diễn ra trong 1 cơn bão dữ dội, khi đó băng Mũ Rơm đã kiếm được 1 chiếc rương từ 1 con tàu đắm cũ. Chiếc rương được mở ra và ở trong đó chỉ có 1 bà lão. Để trả ơn, bà ta tiết lộ cho nhóm Mũ Rơm về chiếc vương miện bằng vàng ở đảo Mecha. Khi Luffy và đồng đội lên đảo thì phải chiến đấu chống lại Ratchet – chủ nhân của hòn đảo này. Và tại đây Luffy lần đầu tiên kích hoạt được Gear Second. Bí ẩn về chiếc vương miện vàng cũng từ từ được tiết lộ.",
+        "vi": "Vua Hải Tặc: Tên lính máy khổng lồ trong lâu đài Karakuri là movie thứ 7 trong loạt anime và manga của One Piece. Phim diễn ra trước các sự kiện trong Water 7 Arc, và được phát hành vào ngày 4 tháng 3 năm 2016. Movie thứ 7 bắt dầu diễn ra trong 1 cơn bão dữ dội, khi đó băng Mũ Rơm đã kiếm được 1 chiếc rương từ 1 con tàu đắm cũ. Chiếc rương được mở ra và ở trong đó chỉ có 1 bà lão. Để trả ơn, bà ta tiết lộ cho nhóm Mũ Rơm về chiếc vương miện bằng vàng ở đảo Mecha. Khi Luffy và đồng đội lên đảo thì phải chiến đấu chống lại Ratchet – chủ nhân của hòn đảo này. Và tại đây Luffy lần đầu tiên kích hoạt được Gear Second. Bí ẩn về chiếc vương miện vàng cũng từ từ được tiết lộ."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231210-1/f95b6251caa2f185a8181883f92f2a91.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231210-1/c2fde95c1c85eb26eaab1da1c0acb6fc.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231230/dxtsGsIE/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece The Movie Karakuri Jou No Meka Kyohei (Movie 7)",
+        "vi": "Vua Hải Tặc: Tên Lính Máy Khổng Lồ Trong Lâu Đài Karakuri"
+      },
+      "year": 2006,
+      "_id": "6a7dacd5916d65ebc7f9acef"
+    },
+    {
+      "slug": "dao-hai-tac-8-cuoc-chien-o-vuong-quoc-alabasta",
+      "backdrop": "https://phimimg.com/upload/vod/20231030-1/769f33bd9379bf63da84c7d260a2f979.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Comedy",
+          "Drama",
+          "Animation"
+        ],
+        "vi": [
+          "Hành Động",
+          "Phiêu Lưu",
+          "Hài Hước",
+          "Chính Kịch",
+          "Hoạt Hình"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231101/nFAnWw1u/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Luffy và băng Mũ Rơm giúp đỡ công chúa Vivi giải cứu đất nước đang chìm trong nội chiến của cô. Tất cả đều do một tay Crocodile – một DF user rất mạnh và tổ chức Baroque Works của hắn gây ra. Liệu họ có chống lại được Crocodile hùng mạnh hay không?",
+        "vi": "Luffy và băng Mũ Rơm giúp đỡ công chúa Vivi giải cứu đất nước đang chìm trong nội chiến của cô. Tất cả đều do một tay Crocodile – một DF user rất mạnh và tổ chức Baroque Works của hắn gây ra. Liệu họ có chống lại được Crocodile hùng mạnh hay không?"
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231030-1/76d39050405547caa96ebe66d36b50c7.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231030-1/769f33bd9379bf63da84c7d260a2f979.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231101/nFAnWw1u/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: The Desert Princess and the Pirates: Adventure in Alabasta",
+        "vi": "Đảo Hải Tặc 8 : Cuộc Chiến Ở Vương Quốc Alabasta"
+      },
+      "year": 2007,
+      "_id": "6a7db093916d65ebc7f9d640"
+    },
+    {
+      "slug": "dao-hai-tac-9-no-vao-mua-dong-hoa-sakura-dieu-ky",
+      "backdrop": "https://phimimg.com/upload/vod/20231030-1/446788c177d6418c1f7ca707b980e971.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Animation",
+          "Adventure",
+          "Comedy"
+        ],
+        "vi": [
+          "Hành Động",
+          "Hoạt Hình",
+          "Phiêu Lưu",
+          "Hài Hước"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231101/qhRNudot/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Tập phim kể lại câu chuyện gia nhập băng Mũ Rơm của Tony Chopper dưới sự lãnh đạo của Luffy. Luffy lãnh đạo nhóm hải tặc Mũ Rơm qua East Blue và rồi tiến đến Grand Line. Cậu theo dấu chân của vị vua hải tặc quá cố, Gol D. Roger, chu du từ đảo này sang đảo khác để đến với kho báu vĩ đại One Piece. Mỗi thành viên trong nhóm đều có 1 quá khứ rất đặc biệt và đáng buồn. Ngoài khả năng đặc biệt trong công việc của mình, bất cứ thành viên nào cũng có khả năng chiến đấu rất tốt.",
+        "vi": "Tập phim kể lại câu chuyện gia nhập băng Mũ Rơm của Tony Chopper dưới sự lãnh đạo của Luffy. Luffy lãnh đạo nhóm hải tặc Mũ Rơm qua East Blue và rồi tiến đến Grand Line. Cậu theo dấu chân của vị vua hải tặc quá cố, Gol D. Roger, chu du từ đảo này sang đảo khác để đến với kho báu vĩ đại One Piece. Mỗi thành viên trong nhóm đều có 1 quá khứ rất đặc biệt và đáng buồn. Ngoài khả năng đặc biệt trong công việc của mình, bất cứ thành viên nào cũng có khả năng chiến đấu rất tốt."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231030-1/b0eec9d94eaffb4c59e18dae5cc1b154.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231030-1/446788c177d6418c1f7ca707b980e971.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231101/qhRNudot/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Episode of Chopper Plus: Bloom in the Winter, Miracle Cherry Blossom",
+        "vi": "Đảo Hải Tặc 9: Nở Vào Mùa Đông, Hoa Sakura Diệu Kỳ"
+      },
+      "year": 2008,
+      "_id": "6a7db091916d65ebc7f9d631"
+    },
+    {
+      "slug": "vua-hai-tac-chuong-chopper-plus-no-ro-giua-mua-dong-cay-hoa-anh-dao-huyen-dieu",
+      "backdrop": "https://phimimg.com/upload/vod/20231208-1/035c78eeba6466bd0d6a8769ab9f3ccd.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Adventure",
+          "Mystery"
+        ],
+        "vi": [
+          "Hài Hước",
+          "Phiêu Lưu",
+          "Bí Ẩn"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231227/kIeMKtWX/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Phim kể về chuyến hành trình của băng Mũ Rơm tới hòn đảo Drum. Tại đây họ gặp được Chopper và chiêu mộ cậu ta làm thành viên mới cho băng hải tặc. Chopper có khả năng biến hình nhờ trái ác quỷ Hito Hito no Mi. Cậu ta cũng là một bác sĩ với khả năng y thuật tuyệt vời. Vì lẽ đó đã trở thành thành viên thứ 6 của băng Hải Tặc Mũ Rơm. Tại đây cả nhóm cũng phải chiến đấu với Mushul, một kẻ có âm mưu thôn tính cả hòn đảo Drum. Quê hương của thành viên mới Chopper và của những người dân vô tội trên đảo.",
+        "vi": "Phim kể về chuyến hành trình của băng Mũ Rơm tới hòn đảo Drum. Tại đây họ gặp được Chopper và chiêu mộ cậu ta làm thành viên mới cho băng hải tặc. Chopper có khả năng biến hình nhờ trái ác quỷ Hito Hito no Mi. Cậu ta cũng là một bác sĩ với khả năng y thuật tuyệt vời. Vì lẽ đó đã trở thành thành viên thứ 6 của băng Hải Tặc Mũ Rơm. Tại đây cả nhóm cũng phải chiến đấu với Mushul, một kẻ có âm mưu thôn tính cả hòn đảo Drum. Quê hương của thành viên mới Chopper và của những người dân vô tội trên đảo."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231208-1/2c4c18be1a30e9135659c029fb8da6a3.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231208-1/035c78eeba6466bd0d6a8769ab9f3ccd.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231227/kIeMKtWX/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece Movie 9: Episode Of Chopper Plus - Fuyu Ni Saku, Kiseki No Sakura",
+        "vi": "Vua Hải Tặc: Chương Chopper Plus - Nở Rộ Giữa Mùa đông, Cây Hoa Anh đào Huyền Diệu"
+      },
+      "year": 2008,
+      "_id": "6a7dad13916d65ebc7f9b386"
+    },
+    {
+      "slug": "vua-hai-tac-chuong-sabo-moi-lien-ket-cua-ba-anh-em-va-y-chi-duoc-ke-thua",
+      "backdrop": "https://phimimg.com/upload/vod/20231208-1/4256a7db00ebc9191b2ff0d2a954ec09.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Adventure",
+          "Mystery"
+        ],
+        "vi": [
+          "Hài Hước",
+          "Phiêu Lưu",
+          "Bí Ẩn"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20231217/ZRlA3MFK/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Vua Hải Tặc: Chương Sabo - Mối liên kết của ba anh em và ý chí được kế thừa là chương trình truyền hình đặc biệt của anime One Piece. Phim do Koga Gou làm đạo diễn và được phát sóng vào ngày 22 tháng 8 năm 2015, kể về các sự kiện trong ba phần đầu tiên của Dressrosa Arc theo quan điểm của Sabo. Bộ phim mô tả bức tranh thời thơ ấu của ba anh em Sabo, Luffy và Ace. Nói về ước mơ làm Hải tặc của bộ ba. Cuộc gặp gỡ với Luffy thông qua góc nhìn của Sabo.",
+        "vi": "Vua Hải Tặc: Chương Sabo - Mối liên kết của ba anh em và ý chí được kế thừa là chương trình truyền hình đặc biệt của anime One Piece. Phim do Koga Gou làm đạo diễn và được phát sóng vào ngày 22 tháng 8 năm 2015, kể về các sự kiện trong ba phần đầu tiên của Dressrosa Arc theo quan điểm của Sabo. Bộ phim mô tả bức tranh thời thơ ấu của ba anh em Sabo, Luffy và Ace. Nói về ước mơ làm Hải tặc của bộ ba. Cuộc gặp gỡ với Luffy thông qua góc nhìn của Sabo."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20231208-1/8a2d77ad763363bb7b6b84080200e7fe.jpg",
+        "vi": "https://phimimg.com/upload/vod/20231208-1/4256a7db00ebc9191b2ff0d2a954ec09.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20231217/ZRlA3MFK/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "One Piece: Episode Of Sabo - 3 Kyōdai No Kizuna Kiseki No Saikai To Uketsugareru Ishi, One Piece Sapo Special Chapter Three Brothers' Bonds, Miracle Reunion And Inherited Will",
+        "vi": "Vua Hải Tặc: Chương Sabo - Mối Liên Kết Của Ba Anh Em Và ý Chí Được Kế Thừa"
+      },
+      "year": 2015,
+      "_id": "6a7dad7e916d65ebc7f9bea8"
+    }
+  ],
+  "resumeMovies": [],
+  "genres": [
+    "Action & Adventure",
+    "Bí Ẩn",
+    "Chiến Tranh",
+    "Chính Kịch",
+    "Chương Trình Truyền Hình",
+    "Cổ Trang",
+    "Gia Đình",
+    "Giả Tượng",
+    "Gây Cấn",
+    "Hoạt Hình",
+    "Hài Hước",
+    "Hành Động",
+    "Hình Sự",
+    "Học Đường",
+    "Khoa Học",
+    "Kids",
+    "Kinh Dị",
+    "Kinh Điển",
+    "Lịch Sử",
+    "Miền Tây",
+    "News",
+    "Phim 18+",
+    "Phim Bí Ẩn",
+    "Phim Chiến Tranh",
+    "Phim Chính Kịch",
+    "Phim Gia Đình",
+    "Phim Giả Tượng",
+    "Phim Gây Cấn",
+    "Phim Hoạt Hình",
+    "Phim Hài",
+    "Phim Hành Động",
+    "Phim Hình Sự",
+    "Phim Khoa Học Viễn Tưởng",
+    "Phim Kinh Dị",
+    "Phim Lãng Mạn",
+    "Phim Lịch Sử",
+    "Phim Miền Tây",
+    "Phim Ngắn",
+    "Phim Nhạc",
+    "Phim Phiêu Lưu",
+    "Phim Tài Liệu",
+    "Phiêu Lưu",
+    "Reality",
+    "Sci-Fi & Fantasy",
+    "Soap",
+    "Talk",
+    "Thần Thoại",
+    "Thể Thao",
+    "Trẻ Em",
+    "Tài Liệu",
+    "Tâm Lý",
+    "Tình Cảm",
+    "Viễn Tưởng",
+    "Võ Thuật",
+    "War & Politics",
+    "Âm Nhạc"
+  ],
+  "resume": [],
+  "top": [
+    {
+      "slug": "spider-man-brand-new-day",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
+      "createdAt": "2026-08-14T04:44:04.909Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/spider-man-brand-new-day/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+        "vi": "Không còn Tony Stark, MJ hay Ned kề cận, Peter buộc phải đơn thân độc mã đối diện với phe đối đầu bí ẩn. Tuy nhiên, khi áp lực ngày càng gia tăng, nó kích hoạt một sự biến đổi thể chất bất ngờ, đe dọa chính sự tồn tại của anh. Đồng thời, một chuỗi tội phạm bí ẩn mới xuất hiện, kéo theo một trong những mối đe dọa mạnh mẽ nhất mà Spider-Man từng đối mặt."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/wqGZVSCUSXE92WH2zyol2REaqT4.jpg"
+      },
+      "score": 7.868,
+      "title": {
+        "en": "Spider-Man: Brand New Day",
+        "vi": "Người Nhện: Khởi Đầu Mới"
+      },
+      "tmdbId": 969681,
+      "votes": 1641,
+      "year": 2026,
+      "search": "spider man brand new day nguoi nhen khoi dau moi 2026",
+      "_id": "6a7e3a73916d65ebc7fa38ae"
+    },
+    {
+      "slug": "smallville",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4wVq9ICc4MI2XcssrumpCOhKLpI.jpg",
+      "createdAt": "2026-08-14T14:27:28.172Z",
+      "genres": {
+        "en": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Drama"
+        ],
+        "vi": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "The origins of the world’s greatest hero–from Krypton refugee Kal-el’s arrival on Earth through his tumultuous teen years to Clark Kent’s final steps toward embracing his destiny as the Man of Steel.",
+        "vi": "Thiếu niên Clark Kent ở Kansas dùng siêu năng lực đang dần hình thành để chống lại tội phạm, đồng thời đối phó với tình yêu tuổi trẻ, rắc rối gia đình và khủng hoảng tuổi dậy thì."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/mHZSq8LA5Dt48JjaOZ5tcPXQRVN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/35rxWpTUkVETpbU7DzR1pjQfEJx.jpg"
+      },
+      "score": 8.2,
+      "search": "smallville thi tran smallville 2001",
+      "title": {
+        "en": "Smallville",
+        "vi": "Thị Trấn Smallville"
+      },
+      "tmdbId": 4604,
+      "votes": 4564,
+      "year": 2001,
+      "_id": "6a7ec326916d65ebc7fac18e"
+    },
+    {
+      "slug": "the-odyssey",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/RMXG8myu1aGlNUsRjtxzmpdMK0.jpg",
+      "createdAt": "2026-08-14T05:35:47.622Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-odyssey/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
+        "vi": "Câu chuyện theo chân Odysseus trong hành trình kéo dài 10 năm trở về nhà sau cuộc chiến thành Troy, nơi ông phải đối mặt với các vị thần, quái vật và vô vàn thử thách, đồng thời nỗ lực đoàn tụ với vợ và giành lại vương quốc của mình."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/7876PK6gosE13Uq1B6nRxf7AJLT.jpg"
+      },
+      "score": 7.994,
+      "title": {
+        "en": "The Odyssey",
+        "vi": "The Odyssey"
+      },
+      "tmdbId": 1368337,
+      "votes": 2693,
+      "year": 2026,
+      "search": "the odyssey the odyssey 2026",
+      "_id": "6a7e4691916d65ebc7fa3910"
+    },
+    {
+      "slug": "minions-monsters",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg",
+      "createdAt": "2026-08-12T17:12:14.802Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hoạt Hình",
+          "Phim Hài",
+          "Phim Gia Đình",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/minions-monsters/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "This is the rambunctious, ridiculous and totally true story of how the Minions conquered Hollywood, became movie stars, lost everything, unleashed monsters onto the world and then banded together to try and save the planet from the mayhem they had just created.",
+        "vi": "Đây là câu chuyện có thật, đầy náo nhiệt, lố bịch và vô cùng điên rồ về cách các Minion chinh phục Hollywood, trở thành ngôi sao điện ảnh, rồi đánh mất tất cả, vô tình giải phóng những quái vật ra thế giới và cuối cùng buộc phải sát cánh bên nhau để cứu lấy Trái Đất khỏi chính mớ hỗn loạn mà họ đã gây ra."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4LwvU9SZc8QQzW1X1FAPhNbXnEU.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/z8OWDTR7pQuZi7jkEuR7yMXRrQt.jpg"
+      },
+      "score": 7.495,
+      "title": {
+        "en": "Minions & Monsters",
+        "vi": "Minions & Quái Vật"
+      },
+      "tmdbId": 1315772,
+      "votes": 719,
+      "year": 2026,
+      "search": "minions monsters minions quai vat 2026",
+      "_id": "6a7c46cb916d65ebc7f58ff9"
+    },
+    {
+      "slug": "lanterns",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mdbWfpbWhvxgG3k5MHpo90UgAUe.jpg",
+      "createdAt": "2026-08-18T15:42:19.224Z",
+      "genres": {
+        "en": [
+          "Drama",
+          "Mystery",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Bí Ẩn",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland.",
+        "vi": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9WvY1jicpfYLA6KoczwvdMRNGvc.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/gpC7h43xPMEV3goYMQShfJbTtLq.jpg"
+      },
+      "score": 7.9,
+      "search": "lanterns lanterns 2026",
+      "title": {
+        "en": "Lanterns",
+        "vi": "Lanterns"
+      },
+      "tmdbId": 95350,
+      "votes": 70,
+      "year": 2026,
+      "_id": "6a841ab4916d65ebc7fc6546"
+    },
+    {
+      "slug": "arcane",
+      "createdAt": "2026-08-10T09:36:24.784Z",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.",
+        "vi": "Khi hai thành phố song sinh Piltover và Zaun ở thế mâu thuẫn gay gắt, hai chị em chiến đấu ở hai bên chiến tuyến cùng các công nghệ ma thuật và những niềm tin trái chiều."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg"
+      },
+      "title": {
+        "en": "Arcane",
+        "vi": "Arcane"
+      },
+      "tmdbId": 94605,
+      "year": 2021,
+      "score": 8.752,
+      "votes": 6089,
+      "backdrop": "https://image.tmdb.org/t/p/w1280/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg",
+      "search": "arcane arcane 2021",
+      "_id": "6a793929916d65ebc7f4b6cb"
+    },
+    {
+      "slug": "the-fantastic-4-first-steps",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/s94NjfKkcSczZ1FembwmQZwsuwY.jpg",
+      "createdAt": "2026-08-14T06:00:18.367Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-fantastic-4-first-steps/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Against the vibrant backdrop of a 1960s-inspired, retro-futuristic world, Marvel's First Family is forced to balance their roles as heroes with the strength of their family bond, while defending Earth from a ravenous space god called Galactus and his enigmatic Herald, Silver Surfer.",
+        "vi": "Sau một chuyến bay thám hiểm vũ trụ, bốn phi hành gia bất ngờ sở hữu năng lực siêu nhiên và trở thành gia đình siêu anh hùng đầu tiên của Marvel. The Fantastic Four: First Steps là bộ phim mở đầu Kỷ nguyên anh hùng thứ sáu (Phase Six), đặt nền móng cho siêu bom tấn Avengers: Doomsday trong năm sau."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/n0bqzWiKGJsmnvOlkTiYykhhM4E.jpg"
+      },
+      "score": 6.944,
+      "title": {
+        "en": "The Fantastic 4: First Steps",
+        "vi": "Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên"
+      },
+      "tmdbId": 617126,
+      "votes": 3673,
+      "year": 2025,
+      "search": "the fantastic 4 first steps bo tu sieu dang buoc di dau tien 2025",
+      "_id": "6a7e4c50916d65ebc7fa3a0b"
+    },
+    {
+      "slug": "than-dieu-dai-hiep",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tJKhWBOCk8F3RfQbx1WdYpJV4L.jpg",
+      "createdAt": "2026-08-13T12:00:15.990Z",
+      "genres": {
+        "en": [
+          "Action & Adventure",
+          "Drama"
+        ],
+        "vi": [
+          "Action & Adventure",
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "The Condor Heroes 95 is a Hong Kong television series adapted from Louis Cha's novel The Return of the Condor Heroes. It was first broadcast on TVB Jade in Hong Kong in 1995. Many of the cast from The Legend of the Condor Heroes reprised their roles in this series, such as Lau Dan and Wayne Lai. In addition, Jason Pai reprised his breakthrough role as Kwok Ching, whom he previously portrayed in The Legend of the Condor Heroes and The Return of the Condor Heroes.",
+        "vi": "Thần điêu đại hiệp là bộ phim truyền hình do đài truyền hình TVB - Hồng Kông phát hành dựa trên tiểu thuyết cùng tên của nhà văn Kim Dung. Dương Quá mồ côi từ nhỏ, được Quách Tĩnh và Hoàng Dung đưa về Đào Hoa Đảo nuôi dưỡng nhưng vì tính cách ngang bướng nên nhiều lần bị hiểu lầm. Sau đó, anh được gửi đến Toàn Chân giáo học võ nhưng lại bị đối xử bất công, rồi tình cờ vào Cổ Mộ và trở thành đệ tử của Tiểu Long Nữ. Sống bên nhau trong chốn thanh tĩnh, Dương Quá và Tiểu Long Nữ dần nảy sinh tình yêu, nhưng mối tình sư đồ bị võ lâm xem là trái luân thường, khiến cả hai phải chịu nhiều chia ly và đau khổ. Trên hành trình trưởng thành, Dương Quá đối mặt với ân oán giang hồ, sự truy sát của Lý Mạc Sầu, tình cảm từ Quách Phù, Trình Anh, Lục Vô Song và lời hẹn 16 năm với Tiểu Long Nữ. Giữa loạn thế và chiến sự Tương Dương, anh cuối cùng trở thành Thần Điêu Đại Hiệp."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/pkUGghGufdG17N601kD4m04LDNw.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/83giKdPHodYoYDAQfrW8a3XWhzC.jpg"
+      },
+      "score": 7.4,
+      "title": {
+        "en": "The Condor Heroes 95",
+        "vi": "Thần Điêu Đại Hiệp"
+      },
+      "tmdbId": 31955,
+      "votes": 18,
+      "year": 1995,
+      "search": "the condor heroes 95 than dieu dai hiep 1995",
+      "_id": "6a7db1d0916d65ebc7f9e0d6"
+    },
+    {
+      "slug": "evil-dead-burn",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/o0jkkpcN81QqSl8DMLScBCXyUH9.jpg",
+      "createdAt": "2026-08-18T21:01:03.358Z",
+      "genres": {
+        "en": [
+          "Horror"
+        ],
+        "vi": [
+          "Phim Kinh Dị"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/evil-dead-burn/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death.",
+        "vi": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/yAtHcEJdoIjV2BJUvZz89A88pAB.jpg"
+      },
+      "score": 7.868,
+      "search": "evil dead burn ma cay lua dia nguc 2026",
+      "title": {
+        "en": "Evil Dead Burn",
+        "vi": "Ma Cây: Lửa Địa Ngục"
+      },
+      "tmdbId": 1212763,
+      "votes": 1155,
+      "year": 2026,
+      "_id": "6a846569916d65ebc7fc8fb3"
+    },
+    {
+      "slug": "x-men",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3QUVzbcNyfGe3ocWkYAT8emK8Co.jpg",
+      "createdAt": "2026-08-18T14:32:47.230Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/x-men/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Two mutants, Rogue and Wolverine, come to a private academy for their kind whose resident superhero team, the X-Men, must oppose a terrorist organization with similar powers.",
+        "vi": "X-men là những con người có năng lực siêu phàm. Họ tập trung tại một ngôi trường do giáo sư Charles Xavier để giúp cho họ sử dụng năng lực của mình một cách đúng đắn và có ích... Bộ phim bắt đầu từ việc cô bé Rogue bị sự truy lùng của một kẻ có mưu đồ làm bá chủ thế giới khi hắn muốn lợi dụng sức mạnh của Rogue để hoàn thành nguyện vọng của mình. Nhưng mọi thứ đã bị giáo sư và các thành viên của X-men ngăn cản. Phim được dựa theo bộ truyện tranh nổi tiếng của Mỹ."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/bRDAc4GogyS9ci3ow7UnInOcriN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/bRDAc4GogyS9ci3ow7UnInOcriN.jpg"
+      },
+      "score": 7.022,
+      "search": "x men x men 1 di nhan 2000",
+      "title": {
+        "en": "X-Men",
+        "vi": "X-Men 1: Dị Nhân"
+      },
+      "tmdbId": 36657,
+      "votes": 12394,
+      "year": 2000,
+      "_id": "6a840a68916d65ebc7fc6489"
+    }
+  ],
+  "episodeInfo": {
+    "dao-hai-tac/s01e01": {
+      "label": "Tập 01"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e01": {
+      "label": "Tập 01"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e01": {
+      "label": "Tập 01"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e01": {
+      "label": "Tập 01"
+    },
+    "dao-hai-tac/s01e02": {
+      "label": "Tập 02"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e02": {
+      "label": "Tập 02"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e02": {
+      "label": "Tập 02"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e02": {
+      "label": "Tập 02"
+    },
+    "dao-hai-tac/s01e03": {
+      "label": "Tập 03"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e03": {
+      "label": "Tập 03"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e03": {
+      "label": "Tập 03"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e03": {
+      "label": "Tập 03"
+    },
+    "dao-hai-tac/s01e04": {
+      "label": "Tập 04"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e04": {
+      "label": "Tập 04"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e04": {
+      "label": "Tập 04"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e04": {
+      "label": "Tập 04"
+    },
+    "dao-hai-tac/s01e05": {
+      "label": "Tập 05"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e05": {
+      "label": "Tập 05"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e05": {
+      "label": "Tập 05"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e05": {
+      "label": "Tập 05"
+    },
+    "dao-hai-tac/s01e06": {
+      "label": "Tập 06"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e06": {
+      "label": "Tập 06"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e06": {
+      "label": "Tập 06"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e06": {
+      "label": "Tập 06"
+    },
+    "dao-hai-tac/s01e07": {
+      "label": "Tập 07"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e07": {
+      "label": "Tập 07"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e07": {
+      "label": "Tập 07"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e07": {
+      "label": "Tập 07"
+    },
+    "dao-hai-tac/s01e08": {
+      "label": "Tập 08"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e08": {
+      "label": "Tập 08"
+    },
+    "dao-hai-tac-live-action-phan-1/s01e08": {
+      "label": "Tập 08"
+    },
+    "dao-hai-tac-live-action-phan-2/s01e08": {
+      "label": "Tập 08"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e09": {
+      "label": "Tập 09"
+    },
+    "dao-hai-tac/s01e09": {
+      "label": "Tập 09"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e10": {
+      "label": "Tập 10"
+    },
+    "dao-hai-tac/s01e10": {
+      "label": "Tập 10"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e11": {
+      "label": "Tập 11"
+    },
+    "dao-hai-tac/s01e11": {
+      "label": "Tập 11"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e12": {
+      "label": "Tập 12"
+    },
+    "dao-hai-tac/s01e12": {
+      "label": "Tập 12"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e13": {
+      "label": "Tập 13"
+    },
+    "dao-hai-tac/s01e13": {
+      "label": "Tập 13"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e14": {
+      "label": "Tập 14"
+    },
+    "dao-hai-tac/s01e14": {
+      "label": "Tập 14"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e15": {
+      "label": "Tập 15"
+    },
+    "dao-hai-tac/s01e15": {
+      "label": "Tập 15"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e16": {
+      "label": "Tập 16"
+    },
+    "dao-hai-tac/s01e16": {
+      "label": "Tập 16"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e17": {
+      "label": "Tập 17"
+    },
+    "dao-hai-tac/s01e17": {
+      "label": "Tập 17"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e18": {
+      "label": "Tập 18"
+    },
+    "dao-hai-tac/s01e18": {
+      "label": "Tập 18"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e19": {
+      "label": "Tập 19"
+    },
+    "dao-hai-tac/s01e19": {
+      "label": "Tập 19"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e20": {
+      "label": "Tập 20"
+    },
+    "dao-hai-tac/s01e20": {
+      "label": "Tập 20"
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca/s01e21": {
+      "label": "Tập 21"
+    },
+    "dao-hai-tac/s01e21": {
+      "label": "Tập 21"
+    },
+    "dao-hai-tac/s01e22": {
+      "label": "Tập 22"
+    },
+    "dao-hai-tac/s01e23": {
+      "label": "Tập 23"
+    },
+    "dao-hai-tac/s01e24": {
+      "label": "Tập 24"
+    },
+    "dao-hai-tac/s01e25": {
+      "label": "Tập 25"
+    },
+    "dao-hai-tac/s01e26": {
+      "label": "Tập 26"
+    },
+    "dao-hai-tac/s01e27": {
+      "label": "Tập 27"
+    },
+    "dao-hai-tac/s01e28": {
+      "label": "Tập 28"
+    },
+    "dao-hai-tac/s01e29": {
+      "label": "Tập 29"
+    },
+    "dao-hai-tac/s01e30": {
+      "label": "Tập 30"
+    },
+    "dao-hai-tac/s01e31": {
+      "label": "Tập 31"
+    },
+    "dao-hai-tac/s01e32": {
+      "label": "Tập 32"
+    },
+    "dao-hai-tac/s01e33": {
+      "label": "Tập 33"
+    },
+    "dao-hai-tac/s01e34": {
+      "label": "Tập 34"
+    },
+    "dao-hai-tac/s01e35": {
+      "label": "Tập 35"
+    },
+    "dao-hai-tac/s01e36": {
+      "label": "Tập 36"
+    },
+    "dao-hai-tac/s01e37": {
+      "label": "Tập 37"
+    },
+    "dao-hai-tac/s01e38": {
+      "label": "Tập 38"
+    },
+    "dao-hai-tac/s01e39": {
+      "label": "Tập 39"
+    },
+    "dao-hai-tac/s01e40": {
+      "label": "Tập 40"
+    },
+    "dao-hai-tac/s01e41": {
+      "label": "Tập 41"
+    },
+    "dao-hai-tac/s01e42": {
+      "label": "Tập 42"
+    },
+    "dao-hai-tac/s01e43": {
+      "label": "Tập 43"
+    },
+    "dao-hai-tac/s01e44": {
+      "label": "Tập 44"
+    },
+    "dao-hai-tac/s01e45": {
+      "label": "Tập 45"
+    },
+    "dao-hai-tac/s01e46": {
+      "label": "Tập 46"
+    },
+    "dao-hai-tac/s01e47": {
+      "label": "Tập 47"
+    },
+    "dao-hai-tac/s01e48": {
+      "label": "Tập 48"
+    },
+    "dao-hai-tac/s01e49": {
+      "label": "Tập 49"
+    },
+    "dao-hai-tac/s01e50": {
+      "label": "Tập 50"
+    },
+    "dao-hai-tac/s01e51": {
+      "label": "Tập 51"
+    },
+    "dao-hai-tac/s01e52": {
+      "label": "Tập 52"
+    },
+    "dao-hai-tac/s01e53": {
+      "label": "Tập 53"
+    },
+    "dao-hai-tac/s01e54": {
+      "label": "Tập 54"
+    },
+    "dao-hai-tac/s01e55": {
+      "label": "Tập 55"
+    },
+    "dao-hai-tac/s01e56": {
+      "label": "Tập 56"
+    },
+    "dao-hai-tac/s01e57": {
+      "label": "Tập 57"
+    },
+    "dao-hai-tac/s01e58": {
+      "label": "Tập 58"
+    },
+    "dao-hai-tac/s01e59": {
+      "label": "Tập 59"
+    },
+    "dao-hai-tac/s01e60": {
+      "label": "Tập 60"
+    },
+    "dao-hai-tac/s01e61": {
+      "label": "Tập 61"
+    },
+    "dao-hai-tac/s01e62": {
+      "label": "Tập 62"
+    },
+    "dao-hai-tac/s01e63": {
+      "label": "Tập 63"
+    },
+    "dao-hai-tac/s01e64": {
+      "label": "Tập 64"
+    },
+    "dao-hai-tac/s01e65": {
+      "label": "Tập 65"
+    },
+    "dao-hai-tac/s01e66": {
+      "label": "Tập 66"
+    },
+    "dao-hai-tac/s01e67": {
+      "label": "Tập 67"
+    },
+    "dao-hai-tac/s01e68": {
+      "label": "Tập 68"
+    },
+    "dao-hai-tac/s01e69": {
+      "label": "Tập 69"
+    },
+    "dao-hai-tac/s01e70": {
+      "label": "Tập 70"
+    },
+    "dao-hai-tac/s01e71": {
+      "label": "Tập 71"
+    },
+    "dao-hai-tac/s01e72": {
+      "label": "Tập 72"
+    },
+    "dao-hai-tac/s01e73": {
+      "label": "Tập 73"
+    },
+    "dao-hai-tac/s01e74": {
+      "label": "Tập 74"
+    },
+    "dao-hai-tac/s01e75": {
+      "label": "Tập 75"
+    },
+    "dao-hai-tac/s01e76": {
+      "label": "Tập 76"
+    },
+    "dao-hai-tac/s01e77": {
+      "label": "Tập 77"
+    },
+    "dao-hai-tac/s01e78": {
+      "label": "Tập 78"
+    },
+    "dao-hai-tac/s01e79": {
+      "label": "Tập 79"
+    },
+    "dao-hai-tac/s01e80": {
+      "label": "Tập 80"
+    },
+    "dao-hai-tac/s01e81": {
+      "label": "Tập 81"
+    },
+    "dao-hai-tac/s01e82": {
+      "label": "Tập 82"
+    },
+    "dao-hai-tac/s01e83": {
+      "label": "Tập 83"
+    },
+    "dao-hai-tac/s01e84": {
+      "label": "Tập 84"
+    },
+    "dao-hai-tac/s01e85": {
+      "label": "Tập 85"
+    },
+    "dao-hai-tac/s01e86": {
+      "label": "Tập 86"
+    },
+    "dao-hai-tac/s01e87": {
+      "label": "Tập 87"
+    },
+    "dao-hai-tac/s01e88": {
+      "label": "Tập 88"
+    },
+    "dao-hai-tac/s01e89": {
+      "label": "Tập 89"
+    },
+    "dao-hai-tac/s01e90": {
+      "label": "Tập 90"
+    },
+    "dao-hai-tac/s01e91": {
+      "label": "Tập 91"
+    },
+    "dao-hai-tac/s01e92": {
+      "label": "Tập 92"
+    },
+    "dao-hai-tac/s01e93": {
+      "label": "Tập 93"
+    },
+    "dao-hai-tac/s01e94": {
+      "label": "Tập 94"
+    },
+    "dao-hai-tac/s01e95": {
+      "label": "Tập 95"
+    },
+    "dao-hai-tac/s01e96": {
+      "label": "Tập 96"
+    },
+    "dao-hai-tac/s01e97": {
+      "label": "Tập 97"
+    },
+    "dao-hai-tac/s01e98": {
+      "label": "Tập 98"
+    },
+    "dao-hai-tac/s01e99": {
+      "label": "Tập 99"
+    },
+    "dao-hai-tac/s01e100": {
+      "label": "Tập 100"
+    },
+    "dao-hai-tac/s01e101": {
+      "label": "Tập 101"
+    },
+    "dao-hai-tac/s01e102": {
+      "label": "Tập 102"
+    },
+    "dao-hai-tac/s01e103": {
+      "label": "Tập 103"
+    },
+    "dao-hai-tac/s01e104": {
+      "label": "Tập 104"
+    },
+    "dao-hai-tac/s01e105": {
+      "label": "Tập 105"
+    },
+    "dao-hai-tac/s01e106": {
+      "label": "Tập 106"
+    },
+    "dao-hai-tac/s01e107": {
+      "label": "Tập 107"
+    },
+    "dao-hai-tac/s01e108": {
+      "label": "Tập 108"
+    },
+    "dao-hai-tac/s01e109": {
+      "label": "Tập 109"
+    },
+    "dao-hai-tac/s01e110": {
+      "label": "Tập 110"
+    },
+    "dao-hai-tac/s01e111": {
+      "label": "Tập 111"
+    },
+    "dao-hai-tac/s01e112": {
+      "label": "Tập 112"
+    },
+    "dao-hai-tac/s01e113": {
+      "label": "Tập 113"
+    },
+    "dao-hai-tac/s01e114": {
+      "label": "Tập 114"
+    },
+    "dao-hai-tac/s01e115": {
+      "label": "Tập 115"
+    },
+    "dao-hai-tac/s01e116": {
+      "label": "Tập 116"
+    },
+    "dao-hai-tac/s01e117": {
+      "label": "Tập 117"
+    },
+    "dao-hai-tac/s01e118": {
+      "label": "Tập 118"
+    },
+    "dao-hai-tac/s01e119": {
+      "label": "Tập 119"
+    },
+    "dao-hai-tac/s01e120": {
+      "label": "Tập 120"
+    },
+    "dao-hai-tac/s01e121": {
+      "label": "Tập 121"
+    },
+    "dao-hai-tac/s01e122": {
+      "label": "Tập 122"
+    },
+    "dao-hai-tac/s01e123": {
+      "label": "Tập 123"
+    },
+    "dao-hai-tac/s01e124": {
+      "label": "Tập 124"
+    },
+    "dao-hai-tac/s01e125": {
+      "label": "Tập 125"
+    },
+    "dao-hai-tac/s01e126": {
+      "label": "Tập 126"
+    },
+    "dao-hai-tac/s01e127": {
+      "label": "Tập 127"
+    },
+    "dao-hai-tac/s01e128": {
+      "label": "Tập 128"
+    },
+    "dao-hai-tac/s01e129": {
+      "label": "Tập 129"
+    },
+    "dao-hai-tac/s01e130": {
+      "label": "Tập 130"
+    },
+    "dao-hai-tac/s01e131": {
+      "label": "Tập 131"
+    },
+    "dao-hai-tac/s01e132": {
+      "label": "Tập 132"
+    },
+    "dao-hai-tac/s01e133": {
+      "label": "Tập 133"
+    },
+    "dao-hai-tac/s01e134": {
+      "label": "Tập 134"
+    },
+    "dao-hai-tac/s01e135": {
+      "label": "Tập 135"
+    },
+    "dao-hai-tac/s01e136": {
+      "label": "Tập 136"
+    },
+    "dao-hai-tac/s01e137": {
+      "label": "Tập 137"
+    },
+    "dao-hai-tac/s01e138": {
+      "label": "Tập 138"
+    },
+    "dao-hai-tac/s01e139": {
+      "label": "Tập 139"
+    },
+    "dao-hai-tac/s01e140": {
+      "label": "Tập 140"
+    },
+    "dao-hai-tac/s01e141": {
+      "label": "Tập 141"
+    },
+    "dao-hai-tac/s01e142": {
+      "label": "Tập 142"
+    },
+    "dao-hai-tac/s01e143": {
+      "label": "Tập 143"
+    },
+    "dao-hai-tac/s01e144": {
+      "label": "Tập 144"
+    },
+    "dao-hai-tac/s01e145": {
+      "label": "Tập 145"
+    },
+    "dao-hai-tac/s01e146": {
+      "label": "Tập 146"
+    },
+    "dao-hai-tac/s01e147": {
+      "label": "Tập 147"
+    },
+    "dao-hai-tac/s01e148": {
+      "label": "Tập 148"
+    },
+    "dao-hai-tac/s01e149": {
+      "label": "Tập 149"
+    },
+    "dao-hai-tac/s01e150": {
+      "label": "Tập 150"
+    },
+    "dao-hai-tac/s01e151": {
+      "label": "Tập 151"
+    },
+    "dao-hai-tac/s01e152": {
+      "label": "Tập 152"
+    },
+    "dao-hai-tac/s01e153": {
+      "label": "Tập 153"
+    },
+    "dao-hai-tac/s01e154": {
+      "label": "Tập 154"
+    },
+    "dao-hai-tac/s01e155": {
+      "label": "Tập 155"
+    },
+    "dao-hai-tac/s01e156": {
+      "label": "Tập 156"
+    },
+    "dao-hai-tac/s01e157": {
+      "label": "Tập 157"
+    },
+    "dao-hai-tac/s01e158": {
+      "label": "Tập 158"
+    },
+    "dao-hai-tac/s01e159": {
+      "label": "Tập 159"
+    },
+    "dao-hai-tac/s01e160": {
+      "label": "Tập 160"
+    },
+    "dao-hai-tac/s01e161": {
+      "label": "Tập 161"
+    },
+    "dao-hai-tac/s01e162": {
+      "label": "Tập 162"
+    },
+    "dao-hai-tac/s01e163": {
+      "label": "Tập 163"
+    },
+    "dao-hai-tac/s01e164": {
+      "label": "Tập 164"
+    },
+    "dao-hai-tac/s01e165": {
+      "label": "Tập 165"
+    },
+    "dao-hai-tac/s01e166": {
+      "label": "Tập 166"
+    },
+    "dao-hai-tac/s01e167": {
+      "label": "Tập 167"
+    },
+    "dao-hai-tac/s01e168": {
+      "label": "Tập 168"
+    },
+    "dao-hai-tac/s01e169": {
+      "label": "Tập 169"
+    },
+    "dao-hai-tac/s01e170": {
+      "label": "Tập 170"
+    },
+    "dao-hai-tac/s01e171": {
+      "label": "Tập 171"
+    },
+    "dao-hai-tac/s01e172": {
+      "label": "Tập 172"
+    },
+    "dao-hai-tac/s01e173": {
+      "label": "Tập 173"
+    },
+    "dao-hai-tac/s01e174": {
+      "label": "Tập 174"
+    },
+    "dao-hai-tac/s01e175": {
+      "label": "Tập 175"
+    },
+    "dao-hai-tac/s01e176": {
+      "label": "Tập 176"
+    },
+    "dao-hai-tac/s01e177": {
+      "label": "Tập 177"
+    },
+    "dao-hai-tac/s01e178": {
+      "label": "Tập 178"
+    },
+    "dao-hai-tac/s01e179": {
+      "label": "Tập 179"
+    },
+    "dao-hai-tac/s01e180": {
+      "label": "Tập 180"
+    },
+    "dao-hai-tac/s01e181": {
+      "label": "Tập 181"
+    },
+    "dao-hai-tac/s01e182": {
+      "label": "Tập 182"
+    },
+    "dao-hai-tac/s01e183": {
+      "label": "Tập 183"
+    },
+    "dao-hai-tac/s01e184": {
+      "label": "Tập 184"
+    },
+    "dao-hai-tac/s01e185": {
+      "label": "Tập 185"
+    },
+    "dao-hai-tac/s01e186": {
+      "label": "Tập 186"
+    },
+    "dao-hai-tac/s01e187": {
+      "label": "Tập 187"
+    },
+    "dao-hai-tac/s01e188": {
+      "label": "Tập 188"
+    },
+    "dao-hai-tac/s01e189": {
+      "label": "Tập 189"
+    },
+    "dao-hai-tac/s01e190": {
+      "label": "Tập 190"
+    },
+    "dao-hai-tac/s01e191": {
+      "label": "Tập 191"
+    },
+    "dao-hai-tac/s01e192": {
+      "label": "Tập 192"
+    },
+    "dao-hai-tac/s01e193": {
+      "label": "Tập 193"
+    },
+    "dao-hai-tac/s01e194": {
+      "label": "Tập 194"
+    },
+    "dao-hai-tac/s01e195": {
+      "label": "Tập 195"
+    },
+    "dao-hai-tac/s01e196": {
+      "label": "Tập 196"
+    },
+    "dao-hai-tac/s01e197": {
+      "label": "Tập 197"
+    },
+    "dao-hai-tac/s01e198": {
+      "label": "Tập 198"
+    },
+    "dao-hai-tac/s01e199": {
+      "label": "Tập 199"
+    },
+    "dao-hai-tac/s01e200": {
+      "label": "Tập 200"
+    },
+    "dao-hai-tac/s01e201": {
+      "label": "Tập 201"
+    },
+    "dao-hai-tac/s01e202": {
+      "label": "Tập 202"
+    },
+    "dao-hai-tac/s01e203": {
+      "label": "Tập 203"
+    },
+    "dao-hai-tac/s01e204": {
+      "label": "Tập 204"
+    },
+    "dao-hai-tac/s01e205": {
+      "label": "Tập 205"
+    },
+    "dao-hai-tac/s01e206": {
+      "label": "Tập 206"
+    },
+    "dao-hai-tac/s01e207": {
+      "label": "Tập 207"
+    },
+    "dao-hai-tac/s01e208": {
+      "label": "Tập 208"
+    },
+    "dao-hai-tac/s01e209": {
+      "label": "Tập 209"
+    },
+    "dao-hai-tac/s01e210": {
+      "label": "Tập 210"
+    },
+    "dao-hai-tac/s01e211": {
+      "label": "Tập 211"
+    },
+    "dao-hai-tac/s01e212": {
+      "label": "Tập 212"
+    },
+    "dao-hai-tac/s01e213": {
+      "label": "Tập 213"
+    },
+    "dao-hai-tac/s01e214": {
+      "label": "Tập 214"
+    },
+    "dao-hai-tac/s01e215": {
+      "label": "Tập 215"
+    },
+    "dao-hai-tac/s01e216": {
+      "label": "Tập 216"
+    },
+    "dao-hai-tac/s01e217": {
+      "label": "Tập 217"
+    },
+    "dao-hai-tac/s01e218": {
+      "label": "Tập 218"
+    },
+    "dao-hai-tac/s01e219": {
+      "label": "Tập 219"
+    },
+    "dao-hai-tac/s01e220": {
+      "label": "Tập 220"
+    },
+    "dao-hai-tac/s01e221": {
+      "label": "Tập 221"
+    },
+    "dao-hai-tac/s01e222": {
+      "label": "Tập 222"
+    },
+    "dao-hai-tac/s01e223": {
+      "label": "Tập 223"
+    },
+    "dao-hai-tac/s01e224": {
+      "label": "Tập 224"
+    },
+    "dao-hai-tac/s01e225": {
+      "label": "Tập 225"
+    },
+    "dao-hai-tac/s01e226": {
+      "label": "Tập 226"
+    },
+    "dao-hai-tac/s01e227": {
+      "label": "Tập 227"
+    },
+    "dao-hai-tac/s01e228": {
+      "label": "Tập 228"
+    },
+    "dao-hai-tac/s01e229": {
+      "label": "Tập 229"
+    },
+    "dao-hai-tac/s01e230": {
+      "label": "Tập 230"
+    },
+    "dao-hai-tac/s01e231": {
+      "label": "Tập 231"
+    },
+    "dao-hai-tac/s01e232": {
+      "label": "Tập 232"
+    },
+    "dao-hai-tac/s01e233": {
+      "label": "Tập 233"
+    },
+    "dao-hai-tac/s01e234": {
+      "label": "Tập 234"
+    },
+    "dao-hai-tac/s01e235": {
+      "label": "Tập 235"
+    },
+    "dao-hai-tac/s01e236": {
+      "label": "Tập 236"
+    },
+    "dao-hai-tac/s01e237": {
+      "label": "Tập 237"
+    },
+    "dao-hai-tac/s01e238": {
+      "label": "Tập 238"
+    },
+    "dao-hai-tac/s01e239": {
+      "label": "Tập 239"
+    },
+    "dao-hai-tac/s01e240": {
+      "label": "Tập 240"
+    },
+    "dao-hai-tac/s01e241": {
+      "label": "Tập 241"
+    },
+    "dao-hai-tac/s01e242": {
+      "label": "Tập 242"
+    },
+    "dao-hai-tac/s01e243": {
+      "label": "Tập 243"
+    },
+    "dao-hai-tac/s01e244": {
+      "label": "Tập 244"
+    },
+    "dao-hai-tac/s01e245": {
+      "label": "Tập 245"
+    },
+    "dao-hai-tac/s01e246": {
+      "label": "Tập 246"
+    },
+    "dao-hai-tac/s01e247": {
+      "label": "Tập 247"
+    },
+    "dao-hai-tac/s01e248": {
+      "label": "Tập 248"
+    },
+    "dao-hai-tac/s01e249": {
+      "label": "Tập 249"
+    },
+    "dao-hai-tac/s01e250": {
+      "label": "Tập 250"
+    },
+    "dao-hai-tac/s01e251": {
+      "label": "Tập 251"
+    },
+    "dao-hai-tac/s01e252": {
+      "label": "Tập 252"
+    },
+    "dao-hai-tac/s01e253": {
+      "label": "Tập 253"
+    },
+    "dao-hai-tac/s01e254": {
+      "label": "Tập 254"
+    },
+    "dao-hai-tac/s01e255": {
+      "label": "Tập 255"
+    },
+    "dao-hai-tac/s01e256": {
+      "label": "Tập 256"
+    },
+    "dao-hai-tac/s01e257": {
+      "label": "Tập 257"
+    },
+    "dao-hai-tac/s01e258": {
+      "label": "Tập 258"
+    },
+    "dao-hai-tac/s01e259": {
+      "label": "Tập 259"
+    },
+    "dao-hai-tac/s01e260": {
+      "label": "Tập 260"
+    },
+    "dao-hai-tac/s01e261": {
+      "label": "Tập 261"
+    },
+    "dao-hai-tac/s01e262": {
+      "label": "Tập 262"
+    },
+    "dao-hai-tac/s01e263": {
+      "label": "Tập 263"
+    },
+    "dao-hai-tac/s01e264": {
+      "label": "Tập 264"
+    },
+    "dao-hai-tac/s01e265": {
+      "label": "Tập 265"
+    },
+    "dao-hai-tac/s01e266": {
+      "label": "Tập 266"
+    },
+    "dao-hai-tac/s01e267": {
+      "label": "Tập 267"
+    },
+    "dao-hai-tac/s01e268": {
+      "label": "Tập 268"
+    },
+    "dao-hai-tac/s01e269": {
+      "label": "Tập 269"
+    },
+    "dao-hai-tac/s01e270": {
+      "label": "Tập 270"
+    },
+    "dao-hai-tac/s01e271": {
+      "label": "Tập 271"
+    },
+    "dao-hai-tac/s01e272": {
+      "label": "Tập 272"
+    },
+    "dao-hai-tac/s01e273": {
+      "label": "Tập 273"
+    },
+    "dao-hai-tac/s01e274": {
+      "label": "Tập 274"
+    },
+    "dao-hai-tac/s01e275": {
+      "label": "Tập 275"
+    },
+    "dao-hai-tac/s01e276": {
+      "label": "Tập 276"
+    },
+    "dao-hai-tac/s01e277": {
+      "label": "Tập 277"
+    },
+    "dao-hai-tac/s01e278": {
+      "label": "Tập 278"
+    },
+    "dao-hai-tac/s01e279": {
+      "label": "Tập 279"
+    },
+    "dao-hai-tac/s01e280": {
+      "label": "Tập 280"
+    },
+    "dao-hai-tac/s01e281": {
+      "label": "Tập 281"
+    },
+    "dao-hai-tac/s01e282": {
+      "label": "Tập 282"
+    },
+    "dao-hai-tac/s01e283": {
+      "label": "Tập 283"
+    },
+    "dao-hai-tac/s01e284": {
+      "label": "Tập 284"
+    },
+    "dao-hai-tac/s01e285": {
+      "label": "Tập 285"
+    },
+    "dao-hai-tac/s01e286": {
+      "label": "Tập 286"
+    },
+    "dao-hai-tac/s01e287": {
+      "label": "Tập 287"
+    },
+    "dao-hai-tac/s01e288": {
+      "label": "Tập 288"
+    },
+    "dao-hai-tac/s01e289": {
+      "label": "Tập 289"
+    },
+    "dao-hai-tac/s01e290": {
+      "label": "Tập 290"
+    },
+    "dao-hai-tac/s01e291": {
+      "label": "Tập 291"
+    },
+    "dao-hai-tac/s01e292": {
+      "label": "Tập 292"
+    },
+    "dao-hai-tac/s01e293": {
+      "label": "Tập 293"
+    },
+    "dao-hai-tac/s01e294": {
+      "label": "Tập 294"
+    },
+    "dao-hai-tac/s01e295": {
+      "label": "Tập 295"
+    },
+    "dao-hai-tac/s01e296": {
+      "label": "Tập 296"
+    },
+    "dao-hai-tac/s01e297": {
+      "label": "Tập 297"
+    },
+    "dao-hai-tac/s01e298": {
+      "label": "Tập 298"
+    },
+    "dao-hai-tac/s01e299": {
+      "label": "Tập 299"
+    },
+    "dao-hai-tac/s01e300": {
+      "label": "Tập 300"
+    },
+    "dao-hai-tac/s01e301": {
+      "label": "Tập 301"
+    },
+    "dao-hai-tac/s01e302": {
+      "label": "Tập 302"
+    },
+    "dao-hai-tac/s01e303": {
+      "label": "Tập 303"
+    },
+    "dao-hai-tac/s01e304": {
+      "label": "Tập 304"
+    },
+    "dao-hai-tac/s01e305": {
+      "label": "Tập 305"
+    },
+    "dao-hai-tac/s01e306": {
+      "label": "Tập 306"
+    },
+    "dao-hai-tac/s01e307": {
+      "label": "Tập 307"
+    },
+    "dao-hai-tac/s01e308": {
+      "label": "Tập 308"
+    },
+    "dao-hai-tac/s01e309": {
+      "label": "Tập 309"
+    },
+    "dao-hai-tac/s01e310": {
+      "label": "Tập 310"
+    },
+    "dao-hai-tac/s01e311": {
+      "label": "Tập 311"
+    },
+    "dao-hai-tac/s01e312": {
+      "label": "Tập 312"
+    },
+    "dao-hai-tac/s01e313": {
+      "label": "Tập 313"
+    },
+    "dao-hai-tac/s01e314": {
+      "label": "Tập 314"
+    },
+    "dao-hai-tac/s01e315": {
+      "label": "Tập 315"
+    },
+    "dao-hai-tac/s01e316": {
+      "label": "Tập 316"
+    },
+    "dao-hai-tac/s01e317": {
+      "label": "Tập 317"
+    },
+    "dao-hai-tac/s01e318": {
+      "label": "Tập 318"
+    },
+    "dao-hai-tac/s01e319": {
+      "label": "Tập 319"
+    },
+    "dao-hai-tac/s01e320": {
+      "label": "Tập 320"
+    },
+    "dao-hai-tac/s01e321": {
+      "label": "Tập 321"
+    },
+    "dao-hai-tac/s01e322": {
+      "label": "Tập 322"
+    },
+    "dao-hai-tac/s01e323": {
+      "label": "Tập 323"
+    },
+    "dao-hai-tac/s01e324": {
+      "label": "Tập 324"
+    },
+    "dao-hai-tac/s01e325": {
+      "label": "Tập 325"
+    },
+    "dao-hai-tac/s01e326": {
+      "label": "Tập 326"
+    },
+    "dao-hai-tac/s01e327": {
+      "label": "Tập 327"
+    },
+    "dao-hai-tac/s01e328": {
+      "label": "Tập 328"
+    },
+    "dao-hai-tac/s01e329": {
+      "label": "Tập 329"
+    },
+    "dao-hai-tac/s01e330": {
+      "label": "Tập 330"
+    },
+    "dao-hai-tac/s01e331": {
+      "label": "Tập 331"
+    },
+    "dao-hai-tac/s01e332": {
+      "label": "Tập 332"
+    },
+    "dao-hai-tac/s01e333": {
+      "label": "Tập 333"
+    },
+    "dao-hai-tac/s01e334": {
+      "label": "Tập 334"
+    },
+    "dao-hai-tac/s01e335": {
+      "label": "Tập 335"
+    },
+    "dao-hai-tac/s01e336": {
+      "label": "Tập 336"
+    },
+    "dao-hai-tac/s01e337": {
+      "label": "Tập 337"
+    },
+    "dao-hai-tac/s01e338": {
+      "label": "Tập 338"
+    },
+    "dao-hai-tac/s01e339": {
+      "label": "Tập 339"
+    },
+    "dao-hai-tac/s01e340": {
+      "label": "Tập 340"
+    },
+    "dao-hai-tac/s01e341": {
+      "label": "Tập 341"
+    },
+    "dao-hai-tac/s01e342": {
+      "label": "Tập 342"
+    },
+    "dao-hai-tac/s01e343": {
+      "label": "Tập 343"
+    },
+    "dao-hai-tac/s01e344": {
+      "label": "Tập 344"
+    },
+    "dao-hai-tac/s01e345": {
+      "label": "Tập 345"
+    },
+    "dao-hai-tac/s01e346": {
+      "label": "Tập 346"
+    },
+    "dao-hai-tac/s01e347": {
+      "label": "Tập 347"
+    },
+    "dao-hai-tac/s01e348": {
+      "label": "Tập 348"
+    },
+    "dao-hai-tac/s01e349": {
+      "label": "Tập 349"
+    },
+    "dao-hai-tac/s01e350": {
+      "label": "Tập 350"
+    },
+    "dao-hai-tac/s01e351": {
+      "label": "Tập 351"
+    },
+    "dao-hai-tac/s01e352": {
+      "label": "Tập 352"
+    },
+    "dao-hai-tac/s01e353": {
+      "label": "Tập 353"
+    },
+    "dao-hai-tac/s01e354": {
+      "label": "Tập 354"
+    },
+    "dao-hai-tac/s01e355": {
+      "label": "Tập 355"
+    },
+    "dao-hai-tac/s01e356": {
+      "label": "Tập 356"
+    },
+    "dao-hai-tac/s01e357": {
+      "label": "Tập 357"
+    },
+    "dao-hai-tac/s01e358": {
+      "label": "Tập 358"
+    },
+    "dao-hai-tac/s01e359": {
+      "label": "Tập 359"
+    },
+    "dao-hai-tac/s01e360": {
+      "label": "Tập 360"
+    },
+    "dao-hai-tac/s01e361": {
+      "label": "Tập 361"
+    },
+    "dao-hai-tac/s01e362": {
+      "label": "Tập 362"
+    },
+    "dao-hai-tac/s01e363": {
+      "label": "Tập 363"
+    },
+    "dao-hai-tac/s01e364": {
+      "label": "Tập 364"
+    },
+    "dao-hai-tac/s01e365": {
+      "label": "Tập 365"
+    },
+    "dao-hai-tac/s01e366": {
+      "label": "Tập 366"
+    },
+    "dao-hai-tac/s01e367": {
+      "label": "Tập 367"
+    },
+    "dao-hai-tac/s01e368": {
+      "label": "Tập 368"
+    },
+    "dao-hai-tac/s01e369": {
+      "label": "Tập 369"
+    },
+    "dao-hai-tac/s01e370": {
+      "label": "Tập 370"
+    },
+    "dao-hai-tac/s01e371": {
+      "label": "Tập 371"
+    },
+    "dao-hai-tac/s01e372": {
+      "label": "Tập 372"
+    },
+    "dao-hai-tac/s01e373": {
+      "label": "Tập 373"
+    },
+    "dao-hai-tac/s01e374": {
+      "label": "Tập 374"
+    },
+    "dao-hai-tac/s01e375": {
+      "label": "Tập 375"
+    },
+    "dao-hai-tac/s01e376": {
+      "label": "Tập 376"
+    },
+    "dao-hai-tac/s01e377": {
+      "label": "Tập 377"
+    },
+    "dao-hai-tac/s01e378": {
+      "label": "Tập 378"
+    },
+    "dao-hai-tac/s01e379": {
+      "label": "Tập 379"
+    },
+    "dao-hai-tac/s01e380": {
+      "label": "Tập 380"
+    },
+    "dao-hai-tac/s01e381": {
+      "label": "Tập 381"
+    },
+    "dao-hai-tac/s01e382": {
+      "label": "Tập 382"
+    },
+    "dao-hai-tac/s01e383": {
+      "label": "Tập 383"
+    },
+    "dao-hai-tac/s01e384": {
+      "label": "Tập 384"
+    },
+    "dao-hai-tac/s01e385": {
+      "label": "Tập 385"
+    },
+    "dao-hai-tac/s01e386": {
+      "label": "Tập 386"
+    },
+    "dao-hai-tac/s01e387": {
+      "label": "Tập 387"
+    },
+    "dao-hai-tac/s01e388": {
+      "label": "Tập 388"
+    },
+    "dao-hai-tac/s01e389": {
+      "label": "Tập 389"
+    },
+    "dao-hai-tac/s01e390": {
+      "label": "Tập 390"
+    },
+    "dao-hai-tac/s01e391": {
+      "label": "Tập 391"
+    },
+    "dao-hai-tac/s01e392": {
+      "label": "Tập 392"
+    },
+    "dao-hai-tac/s01e393": {
+      "label": "Tập 393"
+    },
+    "dao-hai-tac/s01e394": {
+      "label": "Tập 394"
+    },
+    "dao-hai-tac/s01e395": {
+      "label": "Tập 395"
+    },
+    "dao-hai-tac/s01e396": {
+      "label": "Tập 396"
+    },
+    "dao-hai-tac/s01e397": {
+      "label": "Tập 397"
+    },
+    "dao-hai-tac/s01e398": {
+      "label": "Tập 398"
+    },
+    "dao-hai-tac/s01e399": {
+      "label": "Tập 399"
+    },
+    "dao-hai-tac/s01e400": {
+      "label": "Tập 400"
+    },
+    "dao-hai-tac/s01e401": {
+      "label": "Tập 401"
+    },
+    "dao-hai-tac/s01e402": {
+      "label": "Tập 402"
+    },
+    "dao-hai-tac/s01e403": {
+      "label": "Tập 403"
+    },
+    "dao-hai-tac/s01e404": {
+      "label": "Tập 404"
+    },
+    "dao-hai-tac/s01e405": {
+      "label": "Tập 405"
+    },
+    "dao-hai-tac/s01e406": {
+      "label": "Tập 406"
+    },
+    "dao-hai-tac/s01e407": {
+      "label": "Tập 407"
+    },
+    "dao-hai-tac/s01e408": {
+      "label": "Tập 408"
+    },
+    "dao-hai-tac/s01e409": {
+      "label": "Tập 409"
+    },
+    "dao-hai-tac/s01e410": {
+      "label": "Tập 410"
+    },
+    "dao-hai-tac/s01e411": {
+      "label": "Tập 411"
+    },
+    "dao-hai-tac/s01e412": {
+      "label": "Tập 412"
+    },
+    "dao-hai-tac/s01e413": {
+      "label": "Tập 413"
+    },
+    "dao-hai-tac/s01e414": {
+      "label": "Tập 414"
+    },
+    "dao-hai-tac/s01e415": {
+      "label": "Tập 415"
+    },
+    "dao-hai-tac/s01e416": {
+      "label": "Tập 416"
+    },
+    "dao-hai-tac/s01e417": {
+      "label": "Tập 417"
+    },
+    "dao-hai-tac/s01e418": {
+      "label": "Tập 418"
+    },
+    "dao-hai-tac/s01e419": {
+      "label": "Tập 419"
+    },
+    "dao-hai-tac/s01e420": {
+      "label": "Tập 420"
+    },
+    "dao-hai-tac/s01e421": {
+      "label": "Tập 421"
+    },
+    "dao-hai-tac/s01e422": {
+      "label": "Tập 422"
+    },
+    "dao-hai-tac/s01e423": {
+      "label": "Tập 423"
+    },
+    "dao-hai-tac/s01e424": {
+      "label": "Tập 424"
+    },
+    "dao-hai-tac/s01e425": {
+      "label": "Tập 425"
+    },
+    "dao-hai-tac/s01e426": {
+      "label": "Tập 426"
+    },
+    "dao-hai-tac/s01e427": {
+      "label": "Tập 427"
+    },
+    "dao-hai-tac/s01e428": {
+      "label": "Tập 428"
+    },
+    "dao-hai-tac/s01e429": {
+      "label": "Tập 429"
+    },
+    "dao-hai-tac/s01e430": {
+      "label": "Tập 430"
+    },
+    "dao-hai-tac/s01e431": {
+      "label": "Tập 431"
+    },
+    "dao-hai-tac/s01e432": {
+      "label": "Tập 432"
+    },
+    "dao-hai-tac/s01e433": {
+      "label": "Tập 433"
+    },
+    "dao-hai-tac/s01e434": {
+      "label": "Tập 434"
+    },
+    "dao-hai-tac/s01e435": {
+      "label": "Tập 435"
+    },
+    "dao-hai-tac/s01e436": {
+      "label": "Tập 436"
+    },
+    "dao-hai-tac/s01e437": {
+      "label": "Tập 437"
+    },
+    "dao-hai-tac/s01e438": {
+      "label": "Tập 438"
+    },
+    "dao-hai-tac/s01e439": {
+      "label": "Tập 439"
+    },
+    "dao-hai-tac/s01e440": {
+      "label": "Tập 440"
+    },
+    "dao-hai-tac/s01e441": {
+      "label": "Tập 441"
+    },
+    "dao-hai-tac/s01e442": {
+      "label": "Tập 442"
+    },
+    "dao-hai-tac/s01e443": {
+      "label": "Tập 443"
+    },
+    "dao-hai-tac/s01e444": {
+      "label": "Tập 444"
+    },
+    "dao-hai-tac/s01e445": {
+      "label": "Tập 445"
+    },
+    "dao-hai-tac/s01e446": {
+      "label": "Tập 446"
+    },
+    "dao-hai-tac/s01e447": {
+      "label": "Tập 447"
+    },
+    "dao-hai-tac/s01e448": {
+      "label": "Tập 448"
+    },
+    "dao-hai-tac/s01e449": {
+      "label": "Tập 449"
+    },
+    "dao-hai-tac/s01e450": {
+      "label": "Tập 450"
+    },
+    "dao-hai-tac/s01e451": {
+      "label": "Tập 451"
+    },
+    "dao-hai-tac/s01e452": {
+      "label": "Tập 452"
+    },
+    "dao-hai-tac/s01e453": {
+      "label": "Tập 453"
+    },
+    "dao-hai-tac/s01e454": {
+      "label": "Tập 454"
+    },
+    "dao-hai-tac/s01e455": {
+      "label": "Tập 455"
+    },
+    "dao-hai-tac/s01e456": {
+      "label": "Tập 456"
+    },
+    "dao-hai-tac/s01e457": {
+      "label": "Tập 457"
+    },
+    "dao-hai-tac/s01e458": {
+      "label": "Tập 458"
+    },
+    "dao-hai-tac/s01e459": {
+      "label": "Tập 459"
+    },
+    "dao-hai-tac/s01e460": {
+      "label": "Tập 460"
+    },
+    "dao-hai-tac/s01e461": {
+      "label": "Tập 461"
+    },
+    "dao-hai-tac/s01e462": {
+      "label": "Tập 462"
+    },
+    "dao-hai-tac/s01e463": {
+      "label": "Tập 463"
+    },
+    "dao-hai-tac/s01e464": {
+      "label": "Tập 464"
+    },
+    "dao-hai-tac/s01e465": {
+      "label": "Tập 465"
+    },
+    "dao-hai-tac/s01e466": {
+      "label": "Tập 466"
+    },
+    "dao-hai-tac/s01e467": {
+      "label": "Tập 467"
+    },
+    "dao-hai-tac/s01e468": {
+      "label": "Tập 468"
+    },
+    "dao-hai-tac/s01e469": {
+      "label": "Tập 469"
+    },
+    "dao-hai-tac/s01e470": {
+      "label": "Tập 470"
+    },
+    "dao-hai-tac/s01e471": {
+      "label": "Tập 471"
+    },
+    "dao-hai-tac/s01e472": {
+      "label": "Tập 472"
+    },
+    "dao-hai-tac/s01e473": {
+      "label": "Tập 473"
+    },
+    "dao-hai-tac/s01e474": {
+      "label": "Tập 474"
+    },
+    "dao-hai-tac/s01e475": {
+      "label": "Tập 475"
+    },
+    "dao-hai-tac/s01e476": {
+      "label": "Tập 476"
+    },
+    "dao-hai-tac/s01e477": {
+      "label": "Tập 477"
+    },
+    "dao-hai-tac/s01e478": {
+      "label": "Tập 478"
+    },
+    "dao-hai-tac/s01e479": {
+      "label": "Tập 479"
+    },
+    "dao-hai-tac/s01e480": {
+      "label": "Tập 480"
+    },
+    "dao-hai-tac/s01e481": {
+      "label": "Tập 481"
+    },
+    "dao-hai-tac/s01e482": {
+      "label": "Tập 482"
+    },
+    "dao-hai-tac/s01e483": {
+      "label": "Tập 483"
+    },
+    "dao-hai-tac/s01e484": {
+      "label": "Tập 484"
+    },
+    "dao-hai-tac/s01e485": {
+      "label": "Tập 485"
+    },
+    "dao-hai-tac/s01e486": {
+      "label": "Tập 486"
+    },
+    "dao-hai-tac/s01e487": {
+      "label": "Tập 487"
+    },
+    "dao-hai-tac/s01e488": {
+      "label": "Tập 488"
+    },
+    "dao-hai-tac/s01e489": {
+      "label": "Tập 489"
+    },
+    "dao-hai-tac/s01e490": {
+      "label": "Tập 490"
+    },
+    "dao-hai-tac/s01e491": {
+      "label": "Tập 491"
+    },
+    "dao-hai-tac/s01e492": {
+      "label": "Tập 492"
+    },
+    "dao-hai-tac/s01e493": {
+      "label": "Tập 493"
+    },
+    "dao-hai-tac/s01e494": {
+      "label": "Tập 494"
+    },
+    "dao-hai-tac/s01e495": {
+      "label": "Tập 495"
+    },
+    "dao-hai-tac/s01e496": {
+      "label": "Tập 496"
+    },
+    "dao-hai-tac/s01e497": {
+      "label": "Tập 497"
+    },
+    "dao-hai-tac/s01e498": {
+      "label": "Tập 498"
+    },
+    "dao-hai-tac/s01e499": {
+      "label": "Tập 499"
+    },
+    "dao-hai-tac/s01e500": {
+      "label": "Tập 500"
+    },
+    "dao-hai-tac/s01e501": {
+      "label": "Tập 501"
+    },
+    "dao-hai-tac/s01e502": {
+      "label": "Tập 502"
+    },
+    "dao-hai-tac/s01e503": {
+      "label": "Tập 503"
+    },
+    "dao-hai-tac/s01e504": {
+      "label": "Tập 504"
+    },
+    "dao-hai-tac/s01e505": {
+      "label": "Tập 505"
+    },
+    "dao-hai-tac/s01e506": {
+      "label": "Tập 506"
+    },
+    "dao-hai-tac/s01e507": {
+      "label": "Tập 507"
+    },
+    "dao-hai-tac/s01e508": {
+      "label": "Tập 508"
+    },
+    "dao-hai-tac/s01e509": {
+      "label": "Tập 509"
+    },
+    "dao-hai-tac/s01e510": {
+      "label": "Tập 510"
+    },
+    "dao-hai-tac/s01e511": {
+      "label": "Tập 511"
+    },
+    "dao-hai-tac/s01e512": {
+      "label": "Tập 512"
+    },
+    "dao-hai-tac/s01e513": {
+      "label": "Tập 513"
+    },
+    "dao-hai-tac/s01e514": {
+      "label": "Tập 514"
+    },
+    "dao-hai-tac/s01e515": {
+      "label": "Tập 515"
+    },
+    "dao-hai-tac/s01e516": {
+      "label": "Tập 516"
+    },
+    "dao-hai-tac/s01e517": {
+      "label": "Tập 517"
+    },
+    "dao-hai-tac/s01e518": {
+      "label": "Tập 518"
+    },
+    "dao-hai-tac/s01e519": {
+      "label": "Tập 519"
+    },
+    "dao-hai-tac/s01e520": {
+      "label": "Tập 520"
+    },
+    "dao-hai-tac/s01e521": {
+      "label": "Tập 521"
+    },
+    "dao-hai-tac/s01e522": {
+      "label": "Tập 522"
+    },
+    "dao-hai-tac/s01e523": {
+      "label": "Tập 523"
+    },
+    "dao-hai-tac/s01e524": {
+      "label": "Tập 524"
+    },
+    "dao-hai-tac/s01e525": {
+      "label": "Tập 525"
+    },
+    "dao-hai-tac/s01e526": {
+      "label": "Tập 526"
+    },
+    "dao-hai-tac/s01e527": {
+      "label": "Tập 527"
+    },
+    "dao-hai-tac/s01e528": {
+      "label": "Tập 528"
+    },
+    "dao-hai-tac/s01e529": {
+      "label": "Tập 529"
+    },
+    "dao-hai-tac/s01e530": {
+      "label": "Tập 530"
+    },
+    "dao-hai-tac/s01e531": {
+      "label": "Tập 531"
+    },
+    "dao-hai-tac/s01e532": {
+      "label": "Tập 532"
+    },
+    "dao-hai-tac/s01e533": {
+      "label": "Tập 533"
+    },
+    "dao-hai-tac/s01e534": {
+      "label": "Tập 534"
+    },
+    "dao-hai-tac/s01e535": {
+      "label": "Tập 535"
+    },
+    "dao-hai-tac/s01e536": {
+      "label": "Tập 536"
+    },
+    "dao-hai-tac/s01e537": {
+      "label": "Tập 537"
+    },
+    "dao-hai-tac/s01e538": {
+      "label": "Tập 538"
+    },
+    "dao-hai-tac/s01e539": {
+      "label": "Tập 539"
+    },
+    "dao-hai-tac/s01e540": {
+      "label": "Tập 540"
+    },
+    "dao-hai-tac/s01e541": {
+      "label": "Tập 541"
+    },
+    "dao-hai-tac/s01e542": {
+      "label": "Tập 542"
+    },
+    "dao-hai-tac/s01e543": {
+      "label": "Tập 543"
+    },
+    "dao-hai-tac/s01e544": {
+      "label": "Tập 544"
+    },
+    "dao-hai-tac/s01e545": {
+      "label": "Tập 545"
+    },
+    "dao-hai-tac/s01e546": {
+      "label": "Tập 546"
+    },
+    "dao-hai-tac/s01e547": {
+      "label": "Tập 547"
+    },
+    "dao-hai-tac/s01e548": {
+      "label": "Tập 548"
+    },
+    "dao-hai-tac/s01e549": {
+      "label": "Tập 549"
+    },
+    "dao-hai-tac/s01e550": {
+      "label": "Tập 550"
+    },
+    "dao-hai-tac/s01e551": {
+      "label": "Tập 551"
+    },
+    "dao-hai-tac/s01e552": {
+      "label": "Tập 552"
+    },
+    "dao-hai-tac/s01e553": {
+      "label": "Tập 553"
+    },
+    "dao-hai-tac/s01e554": {
+      "label": "Tập 554"
+    },
+    "dao-hai-tac/s01e555": {
+      "label": "Tập 555"
+    },
+    "dao-hai-tac/s01e556": {
+      "label": "Tập 556"
+    },
+    "dao-hai-tac/s01e557": {
+      "label": "Tập 557"
+    },
+    "dao-hai-tac/s01e558": {
+      "label": "Tập 558"
+    },
+    "dao-hai-tac/s01e559": {
+      "label": "Tập 559"
+    },
+    "dao-hai-tac/s01e560": {
+      "label": "Tập 560"
+    },
+    "dao-hai-tac/s01e561": {
+      "label": "Tập 561"
+    },
+    "dao-hai-tac/s01e562": {
+      "label": "Tập 562"
+    },
+    "dao-hai-tac/s01e563": {
+      "label": "Tập 563"
+    },
+    "dao-hai-tac/s01e564": {
+      "label": "Tập 564"
+    },
+    "dao-hai-tac/s01e565": {
+      "label": "Tập 565"
+    },
+    "dao-hai-tac/s01e566": {
+      "label": "Tập 566"
+    },
+    "dao-hai-tac/s01e567": {
+      "label": "Tập 567"
+    },
+    "dao-hai-tac/s01e568": {
+      "label": "Tập 568"
+    },
+    "dao-hai-tac/s01e569": {
+      "label": "Tập 569"
+    },
+    "dao-hai-tac/s01e570": {
+      "label": "Tập 570"
+    },
+    "dao-hai-tac/s01e571": {
+      "label": "Tập 571"
+    },
+    "dao-hai-tac/s01e572": {
+      "label": "Tập 572"
+    },
+    "dao-hai-tac/s01e573": {
+      "label": "Tập 573"
+    },
+    "dao-hai-tac/s01e574": {
+      "label": "Tập 574"
+    },
+    "dao-hai-tac/s01e575": {
+      "label": "Tập 575"
+    },
+    "dao-hai-tac/s01e576": {
+      "label": "Tập 576"
+    },
+    "dao-hai-tac/s01e577": {
+      "label": "Tập 577"
+    },
+    "dao-hai-tac/s01e578": {
+      "label": "Tập 578"
+    },
+    "dao-hai-tac/s01e579": {
+      "label": "Tập 579"
+    },
+    "dao-hai-tac/s01e580": {
+      "label": "Tập 580"
+    },
+    "dao-hai-tac/s01e581": {
+      "label": "Tập 581"
+    },
+    "dao-hai-tac/s01e582": {
+      "label": "Tập 582"
+    },
+    "dao-hai-tac/s01e583": {
+      "label": "Tập 583"
+    },
+    "dao-hai-tac/s01e584": {
+      "label": "Tập 584"
+    },
+    "dao-hai-tac/s01e585": {
+      "label": "Tập 585"
+    },
+    "dao-hai-tac/s01e586": {
+      "label": "Tập 586"
+    },
+    "dao-hai-tac/s01e587": {
+      "label": "Tập 587"
+    },
+    "dao-hai-tac/s01e588": {
+      "label": "Tập 588"
+    },
+    "dao-hai-tac/s01e589": {
+      "label": "Tập 589"
+    },
+    "dao-hai-tac/s01e590": {
+      "label": "Tập 590B"
+    },
+    "dao-hai-tac/s01e591": {
+      "label": "Tập 591"
+    },
+    "dao-hai-tac/s01e592": {
+      "label": "Tập 592"
+    },
+    "dao-hai-tac/s01e593": {
+      "label": "Tập 593"
+    },
+    "dao-hai-tac/s01e594": {
+      "label": "Tập 594"
+    },
+    "dao-hai-tac/s01e595": {
+      "label": "Tập 595"
+    },
+    "dao-hai-tac/s01e596": {
+      "label": "Tập 596"
+    },
+    "dao-hai-tac/s01e597": {
+      "label": "Tập 597"
+    },
+    "dao-hai-tac/s01e598": {
+      "label": "Tập 598"
+    },
+    "dao-hai-tac/s01e599": {
+      "label": "Tập 599"
+    },
+    "dao-hai-tac/s01e600": {
+      "label": "Tập 600"
+    },
+    "dao-hai-tac/s01e601": {
+      "label": "Tập 601"
+    },
+    "dao-hai-tac/s01e602": {
+      "label": "Tập 602"
+    },
+    "dao-hai-tac/s01e603": {
+      "label": "Tập 603"
+    },
+    "dao-hai-tac/s01e604": {
+      "label": "Tập 604"
+    },
+    "dao-hai-tac/s01e605": {
+      "label": "Tập 605"
+    },
+    "dao-hai-tac/s01e606": {
+      "label": "Tập 606"
+    },
+    "dao-hai-tac/s01e607": {
+      "label": "Tập 607"
+    },
+    "dao-hai-tac/s01e608": {
+      "label": "Tập 608"
+    },
+    "dao-hai-tac/s01e609": {
+      "label": "Tập 609"
+    },
+    "dao-hai-tac/s01e610": {
+      "label": "Tập 610"
+    },
+    "dao-hai-tac/s01e611": {
+      "label": "Tập 611"
+    },
+    "dao-hai-tac/s01e612": {
+      "label": "Tập 612"
+    },
+    "dao-hai-tac/s01e613": {
+      "label": "Tập 613"
+    },
+    "dao-hai-tac/s01e614": {
+      "label": "Tập 614"
+    },
+    "dao-hai-tac/s01e615": {
+      "label": "Tập 615"
+    },
+    "dao-hai-tac/s01e616": {
+      "label": "Tập 616"
+    },
+    "dao-hai-tac/s01e617": {
+      "label": "Tập 617"
+    },
+    "dao-hai-tac/s01e618": {
+      "label": "Tập 618"
+    },
+    "dao-hai-tac/s01e619": {
+      "label": "Tập 619"
+    },
+    "dao-hai-tac/s01e620": {
+      "label": "Tập 620"
+    },
+    "dao-hai-tac/s01e621": {
+      "label": "Tập 621"
+    },
+    "dao-hai-tac/s01e622": {
+      "label": "Tập 622"
+    },
+    "dao-hai-tac/s01e623": {
+      "label": "Tập 623"
+    },
+    "dao-hai-tac/s01e624": {
+      "label": "Tập 624"
+    },
+    "dao-hai-tac/s01e625": {
+      "label": "Tập 625"
+    },
+    "dao-hai-tac/s01e626": {
+      "label": "Tập 626"
+    },
+    "dao-hai-tac/s01e627": {
+      "label": "Tập 627"
+    },
+    "dao-hai-tac/s01e628": {
+      "label": "Tập 628"
+    },
+    "dao-hai-tac/s01e629": {
+      "label": "Tập 629"
+    },
+    "dao-hai-tac/s01e630": {
+      "label": "Tập 630"
+    },
+    "dao-hai-tac/s01e631": {
+      "label": "Tập 631"
+    },
+    "dao-hai-tac/s01e632": {
+      "label": "Tập 632"
+    },
+    "dao-hai-tac/s01e633": {
+      "label": "Tập 633"
+    },
+    "dao-hai-tac/s01e634": {
+      "label": "Tập 634"
+    },
+    "dao-hai-tac/s01e635": {
+      "label": "Tập 635"
+    },
+    "dao-hai-tac/s01e636": {
+      "label": "Tập 636"
+    },
+    "dao-hai-tac/s01e637": {
+      "label": "Tập 637"
+    },
+    "dao-hai-tac/s01e638": {
+      "label": "Tập 638"
+    },
+    "dao-hai-tac/s01e639": {
+      "label": "Tập 639"
+    },
+    "dao-hai-tac/s01e640": {
+      "label": "Tập 640"
+    },
+    "dao-hai-tac/s01e641": {
+      "label": "Tập 641"
+    },
+    "dao-hai-tac/s01e642": {
+      "label": "Tập 642"
+    },
+    "dao-hai-tac/s01e643": {
+      "label": "Tập 643"
+    },
+    "dao-hai-tac/s01e644": {
+      "label": "Tập 644"
+    },
+    "dao-hai-tac/s01e645": {
+      "label": "Tập 645"
+    },
+    "dao-hai-tac/s01e646": {
+      "label": "Tập 646"
+    },
+    "dao-hai-tac/s01e647": {
+      "label": "Tập 647"
+    },
+    "dao-hai-tac/s01e648": {
+      "label": "Tập 648"
+    },
+    "dao-hai-tac/s01e649": {
+      "label": "Tập 649"
+    },
+    "dao-hai-tac/s01e650": {
+      "label": "Tập 650"
+    },
+    "dao-hai-tac/s01e651": {
+      "label": "Tập 651"
+    },
+    "dao-hai-tac/s01e652": {
+      "label": "Tập 652"
+    },
+    "dao-hai-tac/s01e653": {
+      "label": "Tập 653"
+    },
+    "dao-hai-tac/s01e654": {
+      "label": "Tập 654"
+    },
+    "dao-hai-tac/s01e655": {
+      "label": "Tập 655"
+    },
+    "dao-hai-tac/s01e656": {
+      "label": "Tập 656"
+    },
+    "dao-hai-tac/s01e657": {
+      "label": "Tập 657"
+    },
+    "dao-hai-tac/s01e658": {
+      "label": "Tập 658"
+    },
+    "dao-hai-tac/s01e659": {
+      "label": "Tập 659"
+    },
+    "dao-hai-tac/s01e660": {
+      "label": "Tập 660"
+    },
+    "dao-hai-tac/s01e661": {
+      "label": "Tập 661"
+    },
+    "dao-hai-tac/s01e662": {
+      "label": "Tập 662"
+    },
+    "dao-hai-tac/s01e663": {
+      "label": "Tập 663"
+    },
+    "dao-hai-tac/s01e664": {
+      "label": "Tập 664"
+    },
+    "dao-hai-tac/s01e665": {
+      "label": "Tập 665"
+    },
+    "dao-hai-tac/s01e666": {
+      "label": "Tập 666"
+    },
+    "dao-hai-tac/s01e667": {
+      "label": "Tập 667"
+    },
+    "dao-hai-tac/s01e668": {
+      "label": "Tập 668"
+    },
+    "dao-hai-tac/s01e669": {
+      "label": "Tập 669"
+    },
+    "dao-hai-tac/s01e670": {
+      "label": "Tập 670"
+    },
+    "dao-hai-tac/s01e671": {
+      "label": "Tập 671"
+    },
+    "dao-hai-tac/s01e672": {
+      "label": "Tập 672"
+    },
+    "dao-hai-tac/s01e673": {
+      "label": "Tập 673"
+    },
+    "dao-hai-tac/s01e674": {
+      "label": "Tập 674"
+    },
+    "dao-hai-tac/s01e675": {
+      "label": "Tập 675"
+    },
+    "dao-hai-tac/s01e676": {
+      "label": "Tập 676"
+    },
+    "dao-hai-tac/s01e677": {
+      "label": "Tập 677"
+    },
+    "dao-hai-tac/s01e678": {
+      "label": "Tập 678"
+    },
+    "dao-hai-tac/s01e679": {
+      "label": "Tập 679"
+    },
+    "dao-hai-tac/s01e680": {
+      "label": "Tập 680"
+    },
+    "dao-hai-tac/s01e681": {
+      "label": "Tập 681"
+    },
+    "dao-hai-tac/s01e682": {
+      "label": "Tập 682"
+    },
+    "dao-hai-tac/s01e683": {
+      "label": "Tập 683"
+    },
+    "dao-hai-tac/s01e684": {
+      "label": "Tập 684"
+    },
+    "dao-hai-tac/s01e685": {
+      "label": "Tập 685"
+    },
+    "dao-hai-tac/s01e686": {
+      "label": "Tập 686"
+    },
+    "dao-hai-tac/s01e687": {
+      "label": "Tập 687"
+    },
+    "dao-hai-tac/s01e688": {
+      "label": "Tập 688"
+    },
+    "dao-hai-tac/s01e689": {
+      "label": "Tập 689"
+    },
+    "dao-hai-tac/s01e690": {
+      "label": "Tập 690"
+    },
+    "dao-hai-tac/s01e691": {
+      "label": "Tập 691"
+    },
+    "dao-hai-tac/s01e692": {
+      "label": "Tập 692"
+    },
+    "dao-hai-tac/s01e693": {
+      "label": "Tập 693"
+    },
+    "dao-hai-tac/s01e694": {
+      "label": "Tập 694"
+    },
+    "dao-hai-tac/s01e695": {
+      "label": "Tập 695"
+    },
+    "dao-hai-tac/s01e696": {
+      "label": "Tập 696"
+    },
+    "dao-hai-tac/s01e697": {
+      "label": "Tập 697"
+    },
+    "dao-hai-tac/s01e698": {
+      "label": "Tập 698"
+    },
+    "dao-hai-tac/s01e699": {
+      "label": "Tập 699"
+    },
+    "dao-hai-tac/s01e700": {
+      "label": "Tập 700"
+    },
+    "dao-hai-tac/s01e701": {
+      "label": "Tập 701"
+    },
+    "dao-hai-tac/s01e702": {
+      "label": "Tập 702"
+    },
+    "dao-hai-tac/s01e703": {
+      "label": "Tập 703"
+    },
+    "dao-hai-tac/s01e704": {
+      "label": "Tập 704"
+    },
+    "dao-hai-tac/s01e705": {
+      "label": "Tập 705"
+    },
+    "dao-hai-tac/s01e706": {
+      "label": "Tập 706"
+    },
+    "dao-hai-tac/s01e707": {
+      "label": "Tập 707"
+    },
+    "dao-hai-tac/s01e708": {
+      "label": "Tập 708"
+    },
+    "dao-hai-tac/s01e709": {
+      "label": "Tập 709"
+    },
+    "dao-hai-tac/s01e710": {
+      "label": "Tập 710"
+    },
+    "dao-hai-tac/s01e711": {
+      "label": "Tập 711"
+    },
+    "dao-hai-tac/s01e712": {
+      "label": "Tập 712"
+    },
+    "dao-hai-tac/s01e713": {
+      "label": "Tập 713"
+    },
+    "dao-hai-tac/s01e714": {
+      "label": "Tập 714"
+    },
+    "dao-hai-tac/s01e715": {
+      "label": "Tập 715"
+    },
+    "dao-hai-tac/s01e716": {
+      "label": "Tập 716"
+    },
+    "dao-hai-tac/s01e717": {
+      "label": "Tập 717"
+    },
+    "dao-hai-tac/s01e718": {
+      "label": "Tập 718"
+    },
+    "dao-hai-tac/s01e719": {
+      "label": "Tập 719"
+    },
+    "dao-hai-tac/s01e720": {
+      "label": "Tập 720"
+    },
+    "dao-hai-tac/s01e721": {
+      "label": "Tập 721"
+    },
+    "dao-hai-tac/s01e722": {
+      "label": "Tập 722"
+    },
+    "dao-hai-tac/s01e723": {
+      "label": "Tập 723"
+    },
+    "dao-hai-tac/s01e724": {
+      "label": "Tập 724"
+    },
+    "dao-hai-tac/s01e725": {
+      "label": "Tập 725"
+    },
+    "dao-hai-tac/s01e726": {
+      "label": "Tập 726"
+    },
+    "dao-hai-tac/s01e727": {
+      "label": "Tập 727"
+    },
+    "dao-hai-tac/s01e728": {
+      "label": "Tập 728"
+    },
+    "dao-hai-tac/s01e729": {
+      "label": "Tập 729"
+    },
+    "dao-hai-tac/s01e730": {
+      "label": "Tập 730"
+    },
+    "dao-hai-tac/s01e731": {
+      "label": "Tập 731"
+    },
+    "dao-hai-tac/s01e732": {
+      "label": "Tập 732"
+    },
+    "dao-hai-tac/s01e733": {
+      "label": "Tập 733"
+    },
+    "dao-hai-tac/s01e734": {
+      "label": "Tập 734"
+    },
+    "dao-hai-tac/s01e735": {
+      "label": "Tập 735"
+    },
+    "dao-hai-tac/s01e736": {
+      "label": "Tập 736"
+    },
+    "dao-hai-tac/s01e737": {
+      "label": "Tập 737"
+    },
+    "dao-hai-tac/s01e738": {
+      "label": "Tập 738"
+    },
+    "dao-hai-tac/s01e739": {
+      "label": "Tập 739"
+    },
+    "dao-hai-tac/s01e740": {
+      "label": "Tập 740"
+    },
+    "dao-hai-tac/s01e741": {
+      "label": "Tập 741"
+    },
+    "dao-hai-tac/s01e742": {
+      "label": "Tập 742"
+    },
+    "dao-hai-tac/s01e743": {
+      "label": "Tập 743"
+    },
+    "dao-hai-tac/s01e744": {
+      "label": "Tập 744"
+    },
+    "dao-hai-tac/s01e745": {
+      "label": "Tập 745"
+    },
+    "dao-hai-tac/s01e746": {
+      "label": "Tập 746"
+    },
+    "dao-hai-tac/s01e747": {
+      "label": "Tập 747"
+    },
+    "dao-hai-tac/s01e748": {
+      "label": "Tập 748"
+    },
+    "dao-hai-tac/s01e749": {
+      "label": "Tập 749"
+    },
+    "dao-hai-tac/s01e750": {
+      "label": "Tập 750"
+    },
+    "dao-hai-tac/s01e751": {
+      "label": "Tập 751"
+    },
+    "dao-hai-tac/s01e752": {
+      "label": "Tập 752"
+    },
+    "dao-hai-tac/s01e753": {
+      "label": "Tập 753"
+    },
+    "dao-hai-tac/s01e754": {
+      "label": "Tập 754"
+    },
+    "dao-hai-tac/s01e755": {
+      "label": "Tập 755"
+    },
+    "dao-hai-tac/s01e756": {
+      "label": "Tập 756"
+    },
+    "dao-hai-tac/s01e757": {
+      "label": "Tập 757"
+    },
+    "dao-hai-tac/s01e758": {
+      "label": "Tập 758"
+    },
+    "dao-hai-tac/s01e759": {
+      "label": "Tập 759"
+    },
+    "dao-hai-tac/s01e760": {
+      "label": "Tập 760"
+    },
+    "dao-hai-tac/s01e761": {
+      "label": "Tập 761"
+    },
+    "dao-hai-tac/s01e762": {
+      "label": "Tập 762"
+    },
+    "dao-hai-tac/s01e763": {
+      "label": "Tập 763"
+    },
+    "dao-hai-tac/s01e764": {
+      "label": "Tập 764"
+    },
+    "dao-hai-tac/s01e765": {
+      "label": "Tập 765"
+    },
+    "dao-hai-tac/s01e766": {
+      "label": "Tập 766"
+    },
+    "dao-hai-tac/s01e767": {
+      "label": "Tập 767"
+    },
+    "dao-hai-tac/s01e768": {
+      "label": "Tập 768"
+    },
+    "dao-hai-tac/s01e769": {
+      "label": "Tập 769"
+    },
+    "dao-hai-tac/s01e770": {
+      "label": "Tập 770"
+    },
+    "dao-hai-tac/s01e771": {
+      "label": "Tập 771"
+    },
+    "dao-hai-tac/s01e772": {
+      "label": "Tập 772"
+    },
+    "dao-hai-tac/s01e773": {
+      "label": "Tập 773"
+    },
+    "dao-hai-tac/s01e774": {
+      "label": "Tập 774"
+    },
+    "dao-hai-tac/s01e775": {
+      "label": "Tập 775"
+    },
+    "dao-hai-tac/s01e776": {
+      "label": "Tập 776"
+    },
+    "dao-hai-tac/s01e777": {
+      "label": "Tập 777"
+    },
+    "dao-hai-tac/s01e778": {
+      "label": "Tập 778"
+    },
+    "dao-hai-tac/s01e779": {
+      "label": "Tập 779"
+    },
+    "dao-hai-tac/s01e780": {
+      "label": "Tập 780"
+    },
+    "dao-hai-tac/s01e781": {
+      "label": "Tập 781"
+    },
+    "dao-hai-tac/s01e782": {
+      "label": "Tập 782"
+    },
+    "dao-hai-tac/s01e783": {
+      "label": "Tập 783"
+    },
+    "dao-hai-tac/s01e784": {
+      "label": "Tập 784"
+    },
+    "dao-hai-tac/s01e785": {
+      "label": "Tập 785"
+    },
+    "dao-hai-tac/s01e786": {
+      "label": "Tập 786"
+    },
+    "dao-hai-tac/s01e787": {
+      "label": "Tập 787"
+    },
+    "dao-hai-tac/s01e788": {
+      "label": "Tập 788"
+    },
+    "dao-hai-tac/s01e789": {
+      "label": "Tập 789"
+    },
+    "dao-hai-tac/s01e790": {
+      "label": "Tập 790"
+    },
+    "dao-hai-tac/s01e791": {
+      "label": "Tập 791"
+    },
+    "dao-hai-tac/s01e792": {
+      "label": "Tập 792"
+    },
+    "dao-hai-tac/s01e793": {
+      "label": "Tập 793"
+    },
+    "dao-hai-tac/s01e794": {
+      "label": "Tập 794"
+    },
+    "dao-hai-tac/s01e795": {
+      "label": "Tập 795"
+    },
+    "dao-hai-tac/s01e796": {
+      "label": "Tập 796"
+    },
+    "dao-hai-tac/s01e797": {
+      "label": "Tập 797"
+    },
+    "dao-hai-tac/s01e798": {
+      "label": "Tập 798"
+    },
+    "dao-hai-tac/s01e799": {
+      "label": "Tập 799"
+    },
+    "dao-hai-tac/s01e800": {
+      "label": "Tập 800"
+    },
+    "dao-hai-tac/s01e801": {
+      "label": "Tập 801"
+    },
+    "dao-hai-tac/s01e802": {
+      "label": "Tập 802"
+    },
+    "dao-hai-tac/s01e803": {
+      "label": "Tập 803"
+    },
+    "dao-hai-tac/s01e804": {
+      "label": "Tập 804"
+    },
+    "dao-hai-tac/s01e805": {
+      "label": "Tập 805"
+    },
+    "dao-hai-tac/s01e806": {
+      "label": "Tập 806"
+    },
+    "dao-hai-tac/s01e807": {
+      "label": "Tập 807"
+    },
+    "dao-hai-tac/s01e808": {
+      "label": "Tập 808"
+    },
+    "dao-hai-tac/s01e809": {
+      "label": "Tập 809"
+    },
+    "dao-hai-tac/s01e810": {
+      "label": "Tập 810"
+    },
+    "dao-hai-tac/s01e811": {
+      "label": "Tập 811"
+    },
+    "dao-hai-tac/s01e812": {
+      "label": "Tập 812"
+    },
+    "dao-hai-tac/s01e813": {
+      "label": "Tập 813"
+    },
+    "dao-hai-tac/s01e814": {
+      "label": "Tập 814"
+    },
+    "dao-hai-tac/s01e815": {
+      "label": "Tập 815"
+    },
+    "dao-hai-tac/s01e816": {
+      "label": "Tập 816"
+    },
+    "dao-hai-tac/s01e817": {
+      "label": "Tập 817"
+    },
+    "dao-hai-tac/s01e818": {
+      "label": "Tập 818"
+    },
+    "dao-hai-tac/s01e819": {
+      "label": "Tập 819"
+    },
+    "dao-hai-tac/s01e820": {
+      "label": "Tập 820"
+    },
+    "dao-hai-tac/s01e821": {
+      "label": "Tập 821"
+    },
+    "dao-hai-tac/s01e822": {
+      "label": "Tập 822"
+    },
+    "dao-hai-tac/s01e823": {
+      "label": "Tập 823"
+    },
+    "dao-hai-tac/s01e824": {
+      "label": "Tập 824"
+    },
+    "dao-hai-tac/s01e825": {
+      "label": "Tập 825"
+    },
+    "dao-hai-tac/s01e826": {
+      "label": "Tập 826"
+    },
+    "dao-hai-tac/s01e827": {
+      "label": "Tập 827"
+    },
+    "dao-hai-tac/s01e828": {
+      "label": "Tập 828"
+    },
+    "dao-hai-tac/s01e829": {
+      "label": "Tập 829"
+    },
+    "dao-hai-tac/s01e830": {
+      "label": "Tập 830"
+    },
+    "dao-hai-tac/s01e831": {
+      "label": "Tập 831"
+    },
+    "dao-hai-tac/s01e832": {
+      "label": "Tập 832"
+    },
+    "dao-hai-tac/s01e833": {
+      "label": "Tập 833"
+    },
+    "dao-hai-tac/s01e834": {
+      "label": "Tập 834"
+    },
+    "dao-hai-tac/s01e835": {
+      "label": "Tập 835"
+    },
+    "dao-hai-tac/s01e836": {
+      "label": "Tập 836"
+    },
+    "dao-hai-tac/s01e837": {
+      "label": "Tập 837"
+    },
+    "dao-hai-tac/s01e838": {
+      "label": "Tập 838"
+    },
+    "dao-hai-tac/s01e839": {
+      "label": "Tập 839"
+    },
+    "dao-hai-tac/s01e840": {
+      "label": "Tập 840"
+    },
+    "dao-hai-tac/s01e841": {
+      "label": "Tập 841"
+    },
+    "dao-hai-tac/s01e842": {
+      "label": "Tập 842"
+    },
+    "dao-hai-tac/s01e843": {
+      "label": "Tập 843"
+    },
+    "dao-hai-tac/s01e844": {
+      "label": "Tập 844"
+    },
+    "dao-hai-tac/s01e845": {
+      "label": "Tập 845"
+    },
+    "dao-hai-tac/s01e846": {
+      "label": "Tập 846"
+    },
+    "dao-hai-tac/s01e847": {
+      "label": "Tập 847"
+    },
+    "dao-hai-tac/s01e848": {
+      "label": "Tập 848"
+    },
+    "dao-hai-tac/s01e849": {
+      "label": "Tập 849"
+    },
+    "dao-hai-tac/s01e850": {
+      "label": "Tập 850"
+    },
+    "dao-hai-tac/s01e851": {
+      "label": "Tập 851"
+    },
+    "dao-hai-tac/s01e852": {
+      "label": "Tập 852"
+    },
+    "dao-hai-tac/s01e853": {
+      "label": "Tập 853"
+    },
+    "dao-hai-tac/s01e854": {
+      "label": "Tập 854"
+    },
+    "dao-hai-tac/s01e855": {
+      "label": "Tập 855"
+    },
+    "dao-hai-tac/s01e856": {
+      "label": "Tập 856"
+    },
+    "dao-hai-tac/s01e857": {
+      "label": "Tập 857"
+    },
+    "dao-hai-tac/s01e858": {
+      "label": "Tập 858"
+    },
+    "dao-hai-tac/s01e859": {
+      "label": "Tập 859"
+    },
+    "dao-hai-tac/s01e860": {
+      "label": "Tập 860"
+    },
+    "dao-hai-tac/s01e861": {
+      "label": "Tập 861"
+    },
+    "dao-hai-tac/s01e862": {
+      "label": "Tập 862"
+    },
+    "dao-hai-tac/s01e863": {
+      "label": "Tập 863"
+    },
+    "dao-hai-tac/s01e864": {
+      "label": "Tập 864"
+    },
+    "dao-hai-tac/s01e865": {
+      "label": "Tập 865"
+    },
+    "dao-hai-tac/s01e866": {
+      "label": "Tập 866"
+    },
+    "dao-hai-tac/s01e867": {
+      "label": "Tập 867"
+    },
+    "dao-hai-tac/s01e868": {
+      "label": "Tập 868"
+    },
+    "dao-hai-tac/s01e869": {
+      "label": "Tập 869"
+    },
+    "dao-hai-tac/s01e870": {
+      "label": "Tập 870"
+    },
+    "dao-hai-tac/s01e871": {
+      "label": "Tập 871"
+    },
+    "dao-hai-tac/s01e872": {
+      "label": "Tập 872"
+    },
+    "dao-hai-tac/s01e873": {
+      "label": "Tập 873"
+    },
+    "dao-hai-tac/s01e874": {
+      "label": "Tập 874"
+    },
+    "dao-hai-tac/s01e875": {
+      "label": "Tập 875"
+    },
+    "dao-hai-tac/s01e876": {
+      "label": "Tập 876"
+    },
+    "dao-hai-tac/s01e877": {
+      "label": "Tập 877"
+    },
+    "dao-hai-tac/s01e878": {
+      "label": "Tập 878"
+    },
+    "dao-hai-tac/s01e879": {
+      "label": "Tập 879"
+    },
+    "dao-hai-tac/s01e880": {
+      "label": "Tập 880"
+    },
+    "dao-hai-tac/s01e881": {
+      "label": "Tập 881"
+    },
+    "dao-hai-tac/s01e882": {
+      "label": "Tập 882"
+    },
+    "dao-hai-tac/s01e883": {
+      "label": "Tập 883"
+    },
+    "dao-hai-tac/s01e884": {
+      "label": "Tập 884"
+    },
+    "dao-hai-tac/s01e885": {
+      "label": "Tập 885"
+    },
+    "dao-hai-tac/s01e886": {
+      "label": "Tập 886"
+    },
+    "dao-hai-tac/s01e887": {
+      "label": "Tập 887"
+    },
+    "dao-hai-tac/s01e888": {
+      "label": "Tập 888"
+    },
+    "dao-hai-tac/s01e889": {
+      "label": "Tập 889"
+    },
+    "dao-hai-tac/s01e890": {
+      "label": "Tập 890"
+    },
+    "dao-hai-tac/s01e891": {
+      "label": "Tập 891"
+    },
+    "dao-hai-tac/s01e892": {
+      "label": "Tập 892"
+    },
+    "dao-hai-tac/s01e893": {
+      "label": "Tập 893"
+    },
+    "dao-hai-tac/s01e894": {
+      "label": "Tập 894"
+    },
+    "dao-hai-tac/s01e895": {
+      "label": "Tập 895"
+    },
+    "dao-hai-tac/s01e896": {
+      "label": "Tập 896"
+    },
+    "dao-hai-tac/s01e897": {
+      "label": "Tập 897"
+    },
+    "dao-hai-tac/s01e898": {
+      "label": "Tập 898"
+    },
+    "dao-hai-tac/s01e899": {
+      "label": "Tập 899"
+    },
+    "dao-hai-tac/s01e900": {
+      "label": "Tập 900"
+    },
+    "dao-hai-tac/s01e901": {
+      "label": "Tập 901"
+    },
+    "dao-hai-tac/s01e902": {
+      "label": "Tập 902"
+    },
+    "dao-hai-tac/s01e903": {
+      "label": "Tập 903"
+    },
+    "dao-hai-tac/s01e904": {
+      "label": "Tập 904"
+    },
+    "dao-hai-tac/s01e905": {
+      "label": "Tập 905"
+    },
+    "dao-hai-tac/s01e906": {
+      "label": "Tập 906"
+    },
+    "dao-hai-tac/s01e907": {
+      "label": "Tập 907"
+    },
+    "dao-hai-tac/s01e908": {
+      "label": "Tập 908"
+    },
+    "dao-hai-tac/s01e909": {
+      "label": "Tập 909"
+    },
+    "dao-hai-tac/s01e910": {
+      "label": "Tập 910"
+    },
+    "dao-hai-tac/s01e911": {
+      "label": "Tập 911"
+    },
+    "dao-hai-tac/s01e912": {
+      "label": "Tập 912"
+    },
+    "dao-hai-tac/s01e913": {
+      "label": "Tập 913"
+    },
+    "dao-hai-tac/s01e914": {
+      "label": "Tập 914"
+    },
+    "dao-hai-tac/s01e915": {
+      "label": "Tập 915"
+    },
+    "dao-hai-tac/s01e916": {
+      "label": "Tập 916"
+    },
+    "dao-hai-tac/s01e917": {
+      "label": "Tập 917"
+    },
+    "dao-hai-tac/s01e918": {
+      "label": "Tập 918"
+    },
+    "dao-hai-tac/s01e919": {
+      "label": "Tập 919"
+    },
+    "dao-hai-tac/s01e920": {
+      "label": "Tập 920"
+    },
+    "dao-hai-tac/s01e921": {
+      "label": "Tập 921"
+    },
+    "dao-hai-tac/s01e922": {
+      "label": "Tập 922"
+    },
+    "dao-hai-tac/s01e923": {
+      "label": "Tập 923"
+    },
+    "dao-hai-tac/s01e924": {
+      "label": "Tập 924"
+    },
+    "dao-hai-tac/s01e925": {
+      "label": "Tập 925"
+    },
+    "dao-hai-tac/s01e926": {
+      "label": "Tập 926"
+    },
+    "dao-hai-tac/s01e927": {
+      "label": "Tập 927"
+    },
+    "dao-hai-tac/s01e928": {
+      "label": "Tập 928"
+    },
+    "dao-hai-tac/s01e929": {
+      "label": "Tập 929"
+    },
+    "dao-hai-tac/s01e930": {
+      "label": "Tập 930"
+    },
+    "dao-hai-tac/s01e931": {
+      "label": "Tập 931"
+    },
+    "dao-hai-tac/s01e932": {
+      "label": "Tập 932"
+    },
+    "dao-hai-tac/s01e933": {
+      "label": "Tập 933"
+    },
+    "dao-hai-tac/s01e934": {
+      "label": "Tập 934"
+    },
+    "dao-hai-tac/s01e935": {
+      "label": "Tập 935"
+    },
+    "dao-hai-tac/s01e936": {
+      "label": "Tập 936"
+    },
+    "dao-hai-tac/s01e937": {
+      "label": "Tập 937"
+    },
+    "dao-hai-tac/s01e938": {
+      "label": "Tập 938"
+    },
+    "dao-hai-tac/s01e939": {
+      "label": "Tập 939"
+    },
+    "dao-hai-tac/s01e940": {
+      "label": "Tập 940"
+    },
+    "dao-hai-tac/s01e941": {
+      "label": "Tập 941"
+    },
+    "dao-hai-tac/s01e942": {
+      "label": "Tập 942"
+    },
+    "dao-hai-tac/s01e943": {
+      "label": "Tập 943"
+    },
+    "dao-hai-tac/s01e944": {
+      "label": "Tập 944"
+    },
+    "dao-hai-tac/s01e945": {
+      "label": "Tập 945"
+    },
+    "dao-hai-tac/s01e946": {
+      "label": "Tập 946"
+    },
+    "dao-hai-tac/s01e947": {
+      "label": "Tập 947"
+    },
+    "dao-hai-tac/s01e948": {
+      "label": "Tập 948"
+    },
+    "dao-hai-tac/s01e949": {
+      "label": "Tập 949"
+    },
+    "dao-hai-tac/s01e950": {
+      "label": "Tập 950"
+    },
+    "dao-hai-tac/s01e951": {
+      "label": "Tập 951"
+    },
+    "dao-hai-tac/s01e952": {
+      "label": "Tập 952"
+    },
+    "dao-hai-tac/s01e953": {
+      "label": "Tập 953"
+    },
+    "dao-hai-tac/s01e954": {
+      "label": "Tập 954"
+    },
+    "dao-hai-tac/s01e955": {
+      "label": "Tập 955"
+    },
+    "dao-hai-tac/s01e956": {
+      "label": "Tập 956"
+    },
+    "dao-hai-tac/s01e957": {
+      "label": "Tập 957"
+    },
+    "dao-hai-tac/s01e958": {
+      "label": "Tập 958"
+    },
+    "dao-hai-tac/s01e959": {
+      "label": "Tập 959"
+    },
+    "dao-hai-tac/s01e960": {
+      "label": "Tập 960"
+    },
+    "dao-hai-tac/s01e961": {
+      "label": "Tập 961"
+    },
+    "dao-hai-tac/s01e962": {
+      "label": "Tập 962"
+    },
+    "dao-hai-tac/s01e963": {
+      "label": "Tập 963"
+    },
+    "dao-hai-tac/s01e964": {
+      "label": "Tập 964"
+    },
+    "dao-hai-tac/s01e965": {
+      "label": "Tập 965"
+    },
+    "dao-hai-tac/s01e966": {
+      "label": "Tập 966"
+    },
+    "dao-hai-tac/s01e967": {
+      "label": "Tập 967"
+    },
+    "dao-hai-tac/s01e968": {
+      "label": "Tập 968"
+    },
+    "dao-hai-tac/s01e969": {
+      "label": "Tập 969"
+    },
+    "dao-hai-tac/s01e970": {
+      "label": "Tập 970"
+    },
+    "dao-hai-tac/s01e971": {
+      "label": "Tập 971"
+    },
+    "dao-hai-tac/s01e972": {
+      "label": "Tập 972"
+    },
+    "dao-hai-tac/s01e973": {
+      "label": "Tập 973"
+    },
+    "dao-hai-tac/s01e974": {
+      "label": "Tập 974"
+    },
+    "dao-hai-tac/s01e975": {
+      "label": "Tập 975"
+    },
+    "dao-hai-tac/s01e976": {
+      "label": "Tập 976"
+    },
+    "dao-hai-tac/s01e977": {
+      "label": "Tập 977"
+    },
+    "dao-hai-tac/s01e978": {
+      "label": "Tập 978"
+    },
+    "dao-hai-tac/s01e979": {
+      "label": "Tập 979"
+    },
+    "dao-hai-tac/s01e980": {
+      "label": "Tập 980"
+    },
+    "dao-hai-tac/s01e981": {
+      "label": "Tập 981"
+    },
+    "dao-hai-tac/s01e982": {
+      "label": "Tập 982"
+    },
+    "dao-hai-tac/s01e983": {
+      "label": "Tập 983"
+    },
+    "dao-hai-tac/s01e984": {
+      "label": "Tập 984"
+    },
+    "dao-hai-tac/s01e985": {
+      "label": "Tập 985"
+    },
+    "dao-hai-tac/s01e986": {
+      "label": "Tập 986"
+    },
+    "dao-hai-tac/s01e987": {
+      "label": "Tập 987"
+    },
+    "dao-hai-tac/s01e988": {
+      "label": "Tập 988"
+    },
+    "dao-hai-tac/s01e989": {
+      "label": "Tập 989"
+    },
+    "dao-hai-tac/s01e990": {
+      "label": "Tập 990"
+    },
+    "dao-hai-tac/s01e991": {
+      "label": "Tập 991"
+    },
+    "dao-hai-tac/s01e992": {
+      "label": "Tập 992"
+    },
+    "dao-hai-tac/s01e993": {
+      "label": "Tập 993"
+    },
+    "dao-hai-tac/s01e994": {
+      "label": "Tập 994"
+    },
+    "dao-hai-tac/s01e995": {
+      "label": "Tập 995"
+    },
+    "dao-hai-tac/s01e996": {
+      "label": "Tập 996"
+    },
+    "dao-hai-tac/s01e997": {
+      "label": "Tập 997"
+    },
+    "dao-hai-tac/s01e998": {
+      "label": "Tập 998"
+    },
+    "dao-hai-tac/s01e999": {
+      "label": "Tập 999"
+    },
+    "dao-hai-tac/s01e1000": {
+      "label": "Tập 1000"
+    },
+    "dao-hai-tac/s01e1001": {
+      "label": "Tập 1001"
+    },
+    "dao-hai-tac/s01e1002": {
+      "label": "Tập 1002"
+    },
+    "dao-hai-tac/s01e1003": {
+      "label": "Tập 1003"
+    },
+    "dao-hai-tac/s01e1004": {
+      "label": "Tập 1004.5"
+    },
+    "dao-hai-tac/s01e1005": {
+      "label": "Tập 1005"
+    },
+    "dao-hai-tac/s01e1006": {
+      "label": "Tập 1006"
+    },
+    "dao-hai-tac/s01e1007": {
+      "label": "Tập 1007"
+    },
+    "dao-hai-tac/s01e1008": {
+      "label": "Tập 1008"
+    },
+    "dao-hai-tac/s01e1009": {
+      "label": "Tập 1009"
+    },
+    "dao-hai-tac/s01e1010": {
+      "label": "Tập 1010"
+    },
+    "dao-hai-tac/s01e1011": {
+      "label": "Tập 1011"
+    },
+    "dao-hai-tac/s01e1012": {
+      "label": "Tập 1012"
+    },
+    "dao-hai-tac/s01e1013": {
+      "label": "Tập 1013"
+    },
+    "dao-hai-tac/s01e1014": {
+      "label": "Tập 1014"
+    },
+    "dao-hai-tac/s01e1015": {
+      "label": "Tập 1015.5"
+    },
+    "dao-hai-tac/s01e1016": {
+      "label": "Tập 1016"
+    },
+    "dao-hai-tac/s01e1017": {
+      "label": "Tập 1017"
+    },
+    "dao-hai-tac/s01e1018": {
+      "label": "Tập 1018"
+    },
+    "dao-hai-tac/s01e1019": {
+      "label": "Tập 1019"
+    },
+    "dao-hai-tac/s01e1020": {
+      "label": "Tập 1020"
+    },
+    "dao-hai-tac/s01e1021": {
+      "label": "Tập 1021"
+    },
+    "dao-hai-tac/s01e1022": {
+      "label": "Tập 1022.5"
+    },
+    "dao-hai-tac/s01e1023": {
+      "label": "Tập 1023"
+    },
+    "dao-hai-tac/s01e1024": {
+      "label": "Tập 1024"
+    },
+    "dao-hai-tac/s01e1025": {
+      "label": "Tập 1025"
+    },
+    "dao-hai-tac/s01e1026": {
+      "label": "Tập 1026"
+    },
+    "dao-hai-tac/s01e1027": {
+      "label": "Tập 1027"
+    },
+    "dao-hai-tac/s01e1028": {
+      "label": "Tập 1028"
+    },
+    "dao-hai-tac/s01e1029": {
+      "label": "Tập 1029"
+    },
+    "dao-hai-tac/s01e1030": {
+      "label": "Tập 1030.1"
+    },
+    "dao-hai-tac/s01e1031": {
+      "label": "Tập 1031"
+    },
+    "dao-hai-tac/s01e1032": {
+      "label": "Tập 1032"
+    },
+    "dao-hai-tac/s01e1033": {
+      "label": "Tập 1033"
+    },
+    "dao-hai-tac/s01e1034": {
+      "label": "Tập 1034"
+    },
+    "dao-hai-tac/s01e1035": {
+      "label": "Tập 1035.5"
+    },
+    "dao-hai-tac/s01e1036": {
+      "label": "Tập 1036"
+    },
+    "dao-hai-tac/s01e1037": {
+      "label": "Tập 1037"
+    },
+    "dao-hai-tac/s01e1038": {
+      "label": "Tập 1038"
+    },
+    "dao-hai-tac/s01e1039": {
+      "label": "Tập 1039"
+    },
+    "dao-hai-tac/s01e1040": {
+      "label": "Tập 1040"
+    },
+    "dao-hai-tac/s01e1041": {
+      "label": "Tập 1041"
+    },
+    "dao-hai-tac/s01e1042": {
+      "label": "Tập 1042"
+    },
+    "dao-hai-tac/s01e1043": {
+      "label": "Tập 1043"
+    },
+    "dao-hai-tac/s01e1044": {
+      "label": "Tập 1044"
+    },
+    "dao-hai-tac/s01e1045": {
+      "label": "Tập 1045.5"
+    },
+    "dao-hai-tac/s01e1046": {
+      "label": "Tập 1046"
+    },
+    "dao-hai-tac/s01e1047": {
+      "label": "Tập 1047"
+    },
+    "dao-hai-tac/s01e1048": {
+      "label": "Tập 1048"
+    },
+    "dao-hai-tac/s01e1049": {
+      "label": "Tập 1049"
+    },
+    "dao-hai-tac/s01e1050": {
+      "label": "Tập 1050"
+    },
+    "dao-hai-tac/s01e1051": {
+      "label": "Tập 1051"
+    },
+    "dao-hai-tac/s01e1052": {
+      "label": "Tập 1052"
+    },
+    "dao-hai-tac/s01e1053": {
+      "label": "Tập 1053"
+    },
+    "dao-hai-tac/s01e1054": {
+      "label": "Tập 1054"
+    },
+    "dao-hai-tac/s01e1055": {
+      "label": "Tập 1055"
+    },
+    "dao-hai-tac/s01e1056": {
+      "label": "Tập 1056"
+    },
+    "dao-hai-tac/s01e1057": {
+      "label": "Tập 1057"
+    },
+    "dao-hai-tac/s01e1058": {
+      "label": "Tập 1058"
+    },
+    "dao-hai-tac/s01e1059": {
+      "label": "Tập 1059"
+    },
+    "dao-hai-tac/s01e1060": {
+      "label": "Tập 1060"
+    },
+    "dao-hai-tac/s01e1061": {
+      "label": "Tập 1061.5"
+    },
+    "dao-hai-tac/s01e1062": {
+      "label": "Tập 1062"
+    },
+    "dao-hai-tac/s01e1063": {
+      "label": "Tập 1063"
+    },
+    "dao-hai-tac/s01e1064": {
+      "label": "Tập 1064"
+    },
+    "dao-hai-tac/s01e1065": {
+      "label": "Tập 1065.5"
+    },
+    "dao-hai-tac/s01e1066": {
+      "label": "Tập 1066"
+    },
+    "dao-hai-tac/s01e1067": {
+      "label": "Tập 1067"
+    },
+    "dao-hai-tac/s01e1068": {
+      "label": "Tập 1068"
+    },
+    "dao-hai-tac/s01e1069": {
+      "label": "Tập 1069"
+    },
+    "dao-hai-tac/s01e1070": {
+      "label": "Tập 1070"
+    },
+    "dao-hai-tac/s01e1071": {
+      "label": "Tập 1071"
+    },
+    "dao-hai-tac/s01e1072": {
+      "label": "Tập 1072"
+    },
+    "dao-hai-tac/s01e1073": {
+      "label": "Tập 1073.5"
+    },
+    "dao-hai-tac/s01e1074": {
+      "label": "Tập 1074"
+    },
+    "dao-hai-tac/s01e1075": {
+      "label": "Tập 1075"
+    },
+    "dao-hai-tac/s01e1076": {
+      "label": "Tập 1076"
+    },
+    "dao-hai-tac/s01e1077": {
+      "label": "Tập 1077"
+    },
+    "dao-hai-tac/s01e1078": {
+      "label": "Tập 1078.5"
+    },
+    "dao-hai-tac/s01e1079": {
+      "label": "Tập 1079"
+    },
+    "dao-hai-tac/s01e1080": {
+      "label": "Tập 1080"
+    },
+    "dao-hai-tac/s01e1081": {
+      "label": "Tập 1081"
+    },
+    "dao-hai-tac/s01e1082": {
+      "label": "Tập 1082"
+    },
+    "dao-hai-tac/s01e1083": {
+      "label": "Tập 1083"
+    },
+    "dao-hai-tac/s01e1084": {
+      "label": "Tập 1084"
+    },
+    "dao-hai-tac/s01e1085": {
+      "label": "Tập 1085"
+    },
+    "dao-hai-tac/s01e1086": {
+      "label": "Tập 1086"
+    },
+    "dao-hai-tac/s01e1087": {
+      "label": "Tập 1087"
+    },
+    "dao-hai-tac/s01e1088": {
+      "label": "Tập 1088"
+    },
+    "dao-hai-tac/s01e1089": {
+      "label": "Tập 1089.5"
+    },
+    "dao-hai-tac/s01e1090": {
+      "label": "Tập 1090"
+    },
+    "dao-hai-tac/s01e1091": {
+      "label": "Tập 1091"
+    },
+    "dao-hai-tac/s01e1092": {
+      "label": "Tập 1092.5"
+    },
+    "dao-hai-tac/s01e1093": {
+      "label": "Tập 1093"
+    },
+    "dao-hai-tac/s01e1094": {
+      "label": "Tập 1094"
+    },
+    "dao-hai-tac/s01e1095": {
+      "label": "Tập 1095"
+    },
+    "dao-hai-tac/s01e1096": {
+      "label": "Tập 1096"
+    },
+    "dao-hai-tac/s01e1097": {
+      "label": "Tập 1097"
+    },
+    "dao-hai-tac/s01e1098": {
+      "label": "Tập 1098"
+    },
+    "dao-hai-tac/s01e1099": {
+      "label": "Tập 1099"
+    },
+    "dao-hai-tac/s01e1100": {
+      "label": "Tập 1100"
+    },
+    "dao-hai-tac/s01e1101": {
+      "label": "Tập 1101"
+    },
+    "dao-hai-tac/s01e1102": {
+      "label": "Tập 1102"
+    },
+    "dao-hai-tac/s01e1103": {
+      "label": "Tập 1103"
+    },
+    "dao-hai-tac/s01e1104": {
+      "label": "Tập 1104"
+    },
+    "dao-hai-tac/s01e1105": {
+      "label": "Tập 1105"
+    },
+    "dao-hai-tac/s01e1106": {
+      "label": "Tập 1106"
+    },
+    "dao-hai-tac/s01e1107": {
+      "label": "Tập 1107"
+    },
+    "dao-hai-tac/s01e1108": {
+      "label": "Tập 1108"
+    },
+    "dao-hai-tac/s01e1109": {
+      "label": "Tập 1109"
+    },
+    "dao-hai-tac/s01e1110": {
+      "label": "Tập 1110"
+    },
+    "dao-hai-tac/s01e1111": {
+      "label": "Tập 1111"
+    },
+    "dao-hai-tac/s01e1112": {
+      "label": "Tập 1112"
+    },
+    "dao-hai-tac/s01e1113": {
+      "label": "Tập 1113"
+    },
+    "dao-hai-tac/s01e1114": {
+      "label": "Tập 1114"
+    },
+    "dao-hai-tac/s01e1115": {
+      "label": "Tập 1115"
+    },
+    "dao-hai-tac/s01e1116": {
+      "label": "Tập 1116"
+    },
+    "dao-hai-tac/s01e1117": {
+      "label": "Tập 1117"
+    },
+    "dao-hai-tac/s01e1118": {
+      "label": "Tập 1118"
+    },
+    "dao-hai-tac/s01e1119": {
+      "label": "Tập 1119"
+    },
+    "dao-hai-tac/s01e1120": {
+      "label": "Tập 1120"
+    },
+    "dao-hai-tac/s01e1121": {
+      "label": "Tập 1121"
+    },
+    "dao-hai-tac/s01e1122": {
+      "label": "Tập 1122"
+    },
+    "dao-hai-tac/s01e1123": {
+      "label": "Tập 1123"
+    },
+    "dao-hai-tac/s01e1124": {
+      "label": "Tập 1124"
+    },
+    "dao-hai-tac/s01e1125": {
+      "label": "Tập 1125"
+    },
+    "dao-hai-tac/s01e1126": {
+      "label": "Tập 1126"
+    },
+    "dao-hai-tac/s01e1127": {
+      "label": "Tập 1127"
+    },
+    "dao-hai-tac/s01e1128": {
+      "label": "Tập 1128"
+    },
+    "dao-hai-tac/s01e1129": {
+      "label": "Tập 1129"
+    },
+    "dao-hai-tac/s01e1130": {
+      "label": "Tập 1130"
+    },
+    "dao-hai-tac/s01e1131": {
+      "label": "Tập 1131"
+    },
+    "dao-hai-tac/s01e1132": {
+      "label": "Tập 1132"
+    },
+    "dao-hai-tac/s01e1133": {
+      "label": "Tập 1133"
+    },
+    "dao-hai-tac/s01e1134": {
+      "label": "Tập 1134"
+    },
+    "dao-hai-tac/s01e1135": {
+      "label": "Tập 1135"
+    },
+    "dao-hai-tac/s01e1136": {
+      "label": "Tập 1136"
+    },
+    "dao-hai-tac/s01e1137": {
+      "label": "Tập 1137"
+    },
+    "dao-hai-tac/s01e1138": {
+      "label": "Tập 1138"
+    },
+    "dao-hai-tac/s01e1139": {
+      "label": "Tập 1139"
+    },
+    "dao-hai-tac/s01e1140": {
+      "label": "Tập 1140"
+    },
+    "dao-hai-tac/s01e1141": {
+      "label": "Tập 1141"
+    },
+    "dao-hai-tac/s01e1142": {
+      "label": "Tập 1142"
+    },
+    "dao-hai-tac/s01e1143": {
+      "label": "Tập 1143"
+    },
+    "dao-hai-tac/s01e1144": {
+      "label": "Tập 1144"
+    },
+    "dao-hai-tac/s01e1145": {
+      "label": "Tập 1145"
+    },
+    "dao-hai-tac/s01e1146": {
+      "label": "Tập 1146"
+    },
+    "dao-hai-tac/s01e1147": {
+      "label": "Tập 1147"
+    },
+    "dao-hai-tac/s01e1148": {
+      "label": "Tập 1148"
+    },
+    "dao-hai-tac/s01e1149": {
+      "label": "Tập 1149"
+    },
+    "dao-hai-tac/s01e1150": {
+      "label": "Tập 1150"
+    },
+    "dao-hai-tac/s01e1151": {
+      "label": "Tập 1151"
+    },
+    "dao-hai-tac/s01e1152": {
+      "label": "Tập 1152"
+    },
+    "dao-hai-tac/s01e1153": {
+      "label": "Tập 1153"
+    },
+    "dao-hai-tac/s01e1154": {
+      "label": "Tập 1154"
+    },
+    "dao-hai-tac/s01e1155": {
+      "label": "Tập 1155"
+    },
+    "dao-hai-tac/s01e1156": {
+      "label": "Tập 1156"
+    },
+    "dao-hai-tac/s01e1157": {
+      "label": "Tập 1157"
+    },
+    "dao-hai-tac/s01e1158": {
+      "label": "Tập 1158"
+    },
+    "dao-hai-tac/s01e1159": {
+      "label": "Tập 1159"
+    },
+    "dao-hai-tac/s01e1160": {
+      "label": "Tập 1160"
+    },
+    "dao-hai-tac/s01e1161": {
+      "label": "Tập 1161"
+    },
+    "dao-hai-tac/s01e1162": {
+      "label": "Tập 1162"
+    },
+    "dao-hai-tac/s01e1163": {
+      "label": "Tập 1163"
+    },
+    "dao-hai-tac/s01e1164": {
+      "label": "Tập 1164"
+    },
+    "dao-hai-tac/s01e1165": {
+      "label": "Tập 1165"
+    },
+    "dao-hai-tac/s01e1166": {
+      "label": "Tập 1166"
+    },
+    "dao-hai-tac/s01e1167": {
+      "label": "Tập 1167"
+    },
+    "dao-hai-tac/s01e1168": {
+      "label": "Tập 1168"
+    },
+    "dao-hai-tac/s01e1169": {
+      "label": "Tập 1169"
+    },
+    "dao-hai-tac/s01e1170": {
+      "label": "Tập 1170"
+    },
+    "dao-hai-tac/s01e1171": {
+      "label": "Tập 1171"
+    },
+    "dao-hai-tac/s01e1172": {
+      "label": "Tập 1172"
+    },
+    "dao-hai-tac/s01e1173": {
+      "label": "Tập 1173"
+    }
+  },
+  "showMeta": {
+    "dao-hai-tac": {
+      "episodes": 1173
+    },
+    "dao-hai-tac-live-action-phan-2": {
+      "episodes": 8
+    },
+    "nhat-ky-hai-trinh-one-piece-truyen-ky-dao-nguoi-ca": {
+      "episodes": 21
+    },
+    "dao-hai-tac-live-action-phan-1": {
+      "episodes": 8
+    }
+  },
+  "saved": [],
+  "signedIn": false,
+  "heroPreview": "https://s2.phim1280.tv/20240310/QPdCAUah/index.m3u8",
+  "more": false,
+  "page": 1
+}

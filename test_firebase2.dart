@@ -1,9 +1,9 @@
-import 'dart:convert';
+﻿import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 void main() async {
-  String version = '26.08.18.c.beta';
-  String notes = '- Thêm chế độ Picture-in-Picture.\n- Tuỳ chọn Phát dưới nền.';
+  String version = '26.08.22.h.beta';
+  String notes = '- Cập nhật chuẩn Registry Windows 11 để thêm MyTV4U vào danh sách Open With (Mở bằng)\n- Giờ đây MyTV4U sẽ hiển thị trực tiếp trong menu chuột phải';
   String channel = 'beta';
 
   final url = Uri.parse('https://firestore.googleapis.com/v1/projects/tv4u-ec4ae/databases/(default)/documents/updates/$channel');

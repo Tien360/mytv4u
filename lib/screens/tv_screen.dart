@@ -1,3 +1,4 @@
+import '../utils/l10n.dart';
 import 'package:flutter/material.dart';
 import '../api/tv_api.dart';
 import '../models/movie.dart';
@@ -16,15 +17,14 @@ class TvScreenState extends State<TvScreen> {
   final ScrollController _categoryScrollController = ScrollController();
   List<TvChannel> _channels = [];
   bool _isLoading = true;
-  String _selectedCategory = 'Tất cả';
+  String _selectedCategory = L10n.t('all') ?? 'Tất cả';
   String _searchQuery = '';
 
   List<String> get _categories {
     final cats = _channels.map((c) => c.category).toSet().toList();
-    cats.insert(0, 'Tất cả');
+    cats.insert(0, L10n.t('all') ?? 'Tất cả');
     return cats;
   }
-
 
   void performSearch(String query) {
     if (mounted) {
@@ -58,11 +58,15 @@ class TvScreenState extends State<TvScreen> {
 
   List<TvChannel> get _filteredChannels {
     var list = _channels;
-    if (_selectedCategory != 'Tất cả') {
+    if (_selectedCategory != (L10n.t('all') ?? '')) {
       list = list.where((c) => c.category == _selectedCategory).toList();
     }
     if (_searchQuery.isNotEmpty) {
-      list = list.where((c) => c.name.toLowerCase().contains(_searchQuery.toLowerCase())).toList();
+      list = list
+          .where(
+            (c) => c.name.toLowerCase().contains(_searchQuery.toLowerCase()),
+          )
+          .toList();
     }
     return list;
   }
@@ -72,23 +76,27 @@ class TvScreenState extends State<TvScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (_) => TvWebViewScreen(
-            title: channel.name,
-            webUrl: channel.webUrl,
-          ),
+          builder: (_) =>
+              TvWebViewScreen(title: channel.name, webUrl: channel.webUrl),
         ),
       );
       return;
     }
 
-    final allTvEpisodes = _channels.map((c) => Episode(
-      name: c.name,
-      slug: c.id,
-      embedUrl: c.streamUrl,
-      m3u8Url: c.streamUrl,
-    )).toList();
+    final allTvEpisodes = _channels
+        .map(
+          (c) => Episode(
+            name: c.name,
+            slug: c.id,
+            embedUrl: c.streamUrl,
+            m3u8Url: c.streamUrl,
+          ),
+        )
+        .toList();
 
-    final int initialIndex = allTvEpisodes.indexWhere((e) => e.slug == channel.id);
+    final int initialIndex = allTvEpisodes.indexWhere(
+      (e) => e.slug == channel.id,
+    );
 
     Navigator.push(
       context,
@@ -123,16 +131,23 @@ class TvScreenState extends State<TvScreen> {
                         decoration: BoxDecoration(
                           color: const Color(0xFF3B82F6).withOpacity(0.2),
                           borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: const Color(0xFF3B82F6).withOpacity(0.4)),
+                          border: Border.all(
+                            color: const Color(0xFF3B82F6).withOpacity(0.4),
+                          ),
                         ),
-                        child: const Icon(Icons.live_tv, color: Color(0xFF3B82F6), size: 28),
+                        child: const Icon(
+                          Icons.live_tv,
+                          color: Color(0xFF3B82F6),
+                          size: 28,
+                        ),
                       ),
                       const SizedBox(width: 14),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Kênh Truyền Hình TV Trực Tuyến',
+                            L10n.t('tv_channels_title') ??
+                                'Kênh Truyền Hình TV Trực Tuyến',
                             style: TextStyle(
                               color: Colors.white,
                               fontSize: 24,
@@ -142,7 +157,8 @@ class TvScreenState extends State<TvScreen> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'Xem trực tiếp các kênh VTV, HTV, VTC, Truyền hình tỉnh chất lượng cao',
+                            L10n.t('tv_channels_subtitle') ??
+                                'Xem trực tiếp các kênh...',
                             style: TextStyle(
                               color: Colors.white.withOpacity(0.6),
                               fontSize: 14,
@@ -153,81 +169,99 @@ class TvScreenState extends State<TvScreen> {
                     ],
                   ),
                   const SizedBox(height: 24),
-                  
+
                   // Category Filter Pills in Electric Blue
                   Row(
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.chevron_left, color: Colors.white54),
-                          onPressed: () {
-                            _categoryScrollController.animateTo(
-                              _categoryScrollController.offset - 200,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
+                    children: [
+                      IconButton(
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          color: Colors.white54,
                         ),
-                        Expanded(
-                          child: SingleChildScrollView(
-                            controller: _categoryScrollController,
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: _categories.map((cat) {
-                        final isSelected = _selectedCategory == cat;
-                        return Padding(
-                          padding: const EdgeInsets.only(right: 12.0),
-                          child: InkWell(
-                            onTap: () => setState(() => _selectedCategory = cat),
-                            borderRadius: BorderRadius.circular(20),
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 200),
-                              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                              decoration: BoxDecoration(
-                                color: isSelected 
-                                    ? const Color(0xFF3B82F6) 
-                                    : Colors.white.withOpacity(0.08),
-                                borderRadius: BorderRadius.circular(20),
-                                border: Border.all(
-                                  color: isSelected ? const Color(0xFF3B82F6) : Colors.white12,
-                                  width: 1,
+                        onPressed: () {
+                          _categoryScrollController.animateTo(
+                            _categoryScrollController.offset - 200,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                      ),
+                      Expanded(
+                        child: SingleChildScrollView(
+                          controller: _categoryScrollController,
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: _categories.map((cat) {
+                              final isSelected = _selectedCategory == cat;
+                              return Padding(
+                                padding: const EdgeInsets.only(right: 12.0),
+                                child: InkWell(
+                                  onTap: () =>
+                                      setState(() => _selectedCategory = cat),
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: AnimatedContainer(
+                                    duration: const Duration(milliseconds: 200),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 20,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: isSelected
+                                          ? const Color(0xFF3B82F6)
+                                          : Colors.white.withOpacity(0.08),
+                                      borderRadius: BorderRadius.circular(20),
+                                      border: Border.all(
+                                        color: isSelected
+                                            ? const Color(0xFF3B82F6)
+                                            : Colors.white12,
+                                        width: 1,
+                                      ),
+                                      boxShadow: isSelected
+                                          ? [
+                                              BoxShadow(
+                                                color: const Color(
+                                                  0xFF3B82F6,
+                                                ).withOpacity(0.4),
+                                                blurRadius: 10,
+                                                spreadRadius: 1,
+                                              ),
+                                            ]
+                                          : [],
+                                    ),
+                                    child: Text(
+                                      cat,
+                                      style: TextStyle(
+                                        color: isSelected
+                                            ? Colors.white
+                                            : Colors.white70,
+                                        fontWeight: isSelected
+                                            ? FontWeight.bold
+                                            : FontWeight.w500,
+                                        fontSize: 14,
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                                boxShadow: isSelected
-                                    ? [
-                                        BoxShadow(
-                                          color: const Color(0xFF3B82F6).withOpacity(0.4),
-                                          blurRadius: 10,
-                                          spreadRadius: 1,
-                                        )
-                                      ]
-                                    : [],
-                              ),
-                              child: Text(
-                                cat,
-                                style: TextStyle(
-                                  color: isSelected ? Colors.white : Colors.white70,
-                                  fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }).toList(),
-                            ),
+                              );
+                            }).toList(),
                           ),
                         ),
-                        IconButton(
-                          icon: const Icon(Icons.chevron_right, color: Colors.white54),
-                          onPressed: () {
-                            _categoryScrollController.animateTo(
-                              _categoryScrollController.offset + 200,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeInOut,
-                            );
-                          },
+                      ),
+                      IconButton(
+                        icon: const Icon(
+                          Icons.chevron_right,
+                          color: Colors.white54,
                         ),
-                      ],
-                    ),
+                        onPressed: () {
+                          _categoryScrollController.animateTo(
+                            _categoryScrollController.offset + 200,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -244,8 +278,12 @@ class TvScreenState extends State<TvScreen> {
             SliverFillRemaining(
               child: Center(
                 child: Text(
-                  'Không tìm thấy kênh truyền hình nào',
-                  style: TextStyle(color: Colors.white.withOpacity(0.6), fontSize: 16),
+                  L10n.t('no_tv_channels') ??
+                      'Không tìm thấy kênh truyền hình nào',
+                  style: TextStyle(
+                    color: Colors.white.withOpacity(0.6),
+                    fontSize: 16,
+                  ),
                 ),
               ),
             )
@@ -259,16 +297,13 @@ class TvScreenState extends State<TvScreen> {
                   crossAxisSpacing: 18,
                   childAspectRatio: 1.1,
                 ),
-                delegate: SliverChildBuilderDelegate(
-                  (context, index) {
-                    final channel = _filteredChannels[index];
-                    return _TvChannelCard(
-                      channel: channel,
-                      onTap: () => _playTvChannel(channel),
-                    );
-                  },
-                  childCount: _filteredChannels.length,
-                ),
+                delegate: SliverChildBuilderDelegate((context, index) {
+                  final channel = _filteredChannels[index];
+                  return _TvChannelCard(
+                    channel: channel,
+                    onTap: () => _playTvChannel(channel),
+                  );
+                }, childCount: _filteredChannels.length),
               ),
             ),
         ],
@@ -281,11 +316,8 @@ class _TvChannelCard extends StatefulWidget {
   final TvChannel channel;
   final VoidCallback onTap;
 
-  const _TvChannelCard({
-    Key? key,
-    required this.channel,
-    required this.onTap,
-  }) : super(key: key);
+  const _TvChannelCard({Key? key, required this.channel, required this.onTap})
+    : super(key: key);
 
   @override
   State<_TvChannelCard> createState() => _TvChannelCardState();
@@ -296,7 +328,7 @@ class _TvChannelCardState extends State<_TvChannelCard> {
 
   Widget _buildChannelLogo() {
     final id = widget.channel.id.toLowerCase();
-    
+
     // Custom High-Quality Branded Badges for each TV station
     if (id.contains('thvl') || id.contains('vinhlong')) {
       return Container(
@@ -308,9 +340,19 @@ class _TvChannelCardState extends State<_TvChannelCard> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.green.withOpacity(0.3), blurRadius: 8)],
+          boxShadow: [
+            BoxShadow(color: Colors.green.withOpacity(0.3), blurRadius: 8),
+          ],
         ),
-        child: Text(widget.channel.name, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
+        child: Text(
+          widget.channel.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.w900,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       );
     } else if (id.contains('vtv')) {
       return Container(
@@ -322,9 +364,19 @@ class _TvChannelCardState extends State<_TvChannelCard> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.red.withOpacity(0.3), blurRadius: 8)],
+          boxShadow: [
+            BoxShadow(color: Colors.red.withOpacity(0.3), blurRadius: 8),
+          ],
         ),
-        child: Text(widget.channel.name, style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
+        child: Text(
+          widget.channel.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.w900,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       );
     } else if (id.contains('htv7')) {
       return Container(
@@ -336,9 +388,19 @@ class _TvChannelCardState extends State<_TvChannelCard> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.red.withOpacity(0.3), blurRadius: 8)],
+          boxShadow: [
+            BoxShadow(color: Colors.red.withOpacity(0.3), blurRadius: 8),
+          ],
         ),
-        child: Text('HTV 7', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
+        child: Text(
+          'HTV 7',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       );
     } else if (id.contains('htv9')) {
       return Container(
@@ -350,9 +412,19 @@ class _TvChannelCardState extends State<_TvChannelCard> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.blue.withOpacity(0.3), blurRadius: 8)],
+          boxShadow: [
+            BoxShadow(color: Colors.blue.withOpacity(0.3), blurRadius: 8),
+          ],
         ),
-        child: Text('HTV 9', style: TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w900, fontStyle: FontStyle.italic)),
+        child: Text(
+          'HTV 9',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.w900,
+            fontStyle: FontStyle.italic,
+          ),
+        ),
       );
     } else if (id.contains('antv')) {
       return Container(
@@ -364,14 +436,23 @@ class _TvChannelCardState extends State<_TvChannelCard> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.amber.withOpacity(0.3), blurRadius: 8)],
+          boxShadow: [
+            BoxShadow(color: Colors.amber.withOpacity(0.3), blurRadius: 8),
+          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: const [
             Icon(Icons.shield, color: Colors.amberAccent, size: 20),
             SizedBox(width: 6),
-            Text('ANTV', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(
+              'ANTV',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       );
@@ -385,14 +466,23 @@ class _TvChannelCardState extends State<_TvChannelCard> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.green.withOpacity(0.3), blurRadius: 8)],
+          boxShadow: [
+            BoxShadow(color: Colors.green.withOpacity(0.3), blurRadius: 8),
+          ],
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: const [
             Icon(Icons.star, color: Colors.amberAccent, size: 20),
             SizedBox(width: 6),
-            Text('QPVN', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+            Text(
+              'QPVN',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ],
         ),
       );
@@ -406,9 +496,18 @@ class _TvChannelCardState extends State<_TvChannelCard> {
             end: Alignment.bottomRight,
           ),
           borderRadius: BorderRadius.circular(12),
-          boxShadow: [BoxShadow(color: Colors.purple.withOpacity(0.3), blurRadius: 8)],
+          boxShadow: [
+            BoxShadow(color: Colors.purple.withOpacity(0.3), blurRadius: 8),
+          ],
         ),
-        child: Text('TVB VIETNAM', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        child: Text(
+          'TVB VIETNAM',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
     } else if (id.contains('sctv')) {
       return Container(
@@ -421,7 +520,14 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text(widget.channel.name, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        child: Text(
+          widget.channel.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
     } else if (id.contains('hanoi') || id.contains('hn1')) {
       return Container(
@@ -434,7 +540,14 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('HÀ NỘI 1', style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+        child: Text(
+          'HÀ NỘI 1',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
     } else if (id.contains('dongthap')) {
       return Container(
@@ -447,7 +560,14 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text('ĐỒNG THÁP', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+        child: Text(
+          'ĐỒNG THÁP',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
     } else if (id.contains('cantho')) {
       return Container(
@@ -460,7 +580,14 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           ),
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Text(widget.channel.name, style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.bold)),
+        child: Text(
+          widget.channel.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       );
     }
 
@@ -474,7 +601,11 @@ class _TvChannelCardState extends State<_TvChannelCard> {
       ),
       child: Text(
         widget.channel.name,
-        style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+        style: const TextStyle(
+          color: Colors.white,
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+        ),
         textAlign: TextAlign.center,
       ),
     );
@@ -491,7 +622,9 @@ class _TvChannelCardState extends State<_TvChannelCard> {
           duration: const Duration(milliseconds: 200),
           transform: Matrix4.identity()..scale(_isHovered ? 1.04 : 1.0),
           decoration: BoxDecoration(
-            color: _isHovered ? Colors.white.withOpacity(0.12) : Colors.white.withOpacity(0.05),
+            color: _isHovered
+                ? Colors.white.withOpacity(0.12)
+                : Colors.white.withOpacity(0.05),
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
               color: _isHovered ? const Color(0xFF3B82F6) : Colors.white12,
@@ -503,13 +636,13 @@ class _TvChannelCardState extends State<_TvChannelCard> {
                       color: const Color(0xFF3B82F6).withOpacity(0.3),
                       blurRadius: 16,
                       spreadRadius: 2,
-                    )
+                    ),
                   ]
                 : [
                     BoxShadow(
                       color: Colors.black.withOpacity(0.4),
                       blurRadius: 8,
-                    )
+                    ),
                   ],
           ),
           child: Padding(
@@ -521,7 +654,10 @@ class _TvChannelCardState extends State<_TvChannelCard> {
                 Align(
                   alignment: Alignment.topRight,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFFEF4444),
                       borderRadius: BorderRadius.circular(10),
@@ -539,7 +675,11 @@ class _TvChannelCardState extends State<_TvChannelCard> {
                         SizedBox(width: 4),
                         Text(
                           'LIVE',
-                          style: TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 10,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
@@ -548,11 +688,7 @@ class _TvChannelCardState extends State<_TvChannelCard> {
                 const SizedBox(height: 4),
 
                 // Channel Logo Badge
-                Expanded(
-                  child: Center(
-                    child: _buildChannelLogo(),
-                  ),
-                ),
+                Expanded(child: Center(child: _buildChannelLogo())),
                 const SizedBox(height: 8),
 
                 // Channel Name
@@ -563,7 +699,12 @@ class _TvChannelCardState extends State<_TvChannelCard> {
                     fontSize: 13,
                     fontWeight: FontWeight.bold,
                     shadows: _isHovered
-                        ? [const Shadow(color: Color(0xFF3B82F6), blurRadius: 8)]
+                        ? [
+                            const Shadow(
+                              color: Color(0xFF3B82F6),
+                              blurRadius: 8,
+                            ),
+                          ]
                         : [],
                   ),
                   maxLines: 1,

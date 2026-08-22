@@ -1,3 +1,4 @@
+import 'package:speech_to_text/speech_to_text.dart' as stt;
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../utils/l10n.dart';
@@ -23,17 +24,22 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> with WindowListener {
   int _selectedIndex = 0;
 
-  final GlobalKey<ExploreScreenState> _exploreKey = GlobalKey<ExploreScreenState>();
-  final GlobalKey<SearchScreenState> _searchKey = GlobalKey<SearchScreenState>();
+  final GlobalKey<ExploreScreenState> _exploreKey =
+      GlobalKey<ExploreScreenState>();
+  final GlobalKey<SearchScreenState> _searchKey =
+      GlobalKey<SearchScreenState>();
   final GlobalKey<TvScreenState> _tvKey = GlobalKey<TvScreenState>();
   final GlobalKey<SportScreenState> _sportKey = GlobalKey<SportScreenState>();
   final TextEditingController _searchController = TextEditingController();
   late List<Widget> _screens;
   bool _isSidebarCollapsed = false;
+  late stt.SpeechToText _speech;
+  bool _isListening = false;
 
   @override
   void initState() {
     super.initState();
+    _speech = stt.SpeechToText();
     _screens = [
       HomeScreen(
         key: const PageStorageKey('HomeScreen'),
@@ -66,29 +72,40 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
     super.dispose();
   }
 
-  Widget _buildNavItem(IconData icon, IconData selectedIcon, String label, int index, {VoidCallback? onTapOverride}) {
+  Widget _buildNavItem(
+    IconData icon,
+    IconData selectedIcon,
+    String label,
+    int index, {
+    VoidCallback? onTapOverride,
+  }) {
     final isSelected = index >= 0 && _selectedIndex == index;
-    
+
     return InkWell(
       borderRadius: BorderRadius.circular(12),
-      onTap: onTapOverride ?? () {
-        setState(() {
-          _selectedIndex = index;
-        });
-      },
+      onTap:
+          onTapOverride ??
+          () {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         margin: const EdgeInsets.symmetric(vertical: 2),
-        padding: _isSidebarCollapsed 
+        padding: _isSidebarCollapsed
             ? const EdgeInsets.all(12)
             : const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: isSelected 
-              ? const Color(0xFF3B82F6).withOpacity(0.18) 
+          color: isSelected
+              ? const Color(0xFF3B82F6).withOpacity(0.18)
               : Colors.transparent,
-          border: isSelected 
-              ? Border.all(color: const Color(0xFF3B82F6).withOpacity(0.5), width: 1.5)
+          border: isSelected
+              ? Border.all(
+                  color: const Color(0xFF3B82F6).withOpacity(0.5),
+                  width: 1.5,
+                )
               : null,
           boxShadow: isSelected
               ? [
@@ -101,7 +118,9 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
               : [],
         ),
         child: Row(
-          mainAxisAlignment: _isSidebarCollapsed ? MainAxisAlignment.center : MainAxisAlignment.start,
+          mainAxisAlignment: _isSidebarCollapsed
+              ? MainAxisAlignment.center
+              : MainAxisAlignment.start,
           children: [
             Icon(
               isSelected ? selectedIcon : icon,
@@ -125,6 +144,48 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
     );
   }
 
+  void _listen() async {
+    if (!_isListening) {
+      bool available = await _speech.initialize(
+        onStatus: (val) {
+          if (val == 'done' || val == 'notListening') {
+            if (mounted) setState(() => _isListening = false);
+            if (_searchController.text.isNotEmpty) {
+              if (_selectedIndex == 3)
+                _tvKey.currentState?.performSearch(_searchController.text);
+              else if (_selectedIndex == 4)
+                _sportKey.currentState?.performSearch(_searchController.text);
+              else
+                _searchKey.currentState?.performSearch(_searchController.text);
+            }
+          }
+        },
+        onError: (val) => print('onError: '),
+      );
+      if (available) {
+        setState(() => _isListening = true);
+        String locale = L10n.currentLang == 'vi' ? 'vi_VN' : 'en_US';
+        _speech.listen(
+          localeId: locale,
+          onResult: (val) => setState(() {
+            _searchController.text = val.recognizedWords;
+          }),
+        );
+      }
+    } else {
+      setState(() => _isListening = false);
+      _speech.stop();
+      if (_searchController.text.isNotEmpty) {
+        if (_selectedIndex == 3)
+          _tvKey.currentState?.performSearch(_searchController.text);
+        else if (_selectedIndex == 4)
+          _sportKey.currentState?.performSearch(_searchController.text);
+        else
+          _searchKey.currentState?.performSearch(_searchController.text);
+      }
+    }
+  }
+
   Key _stackKey = UniqueKey();
 
   @override
@@ -133,10 +194,8 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
       body: Stack(
         children: [
           // Background Black
-          Container(
-            color: const Color(0xFF000000),
-          ),
-          
+          Container(color: const Color(0xFF000000)),
+
           // Main Content
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
@@ -173,28 +232,53 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
               borderColor: const Color(0x1AFFFFFF),
               blur: 40.0,
               child: Column(
-                crossAxisAlignment: _isSidebarCollapsed ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+                crossAxisAlignment: _isSidebarCollapsed
+                    ? CrossAxisAlignment.center
+                    : CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 10),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 24.0,
+                    ),
                     child: Row(
-                      mainAxisAlignment: _isSidebarCollapsed ? MainAxisAlignment.center : MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: _isSidebarCollapsed
+                          ? MainAxisAlignment.center
+                          : MainAxisAlignment.spaceBetween,
                       children: [
                         if (!_isSidebarCollapsed)
                           const Row(
                             children: [
-                              Icon(Icons.movie_filter, color: Color(0xFF3B82F6), size: 32),
+                              Icon(
+                                Icons.movie_filter,
+                                color: Color(0xFF3B82F6),
+                                size: 32,
+                              ),
                               SizedBox(width: 12),
-                              Text('MyTV4U', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white, letterSpacing: 1.2)),
+                              Text(
+                                'MyTV4U',
+                                style: TextStyle(
+                                  fontSize: 24,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  letterSpacing: 1.2,
+                                ),
+                              ),
                             ],
                           ),
                         InkWell(
-                          onTap: () => setState(() => _isSidebarCollapsed = !_isSidebarCollapsed),
+                          onTap: () => setState(
+                            () => _isSidebarCollapsed = !_isSidebarCollapsed,
+                          ),
                           borderRadius: BorderRadius.circular(8),
                           child: const Padding(
                             padding: EdgeInsets.all(4.0),
-                            child: Icon(Icons.menu, color: Colors.white70, size: 28),
+                            child: Icon(
+                              Icons.menu,
+                              color: Colors.white70,
+                              size: 28,
+                            ),
                           ),
                         ),
                       ],
@@ -202,43 +286,83 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                   ),
                   const SizedBox(height: 16),
                   Padding(
-                    padding: EdgeInsets.symmetric(horizontal: _isSidebarCollapsed ? 0 : 12),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: _isSidebarCollapsed ? 0 : 12,
+                    ),
                     child: Column(
                       children: [
-                        _buildNavItem(Icons.home_outlined, Icons.home, L10n.t('nav_home'), 0),
+                        _buildNavItem(
+                          Icons.home_outlined,
+                          Icons.home,
+                          L10n.t('nav_home'),
+                          0,
+                        ),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.explore_outlined, Icons.explore, L10n.t('nav_explore'), 1),
+                        _buildNavItem(
+                          Icons.explore_outlined,
+                          Icons.explore,
+                          L10n.t('nav_explore'),
+                          1,
+                        ),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.search_outlined, Icons.search, L10n.t('nav_search'), 2),
+                        _buildNavItem(
+                          Icons.search_outlined,
+                          Icons.search,
+                          L10n.t('nav_search'),
+                          2,
+                        ),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.live_tv_outlined, Icons.live_tv, L10n.t('nav_tv'), 3),
+                        _buildNavItem(
+                          Icons.live_tv_outlined,
+                          Icons.live_tv,
+                          L10n.t('nav_tv'),
+                          3,
+                        ),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.sports_soccer_outlined, Icons.sports_soccer, L10n.t('nav_sport') ?? 'Thể Thao', 4),
+                        _buildNavItem(
+                          Icons.sports_soccer_outlined,
+                          Icons.sports_soccer,
+                          L10n.t('nav_sport') ?? 'Thể Thao',
+                          4,
+                        ),
                         const SizedBox(height: 8),
-                        _buildNavItem(Icons.favorite_outline, Icons.favorite, L10n.t('nav_favorite'), 5),
+                        _buildNavItem(
+                          Icons.folder_outlined,
+                          Icons.folder,
+                          'Thư viện',
+                          5,
+                        ),
                       ],
                     ),
                   ),
                   const Spacer(),
                   Padding(
                     padding: EdgeInsets.all(_isSidebarCollapsed ? 8.0 : 12.0),
-                    child: _buildNavItem(Icons.settings_outlined, Icons.settings, L10n.t('nav_settings'), -1, onTapOverride: () async {
-                      await Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
-                      setState(() {
-                        _stackKey = UniqueKey();
-                      });
-                    }),
+                    child: _buildNavItem(
+                      Icons.settings_outlined,
+                      Icons.settings,
+                      L10n.t('nav_settings'),
+                      -1,
+                      onTapOverride: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => const SettingsScreen(),
+                          ),
+                        );
+                        setState(() {
+                          _stackKey = UniqueKey();
+                        });
+                      },
+                    ),
                   ),
                 ],
               ),
             ),
           ),
-          
+
           // Custom Title Bar (on top to receive window controls and drag)
-          const Positioned(
-            top: 0, left: 0, right: 0,
-            child: CustomTitleBar(),
-          ),
+          const Positioned(top: 0, left: 0, right: 0, child: CustomTitleBar()),
 
           // Global Search Bar (Moved back to title bar, placed after CustomTitleBar to prioritize clicks)
           AnimatedPositioned(
@@ -257,67 +381,95 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                   borderColor: Colors.white.withOpacity(0.2),
                   blur: 30.0,
                   child: Row(
-                children: [
-                  const SizedBox(width: 16),
-                  const Icon(Icons.search, color: Colors.white70, size: 18),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: TextField(
-                      controller: _searchController,
-                      style: const TextStyle(color: Colors.white, fontSize: 14),
-                      decoration: InputDecoration(
-                        hintText: _selectedIndex == 3 ? L10n.t('search_tv') ?? 'Tìm kiếm kênh TV...' : _selectedIndex == 4 ? L10n.t('search_sports') ?? 'Tìm kiếm sự kiện thể thao...' : L10n.t('search_movies') ?? 'Tìm kiếm phim...',
-                        hintStyle: const TextStyle(color: Colors.white38, fontSize: 14),
-                        border: InputBorder.none,
-                        contentPadding: const EdgeInsets.symmetric(vertical: 9),
-                        isDense: true,
+                    children: [
+                      const SizedBox(width: 16),
+                      const Icon(Icons.search, color: Colors.white70, size: 18),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: TextField(
+                          controller: _searchController,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                          decoration: InputDecoration(
+                            hintText: _selectedIndex == 3
+                                ? L10n.t('search_tv') ?? 'Tìm kiếm kênh TV...'
+                                : _selectedIndex == 4
+                                ? L10n.t('search_sports') ??
+                                      'Tìm kiếm sự kiện thể thao...'
+                                : L10n.t('search_movies') ?? 'Tìm kiếm phim...',
+                            hintStyle: const TextStyle(
+                              color: Colors.white38,
+                              fontSize: 14,
+                            ),
+                            border: InputBorder.none,
+                            contentPadding: const EdgeInsets.symmetric(
+                              vertical: 9,
+                            ),
+                            isDense: true,
+                          ),
+                          onChanged: (query) {
+                            if (_selectedIndex == 3) {
+                              _tvKey.currentState?.performSearch(query);
+                            } else if (_selectedIndex == 4) {
+                              _sportKey.currentState?.performSearch(query);
+                            } else {
+                              if (_selectedIndex != 2) {
+                                setState(() => _selectedIndex = 2);
+                              }
+                              _searchKey.currentState?.performSearch(query);
+                            }
+                          },
+                          onSubmitted: (value) {
+                            if (_selectedIndex == 3) {
+                              _tvKey.currentState?.performSearch(value);
+                            } else if (_selectedIndex == 4) {
+                              _sportKey.currentState?.performSearch(value);
+                            } else {
+                              if (_selectedIndex != 2) {
+                                setState(() => _selectedIndex = 2);
+                              }
+                              _searchKey.currentState?.performSearch(value);
+                            }
+                          },
+                        ),
                       ),
-                      onChanged: (query) {
-                        if (_selectedIndex == 3) {
-                          _tvKey.currentState?.performSearch(query);
-                        } else if (_selectedIndex == 4) {
-                          _sportKey.currentState?.performSearch(query);
-                        } else {
-                          if (_selectedIndex != 2) {
-                            setState(() => _selectedIndex = 2);
-                          }
-                          _searchKey.currentState?.performSearch(query);
-                        }
-                      },
-                      onSubmitted: (value) {
-                        if (_selectedIndex == 3) {
-                          _tvKey.currentState?.performSearch(value);
-                        } else if (_selectedIndex == 4) {
-                          _sportKey.currentState?.performSearch(value);
-                        } else {
-                          if (_selectedIndex != 2) {
-                            setState(() => _selectedIndex = 2);
-                          }
-                          _searchKey.currentState?.performSearch(value);
-                        }
-                      },
-                    ),
+                      if (_searchController.text.isNotEmpty)
+                        IconButton(
+                          icon: const Icon(
+                            Icons.clear,
+                            color: Colors.white54,
+                            size: 18,
+                          ),
+                          onPressed: () {
+                            _searchController.clear();
+                            setState(() {});
+                            if (_selectedIndex == 3) {
+                              _tvKey.currentState?.performSearch('');
+                            } else if (_selectedIndex == 4) {
+                              _sportKey.currentState?.performSearch('');
+                            } else if (_selectedIndex == 2) {
+                              _searchKey.currentState?.performSearch('');
+                            }
+                          },
+                        ),
+
+                        IconButton(
+                          icon: Icon(
+                            _isListening ? Icons.mic : Icons.mic_none,
+                            color: _isListening ? Colors.redAccent : Colors.white54,
+                            size: 18
+                          ),
+                          onPressed: _listen,
+                          tooltip: 'Tìm kiếm bằng giọng nói',
+                        ),
+
+                    ],
                   ),
-                  if (_searchController.text.isNotEmpty)
-                    IconButton(
-                      icon: const Icon(Icons.clear, color: Colors.white54, size: 18),
-                      onPressed: () {
-                        _searchController.clear();
-                        setState(() {});
-                        if (_selectedIndex == 3) {
-                          _tvKey.currentState?.performSearch('');
-                        } else if (_selectedIndex == 4) {
-                          _sportKey.currentState?.performSearch('');
-                        } else if (_selectedIndex == 2) {
-                          _searchKey.currentState?.performSearch('');
-                        }
-                      },
-                    ),
-                ],
+                ),
               ),
             ),
-          ),
-          ),
           ),
         ],
       ),

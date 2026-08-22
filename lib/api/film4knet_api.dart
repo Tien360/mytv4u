@@ -57,8 +57,9 @@ class Film4kNetApi {
 
   static Future<List<Movie>> search(String keyword) async {
     try {
+      final enc = Uri.encodeComponent(keyword).replaceAll('%20', '+');
       final res = await http.get(
-        Uri.parse('$baseUrl/home?q=${Uri.encodeComponent(keyword)}'),
+        Uri.parse('$baseUrl/home?q=$enc'),
       );
       if (res.statusCode == 200) {
         final data = json.decode(res.body);

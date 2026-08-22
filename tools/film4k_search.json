@@ -1,0 +1,1115 @@
+{
+  "locale": "vi",
+  "list": [
+    {
+      "slug": "nguoi-nhen-2002",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/zQ8AxTPiCiS5nnwXpwTBPBHSaa5.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250828/cnyc0P2S/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "After being bitten by a genetically altered spider at Oscorp, nerdy but endearing high school student Peter Parker is endowed with amazing powers to become the superhero known as Spider-Man.",
+        "vi": "Peter Parker là một sinh viên trẻ và nhút nhát, đã sống với dì May và chú Ben kể từ khi cha mẹ anh ta mất khi anh ta còn rất nhỏ. Peter yêu người hàng xóm xinh đẹp của mình, nhưng sự thiếu lôi cuốn của anh ta không khiến anh ta trở nên nổi tiếng ở trường trung học. Một ngày nọ, anh ta bị cắn bởi một con nhện đã bị biến đổi gen, phát hiện ra ngày hôm sau anh ta sở hữu sức mạnh khác thường: anh ta có sức mạnh và sự nhanh nhẹn của một con nhện. Cuộc phiêu lưu của Người Nhện, dựa trên truyện tranh nổi tiếng Stan Lee và Steve Ditko, đã càn quét phòng vé Mỹ và phá vỡ kỷ lục phá vỡ kỷ lục vào cuối tuần đầu tiên của anh: 114 triệu đô la, lần đầu tiên trong lịch sử, anh tìm cách phá vỡ Rào cản 100 triệu đô la vào một ngày cuối tuần bình thường."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/or6XJBVpcEbIkma0V9zshnbEtx4.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/w55KSeyhH3nXjzx7AhbNq0DO3zt.jpg"
+      },
+      "score": 7.3,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/cnyc0P2S/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/6aCfSIjI/index.m3u8",
+          "label": "Thuyết Minh 1"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/Gxdxirep/index.m3u8",
+          "label": "Thuyết Minh 2"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250926/7uc7idmd/index.m3u8",
+          "label": "Thuyết Minh 3"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man",
+        "vi": "Người Nhện"
+      },
+      "year": 2002,
+      "_id": "6a7d9f86916d65ebc7f73e77"
+    },
+    {
+      "slug": "nguoi-nhen-2",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/6al048Lat3eLVQOuKtc9h6Tu94d.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250828/AKyUcRir/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Peter Parker is going through a major identity crisis. Burned out from being Spider-Man, he decides to shelve his superhero alter ego, which leaves the city suffering in the wake of carnage left by the evil Doc Ock. In the meantime, Parker still can't act on his feelings for Mary Jane Watson, a girl he's loved since childhood. A certain anger begins to brew in his best friend Harry Osborn as well...",
+        "vi": "Đã hai năm kể từ khi Peter Parker im lặng rời bỏ Mary Jane Watson, tình yêu vĩ đại của anh và quyết định tiếp tục đảm nhận trách nhiệm của mình với tư cách là Người Nhện. Peter phải đối mặt với những thử thách mới khi anh chiến đấu với món quà và lời nguyền về sức mạnh của mình bằng cách cân bằng hai danh tính: Người nhện siêu anh hùng khó nắm bắt và sinh viên đại học. Mối quan hệ với những người mà anh ấy trân trọng nhất hiện đang có nguy cơ bị phơi bày với sự xuất hiện của một nhân vật phản diện nhiều xúc tu mạnh mẽ Octopus, \"Doc Ock. Sức hấp dẫn của cô đối với MJ ngày càng lớn khi cô chiến đấu với sự thôi thúc từ bỏ cuộc sống bí mật của mình và tuyên bố tình yêu của mình. Trong khi đó, MJ đã tiếp tục cuộc sống của mình. Cuộc sống của cô Mối quan hệ của Peter với người bạn thân nhất Harry Osborn đã bị phá vỡ bởi mối thù truyền kiếp của Harry chống lại Người Nhện, người mà anh ta chịu trách nhiệm cho cái chết của cha mình."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/aGuvNAaaZuWXYQQ6N2v7DeuP6mB.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/1ICx62fI9FtAgjG2x5zprn4qcdY.jpg"
+      },
+      "score": 7.324,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/AKyUcRir/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/bHmkKOoh/index.m3u8",
+          "label": "Thuyết Minh"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man 2",
+        "vi": "Người Nhện 2"
+      },
+      "year": 2004,
+      "_id": "6a7da004916d65ebc7f75246"
+    },
+    {
+      "slug": "nguoi-nhen-3",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/FfAU0PUs8AJkMU2VbkVNFtRXR4.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250828/BJROhrq2/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The seemingly invincible Spider-Man goes up against an all-new crop of villains—including the shape-shifting Sandman. While Spider-Man’s superpowers are altered by an alien organism, his alter ego, Peter Parker, deals with nemesis Eddie Brock and also gets caught up in a love triangle.",
+        "vi": "Spider Man 3 là phần tiếp theo của series phim Spider Man. Lần này, tưởng như Peter Parker đã tìm được bình yên trong cuộc sống bên cạnh người anh yêu. Nhưng cậu bạn cũ Harry Osborn khám phá ra bí mật về bộ giáp Green Goblin do người cha quá cố để lại.  Cũng đúng lúc này, bỗng có một thứ vật chất biến bộ đồ của Spider-Man thành màu đen và khiến tính khí của Peter Parker đột ngột thay đổi, trở nên cao ngạo hơn bao giờ hết. Rồi thứ vật chất đen bí ẩn kia còn biến Eddie Brock trở thành Venom (Người Nhện Đen) – có những khả năng y hệt như Spider Man. Giờ đây Spider Man phải tìm cách thoát khỏi thứ vật chất gớm ghiếc kia và chuẩn bị cho một cuộc chiến lớn với ba kẻ thù đầy nguy hiểm kia… Tình yêu, tình bạn và những giằng xé nội tâm sẽ giúp được gì khi Người Nhện không còn khoác trên mình bộ đồ màu đỏ quen thuộc?"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/sJMTTGjtjvrMZ7G0oP9D13wNUum.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/qCxjZQHcfa6aaypmHrgIdbi85sW.jpg"
+      },
+      "score": 6.472,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/BJROhrq2/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/mI07oF5X/index.m3u8",
+          "label": "Thuyết Minh 1"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250926/1LHKKoNG/index.m3u8",
+          "label": "Thuyết Minh 2"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man 3",
+        "vi": "Người Nhện 3"
+      },
+      "year": 2007,
+      "_id": "6a7d9f86916d65ebc7f73e76"
+    },
+    {
+      "slug": "nguoi-nhen-giang-ho",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/6t2FvBr9DS8MOq0m5FAwPBCdAW5.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Mystery",
+          "Crime"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Bí Ẩn",
+          "Phim Hình Sự"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Ben Reilly, an aging and down on his luck private investigator in 1930s New York, is forced to grapple with his past life as the city's one and only superhero.",
+        "vi": "Ben Reilly, một thám tử tư già nua và gặp vận rủi ở New York những năm 1930, buộc phải đối mặt với quá khứ của mình với tư cách là siêu anh hùng duy nhất của thành phố."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/oD8WSVqz84ZRfelkr7JPeJwR9Iv.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/oD8WSVqz84ZRfelkr7JPeJwR9Iv.jpg"
+      },
+      "score": 8.365,
+      "title": {
+        "en": "Spider-Noir",
+        "vi": "Người Nhện Giang Hồ"
+      },
+      "year": 2026,
+      "_id": "6a7d9ad5916d65ebc7f67af7"
+    },
+    {
+      "slug": "nguoi-nhen-xa-nha",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/vamhMTvh9m9zFHDoR0v1nRtf6T4.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250828/xPEHfRRw/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Peter Parker and his friends go on a summer trip to Europe. However, they will hardly be able to rest - Peter will have to agree to help Nick Fury uncover the mystery of creatures that cause natural disasters and destruction throughout the continent.",
+        "vi": "Bạn biết vì sao Avengers: Endgame không có after-credit không? Bởi vì ngay sau câu chuyện đó chính là sự ra mắt của Spider-Man: Far From Home đấy. Trở lại sau sự ra đi của người chú Tony – Iron Man, có vẻ như cậu bé Peter đã không còn đủ động lực, niềm tin để tiếp tục theo đuổi giấc mơ làm siêu anh hùng. Nhưng đời đâu phải lúc nào cũng như ý ta mong muốn! Nhất là khi ở ngoài kia, vẫn còn vô vàn kẻ xấu khác cần tiêu diệt. Trong chuyến du lịch đến châu Âu, Peter Parker và những người bạn của mình rơi vào rắc rối mới. Không những vậy, cậu còn được diện kiến Nick Fury. Liệu thử thách mới của Spider-Man sẽ khó khăn đến mức độ nào? Dù \"gan to\" cúp điện thoại của Nick Fury Peter vẫn phải hợp tác cùng ông để tiếp tục hành trình bảo vệ thế giới của chú Tony. Bên cạnh Nick Fury, Spider-Man: Far From Home còn có sự xuất hiện của một gương mặt mới là Mysterio. Liệu đây sẽ là nhân vật phản diện hay chính diện?"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4q2NNj4S5dG2RLF9CpXsej7yXl.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/pkUEHB1CYfPj5K8Td484TT9mBF1.jpg"
+      },
+      "score": 7.394,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/xPEHfRRw/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/GYnbcupk/index.m3u8",
+          "label": "Thuyết Minh"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man: Far From Home",
+        "vi": "Người Nhện: Xa Nhà"
+      },
+      "year": 2019,
+      "_id": "6a7da005916d65ebc7f7524e"
+    },
+    {
+      "slug": "nguoi-nhen-sieu-dang",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/HVcza6tJtWFrLriuh3Ano4Vt46.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250701/HR0mnlPx/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "A teenage Peter Parker grapples with both high school and amazing super-human crises as his alter-ego Spider-Man.",
+        "vi": "Amazing Spider-Man hay Siêu Nhện Tái Xuất có khá nhiều khác biệt so với các phần trước tập trung ở sự khác biệt ở tính cách của các nhân vật, Peter không còn là cậu bé nhút nhát mà khá nghịch ngợm, bên cạnh đó đạo diễn Marc Webb cũng mạnh dạn đưa ra thêm nhiều thay đổi về cốt truyện để Amazing Spider-Man thực sự mới lạ so với các phiên bản cũ.  Cha mẹ Peter biến mất bí ấn và để cậu cho cô chú nuôi nấng. Sự tò mò về thân phận của bản thân lẫn những điều chưa biết về cha mẹ luôn thôi thúc cậu.  Peter tìm thấy tập tài liệu mà cha để lại. Từ đây, những manh mối dẫn cậu tới tập đoàn Oscorp và người cộng sự của ông. Một tai nạn tại Oscorp khiến Peter có những siêu năng lực của loài nhện, Người nhện xuất hiện bí ẩn trong lòng New York."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/jexoNYnPd6vVrmygwF6QZmWPFdu.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/5ObdzkfZBV3b9fcF5IISMPPknxv.jpg"
+      },
+      "score": 6.749,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250701/HR0mnlPx/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/RH2s0P4o/index.m3u8",
+          "label": "Thuyết Minh"
+        }
+      ],
+      "title": {
+        "en": "The Amazing Spider-Man",
+        "vi": "Người Nhện Siêu Đẳng"
+      },
+      "year": 2012,
+      "_id": "6a7da005916d65ebc7f7524d"
+    },
+    {
+      "slug": "nguoi-nhen-tro-ve-nha",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/fn4n6uOYcB6Uh89nbNPoU2w80RV.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250701/sSir5rEU/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Following the events of Captain America: Civil War, Peter Parker, with the help of his mentor Tony Stark, tries to balance his life as an ordinary high school student in Queens, New York City, with fighting crime as his superhero alter ego Spider-Man as a new threat, the Vulture, emerges.",
+        "vi": "Tạm biệt hai franchise về thời sinh viên, Spider-Man: Homecoming sẽ lần đầu tiên đưa các khán giả đến với cuộc sống trung học của Peter Paker – siêu anh hùng Người Nhện. Liệu một cậu bé chưa trưởng thành sẽ làm thế nào để cân bằng cuộc sống bình thường và trách nhiệm của một anh hùng giải cứu thế giới. Đây cũng là lần đầu tiên, series Người Nhện có sự tham gia sản xuất của Marvel Studio và sự xuất hiện của Iron Man – Robert Downey Jr."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/c24sv2weTHPsmDa7jEMN0m2P3RT.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/tNm6pNf9Xe1gPKu4xqPEWj0issu.jpg"
+      },
+      "score": 7.332,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250701/sSir5rEU/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/7f9poh9u/index.m3u8",
+          "label": "Thuyết Minh"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man: Homecoming",
+        "vi": "Người Nhện: Trở Về Nhà"
+      },
+      "year": 2017,
+      "_id": "6a7da004916d65ebc7f7524b"
+    },
+    {
+      "slug": "nguoi-nhen-sieu-dang-2",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/k0hlAzTryCYX1O1LyC6P8tAa8s0.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250701/QMd86oAx/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "For Peter Parker, life is busy. Between taking out the bad guys as Spider-Man and spending time with the person he loves, Gwen Stacy, high school graduation cannot come quickly enough. Peter has not forgotten about the promise he made to Gwen’s father to protect her by staying away, but that is a promise he cannot keep. Things will change for Peter when a new villain, Electro, emerges, an old friend, Harry Osborn, returns, and Peter uncovers new clues about his past.",
+        "vi": "“Mỗi ngày tôi thức dậy và biết rằng, tôi càng cố cứu thêm nhiều người, có nghĩa tôi đang tạo ra nhiều kẻ thù hơn. Và đó chỉ là vấn đề thời gian, khi tôi phải đối mặt với những kẻ thù mạnh hơn mà tôi không thể đánh bại” – Câu nói của Người nhện báo trước cho sự xuất hiện của một loạt những kẻ thù nguy hiểm mà cậu sẽ phải đối đầu trong phần phim tiếp theo. Ngoài Electro (Jamie Foxx) đã xuất hiện trong đoạn teaser trước đây, người hùng giấu mặt Peter Parker sẽ phải chiến đấu chống lại Rhino (Paul Giamatti) và Green Goblin (Dane DeHaan)."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/dGjoPttcbKR5VWg1jQuNFB247KL.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/dKOOKXgzCO7zh9meehGLxdWvpQY.jpg"
+      },
+      "score": 6.553,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250701/QMd86oAx/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/Y8qXa2JX/index.m3u8",
+          "label": "Thuyết Minh 1"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/RsgIPHb3/index.m3u8",
+          "label": "Thuyết Minh 2"
+        }
+      ],
+      "title": {
+        "en": "The Amazing Spider-Man 2",
+        "vi": "Người Nhện Siêu Đẳng 2"
+      },
+      "year": 2014,
+      "_id": "6a7da005916d65ebc7f7524c"
+    },
+    {
+      "slug": "nguoi-nhen-khong-con-nha",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/14QbnygCuTO0vl7CAFmPf1fgZfV.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250828/c0xkSuds/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Peter Parker is unmasked and no longer able to separate his normal life from the high-stakes of being a super-hero. When he asks for help from Doctor Strange the stakes become even more dangerous, forcing him to discover what it truly means to be Spider-Man.",
+        "vi": "Peter Parker đã bị lộ mặt và không còn có thể tách biệt cuộc sống bình thường của mình với những yêu cầu cao của việc trở thành một Siêu anh hùng. Khi anh ta yêu cầu sự giúp đỡ từ Doctor Strange, mọi thứ càng trở nên nguy hiểm hơn, buộc anh ta phải khám phá ra ý nghĩa thực sự của việc trở thành Người Nhện."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/y4SQ2dJ1y2LBUnxTH7hCe8sr29c.jpg"
+      },
+      "score": 7.938,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/c0xkSuds/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/Dklujs3J/index.m3u8",
+          "label": "Thuyết Minh"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man: No Way Home",
+        "vi": "Người Nhện: Không Còn Nhà"
+      },
+      "year": 2021,
+      "_id": "6a7da004916d65ebc7f7523e"
+    },
+    {
+      "slug": "spider-man-brand-new-day",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/spider-man-brand-new-day/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+        "vi": "Không còn Tony Stark, MJ hay Ned kề cận, Peter buộc phải đơn thân độc mã đối diện với phe đối đầu bí ẩn. Tuy nhiên, khi áp lực ngày càng gia tăng, nó kích hoạt một sự biến đổi thể chất bất ngờ, đe dọa chính sự tồn tại của anh. Đồng thời, một chuỗi tội phạm bí ẩn mới xuất hiện, kéo theo một trong những mối đe dọa mạnh mẽ nhất mà Spider-Man từng đối mặt."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/wqGZVSCUSXE92WH2zyol2REaqT4.jpg"
+      },
+      "score": 7.868,
+      "title": {
+        "en": "Spider-Man: Brand New Day",
+        "vi": "Người Nhện: Khởi Đầu Mới"
+      },
+      "year": 2026,
+      "_id": "6a7e3a73916d65ebc7fa38ae"
+    },
+    {
+      "slug": "nguoi-nhen-vu-tru-moi",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/8mnXR9rey5uQ08rZAvzojKWbDQS.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250828/AZ54A68k/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Struggling to find his place in the world while juggling school and family, Brooklyn teenager Miles Morales is unexpectedly bitten by a radioactive spider and develops unfathomable powers just like the one and only Spider-Man. While wrestling with the implications of his new abilities, Miles discovers a super collider created by the madman Wilson \"Kingpin\" Fisk, causing others from across the Spider-Verse to be inadvertently transported to his dimension.",
+        "vi": "Sau khi bị một con nhện nhiễm xạ cắn, Miles Morales, chàng thiếu niên từ Brooklyn đã nhận được một khóa học nhanh về cách giăng tơ từ những người ở chiều không gian khác."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iiZZdoQBEYBv6id8su7ImL0oCbD.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/kahw25SAqedXIruUGIuSUiq7t98.jpg"
+      },
+      "score": 8.394,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/AZ54A68k/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/ckIgSaGX/index.m3u8",
+          "label": "Thuyết Minh"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man: Into the Spider-Verse",
+        "vi": "Người Nhện: Vũ Trụ Mới"
+      },
+      "year": 2018,
+      "_id": "6a7da005916d65ebc7f7524f"
+    },
+    {
+      "slug": "nguoi-nhen-du-hanh-vu-tru-nhen",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/kVd3a9YeLGkoeR50jGEXM6EqseS.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "https://s6.kkphimplayer6.com/20250828/ZeHcLG6S/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "After reuniting with Gwen Stacy, Brooklyn’s full-time, friendly neighborhood Spider-Man is catapulted across the Multiverse, where he encounters the Spider Society, a team of Spider-People charged with protecting the Multiverse's very existence. But when the heroes clash on how to handle a new threat, Miles finds himself pitted against the other Spiders and must set out on his own to save those he loves most.",
+        "vi": "Miles Morales tái xuất trong phần tiếp theo của bom tấn hoạt hình từng đoạt giải Oscar - Spider-Man: Across the Spider-Verse. Sau khi gặp lại Gwen Stacy, chàng Spider-Man thân thiện đến từ Brooklyn phải du hành qua đa vũ trụ và gặp một nhóm Người Nhện chịu trách nhiệm bảo vệ các thế giới song song. Nhưng khi nhóm siêu anh hùng xung đột về cách xử lý một mối đe dọa mới, Miles buộc phải đọ sức với các Người Nhện khác và phải xác định lại ý nghĩa của việc trở thành một người hùng để có thể cứu những người cậu yêu thương nhất."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/8Vt6mWEReuy4Of61Lnj5Xj704m8.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/paM6UdMgXuXyAK0jhGfV07o3lRW.jpg"
+      },
+      "score": 8.3,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/ZeHcLG6S/index.m3u8",
+          "label": "Vietsub"
+        },
+        {
+          "kind": "other",
+          "url": "https://s6.kkphimplayer6.com/20250828/j2jcPP3m/index.m3u8",
+          "label": "Lồng Tiếng"
+        }
+      ],
+      "title": {
+        "en": "Spider-Man: Across the Spider-Verse",
+        "vi": "Người Nhện: Du Hành Vũ Trụ Nhện"
+      },
+      "year": 2023,
+      "_id": "6a7da006916d65ebc7f75250"
+    },
+    {
+      "slug": "vjeran-tomic-nguoi-nhen-paris",
+      "backdrop": "https://phimimg.com/upload/vod/20240228-1/46c2b65fb0cdb36cef0f8dc675c9599e.jpg",
+      "genres": {
+        "en": [
+          "Documentary",
+          "Crime"
+        ],
+        "vi": [
+          "Tài Liệu",
+          "Hình Sự"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20240305/saFVC1gI/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Tay trộm đứng sau vụ cướp Bảo tàng Nghệ thuật Hiện đại Paris năm 2010 kể lại cách hắn thực hiện vụ trộm tác phẩm nghệ thuật lớn nhất trong lịch sử nước Pháp.",
+        "vi": "Tay trộm đứng sau vụ cướp Bảo tàng Nghệ thuật Hiện đại Paris năm 2010 kể lại cách hắn thực hiện vụ trộm tác phẩm nghệ thuật lớn nhất trong lịch sử nước Pháp."
+      },
+      "poster": {
+        "en": "https://phimimg.com/upload/vod/20240228-1/eb1c4e8d6633318737ddd17d1a0a5bee.jpg",
+        "vi": "https://phimimg.com/upload/vod/20240228-1/46c2b65fb0cdb36cef0f8dc675c9599e.jpg"
+      },
+      "score": null,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20240305/saFVC1gI/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "Vjeran Tomic: The Spider-Man Of Paris",
+        "vi": "Vjeran Tomic: Người Nhện Paris"
+      },
+      "year": 2023,
+      "_id": "6a7da9a8916d65ebc7f95fba"
+    },
+    {
+      "slug": "nguoi-nhen-hang-xom-than-thien",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/kkT2B2gmynoh9kZMo1gromLNeqy.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Peter Parker is on his way to becoming a hero, but his path to get there is anything but ordinary.",
+        "vi": "Loạt phim hoạt hình này giới thiệu câu chuyện của Peter trong một dòng thời gian tách biệt với vũ trụ điện ảnh chính của Marvel và trước các sự kiện của Captain America: Civil War."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/kjcsNeqF52YUQ2rUBGLMHwLkxvR.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/kjcsNeqF52YUQ2rUBGLMHwLkxvR.jpg"
+      },
+      "score": 7.8,
+      "title": {
+        "en": "Your Friendly Neighborhood Spider-Man",
+        "vi": "Người Nhện Hàng Xóm Thân Thiện"
+      },
+      "year": 2025,
+      "_id": "6a7d95a1916d65ebc7f63353"
+    }
+  ],
+  "resumeMovies": [],
+  "genres": [
+    "Action & Adventure",
+    "Bí Ẩn",
+    "Chiến Tranh",
+    "Chính Kịch",
+    "Chương Trình Truyền Hình",
+    "Cổ Trang",
+    "Gia Đình",
+    "Giả Tượng",
+    "Gây Cấn",
+    "Hoạt Hình",
+    "Hài Hước",
+    "Hành Động",
+    "Hình Sự",
+    "Học Đường",
+    "Khoa Học",
+    "Kids",
+    "Kinh Dị",
+    "Kinh Điển",
+    "Lịch Sử",
+    "Miền Tây",
+    "News",
+    "Phim 18+",
+    "Phim Bí Ẩn",
+    "Phim Chiến Tranh",
+    "Phim Chính Kịch",
+    "Phim Gia Đình",
+    "Phim Giả Tượng",
+    "Phim Gây Cấn",
+    "Phim Hoạt Hình",
+    "Phim Hài",
+    "Phim Hành Động",
+    "Phim Hình Sự",
+    "Phim Khoa Học Viễn Tưởng",
+    "Phim Kinh Dị",
+    "Phim Lãng Mạn",
+    "Phim Lịch Sử",
+    "Phim Miền Tây",
+    "Phim Ngắn",
+    "Phim Nhạc",
+    "Phim Phiêu Lưu",
+    "Phim Tài Liệu",
+    "Phiêu Lưu",
+    "Reality",
+    "Sci-Fi & Fantasy",
+    "Soap",
+    "Talk",
+    "Thần Thoại",
+    "Thể Thao",
+    "Trẻ Em",
+    "Tài Liệu",
+    "Tâm Lý",
+    "Tình Cảm",
+    "Viễn Tưởng",
+    "Võ Thuật",
+    "War & Politics",
+    "Âm Nhạc"
+  ],
+  "resume": [],
+  "top": [
+    {
+      "slug": "spider-man-brand-new-day",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
+      "createdAt": "2026-08-14T04:44:04.909Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/spider-man-brand-new-day/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+        "vi": "Không còn Tony Stark, MJ hay Ned kề cận, Peter buộc phải đơn thân độc mã đối diện với phe đối đầu bí ẩn. Tuy nhiên, khi áp lực ngày càng gia tăng, nó kích hoạt một sự biến đổi thể chất bất ngờ, đe dọa chính sự tồn tại của anh. Đồng thời, một chuỗi tội phạm bí ẩn mới xuất hiện, kéo theo một trong những mối đe dọa mạnh mẽ nhất mà Spider-Man từng đối mặt."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/wqGZVSCUSXE92WH2zyol2REaqT4.jpg"
+      },
+      "score": 7.868,
+      "title": {
+        "en": "Spider-Man: Brand New Day",
+        "vi": "Người Nhện: Khởi Đầu Mới"
+      },
+      "tmdbId": 969681,
+      "votes": 1641,
+      "year": 2026,
+      "search": "spider man brand new day nguoi nhen khoi dau moi 2026",
+      "_id": "6a7e3a73916d65ebc7fa38ae"
+    },
+    {
+      "slug": "smallville",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4wVq9ICc4MI2XcssrumpCOhKLpI.jpg",
+      "createdAt": "2026-08-14T14:27:28.172Z",
+      "genres": {
+        "en": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Drama"
+        ],
+        "vi": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "The origins of the world’s greatest hero–from Krypton refugee Kal-el’s arrival on Earth through his tumultuous teen years to Clark Kent’s final steps toward embracing his destiny as the Man of Steel.",
+        "vi": "Thiếu niên Clark Kent ở Kansas dùng siêu năng lực đang dần hình thành để chống lại tội phạm, đồng thời đối phó với tình yêu tuổi trẻ, rắc rối gia đình và khủng hoảng tuổi dậy thì."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/mHZSq8LA5Dt48JjaOZ5tcPXQRVN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/35rxWpTUkVETpbU7DzR1pjQfEJx.jpg"
+      },
+      "score": 8.2,
+      "search": "smallville thi tran smallville 2001",
+      "title": {
+        "en": "Smallville",
+        "vi": "Thị Trấn Smallville"
+      },
+      "tmdbId": 4604,
+      "votes": 4564,
+      "year": 2001,
+      "_id": "6a7ec326916d65ebc7fac18e"
+    },
+    {
+      "slug": "the-odyssey",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/RMXG8myu1aGlNUsRjtxzmpdMK0.jpg",
+      "createdAt": "2026-08-14T05:35:47.622Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-odyssey/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
+        "vi": "Câu chuyện theo chân Odysseus trong hành trình kéo dài 10 năm trở về nhà sau cuộc chiến thành Troy, nơi ông phải đối mặt với các vị thần, quái vật và vô vàn thử thách, đồng thời nỗ lực đoàn tụ với vợ và giành lại vương quốc của mình."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/7876PK6gosE13Uq1B6nRxf7AJLT.jpg"
+      },
+      "score": 7.994,
+      "title": {
+        "en": "The Odyssey",
+        "vi": "The Odyssey"
+      },
+      "tmdbId": 1368337,
+      "votes": 2693,
+      "year": 2026,
+      "search": "the odyssey the odyssey 2026",
+      "_id": "6a7e4691916d65ebc7fa3910"
+    },
+    {
+      "slug": "minions-monsters",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg",
+      "createdAt": "2026-08-12T17:12:14.802Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hoạt Hình",
+          "Phim Hài",
+          "Phim Gia Đình",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/minions-monsters/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "This is the rambunctious, ridiculous and totally true story of how the Minions conquered Hollywood, became movie stars, lost everything, unleashed monsters onto the world and then banded together to try and save the planet from the mayhem they had just created.",
+        "vi": "Đây là câu chuyện có thật, đầy náo nhiệt, lố bịch và vô cùng điên rồ về cách các Minion chinh phục Hollywood, trở thành ngôi sao điện ảnh, rồi đánh mất tất cả, vô tình giải phóng những quái vật ra thế giới và cuối cùng buộc phải sát cánh bên nhau để cứu lấy Trái Đất khỏi chính mớ hỗn loạn mà họ đã gây ra."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4LwvU9SZc8QQzW1X1FAPhNbXnEU.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/z8OWDTR7pQuZi7jkEuR7yMXRrQt.jpg"
+      },
+      "score": 7.495,
+      "title": {
+        "en": "Minions & Monsters",
+        "vi": "Minions & Quái Vật"
+      },
+      "tmdbId": 1315772,
+      "votes": 719,
+      "year": 2026,
+      "search": "minions monsters minions quai vat 2026",
+      "_id": "6a7c46cb916d65ebc7f58ff9"
+    },
+    {
+      "slug": "lanterns",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mdbWfpbWhvxgG3k5MHpo90UgAUe.jpg",
+      "createdAt": "2026-08-18T15:42:19.224Z",
+      "genres": {
+        "en": [
+          "Drama",
+          "Mystery",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Bí Ẩn",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland.",
+        "vi": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9WvY1jicpfYLA6KoczwvdMRNGvc.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/gpC7h43xPMEV3goYMQShfJbTtLq.jpg"
+      },
+      "score": 7.9,
+      "search": "lanterns lanterns 2026",
+      "title": {
+        "en": "Lanterns",
+        "vi": "Lanterns"
+      },
+      "tmdbId": 95350,
+      "votes": 70,
+      "year": 2026,
+      "_id": "6a841ab4916d65ebc7fc6546"
+    },
+    {
+      "slug": "arcane",
+      "createdAt": "2026-08-10T09:36:24.784Z",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.",
+        "vi": "Khi hai thành phố song sinh Piltover và Zaun ở thế mâu thuẫn gay gắt, hai chị em chiến đấu ở hai bên chiến tuyến cùng các công nghệ ma thuật và những niềm tin trái chiều."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg"
+      },
+      "title": {
+        "en": "Arcane",
+        "vi": "Arcane"
+      },
+      "tmdbId": 94605,
+      "year": 2021,
+      "score": 8.752,
+      "votes": 6089,
+      "backdrop": "https://image.tmdb.org/t/p/w1280/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg",
+      "search": "arcane arcane 2021",
+      "_id": "6a793929916d65ebc7f4b6cb"
+    },
+    {
+      "slug": "the-fantastic-4-first-steps",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/s94NjfKkcSczZ1FembwmQZwsuwY.jpg",
+      "createdAt": "2026-08-14T06:00:18.367Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-fantastic-4-first-steps/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Against the vibrant backdrop of a 1960s-inspired, retro-futuristic world, Marvel's First Family is forced to balance their roles as heroes with the strength of their family bond, while defending Earth from a ravenous space god called Galactus and his enigmatic Herald, Silver Surfer.",
+        "vi": "Sau một chuyến bay thám hiểm vũ trụ, bốn phi hành gia bất ngờ sở hữu năng lực siêu nhiên và trở thành gia đình siêu anh hùng đầu tiên của Marvel. The Fantastic Four: First Steps là bộ phim mở đầu Kỷ nguyên anh hùng thứ sáu (Phase Six), đặt nền móng cho siêu bom tấn Avengers: Doomsday trong năm sau."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/n0bqzWiKGJsmnvOlkTiYykhhM4E.jpg"
+      },
+      "score": 6.944,
+      "title": {
+        "en": "The Fantastic 4: First Steps",
+        "vi": "Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên"
+      },
+      "tmdbId": 617126,
+      "votes": 3673,
+      "year": 2025,
+      "search": "the fantastic 4 first steps bo tu sieu dang buoc di dau tien 2025",
+      "_id": "6a7e4c50916d65ebc7fa3a0b"
+    },
+    {
+      "slug": "than-dieu-dai-hiep",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tJKhWBOCk8F3RfQbx1WdYpJV4L.jpg",
+      "createdAt": "2026-08-13T12:00:15.990Z",
+      "genres": {
+        "en": [
+          "Action & Adventure",
+          "Drama"
+        ],
+        "vi": [
+          "Action & Adventure",
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "The Condor Heroes 95 is a Hong Kong television series adapted from Louis Cha's novel The Return of the Condor Heroes. It was first broadcast on TVB Jade in Hong Kong in 1995. Many of the cast from The Legend of the Condor Heroes reprised their roles in this series, such as Lau Dan and Wayne Lai. In addition, Jason Pai reprised his breakthrough role as Kwok Ching, whom he previously portrayed in The Legend of the Condor Heroes and The Return of the Condor Heroes.",
+        "vi": "Thần điêu đại hiệp là bộ phim truyền hình do đài truyền hình TVB - Hồng Kông phát hành dựa trên tiểu thuyết cùng tên của nhà văn Kim Dung. Dương Quá mồ côi từ nhỏ, được Quách Tĩnh và Hoàng Dung đưa về Đào Hoa Đảo nuôi dưỡng nhưng vì tính cách ngang bướng nên nhiều lần bị hiểu lầm. Sau đó, anh được gửi đến Toàn Chân giáo học võ nhưng lại bị đối xử bất công, rồi tình cờ vào Cổ Mộ và trở thành đệ tử của Tiểu Long Nữ. Sống bên nhau trong chốn thanh tĩnh, Dương Quá và Tiểu Long Nữ dần nảy sinh tình yêu, nhưng mối tình sư đồ bị võ lâm xem là trái luân thường, khiến cả hai phải chịu nhiều chia ly và đau khổ. Trên hành trình trưởng thành, Dương Quá đối mặt với ân oán giang hồ, sự truy sát của Lý Mạc Sầu, tình cảm từ Quách Phù, Trình Anh, Lục Vô Song và lời hẹn 16 năm với Tiểu Long Nữ. Giữa loạn thế và chiến sự Tương Dương, anh cuối cùng trở thành Thần Điêu Đại Hiệp."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/pkUGghGufdG17N601kD4m04LDNw.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/83giKdPHodYoYDAQfrW8a3XWhzC.jpg"
+      },
+      "score": 7.4,
+      "title": {
+        "en": "The Condor Heroes 95",
+        "vi": "Thần Điêu Đại Hiệp"
+      },
+      "tmdbId": 31955,
+      "votes": 18,
+      "year": 1995,
+      "search": "the condor heroes 95 than dieu dai hiep 1995",
+      "_id": "6a7db1d0916d65ebc7f9e0d6"
+    },
+    {
+      "slug": "evil-dead-burn",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/o0jkkpcN81QqSl8DMLScBCXyUH9.jpg",
+      "createdAt": "2026-08-18T21:01:03.358Z",
+      "genres": {
+        "en": [
+          "Horror"
+        ],
+        "vi": [
+          "Phim Kinh Dị"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/evil-dead-burn/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death.",
+        "vi": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/yAtHcEJdoIjV2BJUvZz89A88pAB.jpg"
+      },
+      "score": 7.868,
+      "search": "evil dead burn ma cay lua dia nguc 2026",
+      "title": {
+        "en": "Evil Dead Burn",
+        "vi": "Ma Cây: Lửa Địa Ngục"
+      },
+      "tmdbId": 1212763,
+      "votes": 1155,
+      "year": 2026,
+      "_id": "6a846569916d65ebc7fc8fb3"
+    },
+    {
+      "slug": "fear-street-prom-queen",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qspghhpOyaBGgZDJoCbV2o9WNMU.jpg",
+      "createdAt": "2026-08-19T09:39:15.516Z",
+      "genres": {
+        "en": [
+          "Horror",
+          "Mystery"
+        ],
+        "vi": [
+          "Phim Kinh Dị",
+          "Phim Bí Ẩn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/fear-street-prom-queen/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Who will be voted queen at Shadyside High's 1988 prom? For underdog Lori, competition is cutthroat even before someone starts killing off the candidates.",
+        "vi": "Ai sẽ được bầu làm nữ hoàng tại dạ hội năm 1988 của Trường Shadyside? Đối với kẻ yếu thế Lori, cuộc cạnh tranh đã khốc liệt ngay cả trước khi có kẻ bắt đầu sát hại các ứng viên."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/gevScWYkF8l5i9NjFSXo8HfPNyy.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/gevScWYkF8l5i9NjFSXo8HfPNyy.jpg"
+      },
+      "score": 5.33,
+      "search": "fear street prom queen pho fear nu hoang da hoi 2025",
+      "title": {
+        "en": "Fear Street: Prom Queen",
+        "vi": "Phố Fear: Nữ hoàng dạ hội"
+      },
+      "tmdbId": 1001414,
+      "votes": 582,
+      "year": 2025,
+      "_id": "6a851753916d65ebc7fce20b"
+    }
+  ],
+  "episodeInfo": {
+    "nguoi-nhen-giang-ho/s01e01": {
+      "label": "Tập 01"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e01": {
+      "label": "Tập 01"
+    },
+    "nguoi-nhen-giang-ho/s01e02": {
+      "label": "Tập 02"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e02": {
+      "label": "Tập 02"
+    },
+    "nguoi-nhen-giang-ho/s01e03": {
+      "label": "Tập 03"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e03": {
+      "label": "Tập 03"
+    },
+    "nguoi-nhen-giang-ho/s01e04": {
+      "label": "Tập 04"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e04": {
+      "label": "Tập 04"
+    },
+    "nguoi-nhen-giang-ho/s01e05": {
+      "label": "Tập 05"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e05": {
+      "label": "Tập 05"
+    },
+    "nguoi-nhen-giang-ho/s01e06": {
+      "label": "Tập 06"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e06": {
+      "label": "Tập 06"
+    },
+    "nguoi-nhen-giang-ho/s01e07": {
+      "label": "Tập 07"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e07": {
+      "label": "Tập 07"
+    },
+    "nguoi-nhen-giang-ho/s01e08": {
+      "label": "Tập 08"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e08": {
+      "label": "Tập 08"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e09": {
+      "label": "Tập 09"
+    },
+    "nguoi-nhen-hang-xom-than-thien/s01e10": {
+      "label": "Tập 10"
+    }
+  },
+  "showMeta": {
+    "nguoi-nhen-giang-ho": {
+      "episodes": 8
+    },
+    "nguoi-nhen-hang-xom-than-thien": {
+      "episodes": 10
+    }
+  },
+  "saved": [],
+  "signedIn": false,
+  "heroPreview": "https://s6.kkphimplayer6.com/20250828/cnyc0P2S/index.m3u8",
+  "more": false,
+  "page": 1
+}

@@ -1,0 +1,3383 @@
+{
+  "locale": "vi",
+  "list": [
+    {
+      "slug": "a-night-in-nude",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/cLhdwwQMzkxNPrn6v9F0QwKGEeB.jpg",
+      "genres": {
+        "en": [
+          "Crime",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Hình Sự",
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/a-night-in-nude/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Jiro is a Tokyo man who offers a stand-in service where he'll do \"anything\". A woman claiming to be from Fukuoka wants to be shown around Tokyo and see the sights. What Jiro doesn't know is that this woman isn't who she says she is. She's on the run from her Yakuza boyfriend, and Jiro is going to be unwittingly entwined in the situation.",
+        "vi": "Jiro is a Tokyo man who offers a stand-in service where he'll do \"anything\". A woman claiming to be from Fukuoka wants to be shown around Tokyo and see the sights. What Jiro doesn't know is that this woman isn't who she says she is. She's on the run from her Yakuza boyfriend, and Jiro is going to be unwittingly entwined in the situation."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/AaGqanl3rDj4sqBcIJhHgqQs805.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/AaGqanl3rDj4sqBcIJhHgqQs805.jpg"
+      },
+      "score": 5.6,
+      "title": {
+        "en": "A Night in Nude",
+        "vi": "ヌードの夜"
+      },
+      "year": 1993,
+      "_id": "6a858db1916d65ebc7fd4abf"
+    },
+    {
+      "slug": "a-family",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/56pQfNPTgGELk0LtvMbSo9AbO2q.jpg",
+      "genres": {
+        "en": [
+          "Crime",
+          "Drama"
+        ],
+        "vi": [
+          "Phim Hình Sự",
+          "Phim Chính Kịch"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/a-family/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Taken in by the yakuza at a young age, Kenji swears allegiance to his old-school boss, pledging to adhere to the family code amid ever-changing times.",
+        "vi": "Một câu chuyện về gia đình yakuza từ năm 1999 đến năm 2019. Cha của Kenji Yamamoto’s (Gou Ayano) đã chết vì sử dụng một loại thuốc kích thích. Cuộc sống của anh rơi vào tuyệt vọng. Kenji Yamamoto sau đó tham gia vào một tổ chức tội phạm. Tại đây, anh gặp trùm băng đảng Hiroshi Shibasaki (Hiroshi Tachi). Hiroshi Shibasaki tìm đến Kenji Yamamoto và họ đã phát triển một mối quan hệ như cha con. Thời gian trôi qua, Kenji Yamamoto đã có gia đình của riêng mình."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/tglfGYH372S7Pft0hUyYLsO8M2B.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/oXOx1RgVLC5nY7veyaqPi8C3vmW.jpg"
+      },
+      "score": 7.354,
+      "title": {
+        "en": "A Family",
+        "vi": "Yakuza và Gia Đình"
+      },
+      "year": 2021,
+      "_id": "6a858ce0916d65ebc7fd4a28"
+    },
+    {
+      "slug": "fear-street-prom-queen",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qspghhpOyaBGgZDJoCbV2o9WNMU.jpg",
+      "genres": {
+        "en": [
+          "Horror",
+          "Mystery"
+        ],
+        "vi": [
+          "Phim Kinh Dị",
+          "Phim Bí Ẩn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/fear-street-prom-queen/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Who will be voted queen at Shadyside High's 1988 prom? For underdog Lori, competition is cutthroat even before someone starts killing off the candidates.",
+        "vi": "Ai sẽ được bầu làm nữ hoàng tại dạ hội năm 1988 của Trường Shadyside? Đối với kẻ yếu thế Lori, cuộc cạnh tranh đã khốc liệt ngay cả trước khi có kẻ bắt đầu sát hại các ứng viên."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/gevScWYkF8l5i9NjFSXo8HfPNyy.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/gevScWYkF8l5i9NjFSXo8HfPNyy.jpg"
+      },
+      "score": 5.33,
+      "title": {
+        "en": "Fear Street: Prom Queen",
+        "vi": "Phố Fear: Nữ hoàng dạ hội"
+      },
+      "year": 2025,
+      "_id": "6a851753916d65ebc7fce20b"
+    },
+    {
+      "slug": "untold-chess-mates",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/8SEs6yUgrE5shU8tqXuR2MQIdlc.jpg",
+      "genres": {
+        "en": [
+          "Documentary"
+        ],
+        "vi": [
+          "Phim Tài Liệu"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/untold-chess-mates/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Magnus Carlsen, widely regarded as the greatest chess player of all time, is challenged by Hans Niemann, a rising star who capitalizes on the meteoric growth of online chess. Niemann’s ascension culminated in an epic, controversy-shrouded victory over Carlsen at the 2022 Sinquefield Cup, which eventually led to allegations and revelations of cheating. Determined to clear his name, Niemann fights his way back to the top of the chess world, setting the stage for a high-stakes rematch with Carlsen in 2024.",
+        "vi": "Làm sao một trận đấu giữa hai đại kiện tướng cờ vua lại biến thành vụ bê bối kỳ quặc về hạt rung hậu môn? Bộ phim tài liệu này đào sâu câu chuyện kỳ lạ đến mức tưởng như hư cấu."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/oC68KgbyFiraKJRdUedQI9aXBF.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/oC68KgbyFiraKJRdUedQI9aXBF.jpg"
+      },
+      "score": 6.931,
+      "title": {
+        "en": "Untold: Chess Mates",
+        "vi": "Bí mật giới thể thao: Chiếu hết"
+      },
+      "year": 2026,
+      "_id": "6a851a4f916d65ebc7fce702"
+    },
+    {
+      "slug": "an-autumn-s-tale",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/bNTFhyQq4LbDaeX82kxhyWKMDwz.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Romance"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Lãng Mạn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/an-autumn-s-tale/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Hong Kong native Lee Kay moves to NYC's Chinatown while attending college. When she learns that her boyfriend's cheating, her cousin comforts her.",
+        "vi": "Lee Kay, người gốc Hồng Kông, chuyển đến khu phố Tàu của thành phố New York khi đang theo học đại học. Khi cô biết bạn trai lừa dối, anh họ của cô đã an ủi cô."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4q7CAw4lC5T12u9d2Zn9t7MuMww.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/4q7CAw4lC5T12u9d2Zn9t7MuMww.jpg"
+      },
+      "score": 7.4,
+      "title": {
+        "en": "An Autumn's Tale",
+        "vi": "Đồng Thoại Mùa Thu"
+      },
+      "year": 1987,
+      "_id": "6a84b8cb916d65ebc7fccb60"
+    },
+    {
+      "slug": "77-heartbreaks",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/kXtS2LnbIlfhN2jt15KxuIucEDI.jpg",
+      "genres": {
+        "en": [
+          "Romance"
+        ],
+        "vi": [
+          "Phim Lãng Mạn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/77-heartbreaks/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "When Eva ends her ten-year relationship with Adam, he’s shocked by the sudden break-up, not until he read her private journal did he realize that she has suffered 77 heartbreaks. Though unknown to the secret contained in the journal’s torn-out last page, he is determined to win her back. When they finally resolve to start anew, Eva discovers his drunken tryst. Will she pardon him a 78th time?",
+        "vi": "Eva (Thái Trác Nghiên) và Adam (Châu Bách Hào) đã yêu nhau 10 năm nhưng vì một chuyện nhỏ mà bỗng nhiên chia tay. Sau một lần uống rượu say Adam đã nảy sinh tình cảm với Mandy – học sinh của mình (Thi Nhã). Thế nhưng Mandy đã tình cờ tìm thấy cuốn sổ nhật ký “77 lần tha thứ” trong nhà của Adam, trong đó ghi lại những lần tha thứ sau khi Adam đã làm tổn thương Eva.  Adam cảm thấy hổ thẹn với lòng mình, lấy hết dũng khí nói lời xin lỗi Eva trước mặt đám đông. Ngờ đâu, Eva lại tìm thấy vật dụng của Mandy trong nhà của Adam. Rốt cuộc cô ấy có tha thứ cho Adam lần thứ 78 này không?"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/wVgE0SDGUdLYX28JTjlVtDFIg1f.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/jHruMIwVn1ACh2YvfGr96oYYm4e.jpg"
+      },
+      "score": 6.6,
+      "title": {
+        "en": "77 Heartbreaks",
+        "vi": "77 lần thứ tha"
+      },
+      "year": 2017,
+      "_id": "6a84ac17916d65ebc7fcc4b9"
+    },
+    {
+      "slug": "all-s-well-ends-well",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/b4HAdWWNESSs8oGYTIgAjyrHKEr.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Romance"
+        ],
+        "vi": [
+          "Phim Hài",
+          "Phim Lãng Mạn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/all-s-well-ends-well/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Romantic comedy following four couples who meet through a dating website. Four men go on a heroic mission to help four women and wind up experiencing a series of mishaps.",
+        "vi": "Bốn người đàn ông thực hiện một sứ mệnh anh hùng để giúp đỡ bốn người phụ nữ và trải qua một loạt các rủi ro."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/xahOQr3pVq3YgjKNHMBwO3VC5K3.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/xahOQr3pVq3YgjKNHMBwO3VC5K3.jpg"
+      },
+      "score": 4.6,
+      "title": {
+        "en": "All's Well, Ends Well",
+        "vi": "Bát Tinh Bão Hỉ"
+      },
+      "year": 2012,
+      "_id": "6a84abc4916d65ebc7fcc441"
+    },
+    {
+      "slug": "all-in",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/sDAZxpZo85zyo7GHNcfhMWmm5nU.jpg",
+      "genres": {
+        "en": [
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Hài"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/all-in/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Cheng Jialang and Wei Yifu are the contemporary poker twin stars, and they are about to have their first face-to-face confrontation. However, at this moment, Cheng Jialang accidentally transferred his poker talent to a small-time crook named Huang Xiaoqi, who had no previous experience. The two of them went through a wonderful journey and decided to join forces to challenge Wei Yifu.",
+        "vi": "Mang danh thần bài trăm trận trăm thắng, Trình Gia Lãng phát hoảng khi siêu năng lực mắt thần đột nhiên mất vào tay một kẻ gà mờ - Hoàng Tiểu Thất. Từ đây, cả hai phải miễn cưỡng hợp lực hòng chiến thắng vua bài - Vi Nhất Phú và làm lộ ra bí mật động trời..."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/8hITxjYexJpCGjYV1omFy9d8dQr.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/f4lb19xPO2JpJecU3YeVOc0nYy1.jpg"
+      },
+      "score": 5.2,
+      "title": {
+        "en": "All In",
+        "vi": "Thần Bài Trở Lại Tất Tay"
+      },
+      "year": 2024,
+      "_id": "6a84ab86916d65ebc7fcc401"
+    },
+    {
+      "slug": "12-golden-ducks",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/yknFaHXYElWXVpV4UGrV5h3SWPr.jpg",
+      "genres": {
+        "en": [
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Hài"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/12-golden-ducks/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Devastated by a love affair, former in-demand gigolo Future Chang (played by Sandra Ng) retreats to Thailand, leading the life a dissolute. Thanks to the intervention of his high school teacher, Mr. Lo, Future summons the courage to return to Hong Kong. With the help of his friend Ricky, a gym trainer, he works hard to get back into shape, determined to make a comeback in the “duck” (male escort) trade. To Future’s surprise, Hong Kong has undergone a dramatic transformation since he left the city. Even the rules of the duck trade have completely changed! In order to ply his trade, Future is reduced seeking clients at an old age nursery home for women. Meanwhile, the places where women can buy happiness have become much more accessible, operating in neighborhood establishments such as a Thai restaurant…Determined to adapt to their new environment, Future and his desperate cohorts Dick Wide, Nebula and Broker Chan decide to dedicate themselves to satisfying the needs of their new client.",
+        "vi": "Bị tàn phá bởi một mối tình, cựu gigolo Future Chang rút lui đến Thái Lan, dẫn đến cuộc sống phóng túng. Nhờ sự can thiệp của giáo viên trung học, ông Lo, Future mới có được can đảm để quay trở lại Hồng Kông. Với sự giúp đỡ của người bạn Ricky, một huấn luyện viên thể dục, anh ấy đã tập luyện chăm chỉ để lấy lại vóc dáng, quyết tâm quay trở lại với nghề buôn “vịt”. Trước sự ngạc nhiên của Future’s, Hong Kong đã trải qua một sự thay đổi đáng kể kể từ khi anh rời thành phố. Ngay cả các quy tắc buôn bán vịt cũng đã hoàn toàn thay đổi! Để tập trung vào việc buôn bán của mình, Future đã giảm bớt việc tìm kiếm khách hàng tại một nhà dưỡng lão dành cho phụ nữ. Trong khi đó, những nơi mà phụ nữ có thể mua được hạnh phúc đã trở nên dễ tiếp cận hơn nhiều, hoạt động tại các cơ sở lân cận như nhà hàng Thái…"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/fOvGCTZiMBXXeIklQZtIF1dRbEz.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/uIHFvpWLGEytt2q5qxjyGvCt5Xx.jpg"
+      },
+      "score": 4.5,
+      "title": {
+        "en": "12 Golden Ducks",
+        "vi": "12 Con Vịt Vàng"
+      },
+      "year": 2015,
+      "_id": "6a84ab5c916d65ebc7fcc3ec"
+    },
+    {
+      "slug": "bad-education",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tgsaZDpMqRgO1j0ejDLEk4En9mk.jpg",
+      "genres": {
+        "en": [
+          "Crime",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Hình Sự",
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/bad-education/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "On the night of their high school graduation, three delinquents decide to exchange their darkest, most unspeakable secret.",
+        "vi": "On the night of their high school graduation, three delinquents decide to exchange their darkest, most unspeakable secret."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/ml7s9OnlkuMpjt2Kx6SsYIYZEef.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/pCugw9KUJodRDl33vXpkdofNITI.jpg"
+      },
+      "score": 6.136,
+      "title": {
+        "en": "Bad Education",
+        "vi": "Nền Giáo Dục Tồi: Bản Cắt Của Đạo Diễn"
+      },
+      "year": 2023,
+      "_id": "6a847f27916d65ebc7fcbcfe"
+    },
+    {
+      "slug": "as-the-light-goes-out",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/wIBxTLcvSSlQRCjd1DsPMDWIbub.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Action"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/as-the-light-goes-out/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Firefighters in Hong Kong's Pillar Point uncover dangerous truths as they battle an out-of-control inferno on Christmas Eve.",
+        "vi": "Vào đêm Giáng Sinh ở Hồng Kông, những người lính cứu hỏa chiến đấu với một vụ cháy nhà kho vượt tầm kiểm soát, thứ đe dọa nhấn dìm cả thành phố vào bóng tối."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/5HKm1a5k8oAY12mHpn5spXypXxy.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/hePfA0avKiduW4Bp57EPCMHPD4K.jpg"
+      },
+      "score": 6.2,
+      "title": {
+        "en": "As the Light Goes Out",
+        "vi": "Biệt đội cứu hỏa"
+      },
+      "year": 2014,
+      "_id": "6a847d92916d65ebc7fcbc2d"
+    },
+    {
+      "slug": "operation-condor",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/leHpAsKAJGnNuv5EPAUZUbqrRxq.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Crime",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Hình Sự",
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/operation-condor/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Hired by a Spanish baron, Hong Kong treasure hunter Jackie, a.k.a. \"Asian Hawk\" and his entourage seek WWII Nazi gold buried in the Sahara Desert.",
+        "vi": "Lần này, Jackie được Liên Hợp Quốc và một tổ chức quốc tế bí mật giao nhiệm vụ tìm kiếm 249 tấn vàng bị cướp từ quân Đức Quốc xã vào cuối Thế chiến II và chôn giấu ở một sa mạc thuộc châu Phi. Mặc dù ban đầu không mấy hứng thú, Jackie bị thuyết phục tham gia nhiệm vụ sau khi nhận được một khoản tiền lớn và biết rằng nhóm tìm kiếm ban đầu đã biến mất một cách bí ẩn.\r Trong hành trình của mình, Jackie phải hợp tác với ba người phụ nữ xinh đẹp: Ada (Carol Cheng), một chuyên gia bản đồ; Elsa (Eva Cobo de Dueñas), cháu gái của một chỉ huy Đức Quốc xã có liên quan đến kho báu; và Momoko (Shoko Ikeda), một cô gái Nhật Bản bị mất trí nhớ và luôn bị truy đuổi."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/25kyDgsGz1HzW4SqJTylhBaU5sW.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/vkj5JxVgY1ZYhX4pBHHgwdRNEkl.jpg"
+      },
+      "score": 7.337,
+      "title": {
+        "en": "Operation Condor",
+        "vi": "Áo Giáp Thượng Đế 2"
+      },
+      "year": 1991,
+      "_id": "6a847c5c916d65ebc7fcbb56"
+    },
+    {
+      "slug": "armour-of-god",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/yDU9lUG7IHFFLkxlLEvJtxOmW4P.jpg",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Hài"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/armour-of-god/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "After an adventurer known as the Asian Hawk steals a mysterious sword known to be a piece of the Armour of God, a magical suit of armour that dates back to the Crusades, a cult of Satanic monks kidnap his ex-girlfriend and demand he turn over the sword and recover the rest of the armour.",
+        "vi": "Jackie (do Thành Long thủ vai), một nhà thám hiểm và cựu ca sĩ nhạc rock nổi tiếng, được biết đến với biệt danh \"Kền kền châu Á\" (Asian Condor). Anh chuyên đi khắp thế giới để tìm kiếm và bán những cổ vật quý hiếm. Một ngày nọ, bạn gái cũ của Jackie là Laura (Rosamund Kwan) bị một giáo phái bí ẩn bắt cóc. Giáo phái này yêu cầu Jackie phải giao nộp \"Áo Giáp Thượng Đế\" - một bộ giáp cổ xưa được cho là có sức mạnh thần bí, nằm trong truyền thuyết. Thực chất, Áo Giáp Thượng Đế là một bộ sưu tập gồm nhiều mảnh giáp được cất giữ ở những nơi khác nhau trên thế giới."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/phCpGqCSBWJqutKxj73COACrlPt.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/phCpGqCSBWJqutKxj73COACrlPt.jpg"
+      },
+      "score": 7.041,
+      "title": {
+        "en": "Armour of God",
+        "vi": "Áo Giáp Thượng Đế"
+      },
+      "year": 1986,
+      "_id": "6a847a76916d65ebc7fcb97d"
+    },
+    {
+      "slug": "evil-dead-burn",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/o0jkkpcN81QqSl8DMLScBCXyUH9.jpg",
+      "genres": {
+        "en": [
+          "Horror"
+        ],
+        "vi": [
+          "Phim Kinh Dị"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/evil-dead-burn/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death.",
+        "vi": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/yAtHcEJdoIjV2BJUvZz89A88pAB.jpg"
+      },
+      "score": 7.868,
+      "title": {
+        "en": "Evil Dead Burn",
+        "vi": "Ma Cây: Lửa Địa Ngục"
+      },
+      "year": 2026,
+      "_id": "6a846569916d65ebc7fc8fb3"
+    },
+    {
+      "slug": "lord-of-war",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/5HLNp2zEsXezVoXtOfLJE29xaUI.jpg",
+      "genres": {
+        "en": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Hình Sự",
+          "Phim Chính Kịch",
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/lord-of-war/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Yuri Orlov is a globetrotting arms dealer and, through some of the deadliest war zones, he struggles to stay one step ahead of a relentless Interpol agent, his business rivals and even some of his customers who include many of the world's most notorious dictators. Finally, he must also face his own conscience.",
+        "vi": "Bộ phim lấy bối cảnh nước Mỹ những năm đầu thập niên 80. Yuri Orlov là người gốc Ukraina nhưng theo gia đình chuyển tới thành phố New York từ khi còn nhỏ. Sống giữa một thành phố có tỷ lệ phạm pháp cao vào bậc nhất nước Mỹ, ngay từ nhỏ Yuri đã quen với cảnh bắn giết. Cho rằng bạo lực sẽ chẳng bao giờ biến mất trong xã hội, gã ta nảy ra ý định làm giàu bằng con đường buôn súng."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/3MGQD4yXokufNlW1AyRXdiy7ytP.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/3MGQD4yXokufNlW1AyRXdiy7ytP.jpg"
+      },
+      "score": 7.347,
+      "title": {
+        "en": "Lord of War",
+        "vi": "Ông Trùm Chiến Tranh​"
+      },
+      "year": 2005,
+      "_id": "6a8464b2916d65ebc7fc8e88"
+    },
+    {
+      "slug": "lanterns",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mdbWfpbWhvxgG3k5MHpo90UgAUe.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Mystery",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Bí Ẩn",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland.",
+        "vi": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9WvY1jicpfYLA6KoczwvdMRNGvc.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/gpC7h43xPMEV3goYMQShfJbTtLq.jpg"
+      },
+      "score": 7.9,
+      "title": {
+        "en": "Lanterns",
+        "vi": "Lanterns"
+      },
+      "year": 2026,
+      "_id": "6a841ab4916d65ebc7fc6546"
+    },
+    {
+      "slug": "x-men",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3QUVzbcNyfGe3ocWkYAT8emK8Co.jpg",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/x-men/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Two mutants, Rogue and Wolverine, come to a private academy for their kind whose resident superhero team, the X-Men, must oppose a terrorist organization with similar powers.",
+        "vi": "X-men là những con người có năng lực siêu phàm. Họ tập trung tại một ngôi trường do giáo sư Charles Xavier để giúp cho họ sử dụng năng lực của mình một cách đúng đắn và có ích... Bộ phim bắt đầu từ việc cô bé Rogue bị sự truy lùng của một kẻ có mưu đồ làm bá chủ thế giới khi hắn muốn lợi dụng sức mạnh của Rogue để hoàn thành nguyện vọng của mình. Nhưng mọi thứ đã bị giáo sư và các thành viên của X-men ngăn cản. Phim được dựa theo bộ truyện tranh nổi tiếng của Mỹ."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/bRDAc4GogyS9ci3ow7UnInOcriN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/bRDAc4GogyS9ci3ow7UnInOcriN.jpg"
+      },
+      "score": 7.022,
+      "title": {
+        "en": "X-Men",
+        "vi": "X-Men 1: Dị Nhân"
+      },
+      "year": 2000,
+      "_id": "6a840a68916d65ebc7fc6489"
+    },
+    {
+      "slug": "x-men-origins-wolverine",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/p4GzAzjlL7lXIVGvayg7zvzGTSi.jpg",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/x-men-origins-wolverine/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "After seeking to live a normal life after 200 years, Logan sets out to avenge a death by undergoing the mutant Weapon X program and becoming Wolverine.",
+        "vi": "Tuổi thơ của James “Logan” Hewlett trở thành nỗi ám ảnh khi Logan chính tay giết chết cha ruột của mình, sau khi ông giết cha nuôi của anh. Logan và người anh Victor Creed đã cùng chạy trốn khắp nơi khi chỉ là những đứa trẻ, rồi sau đó cùng nhau khoác áo lính lao mình vào những cuộc chiến cho quân đội, và cuối cùng được William Stryker nhận về phục vụ cho đội quân người đột biến đặc biệt của hắn. Sau một trận càn quét ở Châu Phi, Logan giã từ đội quân này và lui về sống ẩn dật cùng bạn gái Silver Fox. Sau 6 năm bình yên, Stryker tìm đến và buộc Logan phải trở về tham gia dự án Weapon X mới của mình. Creed ra tay hạ sát Fox để buộc Logan khuất phục, gây nên mối hận thù giữa hai anh em Logan và Creed.  Cùng lúc với việc sở hữu bộ xương từ chất Adamantium, Logan cũng dần mất đi ký ức và bắt đầu một cuộc sống mới. Weapon X đã biến Logan trở thành Wolverine, và người anh Creed cũng mang tên mới là Sabretooth."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/yj8LbTju1p7CUJg7US2unSBk33s.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/iffWlf6scXhqv4PlIhYbHOre5tI.jpg"
+      },
+      "score": 6.298,
+      "title": {
+        "en": "X-Men Origins: Wolverine",
+        "vi": "X-Men: Nguồn Gốc Người Sói"
+      },
+      "year": 2009,
+      "_id": "6a83aa8d916d65ebc7fc5ae6"
+    },
+    {
+      "slug": "wrath-of-the-titans",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/g6Bppew6A1PxpHfraNroo0mRBcm.jpg",
+      "genres": {
+        "en": [
+          "Fantasy",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Giả Tượng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/wrath-of-the-titans/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Perseus tries to live a quieter life as a village fisherman while – dangerously weakened by humanity's lack of devotion – the gods are losing control of the long-imprisoned Titans and their ferocious leader, Kronos.",
+        "vi": "Wrath of Titans (Sự Phẫn Nộ của Các Vị Thần) nói về Perseus - con trai thần Zeus đang trải qua cuộc sống êm đềm bên làng chai cùng cậu con trai 10 tuổi tên là Helius, nhưng cuộc tranh chấp giữa các vị thần đã phá vỡ khung cảnh yên ả ấy sự trỗi dậy của các Titan và Zeus bị giam cầm đã buộc Perseus phải tham gia vào nhiệm vụ đầy hiểm nguy mới… Bối cảnh của phim được thực hiện rất chân thực, từ cảnh chiến trường, cảnh vật núi rừng cho đến những khung hình nhanh của những trận giao chiến nảy lửa. Diễn xuất của các nhân vật khá tốt nên mặc dù là 1 phim sử dụng nhiều kĩ xảo nhưng các nhân vật vẫn hiện lên chân thực và sống động."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/b9n2R3xZWQ8MVZgndQoV34stS0h.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/uiyUfa9TjYh0BMaFgOXG4R28Y1p.jpg"
+      },
+      "score": 5.771,
+      "title": {
+        "en": "Wrath of the Titans",
+        "vi": "Sự Phẫn Nộ Của Các Vị Thần"
+      },
+      "year": 2012,
+      "_id": "6a83a6d8916d65ebc7fc5a66"
+    },
+    {
+      "slug": "wonder",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/b7xQ5fuyVO4c24igizCfPgF6n7q.jpg",
+      "genres": {
+        "en": [
+          "Family",
+          "Drama"
+        ],
+        "vi": [
+          "Phim Gia Đình",
+          "Phim Chính Kịch"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/wonder/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The story of August Pullman – a boy with facial differences – who enters fifth grade, attending a mainstream elementary school for the first time.",
+        "vi": "Điều Kỳ Diệu là câu chuyện cảm động về lòng tốt và nghị lực sống của Auggie – một cậu bé ngoan nhưng không may khuôn mặt bị dị dạng bẩm sinh do một chứng bệnh hiếm gặp. Auggie sống trong nỗi mặc cảm và hay gặp rắc rối tại trường khi bị bạn bè trêu chọc về ngoại hình khác thường. Liệu tình yêu thương và sự động viên từ gia đình có giúp Auggie có thêm sức mạnh vượt qua thử thách? Và liệu lòng tốt giữa con người với nhau có được đánh thức và xoa dịu nỗi đau ..."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/sONh3LYGFcVDTy8pm1tbSOB13Li.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/kmgjXUlGyGBzynhqo1oa7YOERL8.jpg"
+      },
+      "score": 8.101,
+      "title": {
+        "en": "Wonder",
+        "vi": "Điều Kỳ Diệu"
+      },
+      "year": 2017,
+      "_id": "6a83a229916d65ebc7fc59f4"
+    },
+    {
+      "slug": "x-men-days-of-future-past",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3czpqXzFy5UcNuD1AubecRLWkwD.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/x-men-days-of-future-past/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The ultimate X-Men ensemble fights a war for the survival of the species across two time periods as they join forces with their younger selves in an epic battle that must change the past – to save our future.",
+        "vi": "Trong phần phim này, Người Sói (Hugh Jackman) được gửi về quá khứ để giúp đỡ giáo sư X (James McAvoy), Magneto (Michael Fassbender) và các dị nhân của X-Men: First Class ngăn chặn sự trỗi dậy của Sentinels, loại rô bốt khổng lồ được lập trình để tiêu diệt những người mang gen đột biến."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/tYfijzolzgoMOtegh1Y7j2Enorg.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/iQeRkwqwx00r7SzLqQ0BhsGmpsu.jpg"
+      },
+      "score": 7.534,
+      "title": {
+        "en": "X-Men: Days of Future Past",
+        "vi": "X-Men 5: Ngày Cũ Của Tương Lai"
+      },
+      "year": 2014,
+      "_id": "6a83a1ec916d65ebc7fc59f1"
+    },
+    {
+      "slug": "zero-dark-thirty",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/evPzxMacNWsjkUKQO4NXKe5Rl6a.jpg",
+      "genres": {
+        "en": [
+          "Thriller",
+          "Drama"
+        ],
+        "vi": [
+          "Phim Gây Cấn",
+          "Phim Chính Kịch"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/zero-dark-thirty/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "A chronicle of the decade-long hunt for al-Qaeda terrorist leader Osama bin Laden after the September 2001 attacks, and his death at the hands of the Navy S.E.A.L. Team 6 in May, 2011.",
+        "vi": "Zero Dark Thirty’ của nữ đạo diễn Kathryn Bigelow nhận 5 đề cử tại giải thưởng của Viện Hàn lâm.Phim hay nhất, Nữ diễn viên chính xuất sắc (cho Jessica Chastain), Dựng phim xuất sắc, Dựng âm thanh xuất sắc và Kịch bản gốc hay nhất.Với kinh phí 40 triệu USD và lời giới thiệu “câu chuyện về cuộc truy tìm người đàn ông nguy hiểm nhất trong lịch sử thế giới”, phim xoay quanh nhân vật chính là Maya (Jessica Chastain), một nữ chuyên gia phân tích của Cơ quan Tình báo Trung ương (CIA). Cô đóng vai trò quan trọng trong chiến dịch truy kích trùm Al-Qaeda. Maya truy tìm dấu vết của Bin Laden trong một thập kỷ từ sau vụ khủng bố 11/9/2001 khiến cả nước Mỹ chìm trong đau thương."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/wNSdSSxowM3WIqmPJNg3RagYbwP.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/mBVGDRs8K7pEVJEAWrClYHdD3dw.jpg"
+      },
+      "score": 6.992,
+      "title": {
+        "en": "Zero Dark Thirty",
+        "vi": "30' Sau Nửa Đêm"
+      },
+      "year": 2012,
+      "_id": "6a83a17a916d65ebc7fc59ee"
+    },
+    {
+      "slug": "wolf-warrior",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/zUmcuYkAbbl5YX4wabqdKLWSBlZ.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "War"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Chiến Tranh"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/wolf-warrior/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "A Chinese special force soldier with extraordinary marksmanship is confronted by a group of deadly foreign mercenaries who are hired to assassinate him by a vicious drug lord.",
+        "vi": "Một người lính lực lượng đặc biệt Trung Quốc với tài thiện xạ phi thường phải đối mặt với một nhóm lính đánh thuê nước ngoài nguy hiểm được thuê để ám sát anh ta bởi một trùm ma túy độc ác."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9tGyxJcPUQclngSCcT18oEs80Yn.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/d7LoglqxuZlWyxBqD0XBKEFE1Pn.jpg"
+      },
+      "score": 6.2,
+      "title": {
+        "en": "Wolf Warrior",
+        "vi": "Chiến Lang"
+      },
+      "year": 2015,
+      "_id": "6a83a15a916d65ebc7fc59ca"
+    },
+    {
+      "slug": "wolf-warrior-2",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mjudUA3QNsJCtuDeXUx55MLzuKM.jpg",
+      "genres": {
+        "en": [
+          "War",
+          "Action"
+        ],
+        "vi": [
+          "Phim Chiến Tranh",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/wolf-warrior-2/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "China's deadliest special forces operative settles into a quiet life on the sea. When sadistic mercenaries begin targeting nearby civilians, he must leave his newfound peace behind and return to his duties as a soldier and protector.",
+        "vi": "Đặc nhiệm nguy hiểm nhất của lực lượng đặc biệt Trung Quốc ổn định cuộc sống yên tĩnh trên biển. Khi những tên lính đánh thuê tàn bạo bắt đầu nhắm vào dân thường gần đó, anh ta phải bỏ lại sự bình yên mới tìm được phía sau và quay trở lại nhiệm vụ của mình như một người lính và người bảo vệ."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/87aWrVqaVhXhblhO7sYHLC2y8TT.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/1HGiHGbVNmrc246zbdrVxvs1p9G.jpg"
+      },
+      "score": 6.496,
+      "title": {
+        "en": "Wolf Warrior 2",
+        "vi": "Chiến Lang 2"
+      },
+      "year": 2017,
+      "_id": "6a839db4916d65ebc7fc5324"
+    },
+    {
+      "slug": "wonder-wheel",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/sSlL9NfqN5gBhPkHE1TOBXqBoew.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Romance"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Lãng Mạn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/wonder-wheel/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The story of four characters whose lives intertwine amid the hustle and bustle of the Coney Island amusement park in the 1950s: Ginny, an emotionally volatile former actress now working as a waitress in a clam house; Humpty, Ginny’s rough-hewn carousel operator husband; Mickey, a handsome young lifeguard who dreams of becoming a playwright; and Carolina, Humpty’s long-estranged daughter, who is now hiding out from gangsters at her father’s apartment.",
+        "vi": "Vòng xoay của cuộc đời Ginny (Kate Winslet đóng), một phụ nữ luống tuổi, từng theo đuổi nghiệp diễn viên nhưng đành an phận làm phục vụ tại một nhà hàng nhỏ và sống cùng người chồng thô lỗ, cục mịch.  Mọi chuyện càng trở nên phức tạp hơn khi người con gái riêng của chồng Ginny đột ngột trở về nhà sau nhiều năm mất liên lạc,và cũng đem lòng thích Mickey."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/gKYpAL1A01T9a1taGXAyfqXjI5x.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/2OHnFtkwAm5kvLuochWMt2xLnmO.jpg"
+      },
+      "score": 6.373,
+      "title": {
+        "en": "Wonder Wheel",
+        "vi": "Vòng Xoay Cám Dỗ"
+      },
+      "year": 2017,
+      "_id": "6a839d62916d65ebc7fc526a"
+    },
+    {
+      "slug": "ashes-to-crown",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/6CgpC5cS8jvkXgkI0pRoj31nHf6.jpg",
+      "genres": {
+        "en": [
+          "Drama"
+        ],
+        "vi": [
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "The general's daughter, Chu Zhao, refuses to accept her fate as nothing more than a pawn to be sacrificed in Xiao Xun's rise to power. Taking matters into her own hands, she fights her way out with the help of Xie Yanlai, protecting the emperor's grandson as he makes his way to the emperor's presence. Through a tense standoff in the imperial court, she helps the young prince secure the throne, cutting off Xiao Xun's path to power. But with a new emperor comes new crises. The realm is torn by internal strife and foreign threats. Working alongside Xie Yanlai, Chu Zhao navigates the treacherous currents of the court, leads troops into battle, and ultimately rewrites her own destiny, sparing the people of the State of Chu from the ravages of war.",
+        "vi": "Sở Triêu, con gái đại tướng quân, vì muốn thay đổi số phận bi thảm là quân cờ cho Tiêu Tuần đoạt quyền đã quyết định chủ động tấn công. Với sự hỗ trợ của Tạ Yến Lai, nàng vượt bao hiểm nguy, hộ tống hoàng trưởng tôn vào cung, đấu trí trước điện, phò tá hoàng trưởng tôn kế vị, chặt đứt con đường xưng đế của Tiêu Tuần. Tân đế lên ngôi khi Đại Sở thù trong giặc ngoài, Sở Triêu cùng Tạ Yến Lai vừa khéo léo đối nội vừa cầm quân dẹp loạn, thay đổi vận mệnh của mình, mang lại thái bình cho bá tánh."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/avupwPQBoIp8ahCaIYIQfT1N6ps.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/5uwpmYpvtqWHt7HpEYsYCodmZ3f.jpg"
+      },
+      "score": 7.6,
+      "title": {
+        "en": "Ashes to Crown",
+        "vi": "Kiều Sở"
+      },
+      "year": 2026,
+      "_id": "6a83928b916d65ebc7fc483a"
+    },
+    {
+      "slug": "wished",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/jLcDFtCd8lquqIfO6NnJXLkaITm.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Hài",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/wished/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "An insurance salesman's life is going nowhere after he breaks up with his girlfriend. One day, an offbeat lady claiming to be a Goddess with magical powers, offers to turn his life around by granting him 19 of his old wishes. He laughs her off, until even his old childhood wishes start coming true.",
+        "vi": "Cuộc sống của một nhân viên bán bảo hiểm rơi vào bế tắc sau khi chia tay bạn gái. Một ngày nọ, một người phụ nữ kỳ lạ tự xưng là Nữ thần có phép thuật xuất hiện, đề nghị giúp anh xoay chuyển cuộc đời bằng cách ban cho anh 19 điều ước trước đây. Anh cười gạt đi, cho đến khi ngay cả những điều ước thời thơ ấu của mình cũng bắt đầu trở thành sự thật."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/epA5XzzsaojUaO9M4WESrncCoCE.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/z6S7ejipeMP3TQnG8FLOwESZrdk.jpg"
+      },
+      "score": 7.1,
+      "title": {
+        "en": "Wished",
+        "vi": "Hoán Chuyển Nhân Sinh"
+      },
+      "year": 2017,
+      "_id": "6a83860f916d65ebc7fc3435"
+    },
+    {
+      "slug": "i-will-find-you",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/yOna5ZGXrvWO2HdOCKcahx2sCDN.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Mystery",
+          "Crime"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Bí Ẩn",
+          "Phim Hình Sự"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Wrongfully imprisoned for murdering his own son, a father sets out on a desperate rescue mission after learning the boy may still be alive.",
+        "vi": "Bị ngồi tù oan vì tội giết chính con trai mình, một người cha dấn thân vào sứ mệnh giải cứu tuyệt vọng sau khi biết tin cậu bé có thể vẫn còn sống."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/pb9oYHHNzauiCQZT03MpDAg46GI.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/pb9oYHHNzauiCQZT03MpDAg46GI.jpg"
+      },
+      "score": 8.267,
+      "title": {
+        "en": "I Will Find You",
+        "vi": "Cha sẽ tìm con"
+      },
+      "year": 2026,
+      "_id": "6a8381c3916d65ebc7fc305a"
+    },
+    {
+      "slug": "the-apartment-job",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/stJcZWrpfT2DjY0K261Q2FpxUkS.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Comedy",
+          "Crime"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Hài",
+          "Phim Hình Sự"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Desperate for cash, a former gang boss teams up with an aspiring lawyer to steal an apartment complex's reserve fund — only to uncover deep corruption.",
+        "vi": "Câu chuyện xoay quanh một phi vụ thâm nhập vào khu chung cư cao cấp để săn lùng khoản tiền bất hợp pháp khổng lồ lên đến 10 tỷ won. Để thực hiện mục tiêu này, hai con người xa lạ đã bắt tay lập nên một \"gia đình phake\" với những màn tung hứng không thể bất ổn hơn."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/qFxbrHvNq5tn9SCBq3aKPgaGfyO.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/cxFczeoaNPV0oiKzDJvLMXujzbT.jpg"
+      },
+      "score": 8.7,
+      "title": {
+        "en": "The Apartment Job",
+        "vi": "Phi Vụ Chung Cư"
+      },
+      "year": 2026,
+      "_id": "6a8351b0916d65ebc7fbcb6c"
+    },
+    {
+      "slug": "13rd-sister-three-deadly-days",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Action"
+        ],
+        "vi": [
+          "Phim Hài",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/13rd-sister-three-deadly-days/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "She thought she had overthrown the patron Hac Ho and broken the sinister plot of Anh Hai, Sister Thirteen and An Cu Nghia Doan, were able to bring peace. However, new enemies continued to appear, once again shaking the lives of the An Cu Nghia Doan brothers.",
+        "vi": "Kiếp giang hồ, vào dễ khó ra. Những tưởng sau khi lật đổ ông trùm Hắc Hổ, đồng thời đập tan âm mưu thâm độc của Anh Hai, Chị Mười Ba cùng An Cư Nghĩa Đoàn đã có thể yên ổn làm ăn. Thế nhưng, cuộc đời mà, cái quái gì cũng đều xảy ra được. Những kẻ thù mới lại tiếp tục xuất hiện, khiến cho cuộc sống của anh em An Cư Nghĩa Đoàn rúng động thêm lần nữa. Chị Mười Ba đã nhập cuộc trở lại và… bầm dập hơn xưa."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/faqGzwnN6OWXDSiQQofFmMs2SBg.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/faqGzwnN6OWXDSiQQofFmMs2SBg.jpg"
+      },
+      "score": 4,
+      "title": {
+        "en": "13rd Sister: Three Deadly Days",
+        "vi": "Chị Mười Ba 2: 3 Ngày Sinh Tử"
+      },
+      "year": 2020,
+      "_id": "6a815c1e916d65ebc7fb95d3"
+    },
+    {
+      "slug": "smallville",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4wVq9ICc4MI2XcssrumpCOhKLpI.jpg",
+      "genres": {
+        "en": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Drama"
+        ],
+        "vi": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "The origins of the world’s greatest hero–from Krypton refugee Kal-el’s arrival on Earth through his tumultuous teen years to Clark Kent’s final steps toward embracing his destiny as the Man of Steel.",
+        "vi": "Thiếu niên Clark Kent ở Kansas dùng siêu năng lực đang dần hình thành để chống lại tội phạm, đồng thời đối phó với tình yêu tuổi trẻ, rắc rối gia đình và khủng hoảng tuổi dậy thì."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/mHZSq8LA5Dt48JjaOZ5tcPXQRVN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/35rxWpTUkVETpbU7DzR1pjQfEJx.jpg"
+      },
+      "score": 8.2,
+      "title": {
+        "en": "Smallville",
+        "vi": "Thị Trấn Smallville"
+      },
+      "year": 2001,
+      "_id": "6a7ec326916d65ebc7fac18e"
+    },
+    {
+      "slug": "jailbait",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/vo1MUU9liVIsk9dGeZCLyK6JvGR.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Hài"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/jailbait/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "A playboy's life changes after he meets and sleeps with a girl who hasn't turned 18 yet.",
+        "vi": "Câu chuyện bắt đầu với Hoàng, một Tay chơi “chất lầy” bảnh tỏn, thu nhập ngất ngưởng, sống cùng quy luật \"không có đêm thứ 2\" với bất kỳ cô nàng nào. Định mệnh ập đến khi chàng trai trong mơ của bao người đàn ông gặp gỡ Linh Đan. Dĩ nhiên, cả hai đã có mối tình chớp nhoáng và không hề có gì khác biệt với những cô gái trước đây, cho đến khi Hoàng phát hiện ra bạn gái mới của mình chưa đủ 18 tuổi. Từ đây, cả thế giới đào hoa của chàng \"lầy gái\" số một bất ngờ thu nhỏ lại trong lưới tình của cô học trò xinh đẹp tinh quái."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/phXbIGRmNZduZwnBjC0dBZfn8lr.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/phXbIGRmNZduZwnBjC0dBZfn8lr.jpg"
+      },
+      "score": 6.6,
+      "title": {
+        "en": "Jailbait",
+        "vi": "Em Chưa 18"
+      },
+      "year": 2017,
+      "_id": "6a7eb702916d65ebc7fabae7"
+    },
+    {
+      "slug": "the-bombing-of-pan-am-103",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/5ZgPQjEsJqCwRtx6vsBBISxn389.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Crime"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Hình Sự"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "On December 21, 1988, Pan Am Flight 103 exploded over the small Scottish town of Lockerbie, killing 270 people. What followed was the largest murder investigation in the history of Scottish policing, into the deadliest act of terrorism on British soil.",
+        "vi": "Vụ đánh bom thảm khốc nhằm vào một chuyến bay xuyên Đại Tây Dương qua Scotland năm 1988 khiến cảnh sát địa phương và FBI phối hợp truy lùng thủ phạm."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9RR6jkc35HOJcZG3modHZwh3J3J.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/9RR6jkc35HOJcZG3modHZwh3J3J.jpg"
+      },
+      "score": 7.457,
+      "title": {
+        "en": "The Bombing of Pan Am 103",
+        "vi": "Vụ đánh bom máy bay Pan Am 103"
+      },
+      "year": 2025,
+      "_id": "6a7e80e7916d65ebc7fa9c49"
+    },
+    {
+      "slug": "hunt-the-wicked",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/eRNMOrA6Bigonug3dT1R7aLZQaq.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Crime",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Hình Sự",
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/hunt-the-wicked/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The film tells the story of narcotics police officer Huang Mingjin and the \"mysterious figure\" Wei Yunzhou. Through completely different means and methods, in the process of calculating and wrestling with each other, they tear apart the facade of urban tranquility, exposing the underground drug network woven by the hidden hand \"Long Wang\", and ultimately eradicate the darkness with the sword of justice, revealing the dawn of light.",
+        "vi": "Bộ phim này kể về thiên tài phá án Hoàng Minh Kim và thiên tài tội phạm Ngụy Vân Châu, xoay quanh bí mật cốt lõi giữa thành phố tội ác bí ẩn, với nhiều cuộc giao tranh và đối đầu sinh tử, lượng lớn cảnh sát , người trước hy sinh, người sau tiếp bước, kẻ phạm tội thì nhiều vô kể, có người liều mạng giữ gìn hòa bình, có người cửu tử nhất sinh để phá vỡ cục diện, khi mạng che của tội ác dần bị lột bỏ, khi mạng lưới ma túy ngầm dần xuất hiện, cảnh sát và kẻ giang hồ cuối cùng sẽ làm thế nào trong quá trình trừng phạt tội ác và đưa ra lựa chọn của riêng mình, đang chờ đợi họ là một cuộc kiểm tra, càng là một cuộc phán xét."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/m5UBHbEjQJx3AkRZWRY6A4l4ZDT.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/m5UBHbEjQJx3AkRZWRY6A4l4ZDT.jpg"
+      },
+      "score": 7.3,
+      "title": {
+        "en": "Hunt the Wicked",
+        "vi": "Truy Lùng Tội Ác"
+      },
+      "year": 2024,
+      "_id": "6a7e8083916d65ebc7fa9b46"
+    },
+    {
+      "slug": "after-sex",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/6IcKXawCxDd6QZ8CfQHamp3qFDO.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Romance",
+          "Drama"
+        ],
+        "vi": [
+          "Phim Hài",
+          "Phim Lãng Mạn",
+          "Phim Chính Kịch"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/after-sex/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Sex is a background to examine intimacy and vulnerability. Looks at the complexity of modern day relationships told through eight separate couples. Through dialogue and compromising situations, the film takes us from the beginning of a relationship to the aftermath of one, and examines every stage in between seeing humor within the drama, heartache and confusion of it all.",
+        "vi": "Sex is a background to examine intimacy and vulnerability. Looks at the complexity of modern day relationships told through eight separate couples. Through dialogue and compromising situations, the film takes us from the beginning of a relationship to the aftermath of one, and examines every stage in between seeing humor within the drama, heartache and confusion of it all."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4n41P5CKHFFkQ3s8VJieNmqUkn7.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/4n41P5CKHFFkQ3s8VJieNmqUkn7.jpg"
+      },
+      "score": 5.492,
+      "title": {
+        "en": "After Sex",
+        "vi": "After Sex"
+      },
+      "year": 2007,
+      "_id": "6a7e8079916d65ebc7fa9b3a"
+    },
+    {
+      "slug": "our-golden-days",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mFyXE2EK6qgEd5KP8nor5DVy1Fp.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Drama",
+          "Family"
+        ],
+        "vi": [
+          "Phim Hài",
+          "Phim Chính Kịch",
+          "Phim Gia Đình"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "'Everyone has their own glorious days. Whether now, in the past, or in the future.' A family melodrama that resonates with generations about glorious days that each have different meanings.",
+        "vi": "\"Ai cũng có những tháng ngày huy hoàng của riêng mình. Dù là hiện tại, quá khứ hay tương lai.\" Một bộ phim tâm lý gia đình chạm đến nhiều thế hệ, kể về những tháng ngày vàng son mang ý nghĩa khác nhau với mỗi người. Ji Hyuk có tất cả phẩm chất của \"người chồng trong mơ\": thông minh, thành đạt và điển trai. Nhưng anh tin rằng độc thân mới là cuộc sống lý tưởng. Ngày thường, anh cống hiến trọn vẹn cho công việc; cuối tuần, anh tự thưởng cho mình những thú vui bằng chính đồng lương kiếm được. Mọi thứ đảo lộn khi Eun Oh - cô đàn em rạng rỡ và kiên cường thời đại học, từng một lần tỏ tình nhưng bị anh từ chối - bất ngờ quay lại."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/lduvaoMMGS71aLNrz9VMo5yXyMI.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/yyA7Wye6aexbjibF8PI2RPGLka9.jpg"
+      },
+      "score": 4.8,
+      "title": {
+        "en": "Our Golden Days",
+        "vi": "Thời Vàng Son"
+      },
+      "year": 2025,
+      "_id": "6a7e5e3f916d65ebc7fa57f0"
+    },
+    {
+      "slug": "the-fantastic-4-first-steps",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/s94NjfKkcSczZ1FembwmQZwsuwY.jpg",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-fantastic-4-first-steps/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Against the vibrant backdrop of a 1960s-inspired, retro-futuristic world, Marvel's First Family is forced to balance their roles as heroes with the strength of their family bond, while defending Earth from a ravenous space god called Galactus and his enigmatic Herald, Silver Surfer.",
+        "vi": "Sau một chuyến bay thám hiểm vũ trụ, bốn phi hành gia bất ngờ sở hữu năng lực siêu nhiên và trở thành gia đình siêu anh hùng đầu tiên của Marvel. The Fantastic Four: First Steps là bộ phim mở đầu Kỷ nguyên anh hùng thứ sáu (Phase Six), đặt nền móng cho siêu bom tấn Avengers: Doomsday trong năm sau."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/n0bqzWiKGJsmnvOlkTiYykhhM4E.jpg"
+      },
+      "score": 6.944,
+      "title": {
+        "en": "The Fantastic 4: First Steps",
+        "vi": "Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên"
+      },
+      "year": 2025,
+      "_id": "6a7e4c50916d65ebc7fa3a0b"
+    },
+    {
+      "slug": "fantastic-four",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/or5kDR8Ve3TtuPSdEf1X5NdQHyz.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/fantastic-four/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Four young outsiders teleport to a dangerous universe, which alters their physical form in shocking ways. Their lives irrevocably upended, the team must learn to harness their daunting new abilities and work together to save Earth from a former friend turned enemy.",
+        "vi": "Bộ tứ siêu đẳng 2015 xoay quanh sự hình thành của Bộ tứ siêu đẳng. Tiến sỹ vật lý trẻ Reed Richards cùng phi hành gia Ben Grimm, bạn gái cũ Susan Storm và anh chàng Johnny Storm tham gia vào một cuộc thử nghiệm ngoài vũ trụ. Khi trở về, họ phát hiện ra cơ thể mình đã bị biến đổi một cách kỳ lạ: Richards có thể kéo dài người như cao su, Susan Storm có thể trở nên vô hình và tạo ra một nguồn năng lượng làm lá chắn, Johnny Storm có khả năng tự bốc cháy và bay, còn Grimm trở thành một người đá với sức mạnh khủng khiếp.  Không thể trở lại bình thường, bộ tứ buộc phải học cách khai thác những siêu năng lực mới và phối hợp cùng nhau để cứu Trái Đất khỏi kẻ thù hung ác Victor Domashev (Doctor Doom) - chính là người năm xưa từng giúp đỡ họ thực hiện cuộc thử nghiệm."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/cDroz5qSlP8xZ6tOpeYoPkBvKyL.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/2ox7WvMJwwq6yEawXspkZEQTpbq.jpg"
+      },
+      "score": 4.434,
+      "title": {
+        "en": "Fantastic Four",
+        "vi": "Bộ Tứ Siêu Đẳng"
+      },
+      "year": 2015,
+      "_id": "6a7e4aa9916d65ebc7fa39e7"
+    },
+    {
+      "slug": "tom-clancy-s-jack-ryan-ghost-war",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/dd31qJxOarrHyGZwYsCzOjobQzP.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/tom-clancy-s-jack-ryan-ghost-war/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Jack Ryan is reluctantly pulled back into espionage when an international covert mission unravels a deadly conspiracy. Racing against time, he joins CIA allies Mike November & James Greer and sharp MI6 officer Emma Marlowe to battle a rogue black-ops unit in a high-stakes, deeply personal fight.",
+        "vi": "Khi một nhiệm vụ bí mật quốc tế làm sáng tỏ một âm mưu chết người, Ryan buộc phải quay trở lại thế giới gián điệp để đối đầu với một đơn vị hoạt động đen tối lừa đảo."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/8ehYxUh5MWE41AeE9gkHE8DKzvB.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/b5wOQyhRvOGS61x5heXCllbNh78.jpg"
+      },
+      "score": 6.955,
+      "title": {
+        "en": "Tom Clancy's Jack Ryan: Ghost War",
+        "vi": "Siêu Điệp Viên Jack Ryan: Bóng Ma Chiến Tranh"
+      },
+      "year": 2026,
+      "_id": "6a7e4997916d65ebc7fa39be"
+    },
+    {
+      "slug": "milf",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/aX64iPl9gsQLdIPaEYjMjpyM826.jpg",
+      "genres": {
+        "en": [
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Hài"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/milf/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "A group of nerdy college guys who can't seem to connect with girls their own age discover the excitement of hooking up with sexy older women.",
+        "vi": "A group of nerdy college guys who can't seem to connect with girls their own age discover the excitement of hooking up with sexy older women."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/2iciKTqt0ioOh6TFaXXVUqKPVj9.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/2iciKTqt0ioOh6TFaXXVUqKPVj9.jpg"
+      },
+      "score": 4.353,
+      "title": {
+        "en": "Milf",
+        "vi": "Milf"
+      },
+      "year": 2010,
+      "_id": "6a7e4818916d65ebc7fa39bb"
+    },
+    {
+      "slug": "the-odyssey",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/RMXG8myu1aGlNUsRjtxzmpdMK0.jpg",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-odyssey/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
+        "vi": "Câu chuyện theo chân Odysseus trong hành trình kéo dài 10 năm trở về nhà sau cuộc chiến thành Troy, nơi ông phải đối mặt với các vị thần, quái vật và vô vàn thử thách, đồng thời nỗ lực đoàn tụ với vợ và giành lại vương quốc của mình."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/7876PK6gosE13Uq1B6nRxf7AJLT.jpg"
+      },
+      "score": 7.994,
+      "title": {
+        "en": "The Odyssey",
+        "vi": "The Odyssey"
+      },
+      "year": 2026,
+      "_id": "6a7e4691916d65ebc7fa3910"
+    },
+    {
+      "slug": "the-passenger",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/nItaRm9Kaz7xVkcIaFmxjlnfrME.jpg",
+      "genres": {
+        "en": [
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-passenger/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Hassan, a Somali-American airport shuttle driver in Minneapolis, is struggling to make ends meet. When Lloyd, a stranded twenty-something at the airport, offers to pay Hassan to take him overland to Chicago, it seems worth the risk. But as the realization grows that his passenger is not what he seems, Hassan finds himself trapped in a terrifying ride that he can’t escape, knowing that saving himself might put countless others in danger.",
+        "vi": "Hassan, một tài xế đưa đón sân bay người Mỹ gốc Somali ở Minneapolis, đang phải vật lộn để kiếm sống. Khi Lloyd, một thanh niên 20 tuổi bị mắc kẹt ở sân bay, đề nghị trả tiền cho Hassan để đưa anh ta bằng đường bộ tới Chicago, điều đó có vẻ đáng để mạo hiểm. Nhưng khi nhận ra rằng hành khách của mình không giống như vẻ ngoài của mình, Hassan thấy mình bị mắc kẹt trong một chuyến đi kinh hoàng mà anh không thể trốn thoát, biết rằng việc cứu mình có thể khiến vô số người khác gặp nguy hiểm."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/i9XqCdF0jrgqveYUaLjOSiRepIq.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/i9XqCdF0jrgqveYUaLjOSiRepIq.jpg"
+      },
+      "score": 5.288,
+      "title": {
+        "en": "The Passenger",
+        "vi": "Hành Khách"
+      },
+      "year": 2026,
+      "_id": "6a7e4681916d65ebc7fa38e9"
+    },
+    {
+      "slug": "the-protector",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/fBguOyKDJtVD3EQaCur4wPGDfnm.jpg",
+      "genres": {
+        "en": [
+          "Action"
+        ],
+        "vi": [
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-protector/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "With the region's last source of freshwater buried under a Native American reservation and evil forces angling for control, a convict fighting for her freedom becomes the unlikely protector of a young boy who may have the power to save it",
+        "vi": "With the region's last source of freshwater buried under a Native American reservation and evil forces angling for control, a convict fighting for her freedom becomes the unlikely protector of a young boy who may have the power to save it"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9tXKquUdUqGgrUMPkWw3OWU6mPf.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/9tXKquUdUqGgrUMPkWw3OWU6mPf.jpg"
+      },
+      "score": 4.357,
+      "title": {
+        "en": "The Protector",
+        "vi": "The Protector"
+      },
+      "year": 2025,
+      "_id": "6a7e3da6916d65ebc7fa38be"
+    },
+    {
+      "slug": "supergirl",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/54KIfdTEzOliHDKx0OkzYGqAICx.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/supergirl/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
+        "vi": "Khi một kẻ thù tàn nhẫn và không ngờ tới ra tay quá gần với những gì cô trân quý, Kara Zor-El, còn được biết đến với cái tên Supergirl, miễn cưỡng hợp tác với một người đồng hành không ai ngờ tới, bước vào hành trình liên thiên hà đầy sử thi để tìm kiếm sự trả thù và công lý."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/duXkWKOLS7hHAddyjBwk35YY6U.jpg"
+      },
+      "score": 6.747,
+      "title": {
+        "en": "Supergirl",
+        "vi": "Supergirl"
+      },
+      "year": 2026,
+      "_id": "6a7e3c6a916d65ebc7fa38b8"
+    },
+    {
+      "slug": "spider-man-brand-new-day",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/spider-man-brand-new-day/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+        "vi": "Không còn Tony Stark, MJ hay Ned kề cận, Peter buộc phải đơn thân độc mã đối diện với phe đối đầu bí ẩn. Tuy nhiên, khi áp lực ngày càng gia tăng, nó kích hoạt một sự biến đổi thể chất bất ngờ, đe dọa chính sự tồn tại của anh. Đồng thời, một chuỗi tội phạm bí ẩn mới xuất hiện, kéo theo một trong những mối đe dọa mạnh mẽ nhất mà Spider-Man từng đối mặt."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/wqGZVSCUSXE92WH2zyol2REaqT4.jpg"
+      },
+      "score": 7.868,
+      "title": {
+        "en": "Spider-Man: Brand New Day",
+        "vi": "Người Nhện: Khởi Đầu Mới"
+      },
+      "year": 2026,
+      "_id": "6a7e3a73916d65ebc7fa38ae"
+    },
+    {
+      "slug": "hungry",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/sUfwD6yMR740c2xvYopzv6JqOL3.jpg",
+      "genres": {
+        "en": [
+          "Thriller",
+          "Horror"
+        ],
+        "vi": [
+          "Phim Gây Cấn",
+          "Phim Kinh Dị"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/hungry/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "A group of holidaymakers must fight for their lives against a rampaging hippo on the loose after becoming lost in the Louisiana swamplands.",
+        "vi": "Một nhóm du khách lạc vào vùng đầm lầy Louisiana buộc phải chiến đấu để sinh tồn khi bị một con hà mã hung hãn đang sổng chuồng truy sát."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4uNhvGxBDiO0mU5UhxuXBsJwKF3.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/4uNhvGxBDiO0mU5UhxuXBsJwKF3.jpg"
+      },
+      "score": 7.161,
+      "title": {
+        "en": "Hungry",
+        "vi": "Cơn Đói Khát Tử Thần"
+      },
+      "year": 2026,
+      "_id": "6a7e3986916d65ebc7fa371f"
+    },
+    {
+      "slug": "the-legend",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/h4skbDqGjhj4p6hK8dPA3WKItvD.jpg",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Hài"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-legend/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The secret Red Lotus Flower Society is committed to the overthrow of the evil Manchu Emperor and his minions. One of his Governors is sent on a mission to retrieve a list of members of that secret society. Meanwhile, Canton kung fu practitioner Fong Sai-Yuk falls in love with the beautiful daughter of a rich merchant.",
+        "vi": "Phim nói về một chàng thanh niên dũng cảm, cương trực và giỏi võ công tên là Phương Thế Ngọc,  mẹ của Thế Ngọc là Miêu Thúy Hoa,  cha là Phương Đức, ông ta là một thương gia giàu có.  Với bản tính hiếu động và láu lỉnh của mình, Phương Thế Ngọc đã thượng đài đấu với một cô nương trên võ đài để kén chồng. Sau đó, Phương Thế Ngọc gặp phải những tình huống hài hước khi chiến thắng trong cuộc thi kén rể, trong cuộc đấu võ tuyển phu của con gái quan tri huyện là Ting Ting. Nhưng Phương Thế Ngọc lại chưa muốn bị ràng buộc bởi hôn nhân."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/hdAqW3qn0Y9jNMjDob5ae0NRa0F.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/hdAqW3qn0Y9jNMjDob5ae0NRa0F.jpg"
+      },
+      "score": 7,
+      "title": {
+        "en": "The Legend",
+        "vi": "Phương Thế Ngọc"
+      },
+      "year": 1993,
+      "_id": "6a7e3496916d65ebc7fa2edc"
+    },
+    {
+      "slug": "gold-land",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/AoJgqEYpxRWd58gNQKNwYlPUFeZ.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Crime",
+          "Mystery"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Hình Sự",
+          "Phim Bí Ẩn"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "A young woman working as an airport security agent accidentally comes into possession of a smuggling ring’s gold bars. Caught in a chaotic whirlwind of greed and betrayal among various parties vying for the gold, she becomes consumed by the desire to claim it all for herself.",
+        "vi": "A young woman working as an airport security agent accidentally comes into possession of a smuggling ring’s gold bars. Caught in a chaotic whirlwind of greed and betrayal among various parties vying for the gold, she becomes consumed by the desire to claim it all for herself."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/qhbwTTeSnIGctR4CEmHc9RQBwtT.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/exAqL4Hbh2M712QlFwGDTqZeiAl.jpg"
+      },
+      "score": 7.987,
+      "title": {
+        "en": "Gold Land",
+        "vi": "Đảo Vàng"
+      },
+      "year": 2026,
+      "_id": "6a7e3491916d65ebc7fa2ed6"
+    },
+    {
+      "slug": "fight-against-evil-3",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/AtvnNg6R0kunKDhdNl9tAAGVOdT.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Crime",
+          "Comedy",
+          "Drama"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Hình Sự",
+          "Phim Hài",
+          "Phim Chính Kịch"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/fight-against-evil-3/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Li Hongqi is forced to travel for his wedding but must team up with a local cop to rescue a girl from human traffickers, fighting criminals while racing against his wedding date.",
+        "vi": "Lý Hồng Kỳ buộc phải lên đường để lo cho đám cưới của mình, nhưng lại phải hợp tác với một cảnh sát địa phương để giải cứu một cô gái khỏi tay bọn buôn người. Anh vừa phải chiến đấu với tội phạm, vừa phải chạy đua với thời gian để kịp ngày cưới."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/ivsJigetkc9ziOc6j0FenDilrRA.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/f5EoZe8Z256w0tgRhYzV0LAtNuH.jpg"
+      },
+      "score": 6.619,
+      "title": {
+        "en": "Fight Against Evil 3",
+        "vi": "Câu Chuyện Cảnh Sát Đông Bắc 3"
+      },
+      "year": 2026,
+      "_id": "6a7e23fe916d65ebc7fa2144"
+    },
+    {
+      "slug": "fight-against-evil-2",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/2PruPXWz2CNIfS89jjRNeLJXBYU.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Crime",
+          "Drama"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Hình Sự",
+          "Phim Chính Kịch"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/fight-against-evil-2/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Li Hongqi, a righteous Northeast police officer, accidentally discovers the existence of local bullies involved in pornography. As the investigation deepens, a gang of local tyrants who control and oppress women with drugs emerges and openly provokes the police. Li Hongqi has decided to fight to the end, and is bound to eradicate this \"pornography tumor\".",
+        "vi": "Lý Hồng Kỳ, một viên cảnh sát vùng Đông Bắc chính trực, tình cờ phát hiện ra sự tồn tại của những tên ác bá địa phương dính líu đến hoạt động mại dâm. Khi cuộc điều tra đi sâu hơn, một băng đảng giang hồ chuyên dùng ma túy để khống chế và bóc lột phụ nữ dần lộ diện, thậm chí còn ngang nhiên khiêu khích cảnh sát. Lý Hồng Kỳ quyết định chiến đấu đến cùng và thề sẽ triệt phá tận gốc \"khối u mại dâm\" này."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/fyzcGj7KseDXT7TTP5xCvVHc0Oq.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/v0FwTd8dpGuirgVTftUHn39HpN6.jpg"
+      },
+      "score": 7.074,
+      "title": {
+        "en": "Fight Against Evil 2",
+        "vi": "Câu Chuyện Cảnh Sát Đông Bắc 2"
+      },
+      "year": 2023,
+      "_id": "6a7e0b66916d65ebc7fa1333"
+    },
+    {
+      "slug": "the-legend-ii",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/deTIvZZb9OIZcyIRsPDhFAHzCGg.jpg",
+      "genres": {
+        "en": [
+          "Action",
+          "Comedy",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Hài",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-legend-ii/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The hero Fong Sai Yuk becomes involved in the secret brotherhood \"The Red Flower\", who are trying to overthrow the Manchurian emperor and re-establishing the Ming dynasty. The social upheaval is combined with Sai Yuk's personal moral conflict about how to conform to the rigid regime of the brotherhood and on top of that sort out his difficult love life, saddled with two presumptive wives.",
+        "vi": "Phần tiếp theo của bộ film Phương Thế Ngọc, lần này Phương Thế Ngọc laị rơi vào lưới tình với một cô nàng xinh đẹp mà anh gặp được khi làm việc. Nhưng liệu cô vợ Ting Ting có để yên như vậy hay không?"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/ioG9sQbDV1yqOvB7EDlF6jBMKCv.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/j36oyYZwSFpuGowKBh6dJ5GcCLF.jpg"
+      },
+      "score": 6.7,
+      "title": {
+        "en": "The Legend II",
+        "vi": "Phương Thế Ngọc 2"
+      },
+      "year": 1993,
+      "_id": "6a7e0b03916d65ebc7fa125d"
+    },
+    {
+      "slug": "fight-against-evil",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/dkgXGrNszEUlc7BOk8SYIbZpRKF.jpg",
+      "genres": {
+        "en": [
+          "Crime",
+          "Drama",
+          "Action"
+        ],
+        "vi": [
+          "Phim Hình Sự",
+          "Phim Chính Kịch",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/fight-against-evil/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Criminal police Li Hongqi accompanied his girlfriend back to his hometown for the Chinese New Year, and accidentally discovered that his father-in-law was involved in this crime-related case. With a strong sense of justice, Li Hongqi decided to give up his vacation and cooperated with the local police to start an investigation.",
+        "vi": "Cảnh sát hình sự Lý Hồng Kỳ cùng bạn gái về quê ăn Tết Nguyên Đán, nhưng tình cờ phát hiện ra bố vợ tương lai của mình có dính líu đến một vụ án hình sự. Với tinh thần chính nghĩa cao cả, Lý Hồng Kỳ quyết định gác lại kỳ nghỉ và phối hợp cùng cảnh sát địa phương để tiến hành điều tra."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/vypC2X2wCKfKSz2Gtk0RrmBQvLi.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/yxVGB2He0vQPIFjHx6uZLHyguIh.jpg"
+      },
+      "score": 6.654,
+      "title": {
+        "en": "Fight Against Evil",
+        "vi": "Câu Chuyện Cảnh Sát Đông Bắc"
+      },
+      "year": 2021,
+      "_id": "6a7dd7bc916d65ebc7f9e1cb"
+    },
+    {
+      "slug": "faces-of-death",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qdyeQg2gWj1L8cDlwU3tI4s0Hub.jpg",
+      "genres": {
+        "en": [
+          "Horror"
+        ],
+        "vi": [
+          "Phim Kinh Dị"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/faces-of-death/master.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "A woman, employed as a website content moderator, comes across a series of violent videos reproducing death scenes from a film.",
+        "vi": "Một nữ kiểm duyệt nội dung phát hiện các video giết người cực kỳ chân thật trên mạng. Cô nhận ra có kẻ đang tái hiện các kiểu chết từ phim cũ và phát tán chúng, rồi bị cuốn vào cuộc săn đuổi với chính hắn."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/vPVY3S57lEooBLJCg6KGdMHkUxm.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/vPVY3S57lEooBLJCg6KGdMHkUxm.jpg"
+      },
+      "score": 5.603,
+      "title": {
+        "en": "Faces of Death",
+        "vi": "Muôn Mặt Cái Chết"
+      },
+      "year": 2026,
+      "_id": "6a7d77c4916d65ebc7f60943"
+    },
+    {
+      "slug": "khi-anh-chay-ve-phia-em",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3nWfjIBUyYUCABI7Fsl1AhNhDAr.jpg",
+      "genres": {
+        "en": [
+          "Drama",
+          "Comedy"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Hài"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "Set off by a sweet chance encounter, 16-year-old Su Zaizai finds herself helplessly drawn to Zhang Lurang — her smart, charming yet distant schoolmate.",
+        "vi": "Vào đầu mùa thu năm 2012, một trường trung học phổ thông trọng điểm của thành phố Z mở kì thi tuyển học sinh mới, Tô Tại Tại đã trúng tuyển và được bước chân vào ngôi trường. Vào ngày đầu tiên đi học, Trương Lục Nhượng đã thu hút sự chú ý của Tô Tại Tại, khiến cô đã “Yêu ngay từ cái nhìn đầu tiên”. Nhờ sự ấm áp như ánh mặt trời của mình, Tô Tại Tại đã giúp Trương Lục Nhượng thoát khỏi sự tự ti. Còn Tô Tại Tại, người luôn đi theo số đông mà không biết kế hoạch, mục tiêu của mình là gì, dưới tác động của học bá Trương Lục Nhượng, cô dần dần hiểu ra cách lập kế hoạch và mục tiêu cho cuộc đời mình. Câu chuyện cho ta thấy ý nghĩa của sự thiếu hiểu trong tuổi trẻ và dần từ từ tiến đến một tương lai tươi sáng, tốt đẹp hơn."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/mjCChwZcEZ9902tUAG1hWZlfOHm.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/grxhi56NxHXiv787HQ2b5QchdqP.jpg"
+      },
+      "score": 8.8,
+      "title": {
+        "en": "When I Fly Towards You",
+        "vi": "Khi Anh Chạy Về Phía Em"
+      },
+      "year": 2023,
+      "_id": "6a7db1d3916d65ebc7f9e13b"
+    },
+    {
+      "slug": "hanh-trinh-cua-xico",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/fZHvSNUBKSgRAduB5k0fFST1xYn.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Family",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Phim Gia Đình",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20230908/7Cxu9xOI/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The peace of a small town is endangered when a corporation wants to destroy the mountain that protects them. A girl named Copi and her best friend Xico, a Xoloitzcuintle dog, will go into the mountains to try to save the town.",
+        "vi": "Cô bé nọ cùng cậu bạn thân và một chú chó quyết cứu một ngọn núi khỏi công ty muốn khai thác vàng. Nhưng chìa khóa lại chẳng ở đâu xa, khi đã có chú chó thân thiết Xico."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/g8ZyfUC0THygJkVoO2J7NxsdPI5.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/ssk0Gd27ziryP2OUxprIVhAvr3e.jpg"
+      },
+      "score": 6.6,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20230908/7Cxu9xOI/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "Xico's Journey",
+        "vi": "Hành Trình Của Xico"
+      },
+      "year": 2021,
+      "_id": "6a7db1d2916d65ebc7f9e13a"
+    },
+    {
+      "slug": "vuon-toi-cung-trang",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/htBUhLSS7FfHtydgYxUWjL3J1Q1.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Adventure",
+          "Family",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Phim Phiêu Lưu",
+          "Phim Gia Đình",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20230908/qFbAmUNg/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Fueled by memories of her mother, resourceful Fei Fei builds a rocket to the moon on a mission to prove the existence of a legendary moon goddess.",
+        "vi": "Được những ký ức về mẹ thôi thúc, cô bé tháo vát Phi Phi lắp ráp con tàu tên lửa lên mặt trăng nhằm chứng minh Hằng Nga trong thần thoại là có thật."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/lG0TF0wj1n9p9CPy5xlIUIkF56a.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/lG0TF0wj1n9p9CPy5xlIUIkF56a.jpg"
+      },
+      "score": 7.18,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20230908/qFbAmUNg/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "Over the Moon",
+        "vi": "Vươn Tới Cung Trăng"
+      },
+      "year": 2020,
+      "_id": "6a7db1d2916d65ebc7f9e139"
+    },
+    {
+      "slug": "barbie",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3N5QNUqS76GFYNoEayfkkJyAyTN.jpg",
+      "genres": {
+        "en": [
+          "Comedy",
+          "Adventure",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Hài",
+          "Phim Phiêu Lưu",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20230906/UM8kLWnC/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Barbie and Ken are having the time of their lives in the colorful and seemingly perfect world of Barbie Land. However, when they get a chance to go to the real world, they soon discover the joys and perils of living among humans.",
+        "vi": "Barbie sẽ được nhào nặn và chắp bút bởi nữ đạo diễn kiêm biên kịch từng nhận nhiều Đề cử Tượng vàng Oscar – Greta Grewig. Hai nhân vật chính Barbie và Ken sẽ được hóa thân bởi nữ diên viên Margot Robbie và nam thần Ryan Gosling, hứa hẹn sẽ tạo nên “chemistry” đáng yêu giữa hai nhân vật búp bê nổi tiếng thế giới."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iuFNMS8U5cb6xfzi51Dbkovj7vM.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/sO3V9AgFsdo9jzf8th4HQiOjGJA.jpg"
+      },
+      "score": 6.912,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20230906/UM8kLWnC/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "Barbie",
+        "vi": "Barbie"
+      },
+      "year": 2023,
+      "_id": "6a7db1d2916d65ebc7f9e138"
+    },
+    {
+      "slug": "cu-truot-dai",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/zLAANW5gTW6l2vbMPRmJasyI171.jpg",
+      "genres": {
+        "en": [
+          "Drama"
+        ],
+        "vi": [
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "overview": {
+        "en": "A figure skating Olympic hopeful struggles to balance love, family and fragile mental health as her dream of winning takes a dizzying hold.",
+        "vi": "Vận động viên trượt băng nghệ thuật khao khát vinh quang Olympic vật lộn để cân bằng tình yêu, gia đình và sức khỏe tinh thần mỏng manh khi ước mơ khiến cô quay cuồng."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/bAEGuEK0z4KTlrsx5UYpIvmPIPc.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/pTWa1h10crJEY6V4O9Umpv7a4hh.jpg"
+      },
+      "score": 7.9,
+      "title": {
+        "en": "Spinning Out",
+        "vi": "Cú Trượt Dài"
+      },
+      "year": 2020,
+      "_id": "6a7db1d2916d65ebc7f9e12d"
+    },
+    {
+      "slug": "quy-du-thuc-tinh",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/dKC5qWi6S8SKkSzrP6LxTk0cb98.jpg",
+      "genres": {
+        "en": [
+          "Horror",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Kinh Dị",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20230906/VAQRdk25/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "The crew of the merchant ship Demeter attempts to survive the ocean voyage from Carpathia to London as they are stalked each night by a merciless presence onboard the ship.",
+        "vi": "Một đoàn thủy thủ tham gia vào nhiệm vụ vận chuyển một “đơn hàng” bí ẩn từ Carpathia đến London trên con tàu Demeter huyền thoại. Hải trình tưởng chừng như đơn giản thế nhưng lại ẩn chứa một cơn ác mộng kinh hoàng khi “đơn hàng” họ vận chuyển đang dần thức tỉnh. Nỗi khiếp sợ chính thức mở ra khi một vài thủy thủ bắt đầu phát hiện những dấu hiệu bất thường trên tàu, sự ra đi hàng loạt của động vật, cho đến cái chết bí ẩn của người thủy thủ đã khiến cho chuyến hành trình đến London trở nên ám ảnh hơn bao giờ hết. Giờ đây, tất cả mọi người phải tranh giành sự sống với mọi giác quan để chống lại con quái vật khát máu đã thức tỉnh trên tàu – Dracula. Liệu họ có cập bến thành công? Hay kết cục chỉ còn là sự chết chóc và một con tàu vô chủ?"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/nrtbv6Cew7qC7k9GsYSf5uSmuKh.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/r9c0GICzUYRmphrqvf8nsVQJUal.jpg"
+      },
+      "score": 6.732,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20230906/VAQRdk25/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "The Last Voyage of the Demeter",
+        "vi": "Quỷ Dữ Thức Tỉnh"
+      },
+      "year": 2023,
+      "_id": "6a7db1d2916d65ebc7f9e12c"
+    },
+    {
+      "slug": "pony-be-nho-the-he-moi",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/ugukqzx4gSzBd1yzmbWEHLkpGaS.jpg",
+      "genres": {
+        "en": [
+          "Animation",
+          "Family",
+          "Fantasy",
+          "Comedy",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Phim Gia Đình",
+          "Phim Giả Tượng",
+          "Phim Hài",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "https://s2.phim1280.tv/20230910/r57hPFvz/index.m3u8",
+      "mediaType": "movie",
+      "overview": {
+        "en": "Equestria's divided. But a bright-eyed hero believes Earth Ponies, Pegasi and Unicorns should be pals — and, hoof to heart, she’s determined to prove it.",
+        "vi": "Equestria's divided. But a bright-eyed hero believes Earth Ponies, Pegasi and Unicorns should be pals — and, hoof to heart, she’s determined to prove it."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/uvbj8puRj37Pc8FS4rIfVeReYFF.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/uvbj8puRj37Pc8FS4rIfVeReYFF.jpg"
+      },
+      "score": 7.636,
+      "sources": [
+        {
+          "kind": "other",
+          "url": "https://s2.phim1280.tv/20230910/r57hPFvz/index.m3u8",
+          "label": "Vietsub"
+        }
+      ],
+      "title": {
+        "en": "My Little Pony: A New Generation",
+        "vi": "Pony Bé Nhỏ: Thế Hệ Mới"
+      },
+      "year": 2021,
+      "_id": "6a7db1d2916d65ebc7f9e12b"
+    }
+  ],
+  "resumeMovies": [],
+  "genres": [
+    "Action & Adventure",
+    "Bí Ẩn",
+    "Chiến Tranh",
+    "Chính Kịch",
+    "Chương Trình Truyền Hình",
+    "Cổ Trang",
+    "Gia Đình",
+    "Giả Tượng",
+    "Gây Cấn",
+    "Hoạt Hình",
+    "Hài Hước",
+    "Hành Động",
+    "Hình Sự",
+    "Học Đường",
+    "Khoa Học",
+    "Kids",
+    "Kinh Dị",
+    "Kinh Điển",
+    "Lịch Sử",
+    "Miền Tây",
+    "News",
+    "Phim 18+",
+    "Phim Bí Ẩn",
+    "Phim Chiến Tranh",
+    "Phim Chính Kịch",
+    "Phim Gia Đình",
+    "Phim Giả Tượng",
+    "Phim Gây Cấn",
+    "Phim Hoạt Hình",
+    "Phim Hài",
+    "Phim Hành Động",
+    "Phim Hình Sự",
+    "Phim Khoa Học Viễn Tưởng",
+    "Phim Kinh Dị",
+    "Phim Lãng Mạn",
+    "Phim Lịch Sử",
+    "Phim Miền Tây",
+    "Phim Ngắn",
+    "Phim Nhạc",
+    "Phim Phiêu Lưu",
+    "Phim Tài Liệu",
+    "Phiêu Lưu",
+    "Reality",
+    "Sci-Fi & Fantasy",
+    "Soap",
+    "Talk",
+    "Thần Thoại",
+    "Thể Thao",
+    "Trẻ Em",
+    "Tài Liệu",
+    "Tâm Lý",
+    "Tình Cảm",
+    "Viễn Tưởng",
+    "Võ Thuật",
+    "War & Politics",
+    "Âm Nhạc"
+  ],
+  "resume": [],
+  "top": [
+    {
+      "slug": "spider-man-brand-new-day",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
+      "createdAt": "2026-08-14T04:44:04.909Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/spider-man-brand-new-day/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+        "vi": "Không còn Tony Stark, MJ hay Ned kề cận, Peter buộc phải đơn thân độc mã đối diện với phe đối đầu bí ẩn. Tuy nhiên, khi áp lực ngày càng gia tăng, nó kích hoạt một sự biến đổi thể chất bất ngờ, đe dọa chính sự tồn tại của anh. Đồng thời, một chuỗi tội phạm bí ẩn mới xuất hiện, kéo theo một trong những mối đe dọa mạnh mẽ nhất mà Spider-Man từng đối mặt."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/wqGZVSCUSXE92WH2zyol2REaqT4.jpg"
+      },
+      "score": 7.868,
+      "title": {
+        "en": "Spider-Man: Brand New Day",
+        "vi": "Người Nhện: Khởi Đầu Mới"
+      },
+      "tmdbId": 969681,
+      "votes": 1641,
+      "year": 2026,
+      "search": "spider man brand new day nguoi nhen khoi dau moi 2026",
+      "_id": "6a7e3a73916d65ebc7fa38ae"
+    },
+    {
+      "slug": "smallville",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/4wVq9ICc4MI2XcssrumpCOhKLpI.jpg",
+      "createdAt": "2026-08-14T14:27:28.172Z",
+      "genres": {
+        "en": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Drama"
+        ],
+        "vi": [
+          "Sci-Fi & Fantasy",
+          "Action & Adventure",
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "The origins of the world’s greatest hero–from Krypton refugee Kal-el’s arrival on Earth through his tumultuous teen years to Clark Kent’s final steps toward embracing his destiny as the Man of Steel.",
+        "vi": "Thiếu niên Clark Kent ở Kansas dùng siêu năng lực đang dần hình thành để chống lại tội phạm, đồng thời đối phó với tình yêu tuổi trẻ, rắc rối gia đình và khủng hoảng tuổi dậy thì."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/mHZSq8LA5Dt48JjaOZ5tcPXQRVN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/35rxWpTUkVETpbU7DzR1pjQfEJx.jpg"
+      },
+      "score": 8.2,
+      "search": "smallville thi tran smallville 2001",
+      "title": {
+        "en": "Smallville",
+        "vi": "Thị Trấn Smallville"
+      },
+      "tmdbId": 4604,
+      "votes": 4564,
+      "year": 2001,
+      "_id": "6a7ec326916d65ebc7fac18e"
+    },
+    {
+      "slug": "the-odyssey",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/RMXG8myu1aGlNUsRjtxzmpdMK0.jpg",
+      "createdAt": "2026-08-14T05:35:47.622Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-odyssey/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Odysseus, the legendary King of Ithaca, embarks on a long and perilous journey home following the Trojan War. Throughout his voyage, he is forced to confront the whims of gods, mythological monsters, and trials that stretch both his cunning and his humanity to the breaking point.",
+        "vi": "Câu chuyện theo chân Odysseus trong hành trình kéo dài 10 năm trở về nhà sau cuộc chiến thành Troy, nơi ông phải đối mặt với các vị thần, quái vật và vô vàn thử thách, đồng thời nỗ lực đoàn tụ với vợ và giành lại vương quốc của mình."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/5rhTDKUhPYvpdQIijFIs5VoWsON.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/7876PK6gosE13Uq1B6nRxf7AJLT.jpg"
+      },
+      "score": 7.994,
+      "title": {
+        "en": "The Odyssey",
+        "vi": "The Odyssey"
+      },
+      "tmdbId": 1368337,
+      "votes": 2693,
+      "year": 2026,
+      "search": "the odyssey the odyssey 2026",
+      "_id": "6a7e4691916d65ebc7fa3910"
+    },
+    {
+      "slug": "minions-monsters",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/kkcwhgSFd81QDlXo8ytrpHPQjhy.jpg",
+      "createdAt": "2026-08-12T17:12:14.802Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Animation",
+          "Comedy",
+          "Family",
+          "Fantasy"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hoạt Hình",
+          "Phim Hài",
+          "Phim Gia Đình",
+          "Phim Giả Tượng"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/minions-monsters/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "This is the rambunctious, ridiculous and totally true story of how the Minions conquered Hollywood, became movie stars, lost everything, unleashed monsters onto the world and then banded together to try and save the planet from the mayhem they had just created.",
+        "vi": "Đây là câu chuyện có thật, đầy náo nhiệt, lố bịch và vô cùng điên rồ về cách các Minion chinh phục Hollywood, trở thành ngôi sao điện ảnh, rồi đánh mất tất cả, vô tình giải phóng những quái vật ra thế giới và cuối cùng buộc phải sát cánh bên nhau để cứu lấy Trái Đất khỏi chính mớ hỗn loạn mà họ đã gây ra."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4LwvU9SZc8QQzW1X1FAPhNbXnEU.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/z8OWDTR7pQuZi7jkEuR7yMXRrQt.jpg"
+      },
+      "score": 7.495,
+      "title": {
+        "en": "Minions & Monsters",
+        "vi": "Minions & Quái Vật"
+      },
+      "tmdbId": 1315772,
+      "votes": 719,
+      "year": 2026,
+      "search": "minions monsters minions quai vat 2026",
+      "_id": "6a7c46cb916d65ebc7f58ff9"
+    },
+    {
+      "slug": "lanterns",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/mdbWfpbWhvxgG3k5MHpo90UgAUe.jpg",
+      "createdAt": "2026-08-18T15:42:19.224Z",
+      "genres": {
+        "en": [
+          "Drama",
+          "Mystery",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Chính Kịch",
+          "Phim Bí Ẩn",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland.",
+        "vi": "Two intergalactic cops, new recruit John Stewart and Lantern legend Hal Jordan, are drawn into a dark, Earth-based mystery as they investigate a murder in the American heartland."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9WvY1jicpfYLA6KoczwvdMRNGvc.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/gpC7h43xPMEV3goYMQShfJbTtLq.jpg"
+      },
+      "score": 7.9,
+      "search": "lanterns lanterns 2026",
+      "title": {
+        "en": "Lanterns",
+        "vi": "Lanterns"
+      },
+      "tmdbId": 95350,
+      "votes": 70,
+      "year": 2026,
+      "_id": "6a841ab4916d65ebc7fc6546"
+    },
+    {
+      "slug": "arcane",
+      "createdAt": "2026-08-10T09:36:24.784Z",
+      "genres": {
+        "en": [
+          "Animation",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ],
+        "vi": [
+          "Phim Hoạt Hình",
+          "Action & Adventure",
+          "Sci-Fi & Fantasy"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "Amid the stark discord of twin cities Piltover and Zaun, two sisters fight on rival sides of a war between magic technologies and clashing convictions.",
+        "vi": "Khi hai thành phố song sinh Piltover và Zaun ở thế mâu thuẫn gay gắt, hai chị em chiến đấu ở hai bên chiến tuyến cùng các công nghệ ma thuật và những niềm tin trái chiều."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/fqldf2t8ztc9aiwn3k6mlX3tvRT.jpg"
+      },
+      "title": {
+        "en": "Arcane",
+        "vi": "Arcane"
+      },
+      "tmdbId": 94605,
+      "year": 2021,
+      "score": 8.752,
+      "votes": 6089,
+      "backdrop": "https://image.tmdb.org/t/p/w1280/q8eejQcg1bAqImEV8jh8RtBD4uH.jpg",
+      "search": "arcane arcane 2021",
+      "_id": "6a793929916d65ebc7f4b6cb"
+    },
+    {
+      "slug": "the-fantastic-4-first-steps",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/s94NjfKkcSczZ1FembwmQZwsuwY.jpg",
+      "createdAt": "2026-08-14T06:00:18.367Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/the-fantastic-4-first-steps/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Against the vibrant backdrop of a 1960s-inspired, retro-futuristic world, Marvel's First Family is forced to balance their roles as heroes with the strength of their family bond, while defending Earth from a ravenous space god called Galactus and his enigmatic Herald, Silver Surfer.",
+        "vi": "Sau một chuyến bay thám hiểm vũ trụ, bốn phi hành gia bất ngờ sở hữu năng lực siêu nhiên và trở thành gia đình siêu anh hùng đầu tiên của Marvel. The Fantastic Four: First Steps là bộ phim mở đầu Kỷ nguyên anh hùng thứ sáu (Phase Six), đặt nền móng cho siêu bom tấn Avengers: Doomsday trong năm sau."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/n0bqzWiKGJsmnvOlkTiYykhhM4E.jpg"
+      },
+      "score": 6.944,
+      "title": {
+        "en": "The Fantastic 4: First Steps",
+        "vi": "Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên"
+      },
+      "tmdbId": 617126,
+      "votes": 3673,
+      "year": 2025,
+      "search": "the fantastic 4 first steps bo tu sieu dang buoc di dau tien 2025",
+      "_id": "6a7e4c50916d65ebc7fa3a0b"
+    },
+    {
+      "slug": "than-dieu-dai-hiep",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/tJKhWBOCk8F3RfQbx1WdYpJV4L.jpg",
+      "createdAt": "2026-08-13T12:00:15.990Z",
+      "genres": {
+        "en": [
+          "Action & Adventure",
+          "Drama"
+        ],
+        "vi": [
+          "Action & Adventure",
+          "Phim Chính Kịch"
+        ]
+      },
+      "mediaType": "tv",
+      "okruId": "",
+      "overview": {
+        "en": "The Condor Heroes 95 is a Hong Kong television series adapted from Louis Cha's novel The Return of the Condor Heroes. It was first broadcast on TVB Jade in Hong Kong in 1995. Many of the cast from The Legend of the Condor Heroes reprised their roles in this series, such as Lau Dan and Wayne Lai. In addition, Jason Pai reprised his breakthrough role as Kwok Ching, whom he previously portrayed in The Legend of the Condor Heroes and The Return of the Condor Heroes.",
+        "vi": "Thần điêu đại hiệp là bộ phim truyền hình do đài truyền hình TVB - Hồng Kông phát hành dựa trên tiểu thuyết cùng tên của nhà văn Kim Dung. Dương Quá mồ côi từ nhỏ, được Quách Tĩnh và Hoàng Dung đưa về Đào Hoa Đảo nuôi dưỡng nhưng vì tính cách ngang bướng nên nhiều lần bị hiểu lầm. Sau đó, anh được gửi đến Toàn Chân giáo học võ nhưng lại bị đối xử bất công, rồi tình cờ vào Cổ Mộ và trở thành đệ tử của Tiểu Long Nữ. Sống bên nhau trong chốn thanh tĩnh, Dương Quá và Tiểu Long Nữ dần nảy sinh tình yêu, nhưng mối tình sư đồ bị võ lâm xem là trái luân thường, khiến cả hai phải chịu nhiều chia ly và đau khổ. Trên hành trình trưởng thành, Dương Quá đối mặt với ân oán giang hồ, sự truy sát của Lý Mạc Sầu, tình cảm từ Quách Phù, Trình Anh, Lục Vô Song và lời hẹn 16 năm với Tiểu Long Nữ. Giữa loạn thế và chiến sự Tương Dương, anh cuối cùng trở thành Thần Điêu Đại Hiệp."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/pkUGghGufdG17N601kD4m04LDNw.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/83giKdPHodYoYDAQfrW8a3XWhzC.jpg"
+      },
+      "score": 7.4,
+      "title": {
+        "en": "The Condor Heroes 95",
+        "vi": "Thần Điêu Đại Hiệp"
+      },
+      "tmdbId": 31955,
+      "votes": 18,
+      "year": 1995,
+      "search": "the condor heroes 95 than dieu dai hiep 1995",
+      "_id": "6a7db1d0916d65ebc7f9e0d6"
+    },
+    {
+      "slug": "evil-dead-burn",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/o0jkkpcN81QqSl8DMLScBCXyUH9.jpg",
+      "createdAt": "2026-08-18T21:01:03.358Z",
+      "genres": {
+        "en": [
+          "Horror"
+        ],
+        "vi": [
+          "Phim Kinh Dị"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/evil-dead-burn/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death.",
+        "vi": "After her husband's abrupt death, Alice seeks solace with his remaining family — descendants of a leading researcher on demonic possession. As her in-laws transform one by one into creatures that feed on fear, she comes to discover that the vows she took in life survive even in death."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/uRxrNXQWkHoENm3nwVOZDYSCx2F.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/yAtHcEJdoIjV2BJUvZz89A88pAB.jpg"
+      },
+      "score": 7.868,
+      "search": "evil dead burn ma cay lua dia nguc 2026",
+      "title": {
+        "en": "Evil Dead Burn",
+        "vi": "Ma Cây: Lửa Địa Ngục"
+      },
+      "tmdbId": 1212763,
+      "votes": 1155,
+      "year": 2026,
+      "_id": "6a846569916d65ebc7fc8fb3"
+    },
+    {
+      "slug": "lord-of-war",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/5HLNp2zEsXezVoXtOfLJE29xaUI.jpg",
+      "createdAt": "2026-08-18T20:57:05.949Z",
+      "genres": {
+        "en": [
+          "Crime",
+          "Drama",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Hình Sự",
+          "Phim Chính Kịch",
+          "Phim Gây Cấn"
+        ]
+      },
+      "hlsUrl": "/api/hls/archive/lord-of-war/master.m3u8",
+      "mediaType": "movie",
+      "okruId": "",
+      "overview": {
+        "en": "Yuri Orlov is a globetrotting arms dealer and, through some of the deadliest war zones, he struggles to stay one step ahead of a relentless Interpol agent, his business rivals and even some of his customers who include many of the world's most notorious dictators. Finally, he must also face his own conscience.",
+        "vi": "Bộ phim lấy bối cảnh nước Mỹ những năm đầu thập niên 80. Yuri Orlov là người gốc Ukraina nhưng theo gia đình chuyển tới thành phố New York từ khi còn nhỏ. Sống giữa một thành phố có tỷ lệ phạm pháp cao vào bậc nhất nước Mỹ, ngay từ nhỏ Yuri đã quen với cảnh bắn giết. Cho rằng bạo lực sẽ chẳng bao giờ biến mất trong xã hội, gã ta nảy ra ý định làm giàu bằng con đường buôn súng."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/3MGQD4yXokufNlW1AyRXdiy7ytP.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/3MGQD4yXokufNlW1AyRXdiy7ytP.jpg"
+      },
+      "score": 7.347,
+      "search": "lord of war ong trum chien tranh 2005",
+      "title": {
+        "en": "Lord of War",
+        "vi": "Ông Trùm Chiến Tranh​"
+      },
+      "tmdbId": 1830,
+      "votes": 5469,
+      "year": 2005,
+      "_id": "6a8464b2916d65ebc7fc8e88"
+    }
+  ],
+  "episodeInfo": {
+    "ashes-to-crown/s01e01": {
+      "still": "https://image.tmdb.org/t/p/w780/lsxDT4Kvx5vaj4UeClNykMYIBoF.jpg",
+      "label": "S1 · E1"
+    },
+    "lanterns/s01e01": {
+      "still": "https://image.tmdb.org/t/p/w780/eamjkYDnuDcvS1MyynI4B9nE6KL.jpg",
+      "label": "Pilot"
+    },
+    "our-golden-days/s01e01": {
+      "still": "https://image.tmdb.org/t/p/w780/svaZhEzdEgtUlhzP1Rjcz6IOb2R.jpg",
+      "label": "The Announcement"
+    },
+    "the-bombing-of-pan-am-103/s01e01": {
+      "still": "https://image.tmdb.org/t/p/w780/dzll1flxjp5p8WU6Iix8s0rZUDx.jpg",
+      "label": "S1 · E1"
+    },
+    "the-apartment-job/s01e01": {
+      "still": "https://image.tmdb.org/t/p/w780/qdrfAxapZj3SbGYNQTwezGI08IJ.jpg",
+      "label": "S1 · E1"
+    },
+    "cu-truot-dai/s01e01": {
+      "label": "Tập 1"
+    },
+    "khi-anh-chay-ve-phia-em/s01e01": {
+      "label": "Tập 1"
+    },
+    "i-will-find-you/s01e01": {
+      "still": "https://image.tmdb.org/t/p/w780/tDUUexyRzcPrjNaz9sZfcdnYTgS.jpg",
+      "label": "S1 · E1"
+    },
+    "than-dieu-dai-hiep/s01e01": {
+      "label": "Tập 1"
+    },
+    "smallville/s01e01": {
+      "still": "https://image.tmdb.org/t/p/w780/djM2oONZzNXAUoxHNMDsMHcZ8ne.jpg",
+      "label": "Tập thử nghiệm"
+    },
+    "ashes-to-crown/s01e02": {
+      "still": "https://image.tmdb.org/t/p/w780/vDYXmMVl0E8csuaXQ4tmSchvjdL.jpg",
+      "label": "S1 · E2"
+    },
+    "our-golden-days/s01e02": {
+      "still": "https://image.tmdb.org/t/p/w780/Av3T9pgHZ2rn9pA1yg3DTJ630h8.jpg",
+      "label": "Saying It Right"
+    },
+    "than-dieu-dai-hiep/s01e02": {
+      "label": "Tập 2"
+    },
+    "smallville/s01e02": {
+      "still": "https://image.tmdb.org/t/p/w780/e9Vfgl5oUeSnx5z4m7uTlfzTCmW.jpg",
+      "label": "Biến hóa"
+    },
+    "the-bombing-of-pan-am-103/s01e02": {
+      "still": "https://image.tmdb.org/t/p/w780/8xJUwlmMijxchhbksR1ic6vH09H.jpg",
+      "label": "S1 · E2"
+    },
+    "i-will-find-you/s01e02": {
+      "still": "https://image.tmdb.org/t/p/w780/6OEIZuhL8FaZVsRN4BG0Iz3rECO.jpg",
+      "label": "S1 · E2"
+    },
+    "the-apartment-job/s01e02": {
+      "still": "https://image.tmdb.org/t/p/w780/8nUTs0U7XZpYMjE0XMpzBAuU1Dt.jpg",
+      "label": "S1 · E2"
+    },
+    "khi-anh-chay-ve-phia-em/s01e02": {
+      "label": "Tập 2"
+    },
+    "cu-truot-dai/s01e02": {
+      "label": "Tập 2"
+    },
+    "ashes-to-crown/s01e03": {
+      "still": "https://image.tmdb.org/t/p/w780/8bMMbvIsHlfzzTzFUpg6axPzdpl.jpg",
+      "label": "S1 · E3"
+    },
+    "our-golden-days/s01e03": {
+      "still": "https://image.tmdb.org/t/p/w780/cGFtvTQZVA3Fyi7YS6BxuQ1d3eg.jpg",
+      "label": "Trying To Keep It Together"
+    },
+    "khi-anh-chay-ve-phia-em/s01e03": {
+      "label": "Tập 3"
+    },
+    "cu-truot-dai/s01e03": {
+      "label": "Tập 3"
+    },
+    "than-dieu-dai-hiep/s01e03": {
+      "label": "Tập 3"
+    },
+    "the-apartment-job/s01e03": {
+      "still": "https://image.tmdb.org/t/p/w780/4tluC43fymabtN1uCkRd8qxuOr0.jpg",
+      "label": "S1 · E3"
+    },
+    "smallville/s01e03": {
+      "still": "https://image.tmdb.org/t/p/w780/iqpZjRcI9iZrsGPVq7ywU9EDQYR.jpg",
+      "label": "Nóng nảy"
+    },
+    "i-will-find-you/s01e03": {
+      "still": "https://image.tmdb.org/t/p/w780/49wwShw8OGYYdk1DUqI2b22Wyk1.jpg",
+      "label": "S1 · E3"
+    },
+    "the-bombing-of-pan-am-103/s01e03": {
+      "still": "https://image.tmdb.org/t/p/w780/e1c4mUJW1jXMI5retbFj7zskJ3s.jpg",
+      "label": "S1 · E3"
+    },
+    "ashes-to-crown/s01e04": {
+      "still": "https://image.tmdb.org/t/p/w780/dip2ZjBTOyroH7P2TSmGVXAf6vl.jpg",
+      "label": "S1 · E4"
+    },
+    "our-golden-days/s01e04": {
+      "still": "https://image.tmdb.org/t/p/w780/3BUdrQsDhFfKOJzQxG0RUXBHfu4.jpg",
+      "label": "Crossing Paths, Facing Decisions"
+    },
+    "i-will-find-you/s01e04": {
+      "still": "https://image.tmdb.org/t/p/w780/wzbLwhFShwo6bpABnIQJNhqiswg.jpg",
+      "label": "S1 · E4"
+    },
+    "the-bombing-of-pan-am-103/s01e04": {
+      "still": "https://image.tmdb.org/t/p/w780/jqsiqdCrPHdYzg8k9KmYs8CRf6n.jpg",
+      "label": "S1 · E4"
+    },
+    "khi-anh-chay-ve-phia-em/s01e04": {
+      "label": "Tập 4"
+    },
+    "smallville/s01e04": {
+      "still": "https://image.tmdb.org/t/p/w780/oZ2nrQRoZ7q0HCUcQ7GVNrxxhjS.jpg",
+      "label": "Tia X"
+    },
+    "cu-truot-dai/s01e04": {
+      "label": "Tập 4"
+    },
+    "the-apartment-job/s01e04": {
+      "still": "https://image.tmdb.org/t/p/w780/xUeu44Nzz3lx53FImCpMVXMlySf.jpg",
+      "label": "S1 · E4"
+    },
+    "than-dieu-dai-hiep/s01e04": {
+      "label": "Tập 4"
+    },
+    "ashes-to-crown/s01e05": {
+      "still": "https://image.tmdb.org/t/p/w780/1WMsLAVJJHpukEKgugFl4XfpyUC.jpg",
+      "label": "S1 · E5"
+    },
+    "our-golden-days/s01e05": {
+      "still": "https://image.tmdb.org/t/p/w780/dBpGcpFjqhaWkPh7i1b2YrdVBfG.jpg",
+      "label": "Out Of The Blue"
+    },
+    "the-apartment-job/s01e05": {
+      "still": "https://image.tmdb.org/t/p/w780/lxKCowZaxzQueovMoAsHZ8fcfaI.jpg",
+      "label": "S1 · E5"
+    },
+    "than-dieu-dai-hiep/s01e05": {
+      "label": "Tập 5"
+    },
+    "i-will-find-you/s01e05": {
+      "still": "https://image.tmdb.org/t/p/w780/bkhOGVJ6yHducLxPpejPspCbMZw.jpg",
+      "label": "S1 · E5"
+    },
+    "cu-truot-dai/s01e05": {
+      "label": "Tập 5"
+    },
+    "the-bombing-of-pan-am-103/s01e05": {
+      "still": "https://image.tmdb.org/t/p/w780/yHdyYrErAOTtyxTs49rOcZRH5CE.jpg",
+      "label": "S1 · E5"
+    },
+    "smallville/s01e05": {
+      "still": "https://image.tmdb.org/t/p/w780/47hiZkQKYOPCCi9F4bN3OTT7K7y.jpg",
+      "label": "Ngầu"
+    },
+    "khi-anh-chay-ve-phia-em/s01e05": {
+      "label": "Tập 5"
+    },
+    "ashes-to-crown/s01e06": {
+      "still": "https://image.tmdb.org/t/p/w780/9ZPZOdqoo8DgK5nfiHbfMRzVvvZ.jpg",
+      "label": "S1 · E6"
+    },
+    "our-golden-days/s01e06": {
+      "still": "https://image.tmdb.org/t/p/w780/o0p8pnZ58vf37g9agazQtRYkuVF.jpg",
+      "label": "When Everything Falls Apart"
+    },
+    "smallville/s01e06": {
+      "still": "https://image.tmdb.org/t/p/w780/vChmtl4bra7PvB6TFdZfzSNkOY7.jpg",
+      "label": "Đồng hồ cát"
+    },
+    "khi-anh-chay-ve-phia-em/s01e06": {
+      "label": "Tập 6"
+    },
+    "the-apartment-job/s01e06": {
+      "still": "https://image.tmdb.org/t/p/w780/zlMzn0ZT4ZnmTBDr7ueFTXmhUMr.jpg",
+      "label": "S1 · E6"
+    },
+    "the-bombing-of-pan-am-103/s01e06": {
+      "still": "https://image.tmdb.org/t/p/w780/7eYKmBiWKIjUUsw3Kp8gr5RHFiR.jpg",
+      "label": "S1 · E6"
+    },
+    "than-dieu-dai-hiep/s01e06": {
+      "label": "Tập 6"
+    },
+    "cu-truot-dai/s01e06": {
+      "label": "Tập 6"
+    },
+    "i-will-find-you/s01e06": {
+      "still": "https://image.tmdb.org/t/p/w780/5fkT9NCvSYr2orDfF0ekKH2T7XK.jpg",
+      "label": "S1 · E6"
+    },
+    "ashes-to-crown/s01e07": {
+      "still": "https://image.tmdb.org/t/p/w780/80R0wATxNrwhOtJF2zmZVgumMD8.jpg",
+      "label": "S1 · E7"
+    },
+    "our-golden-days/s01e07": {
+      "still": "https://image.tmdb.org/t/p/w780/fvwiWeWSerqAbNN4QqgNvbAH8xj.jpg",
+      "label": "Lost And Unfound"
+    },
+    "cu-truot-dai/s01e07": {
+      "label": "Tập 7"
+    },
+    "i-will-find-you/s01e07": {
+      "still": "https://image.tmdb.org/t/p/w780/m0AdtPqDZDcXDKZcTEExGFJKGvG.jpg",
+      "label": "S1 · E7"
+    },
+    "smallville/s01e07": {
+      "still": "https://image.tmdb.org/t/p/w780/785UseKOE3fTNqsia6IRUwARAc3.jpg",
+      "label": "Khao khát"
+    },
+    "than-dieu-dai-hiep/s01e07": {
+      "label": "Tập 7"
+    },
+    "the-apartment-job/s01e07": {
+      "still": "https://image.tmdb.org/t/p/w780/ed4Re3zg2bNQX84oqFjn0yXlYWL.jpg",
+      "label": "S1 · E7"
+    },
+    "khi-anh-chay-ve-phia-em/s01e07": {
+      "label": "Tập 7"
+    },
+    "ashes-to-crown/s01e08": {
+      "still": "https://image.tmdb.org/t/p/w780/wDzXbbw0KxOmbYhzm0eGQPK6VA9.jpg",
+      "label": "S1 · E8"
+    },
+    "our-golden-days/s01e08": {
+      "still": "https://image.tmdb.org/t/p/w780/5ix13ChszEsAtSHXCgIAZrV0vp7.jpg",
+      "label": "Under One Roof"
+    },
+    "the-apartment-job/s01e08": {
+      "still": "https://image.tmdb.org/t/p/w780/yaGsGqFLdXjheUlHkgwz053xoiK.jpg",
+      "label": "S1 · E8"
+    },
+    "khi-anh-chay-ve-phia-em/s01e08": {
+      "label": "Tập 8"
+    },
+    "cu-truot-dai/s01e08": {
+      "label": "Tập 8"
+    },
+    "than-dieu-dai-hiep/s01e08": {
+      "label": "Tập 8"
+    },
+    "i-will-find-you/s01e08": {
+      "still": "https://image.tmdb.org/t/p/w780/TOs0PsDUEz8mlo3XKAIBKQ0SOW.jpg",
+      "label": "S1 · E8"
+    },
+    "smallville/s01e08": {
+      "still": "https://image.tmdb.org/t/p/w780/ylf4LDYAHy2JkQPQbEnH8xLcaqw.jpg",
+      "label": "Căng thẳng"
+    },
+    "ashes-to-crown/s01e09": {
+      "still": "https://image.tmdb.org/t/p/w780/r6a6bE2fNqJJtrXcr097Z7SCvcH.jpg",
+      "label": "S1 · E9"
+    },
+    "our-golden-days/s01e09": {
+      "still": "https://image.tmdb.org/t/p/w780/lTh63BjXn95Plq2FOqqIiVJro5m.jpg",
+      "label": "A Tangled Mess"
+    },
+    "cu-truot-dai/s01e09": {
+      "label": "Tập 9"
+    },
+    "smallville/s01e09": {
+      "still": "https://image.tmdb.org/t/p/w780/og5FIxtqBsgu7hUgpen7T4zj25j.jpg",
+      "label": "Tự tung tự tác"
+    },
+    "gold-land/s01e09": {
+      "still": "https://image.tmdb.org/t/p/w780/3kHox4fN34a8Bu6GPP9ohLOEJ9r.jpg",
+      "label": "Consequences"
+    },
+    "the-apartment-job/s01e09": {
+      "still": "https://image.tmdb.org/t/p/w780/pdv0bUVM6JNkO6TJvEFN6ZBB2xW.jpg",
+      "label": "S1 · E9"
+    },
+    "than-dieu-dai-hiep/s01e09": {
+      "label": "Tập 9"
+    },
+    "khi-anh-chay-ve-phia-em/s01e09": {
+      "label": "Tập 9"
+    },
+    "ashes-to-crown/s01e10": {
+      "still": "https://image.tmdb.org/t/p/w780/9M7cTPxgmizmZPy2BSPPovEpfKp.jpg",
+      "label": "S1 · E10"
+    },
+    "our-golden-days/s01e10": {
+      "still": "https://image.tmdb.org/t/p/w780/zpGqQSE0oZQxUis7DxUKVkfYTTE.jpg",
+      "label": "Between Walls And New Bonds"
+    },
+    "than-dieu-dai-hiep/s01e10": {
+      "label": "Tập 10"
+    },
+    "khi-anh-chay-ve-phia-em/s01e10": {
+      "label": "Tập 10"
+    },
+    "smallville/s01e10": {
+      "still": "https://image.tmdb.org/t/p/w780/8OprUAuMqvpcIYuaOQRBeY9tfcG.jpg",
+      "label": "Lung linh"
+    },
+    "the-apartment-job/s01e10": {
+      "still": "https://image.tmdb.org/t/p/w780/9w2kXZ3IjWh3nsItbCUoEA4QfA0.jpg",
+      "label": "S1 · E10"
+    },
+    "cu-truot-dai/s01e10": {
+      "label": "Tập 10"
+    },
+    "ashes-to-crown/s01e11": {
+      "still": "https://image.tmdb.org/t/p/w780/xbUUdiu9QfOQHL9jSit60KW71GD.jpg",
+      "label": "S1 · E11"
+    },
+    "our-golden-days/s01e11": {
+      "still": "https://image.tmdb.org/t/p/w780/j5mvf9849zWXpfophdi3AUMjPXX.jpg",
+      "label": "What They Choose Not To Say"
+    },
+    "the-apartment-job/s01e11": {
+      "still": "https://image.tmdb.org/t/p/w780/a8aBnXQ9Kz2qSZni3jbVrzH037x.jpg",
+      "label": "S1 · E11"
+    },
+    "than-dieu-dai-hiep/s01e11": {
+      "label": "Tập 11"
+    },
+    "smallville/s01e11": {
+      "still": "https://image.tmdb.org/t/p/w780/8XjPXIzhiHbUH6lNRdsmMCiGNOA.jpg",
+      "label": "Hug"
+    },
+    "khi-anh-chay-ve-phia-em/s01e11": {
+      "label": "Tập 11"
+    },
+    "ashes-to-crown/s01e12": {
+      "still": "https://image.tmdb.org/t/p/w780/tEUtn4GCoRqOg185V5TG6ZS4NWD.jpg",
+      "label": "S1 · E12"
+    },
+    "smallville/s01e12": {
+      "still": "https://image.tmdb.org/t/p/w780/1UHmwuLZylLPNItojK6ODSoFsbM.jpg",
+      "label": "Leech"
+    },
+    "khi-anh-chay-ve-phia-em/s01e12": {
+      "label": "Tập 12"
+    },
+    "our-golden-days/s01e12": {
+      "still": "https://image.tmdb.org/t/p/w780/xHsxuzPmm1k25PA6DnRPgfdKXq1.jpg",
+      "label": "The Weight Of It All"
+    },
+    "than-dieu-dai-hiep/s01e12": {
+      "label": "Tập 12"
+    },
+    "the-apartment-job/s01e12": {
+      "still": "https://image.tmdb.org/t/p/w780/u0yH1qtA1LDIez0WcB2IddCh4Wh.jpg",
+      "label": "S1 · E12"
+    },
+    "ashes-to-crown/s01e13": {
+      "still": "https://image.tmdb.org/t/p/w780/iLfWcPc1bzlnb8AUWDtJjQCKWu5.jpg",
+      "label": "S1 · E13"
+    },
+    "than-dieu-dai-hiep/s01e13": {
+      "label": "Tập 13"
+    },
+    "our-golden-days/s01e13": {
+      "still": "https://image.tmdb.org/t/p/w780/xgwwsFR33YWUrg7WGz1OyNO61lC.jpg",
+      "label": "Unexpected Turns"
+    },
+    "smallville/s01e13": {
+      "still": "https://image.tmdb.org/t/p/w780/fFuHB2RttYgAdzaIMmc7b0ha1NO.jpg",
+      "label": "Kinetic"
+    },
+    "khi-anh-chay-ve-phia-em/s01e13": {
+      "label": "Tập 13"
+    },
+    "ashes-to-crown/s01e14": {
+      "still": "https://image.tmdb.org/t/p/w780/r8qiFr2Xr00KL0RQBzekcsdkpMQ.jpg",
+      "label": "S1 · E14"
+    },
+    "smallville/s01e14": {
+      "still": "https://image.tmdb.org/t/p/w780/aC2sFxAkrjvnWRDSKrsixQfoIVe.jpg",
+      "label": "Zero"
+    },
+    "khi-anh-chay-ve-phia-em/s01e14": {
+      "label": "Tập 14"
+    },
+    "than-dieu-dai-hiep/s01e14": {
+      "label": "Tập 14"
+    },
+    "our-golden-days/s01e14": {
+      "still": "https://image.tmdb.org/t/p/w780/scawN7rdiGO85fNfQIQ25PnH9vP.jpg",
+      "label": "Unspoken Secrets"
+    },
+    "ashes-to-crown/s01e15": {
+      "still": "https://image.tmdb.org/t/p/w780/qzqn2IxDR2ByD9HZFL1ROkG3rug.jpg",
+      "label": "S1 · E15"
+    },
+    "than-dieu-dai-hiep/s01e15": {
+      "label": "Tập 15"
+    },
+    "our-golden-days/s01e15": {
+      "still": "https://image.tmdb.org/t/p/w780/cPSEPu9m0VgCAA7d3rGHHfJHusw.jpg",
+      "label": "Heavy Hearts"
+    },
+    "smallville/s01e15": {
+      "still": "https://image.tmdb.org/t/p/w780/zeSy5hjENExq7du00Dx6HpnQ6rv.jpg",
+      "label": "Nicodemus"
+    },
+    "khi-anh-chay-ve-phia-em/s01e15": {
+      "label": "Tập 15"
+    },
+    "ashes-to-crown/s01e16": {
+      "still": "https://image.tmdb.org/t/p/w780/kWiHqYkGjc57eS8LeZCMZkyuHE6.jpg",
+      "label": "S1 · E16"
+    },
+    "smallville/s01e16": {
+      "still": "https://image.tmdb.org/t/p/w780/lvKMLWOmXxjQNMqotaFdyR3HYRv.jpg",
+      "label": "Stray"
+    },
+    "khi-anh-chay-ve-phia-em/s01e16": {
+      "label": "Tập 16"
+    },
+    "than-dieu-dai-hiep/s01e16": {
+      "label": "Tập 16"
+    },
+    "our-golden-days/s01e16": {
+      "still": "https://image.tmdb.org/t/p/w780/4hhUNnzbwyFCNQEVzivIRv2I8DJ.jpg",
+      "label": "The Clashes"
+    },
+    "ashes-to-crown/s01e17": {
+      "still": "https://image.tmdb.org/t/p/w780/4d11reLscQrrwitEjAaxRN2520Y.jpg",
+      "label": "S1 · E17"
+    },
+    "than-dieu-dai-hiep/s01e17": {
+      "label": "Tập 17"
+    },
+    "our-golden-days/s01e17": {
+      "still": "https://image.tmdb.org/t/p/w780/wQnWHWhmniwZ0jpiSkH8YvUu01F.jpg",
+      "label": "Turning Points"
+    },
+    "smallville/s01e17": {
+      "still": "https://image.tmdb.org/t/p/w780/mYdKFfzgpvxzpk2SXvaF5RAaK6Y.jpg",
+      "label": "Reaper"
+    },
+    "khi-anh-chay-ve-phia-em/s01e17": {
+      "label": "Tập 17"
+    },
+    "ashes-to-crown/s01e18": {
+      "still": "https://image.tmdb.org/t/p/w780/5Np0aEGWZjalGFgJEyPQQke7FmG.jpg",
+      "label": "S1 · E18"
+    },
+    "smallville/s01e18": {
+      "still": "https://image.tmdb.org/t/p/w780/1Yz62dswA06KdkLHyhLbAszhU9X.jpg",
+      "label": "Drone"
+    },
+    "khi-anh-chay-ve-phia-em/s01e18": {
+      "label": "Tập 18"
+    },
+    "than-dieu-dai-hiep/s01e18": {
+      "label": "Tập 18"
+    },
+    "our-golden-days/s01e18": {
+      "still": "https://image.tmdb.org/t/p/w780/6IoEZrKhytjBmkG5a3Q9pdEf1dw.jpg",
+      "label": "Tangled Emotions"
+    },
+    "ashes-to-crown/s01e19": {
+      "still": "https://image.tmdb.org/t/p/w780/4aHhxZo6rRSSejFJfuTTaVKcNgL.jpg",
+      "label": "S1 · E19"
+    },
+    "than-dieu-dai-hiep/s01e19": {
+      "label": "Tập 19"
+    },
+    "our-golden-days/s01e19": {
+      "still": "https://image.tmdb.org/t/p/w780/34VjLwrabdFN0ICPVgfXU4SZbLP.jpg",
+      "label": "The Next Step"
+    },
+    "smallville/s01e19": {
+      "still": "https://image.tmdb.org/t/p/w780/7sE4lnHew1dhBpvCRxFPzjNfAJ6.jpg",
+      "label": "Crush"
+    },
+    "khi-anh-chay-ve-phia-em/s01e19": {
+      "label": "Tập 19"
+    },
+    "ashes-to-crown/s01e20": {
+      "still": "https://image.tmdb.org/t/p/w780/bLsHTHNqEAAAGkvfBZH1DSPWTS2.jpg",
+      "label": "S1 · E20"
+    },
+    "smallville/s01e20": {
+      "still": "https://image.tmdb.org/t/p/w780/4wcm7vY2UpACDjEM6irw7NgU9zN.jpg",
+      "label": "Obscura"
+    },
+    "khi-anh-chay-ve-phia-em/s01e20": {
+      "label": "Tập 20"
+    },
+    "than-dieu-dai-hiep/s01e20": {
+      "label": "Tập 20"
+    },
+    "our-golden-days/s01e20": {
+      "still": "https://image.tmdb.org/t/p/w780/6Oyt0no3i4rAffs6X8c0QxkWAOb.jpg",
+      "label": "Too Much, Too Fast"
+    },
+    "ashes-to-crown/s01e21": {
+      "still": "https://image.tmdb.org/t/p/w780/A2uvPHU0vw1QwNBpSt7q5byQLsA.jpg",
+      "label": "S1 · E21"
+    },
+    "than-dieu-dai-hiep/s01e21": {
+      "label": "Tập 21"
+    },
+    "our-golden-days/s01e21": {
+      "still": "https://image.tmdb.org/t/p/w780/zrgi9noBrjZV5S4Zwb4MCrVJoVR.jpg",
+      "label": "The Veiled Feelings"
+    },
+    "smallville/s01e21": {
+      "still": "https://image.tmdb.org/t/p/w780/efIwNsN4bV8zMJeI6h0X0nBd3PZ.jpg",
+      "label": "Tempest"
+    },
+    "khi-anh-chay-ve-phia-em/s01e21": {
+      "label": "Tập 21"
+    },
+    "ashes-to-crown/s01e22": {
+      "still": "https://image.tmdb.org/t/p/w780/ltJoJ1XwIpC0NdWYi6xHKjEhmAI.jpg",
+      "label": "S1 · E22"
+    },
+    "than-dieu-dai-hiep/s01e22": {
+      "label": "Tập 22"
+    },
+    "our-golden-days/s01e22": {
+      "still": "https://image.tmdb.org/t/p/w780/nDBmIp4KZde8ffowywb4TrTEtYy.jpg",
+      "label": "The Fading Facades"
+    },
+    "khi-anh-chay-ve-phia-em/s01e22": {
+      "label": "Tập 22"
+    },
+    "ashes-to-crown/s01e23": {
+      "still": "https://image.tmdb.org/t/p/w780/UPoDnN7CciAZJWKxeuypIDgJ28.jpg",
+      "label": "S1 · E23"
+    },
+    "than-dieu-dai-hiep/s01e23": {
+      "label": "Tập 23"
+    },
+    "our-golden-days/s01e23": {
+      "still": "https://image.tmdb.org/t/p/w780/A1xpStm8smdpSIoTGY9eCczBywO.jpg",
+      "label": "Between Silence And Confession"
+    },
+    "khi-anh-chay-ve-phia-em/s01e23": {
+      "label": "Tập 23"
+    },
+    "ashes-to-crown/s01e24": {
+      "still": "https://image.tmdb.org/t/p/w780/xhsJJDWYvjVurFyiYIsj7sBo1pc.jpg",
+      "label": "S1 · E24"
+    },
+    "than-dieu-dai-hiep/s01e24": {
+      "label": "Tập 24"
+    },
+    "our-golden-days/s01e24": {
+      "still": "https://image.tmdb.org/t/p/w780/tpsbnZdzwzAiw2KlUWbQhwhG0kh.jpg",
+      "label": "Impending Revelations"
+    },
+    "khi-anh-chay-ve-phia-em/s01e24": {
+      "label": "Tập 24"
+    },
+    "than-dieu-dai-hiep/s01e25": {
+      "label": "Tập 25"
+    },
+    "our-golden-days/s01e25": {
+      "still": "https://image.tmdb.org/t/p/w780/bgDbxauMEUGqkLO6fmSm1XhMXCT.jpg",
+      "label": "What The Heart Confesses"
+    },
+    "than-dieu-dai-hiep/s01e26": {
+      "label": "Tập 26"
+    },
+    "our-golden-days/s01e26": {
+      "still": "https://image.tmdb.org/t/p/w780/2wiYWzT16NMocCrJiF7ZILxKQax.jpg",
+      "label": "At The Brink"
+    },
+    "than-dieu-dai-hiep/s01e27": {
+      "label": "Tập 27"
+    },
+    "our-golden-days/s01e27": {
+      "still": "https://image.tmdb.org/t/p/w780/rh3sOHlcnoBAk1kcnpjWdtxxQvc.jpg",
+      "label": "Layers Of Truth"
+    },
+    "than-dieu-dai-hiep/s01e28": {
+      "label": "Tập 28"
+    },
+    "our-golden-days/s01e28": {
+      "still": "https://image.tmdb.org/t/p/w780/aT5nOLA7q9TdCbebb3K4eQW2Wfd.jpg",
+      "label": "Veiled Intentions"
+    },
+    "than-dieu-dai-hiep/s01e29": {
+      "label": "Tập 29"
+    },
+    "our-golden-days/s01e29": {
+      "still": "https://image.tmdb.org/t/p/w780/gIVHDY56NMn95lCW7Mx6IxwPT14.jpg",
+      "label": "Torn And Trapped"
+    },
+    "than-dieu-dai-hiep/s01e30": {
+      "label": "Tập 30"
+    },
+    "our-golden-days/s01e30": {
+      "still": "https://image.tmdb.org/t/p/w780/vV3EKCCYIvGpk5H5ITxUxo5yMiH.jpg",
+      "label": "The Reckoning"
+    },
+    "than-dieu-dai-hiep/s01e31": {
+      "label": "Tập 31"
+    },
+    "our-golden-days/s01e31": {
+      "still": "https://image.tmdb.org/t/p/w780/1udlOBUKBbaMAW79I0ACEOCzDY.jpg",
+      "label": "Secrets In Motion"
+    },
+    "than-dieu-dai-hiep/s01e32": {
+      "label": "Tập 32.END"
+    },
+    "our-golden-days/s01e32": {
+      "still": "https://image.tmdb.org/t/p/w780/uuCoaC6VbMDB3qccPNgyYuxNp24.jpg",
+      "label": "Under Pressure"
+    },
+    "our-golden-days/s01e33": {
+      "still": "https://image.tmdb.org/t/p/w780/waleHTO6v156czsE0vznqyYFbCY.jpg",
+      "label": "Unexpected Encounters"
+    },
+    "our-golden-days/s01e34": {
+      "still": "https://image.tmdb.org/t/p/w780/5fzM1vKJVEZg2d8ysZO3gzZXLp3.jpg",
+      "label": "Vanishing Point"
+    },
+    "our-golden-days/s01e35": {
+      "still": "https://image.tmdb.org/t/p/w780/nHz1094H4ecTwGhV3G58obBjf3g.jpg",
+      "label": "A Change Of Heart"
+    },
+    "our-golden-days/s01e36": {
+      "still": "https://image.tmdb.org/t/p/w780/jZEXxUBTk2WMoBwJbI82p0xKXYR.jpg",
+      "label": "Lines Crossed"
+    },
+    "our-golden-days/s01e37": {
+      "still": "https://image.tmdb.org/t/p/w780/wiTDdZbNo0hZY7ACfzuYPuN0uMH.jpg",
+      "label": "Echoes Of Loss"
+    },
+    "our-golden-days/s01e38": {
+      "still": "https://image.tmdb.org/t/p/w780/6UyCKFzuuBMVWZKhcQfTbgcq9Y5.jpg",
+      "label": "Never Too Late"
+    },
+    "our-golden-days/s01e39": {
+      "still": "https://image.tmdb.org/t/p/w780/9SLx9zfFKW93GIDPcZ52kSWhWkD.jpg",
+      "label": "Shifting Lines"
+    },
+    "our-golden-days/s01e40": {
+      "still": "https://image.tmdb.org/t/p/w780/cMlvDMBaUQY0n4Od2au7dsThzMr.jpg",
+      "label": "Paths We Choose"
+    },
+    "our-golden-days/s01e41": {
+      "still": "https://image.tmdb.org/t/p/w780/1qm50i02HZFCPss3gjxHmZTlPd1.jpg",
+      "label": "Fault Lines"
+    },
+    "our-golden-days/s01e42": {
+      "still": "https://image.tmdb.org/t/p/w780/xsyu0QLgea5OJlFQwy2d1k6rmkI.jpg",
+      "label": "Closing In"
+    },
+    "our-golden-days/s01e43": {
+      "still": "https://image.tmdb.org/t/p/w780/qFkoUF42Rv4Til3Bvx938nEY5HG.jpg",
+      "label": "What Lies Ahead"
+    },
+    "our-golden-days/s01e44": {
+      "still": "https://image.tmdb.org/t/p/w780/lJUAJEdbKNoXJwV7y96fLGqj7LA.jpg",
+      "label": "Nothing Left To Lose"
+    },
+    "our-golden-days/s01e45": {
+      "still": "https://image.tmdb.org/t/p/w780/zK57ruJ3qRXMmTNuTbgjVwR7Wai.jpg",
+      "label": "When The Truth Hits"
+    },
+    "our-golden-days/s01e46": {
+      "still": "https://image.tmdb.org/t/p/w780/qiqfrtVRDBEGh8QkmjkPkT0HcqI.jpg",
+      "label": "A Turning Point"
+    },
+    "our-golden-days/s01e47": {
+      "still": "https://image.tmdb.org/t/p/w780/8vPXE2bXcWZaqLth9hIYklrkCgn.jpg",
+      "label": "When The Veil Lifts"
+    },
+    "our-golden-days/s01e48": {
+      "still": "https://image.tmdb.org/t/p/w780/8CYtU6szYRMG3EvjAhtzD4GvPPT.jpg",
+      "label": "Out In The Open"
+    },
+    "our-golden-days/s01e49": {
+      "still": "https://image.tmdb.org/t/p/w780/x18qZDHcUcr4NxS5ktwvyp92H35.jpg",
+      "label": "Before It Is Too Late"
+    },
+    "our-golden-days/s01e50": {
+      "still": "https://image.tmdb.org/t/p/w780/hqDyWVFRx3tTXtAZVlLWjNXTi6I.jpg",
+      "label": "The Lives We Carry On"
+    },
+    "smallville/s02e01": {
+      "still": "https://image.tmdb.org/t/p/w780/hTLo6lmwN5a2OxOEqT8QXX3KQDw.jpg",
+      "label": "Vortex"
+    },
+    "smallville/s02e02": {
+      "still": "https://image.tmdb.org/t/p/w780/d7eaniTwsqfqbqTW6KYeyJz1Ipr.jpg",
+      "label": "Heat"
+    },
+    "smallville/s02e03": {
+      "still": "https://image.tmdb.org/t/p/w780/rvL6NrdMm8Z4YPtrfofWeDd1UZG.jpg",
+      "label": "Duplicity"
+    },
+    "smallville/s02e04": {
+      "still": "https://image.tmdb.org/t/p/w780/3EOdconLaaebq2FevF5dFLOjPN6.jpg",
+      "label": "Red"
+    },
+    "smallville/s02e05": {
+      "still": "https://image.tmdb.org/t/p/w780/h25I4dW6W05M63ol8EPrvpmoCWD.jpg",
+      "label": "Nocturne"
+    },
+    "smallville/s02e06": {
+      "still": "https://image.tmdb.org/t/p/w780/3m9xjPyfJhpcjzJ6ucgPRvDJJXJ.jpg",
+      "label": "Redux"
+    },
+    "smallville/s02e07": {
+      "still": "https://image.tmdb.org/t/p/w780/dcGug0g2gN18UWhMStNrbBeyhJR.jpg",
+      "label": "Lineage"
+    },
+    "smallville/s02e08": {
+      "still": "https://image.tmdb.org/t/p/w780/dSMUceIZ48hJWkG38Ujnc75wFFr.jpg",
+      "label": "Ryan"
+    },
+    "smallville/s02e09": {
+      "still": "https://image.tmdb.org/t/p/w780/nBDDB7jQi8x4dtTA49Gm2KFIn6u.jpg",
+      "label": "Dichotic"
+    },
+    "smallville/s02e10": {
+      "still": "https://image.tmdb.org/t/p/w780/k8ROCnErivGbup2lz1RXCb3UIyf.jpg",
+      "label": "Skinwalker"
+    },
+    "smallville/s02e11": {
+      "still": "https://image.tmdb.org/t/p/w780/gnqwTEvOunsxhODXA525Xfxp2cA.jpg",
+      "label": "Visage"
+    },
+    "smallville/s02e12": {
+      "still": "https://image.tmdb.org/t/p/w780/pMhioyVw8FcfNc9L9sU6bqFASPM.jpg",
+      "label": "Insurgence"
+    },
+    "smallville/s02e13": {
+      "still": "https://image.tmdb.org/t/p/w780/nhxsx8gzULQKDy87XFlqU9Io0x4.jpg",
+      "label": "Suspect"
+    },
+    "smallville/s02e14": {
+      "still": "https://image.tmdb.org/t/p/w780/hpbmzyDqms2Glu5YTC97IUhkm2Q.jpg",
+      "label": "Rush"
+    },
+    "smallville/s02e15": {
+      "still": "https://image.tmdb.org/t/p/w780/v7wGATv4wBcF3SJkLW0Omeimoi1.jpg",
+      "label": "Prodigal"
+    },
+    "smallville/s02e16": {
+      "still": "https://image.tmdb.org/t/p/w780/iuHxPTzYvbJc4MjesxWEGk7alXi.jpg",
+      "label": "Fever"
+    },
+    "smallville/s02e17": {
+      "still": "https://image.tmdb.org/t/p/w780/xfFaqibjzqaDm24YM4GiTugsAIs.jpg",
+      "label": "Rosetta"
+    },
+    "smallville/s02e18": {
+      "still": "https://image.tmdb.org/t/p/w780/pcGnWArGAIs2Z3v6KUE6NfK4akC.jpg",
+      "label": "Visitor"
+    },
+    "smallville/s02e19": {
+      "still": "https://image.tmdb.org/t/p/w780/AtouXtpShWJTAze56WwamvZahem.jpg",
+      "label": "Precipice"
+    },
+    "smallville/s02e20": {
+      "still": "https://image.tmdb.org/t/p/w780/mxqC25BFaqQAe4fJBvRVS1Eu1ba.jpg",
+      "label": "Witness"
+    },
+    "smallville/s02e21": {
+      "still": "https://image.tmdb.org/t/p/w780/uOssv8dWs7gfaSdOQlfEoIOwL1B.jpg",
+      "label": "Accelerate"
+    },
+    "smallville/s02e22": {
+      "still": "https://image.tmdb.org/t/p/w780/yc4g52aGkeSg9LFZ5jqBp07TLYf.jpg",
+      "label": "Calling"
+    },
+    "smallville/s02e23": {
+      "still": "https://image.tmdb.org/t/p/w780/tdsNM5JF0DakYgUdG1O6Kysj8UO.jpg",
+      "label": "Exodus"
+    },
+    "smallville/s03e01": {
+      "still": "https://image.tmdb.org/t/p/w780/mR28eCvvIsBxKQxFyWDV0dBpDdS.jpg",
+      "label": "Exile"
+    },
+    "smallville/s03e02": {
+      "still": "https://image.tmdb.org/t/p/w780/dWfYCvCCExY09RBboKB3ENOTWST.jpg",
+      "label": "Phoenix"
+    },
+    "smallville/s03e03": {
+      "still": "https://image.tmdb.org/t/p/w780/rZJTTDZBfgjR8RCvnjA76ZgP1f.jpg",
+      "label": "Extinction"
+    },
+    "smallville/s03e04": {
+      "still": "https://image.tmdb.org/t/p/w780/owBolOLItBFW9NGrLyd9TpY787C.jpg",
+      "label": "Slumber"
+    },
+    "smallville/s03e05": {
+      "still": "https://image.tmdb.org/t/p/w780/pkn0rrOdfAGqBuvOnM7z4EBy6vk.jpg",
+      "label": "Perry"
+    },
+    "smallville/s03e06": {
+      "still": "https://image.tmdb.org/t/p/w780/goyzGo1MWCCTbO3vJ5vd98z6i0L.jpg",
+      "label": "Relic"
+    },
+    "smallville/s03e07": {
+      "still": "https://image.tmdb.org/t/p/w780/gJmoixxTp4O7FEi2nLl6cl0vRYc.jpg",
+      "label": "Magnetic"
+    },
+    "smallville/s03e08": {
+      "still": "https://image.tmdb.org/t/p/w780/qNU4vlSwrRUu5BJc2NhgBYWVuOm.jpg",
+      "label": "Shattered"
+    },
+    "smallville/s03e09": {
+      "still": "https://image.tmdb.org/t/p/w780/s2tuq3XDqTb3e4TghPccL2Hz8WL.jpg",
+      "label": "Asylum"
+    },
+    "smallville/s03e10": {
+      "still": "https://image.tmdb.org/t/p/w780/4pgJxsenX7um75PpmLKgfFl019y.jpg",
+      "label": "Whisper"
+    },
+    "smallville/s03e11": {
+      "still": "https://image.tmdb.org/t/p/w780/kaLFmBJs9McZrs3u7ayuVxJNrNF.jpg",
+      "label": "Delete"
+    },
+    "smallville/s03e12": {
+      "still": "https://image.tmdb.org/t/p/w780/vzObr6mlsG6DDBMsU6PzVwvwoIh.jpg",
+      "label": "Hereafter"
+    },
+    "smallville/s03e13": {
+      "still": "https://image.tmdb.org/t/p/w780/tS0T8Cvk3gpBxutgpIYmpZs3BVO.jpg",
+      "label": "Velocity"
+    },
+    "smallville/s03e14": {
+      "still": "https://image.tmdb.org/t/p/w780/qhh6BAXp0Dd7BmCEOBnUPyXgrJ4.jpg",
+      "label": "Obsession"
+    },
+    "smallville/s03e15": {
+      "still": "https://image.tmdb.org/t/p/w780/lO5wYBpgtP6Bs9p1TopwtRzDQj1.jpg",
+      "label": "Resurrection"
+    },
+    "smallville/s03e16": {
+      "still": "https://image.tmdb.org/t/p/w780/k9ATzdYKws9NynDzMHyVwRX4EyK.jpg",
+      "label": "Crisis"
+    },
+    "smallville/s03e17": {
+      "still": "https://image.tmdb.org/t/p/w780/wszMaPugz0oISB60cvW1V3Fi8gc.jpg",
+      "label": "Legacy"
+    },
+    "smallville/s03e18": {
+      "still": "https://image.tmdb.org/t/p/w780/rf2RDbgvRy99deBlDnhwRSIAokF.jpg",
+      "label": "Truth"
+    },
+    "smallville/s03e19": {
+      "still": "https://image.tmdb.org/t/p/w780/iQs1A4CwFQNpCu7cQPrgoJvjYrB.jpg",
+      "label": "Memoria"
+    },
+    "smallville/s03e20": {
+      "still": "https://image.tmdb.org/t/p/w780/53OGaA3qZboMGE73LtmetX1dLhM.jpg",
+      "label": "Talisman"
+    },
+    "smallville/s03e21": {
+      "still": "https://image.tmdb.org/t/p/w780/h8tBdTWidSH4452BqhXtYQsxA2k.jpg",
+      "label": "Forsaken (1)"
+    },
+    "smallville/s03e22": {
+      "still": "https://image.tmdb.org/t/p/w780/zFVOpndnLWcESIiASQwSSjMm4X9.jpg",
+      "label": "Covenant (2)"
+    },
+    "smallville/s04e01": {
+      "still": "https://image.tmdb.org/t/p/w780/v8vrx435b40ci34GeVtEvHA1hnj.jpg",
+      "label": "Crusade"
+    },
+    "smallville/s04e02": {
+      "still": "https://image.tmdb.org/t/p/w780/bWLk9TwJDsyfn054O8QOfnYqGhJ.jpg",
+      "label": "Gone"
+    },
+    "smallville/s04e03": {
+      "still": "https://image.tmdb.org/t/p/w780/gl9VlMMI5xQlz1Vt02E4CpATnpS.jpg",
+      "label": "Facade"
+    },
+    "smallville/s04e04": {
+      "still": "https://image.tmdb.org/t/p/w780/z9xlDgHD5YViZQZVYA4YZMShvAp.jpg",
+      "label": "Devoted"
+    },
+    "smallville/s04e05": {
+      "still": "https://image.tmdb.org/t/p/w780/kEDtnhtR6ildo8pPjc3TSClpLOT.jpg",
+      "label": "Run"
+    },
+    "smallville/s04e06": {
+      "still": "https://image.tmdb.org/t/p/w780/cfmBdsV4AJgwgikmmRoWByIIJz3.jpg",
+      "label": "Transference"
+    },
+    "smallville/s04e07": {
+      "still": "https://image.tmdb.org/t/p/w780/i5nUTb5InawJzBNbwcXUENeqCyz.jpg",
+      "label": "Jinx"
+    },
+    "smallville/s04e08": {
+      "still": "https://image.tmdb.org/t/p/w780/hOEbdvEriBgMC66pN3BXWj17LMd.jpg",
+      "label": "Spell"
+    },
+    "smallville/s04e09": {
+      "still": "https://image.tmdb.org/t/p/w780/NGc4bCOxG6ubTplQKgtStglM46.jpg",
+      "label": "Bound"
+    },
+    "smallville/s04e10": {
+      "still": "https://image.tmdb.org/t/p/w780/atoNwOLS5sODHJ1Sls5cqh6UGCs.jpg",
+      "label": "Scare"
+    },
+    "smallville/s04e11": {
+      "still": "https://image.tmdb.org/t/p/w780/iHgvKngP4DTD8XcnPovts8XB5mM.jpg",
+      "label": "Unsafe"
+    },
+    "smallville/s04e12": {
+      "still": "https://image.tmdb.org/t/p/w780/nl1bKpLDkkryIwrYxXy4cxu6f7g.jpg",
+      "label": "Pariah"
+    },
+    "smallville/s04e13": {
+      "still": "https://image.tmdb.org/t/p/w780/7hk8UATVXYIprI75rVS2KxzpDfA.jpg",
+      "label": "Recruit"
+    },
+    "smallville/s04e14": {
+      "still": "https://image.tmdb.org/t/p/w780/oWhFSYR1IrSbUJfkFmRSHWz89zv.jpg",
+      "label": "Krypto"
+    },
+    "smallville/s04e15": {
+      "still": "https://image.tmdb.org/t/p/w780/y1auMqqMRMffJbEA52ZCCfbhXnu.jpg",
+      "label": "Sacred"
+    },
+    "smallville/s04e16": {
+      "still": "https://image.tmdb.org/t/p/w780/4TIRVwvHBXvNE9StP9ODVS6wCvv.jpg",
+      "label": "Lucy"
+    },
+    "smallville/s04e17": {
+      "still": "https://image.tmdb.org/t/p/w780/4eoJHx8sNVQjJeQw4uErdJ6ICrv.jpg",
+      "label": "Onyx"
+    },
+    "smallville/s04e18": {
+      "still": "https://image.tmdb.org/t/p/w780/6zM2n8okmpKg2FWPtgLQCFdpXQ4.jpg",
+      "label": "Spirit"
+    },
+    "smallville/s04e19": {
+      "still": "https://image.tmdb.org/t/p/w780/wcqA2pRWE6OWWLPGeC8sc2O01gb.jpg",
+      "label": "Blank"
+    },
+    "smallville/s04e20": {
+      "still": "https://image.tmdb.org/t/p/w780/1vv8p7LW65yBQrcMNjUUsmBfddl.jpg",
+      "label": "Ageless"
+    },
+    "smallville/s04e21": {
+      "still": "https://image.tmdb.org/t/p/w780/oW2wApJr59JMjXG5UzX1eP2a2A1.jpg",
+      "label": "Forever"
+    },
+    "smallville/s05e01": {
+      "still": "https://image.tmdb.org/t/p/w780/fpkE0EGG9JprSGKv2wPFb2hLQqj.jpg",
+      "label": "Arrival"
+    },
+    "smallville/s05e02": {
+      "still": "https://image.tmdb.org/t/p/w780/ntMrI2PjqTF8QidhiGAiTn6d5tm.jpg",
+      "label": "Mortal"
+    },
+    "smallville/s05e03": {
+      "still": "https://image.tmdb.org/t/p/w780/xfdsLBmWjVXOZTwQcSj9lYSlaV2.jpg",
+      "label": "Hidden"
+    },
+    "smallville/s05e05": {
+      "still": "https://image.tmdb.org/t/p/w780/qqtUsjCeCVs6pBbW9e3QAEfpezm.jpg",
+      "label": "Thirst"
+    }
+  },
+  "showMeta": {
+    "ashes-to-crown": {
+      "episodes": 24
+    },
+    "lanterns": {
+      "episodes": 1
+    },
+    "our-golden-days": {
+      "episodes": 50
+    },
+    "the-bombing-of-pan-am-103": {
+      "episodes": 6
+    },
+    "the-apartment-job": {
+      "episodes": 12
+    },
+    "cu-truot-dai": {
+      "episodes": 10
+    },
+    "khi-anh-chay-ve-phia-em": {
+      "episodes": 24
+    },
+    "i-will-find-you": {
+      "episodes": 8
+    },
+    "than-dieu-dai-hiep": {
+      "episodes": 32
+    },
+    "smallville": {
+      "episodes": 91
+    },
+    "gold-land": {
+      "episodes": 1
+    }
+  },
+  "saved": [],
+  "signedIn": false,
+  "heroPreview": "/api/hls/archive/a-night-in-nude/master.m3u8",
+  "more": true,
+  "page": 1
+}

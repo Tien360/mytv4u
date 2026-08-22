@@ -1,0 +1,470 @@
+{
+  "movie": {
+    "slug": "nguoi-nhen-2002",
+    "backdrop": "https://image.tmdb.org/t/p/w1280/zQ8AxTPiCiS5nnwXpwTBPBHSaa5.jpg",
+    "createdAt": "2026-08-13T10:42:13.777Z",
+    "genres": {
+      "en": [
+        "Action",
+        "Science Fiction"
+      ],
+      "vi": [
+        "Phim Hành Động",
+        "Phim Khoa Học Viễn Tưởng"
+      ]
+    },
+    "hlsUrl": "https://s6.kkphimplayer6.com/20250828/cnyc0P2S/index.m3u8",
+    "mediaType": "movie",
+    "okruId": "",
+    "overview": {
+      "en": "After being bitten by a genetically altered spider at Oscorp, nerdy but endearing high school student Peter Parker is endowed with amazing powers to become the superhero known as Spider-Man.",
+      "vi": "Peter Parker là một sinh viên trẻ và nhút nhát, đã sống với dì May và chú Ben kể từ khi cha mẹ anh ta mất khi anh ta còn rất nhỏ. Peter yêu người hàng xóm xinh đẹp của mình, nhưng sự thiếu lôi cuốn của anh ta không khiến anh ta trở nên nổi tiếng ở trường trung học. Một ngày nọ, anh ta bị cắn bởi một con nhện đã bị biến đổi gen, phát hiện ra ngày hôm sau anh ta sở hữu sức mạnh khác thường: anh ta có sức mạnh và sự nhanh nhẹn của một con nhện. Cuộc phiêu lưu của Người Nhện, dựa trên truyện tranh nổi tiếng Stan Lee và Steve Ditko, đã càn quét phòng vé Mỹ và phá vỡ kỷ lục phá vỡ kỷ lục vào cuối tuần đầu tiên của anh: 114 triệu đô la, lần đầu tiên trong lịch sử, anh tìm cách phá vỡ Rào cản 100 triệu đô la vào một ngày cuối tuần bình thường."
+    },
+    "poster": {
+      "en": "https://image.tmdb.org/t/p/w500/or6XJBVpcEbIkma0V9zshnbEtx4.jpg",
+      "vi": "https://image.tmdb.org/t/p/w500/w55KSeyhH3nXjzx7AhbNq0DO3zt.jpg"
+    },
+    "score": 7.3,
+    "sources": [
+      {
+        "kind": "other",
+        "url": "https://s6.kkphimplayer6.com/20250828/cnyc0P2S/index.m3u8",
+        "label": "Vietsub"
+      },
+      {
+        "kind": "other",
+        "url": "https://s6.kkphimplayer6.com/20250828/6aCfSIjI/index.m3u8",
+        "label": "Thuyết Minh 1"
+      },
+      {
+        "kind": "other",
+        "url": "https://s6.kkphimplayer6.com/20250828/Gxdxirep/index.m3u8",
+        "label": "Thuyết Minh 2"
+      },
+      {
+        "kind": "other",
+        "url": "https://s6.kkphimplayer6.com/20250926/7uc7idmd/index.m3u8",
+        "label": "Thuyết Minh 3"
+      }
+    ],
+    "title": {
+      "en": "Spider-Man",
+      "vi": "Người Nhện"
+    },
+    "tmdbId": 557,
+    "votes": 21100,
+    "year": 2002,
+    "search": "spider man nguoi nhen 2002",
+    "_id": "6a7d9f86916d65ebc7f73e77"
+  },
+  "episodes": [],
+  "playable": true,
+  "related": [
+    {
+      "slug": "x-men",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3QUVzbcNyfGe3ocWkYAT8emK8Co.jpg",
+      "createdAt": "2026-08-18T14:32:47.230Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "Two mutants, Rogue and Wolverine, come to a private academy for their kind whose resident superhero team, the X-Men, must oppose a terrorist organization with similar powers.",
+        "vi": "X-men là những con người có năng lực siêu phàm. Họ tập trung tại một ngôi trường do giáo sư Charles Xavier để giúp cho họ sử dụng năng lực của mình một cách đúng đắn và có ích... Bộ phim bắt đầu từ việc cô bé Rogue bị sự truy lùng của một kẻ có mưu đồ làm bá chủ thế giới khi hắn muốn lợi dụng sức mạnh của Rogue để hoàn thành nguyện vọng của mình. Nhưng mọi thứ đã bị giáo sư và các thành viên của X-men ngăn cản. Phim được dựa theo bộ truyện tranh nổi tiếng của Mỹ."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/bRDAc4GogyS9ci3ow7UnInOcriN.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/bRDAc4GogyS9ci3ow7UnInOcriN.jpg"
+      },
+      "score": 7.022,
+      "title": {
+        "en": "X-Men",
+        "vi": "X-Men 1: Dị Nhân"
+      },
+      "year": 2000,
+      "_id": "6a840a68916d65ebc7fc6489"
+    },
+    {
+      "slug": "x-men-origins-wolverine",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/p4GzAzjlL7lXIVGvayg7zvzGTSi.jpg",
+      "createdAt": "2026-08-18T07:43:48.040Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "After seeking to live a normal life after 200 years, Logan sets out to avenge a death by undergoing the mutant Weapon X program and becoming Wolverine.",
+        "vi": "Tuổi thơ của James “Logan” Hewlett trở thành nỗi ám ảnh khi Logan chính tay giết chết cha ruột của mình, sau khi ông giết cha nuôi của anh. Logan và người anh Victor Creed đã cùng chạy trốn khắp nơi khi chỉ là những đứa trẻ, rồi sau đó cùng nhau khoác áo lính lao mình vào những cuộc chiến cho quân đội, và cuối cùng được William Stryker nhận về phục vụ cho đội quân người đột biến đặc biệt của hắn. Sau một trận càn quét ở Châu Phi, Logan giã từ đội quân này và lui về sống ẩn dật cùng bạn gái Silver Fox. Sau 6 năm bình yên, Stryker tìm đến và buộc Logan phải trở về tham gia dự án Weapon X mới của mình. Creed ra tay hạ sát Fox để buộc Logan khuất phục, gây nên mối hận thù giữa hai anh em Logan và Creed.  Cùng lúc với việc sở hữu bộ xương từ chất Adamantium, Logan cũng dần mất đi ký ức và bắt đầu một cuộc sống mới. Weapon X đã biến Logan trở thành Wolverine, và người anh Creed cũng mang tên mới là Sabretooth."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/yj8LbTju1p7CUJg7US2unSBk33s.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/iffWlf6scXhqv4PlIhYbHOre5tI.jpg"
+      },
+      "score": 6.298,
+      "title": {
+        "en": "X-Men Origins: Wolverine",
+        "vi": "X-Men: Nguồn Gốc Người Sói"
+      },
+      "year": 2009,
+      "_id": "6a83aa8d916d65ebc7fc5ae6"
+    },
+    {
+      "slug": "x-men-days-of-future-past",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/3czpqXzFy5UcNuD1AubecRLWkwD.jpg",
+      "createdAt": "2026-08-18T07:06:59.320Z",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "The ultimate X-Men ensemble fights a war for the survival of the species across two time periods as they join forces with their younger selves in an epic battle that must change the past – to save our future.",
+        "vi": "Trong phần phim này, Người Sói (Hugh Jackman) được gửi về quá khứ để giúp đỡ giáo sư X (James McAvoy), Magneto (Michael Fassbender) và các dị nhân của X-Men: First Class ngăn chặn sự trỗi dậy của Sentinels, loại rô bốt khổng lồ được lập trình để tiêu diệt những người mang gen đột biến."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/tYfijzolzgoMOtegh1Y7j2Enorg.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/iQeRkwqwx00r7SzLqQ0BhsGmpsu.jpg"
+      },
+      "score": 7.534,
+      "title": {
+        "en": "X-Men: Days of Future Past",
+        "vi": "X-Men 5: Ngày Cũ Của Tương Lai"
+      },
+      "year": 2014,
+      "_id": "6a83a1ec916d65ebc7fc59f1"
+    },
+    {
+      "slug": "the-fantastic-4-first-steps",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/s94NjfKkcSczZ1FembwmQZwsuwY.jpg",
+      "createdAt": "2026-08-14T06:00:18.367Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "Against the vibrant backdrop of a 1960s-inspired, retro-futuristic world, Marvel's First Family is forced to balance their roles as heroes with the strength of their family bond, while defending Earth from a ravenous space god called Galactus and his enigmatic Herald, Silver Surfer.",
+        "vi": "Sau một chuyến bay thám hiểm vũ trụ, bốn phi hành gia bất ngờ sở hữu năng lực siêu nhiên và trở thành gia đình siêu anh hùng đầu tiên của Marvel. The Fantastic Four: First Steps là bộ phim mở đầu Kỷ nguyên anh hùng thứ sáu (Phase Six), đặt nền móng cho siêu bom tấn Avengers: Doomsday trong năm sau."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/nf5qaSEvyYSNeFH0YhSs5EsBLX9.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/n0bqzWiKGJsmnvOlkTiYykhhM4E.jpg"
+      },
+      "score": 6.944,
+      "title": {
+        "en": "The Fantastic 4: First Steps",
+        "vi": "Bộ Tứ Siêu Đẳng: Bước Đi Đầu Tiên"
+      },
+      "year": 2025,
+      "_id": "6a7e4c50916d65ebc7fa3a0b"
+    },
+    {
+      "slug": "fantastic-four",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/or5kDR8Ve3TtuPSdEf1X5NdQHyz.jpg",
+      "createdAt": "2026-08-14T05:53:14.939Z",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "Four young outsiders teleport to a dangerous universe, which alters their physical form in shocking ways. Their lives irrevocably upended, the team must learn to harness their daunting new abilities and work together to save Earth from a former friend turned enemy.",
+        "vi": "Bộ tứ siêu đẳng 2015 xoay quanh sự hình thành của Bộ tứ siêu đẳng. Tiến sỹ vật lý trẻ Reed Richards cùng phi hành gia Ben Grimm, bạn gái cũ Susan Storm và anh chàng Johnny Storm tham gia vào một cuộc thử nghiệm ngoài vũ trụ. Khi trở về, họ phát hiện ra cơ thể mình đã bị biến đổi một cách kỳ lạ: Richards có thể kéo dài người như cao su, Susan Storm có thể trở nên vô hình và tạo ra một nguồn năng lượng làm lá chắn, Johnny Storm có khả năng tự bốc cháy và bay, còn Grimm trở thành một người đá với sức mạnh khủng khiếp.  Không thể trở lại bình thường, bộ tứ buộc phải học cách khai thác những siêu năng lực mới và phối hợp cùng nhau để cứu Trái Đất khỏi kẻ thù hung ác Victor Domashev (Doctor Doom) - chính là người năm xưa từng giúp đỡ họ thực hiện cuộc thử nghiệm."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/cDroz5qSlP8xZ6tOpeYoPkBvKyL.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/2ox7WvMJwwq6yEawXspkZEQTpbq.jpg"
+      },
+      "score": 4.434,
+      "title": {
+        "en": "Fantastic Four",
+        "vi": "Bộ Tứ Siêu Đẳng"
+      },
+      "year": 2015,
+      "_id": "6a7e4aa9916d65ebc7fa39e7"
+    },
+    {
+      "slug": "supergirl",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/54KIfdTEzOliHDKx0OkzYGqAICx.jpg",
+      "createdAt": "2026-08-14T04:52:28.140Z",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "When an unexpected and ruthless adversary strikes too close to home, Kara Zor-El, aka Supergirl, reluctantly joins forces with an unlikely companion on an epic, interstellar journey of vengeance and justice.",
+        "vi": "Khi một kẻ thù tàn nhẫn và không ngờ tới ra tay quá gần với những gì cô trân quý, Kara Zor-El, còn được biết đến với cái tên Supergirl, miễn cưỡng hợp tác với một người đồng hành không ai ngờ tới, bước vào hành trình liên thiên hà đầy sử thi để tìm kiếm sự trả thù và công lý."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/1QCWdqzTfh2x9UylVpspIU6QTuM.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/duXkWKOLS7hHAddyjBwk35YY6U.jpg"
+      },
+      "score": 6.747,
+      "title": {
+        "en": "Supergirl",
+        "vi": "Supergirl"
+      },
+      "year": 2026,
+      "_id": "6a7e3c6a916d65ebc7fa38b8"
+    },
+    {
+      "slug": "spider-man-brand-new-day",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qeQJx07rK2xm8SD2sJxFKhE7gs0.jpg",
+      "createdAt": "2026-08-14T04:44:04.909Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Action",
+          "Adventure"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Hành Động",
+          "Phim Phiêu Lưu"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "Fighting crime full-time as Spider-Man in a world that doesn't remember him—and the pressure of seeing his old friends move on without him—sparks a change in Peter Parker he may not have the power to control. But that transformation might also be the only thing that can stop a shocking new threat to the city and those he loves - a powerful villain no one can even see.",
+        "vi": "Không còn Tony Stark, MJ hay Ned kề cận, Peter buộc phải đơn thân độc mã đối diện với phe đối đầu bí ẩn. Tuy nhiên, khi áp lực ngày càng gia tăng, nó kích hoạt một sự biến đổi thể chất bất ngờ, đe dọa chính sự tồn tại của anh. Đồng thời, một chuỗi tội phạm bí ẩn mới xuất hiện, kéo theo một trong những mối đe dọa mạnh mẽ nhất mà Spider-Man từng đối mặt."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/iPOn6DinuVyLY17YM9mKuPofV08.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/wqGZVSCUSXE92WH2zyol2REaqT4.jpg"
+      },
+      "score": 7.868,
+      "title": {
+        "en": "Spider-Man: Brand New Day",
+        "vi": "Người Nhện: Khởi Đầu Mới"
+      },
+      "year": 2026,
+      "_id": "6a7e3a73916d65ebc7fa38ae"
+    },
+    {
+      "slug": "bo-tu-sieu-dang-2005",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/2cDXXLirYsoP6rk9B8yrvNHbbFy.jpg",
+      "createdAt": "2026-08-13T12:00:15.113Z",
+      "genres": {
+        "en": [
+          "Action",
+          "Fantasy",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Giả Tượng",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "During a space voyage, four scientists are altered by cosmic rays: Reed Richards gains the ability to stretch his body; Sue Storm can become invisible; Johnny Storm controls fire; and Ben Grimm is turned into a super-strong … thing. Together, these \"Fantastic Four\" must now thwart the evil plans of Dr. Doom and save the world from certain destruction.",
+        "vi": "Bộ phim Fantastic Four (Bộ Tứ Siêu Đẳng) được chuyển thể từ truyện tranh nói về một nhóm 4 người có những năng lực siêu nhiên. Reed Richards (có thể tự kéo dài thân hình), Susan Storm (có khả năng tàng hình và biến vật thể tàng hình), Johnny Storm (có thể tạo ra lửa từ đầu ngón tay và biến thành ngọn đuốc) và Ben Grim (có sức mạnh vô địch tiềm tàng dưới lớp vỏ của một con quái vật)."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/4YMcYEFS8sFuW3soP1HVmgR3cSm.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/4YMcYEFS8sFuW3soP1HVmgR3cSm.jpg"
+      },
+      "score": 5.81,
+      "title": {
+        "en": "Fantastic Four",
+        "vi": "Bộ Tứ Siêu Đẳng"
+      },
+      "year": 2005,
+      "_id": "6a7db1cf916d65ebc7f9e0d1"
+    },
+    {
+      "slug": "bo-tu-sieu-dang-su-gia-bac",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/o2wYH40zW0JIYiYUTu6L4gsNy7E.jpg",
+      "createdAt": "2026-08-13T12:00:14.882Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Adventure",
+          "Action"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "The Fantastic Four return to the big screen as a new and all powerful enemy threatens the Earth. The seemingly unstoppable 'Silver Surfer', but all is not what it seems and there are old and new enemies that pose a greater threat than the intrepid superheroes realize.",
+        "vi": "Đã hai năm trôi qua kể từ khi tên ác nhân Victor Von Doom bị bộ tứ siêu đẳng làm cho biến thành tượng sắt. Reed Richards và Sue Storm đang chuẩn bị cho đám cưới của họ. Đúng lúc này, một vật thể lạ bằng bạc xuất hiện trên bầu khí quyển của Trái Đất, mang theo nguồn năng lượng khổng lồ, gây nên hiện tượng dao động phân tử trên diện rộng, khiến vỏ Trái Đất bị nhiều vết nứt. Bên cạnh đó Fantastic Four còn phải để tâm đến đối thủ truyền kiếp là gã tiến sĩ Doom luôn thừa cơ hội tìm cách hãm hại họ…"
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/9wRfzTcMyyzkQxVDqBHv8RwuZOv.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/or0OyxIe227TDhxiGMKp9pWF0cv.jpg"
+      },
+      "score": 5.634,
+      "title": {
+        "en": "Fantastic Four: Rise of the Silver Surfer",
+        "vi": "Bộ Tứ Siêu Đẳng: Sứ Giả Bạc"
+      },
+      "year": 2007,
+      "_id": "6a7db1cf916d65ebc7f9e0d0"
+    },
+    {
+      "slug": "tro-choi-sinh-tu",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/yVBQ65YBYZ9UhzJ4NGdRgeXtyTL.jpg",
+      "createdAt": "2026-08-13T12:00:14.592Z",
+      "genres": {
+        "en": [
+          "Science Fiction",
+          "Adventure",
+          "Action",
+          "Thriller"
+        ],
+        "vi": [
+          "Phim Khoa Học Viễn Tưởng",
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Gây Cấn"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "In a dystopian society where the Capitol forces each district to send two young tributes to fight to the death in a televised spectacle, a girl volunteers to take her sister’s place, setting the stage for a struggle of survival and defiance.",
+        "vi": "Phim đặt trong bối cảnh khu vực Bắc Mỹ bị hủy hoại do thiên tai và chiến tranh, cả khu vực trở thành một Panem với Capitol và 13 huyện. Mỗi năm sẽ có 24 thanh niên của 12 huyện được lựa chọn để tham gia Đấu trường sinh tử được tường thuật cho cả đất nước xem, trong đó chỉ có một người gan dạ và mưu trí nhất mới có thể sống và chiến thắng. Đây là tác phẩm hấp dẫn mang đậm triết lý “ai mạnh thì sống”, bên cạnh đó phim ca ngợi khát vọng sống, tình yêu của những người trẻ tuổi. Được giới phê bình phim đánh giá khá cao, Đấu Trường Sinh Tử đã tạo ra một cơn sốt khắp các phòng chiếu Bắc Mỹ."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/yXCbOiVDCxO71zI7cuwBRXdftq8.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/tjyjVDEjFtlxsqAppVPPa6ZQ4Ye.jpg"
+      },
+      "score": 7.223,
+      "title": {
+        "en": "The Hunger Games",
+        "vi": "Trò Chơi Sinh Tử"
+      },
+      "year": 2012,
+      "_id": "6a7db1cf916d65ebc7f9e0cf"
+    },
+    {
+      "slug": "tro-choi-sinh-tu-bat-lua",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/eHaazLxM5LRMh0ySkVy7SK6wUWt.jpg",
+      "createdAt": "2026-08-13T12:00:14.294Z",
+      "genres": {
+        "en": [
+          "Adventure",
+          "Action",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Phiêu Lưu",
+          "Phim Hành Động",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "After surviving the Hunger Games, Katniss and Peeta struggle with the consequences of their victory as unrest spreads across Panem. Forced back into the spotlight, they become symbols of hope and resistance while the Capitol prepares a new and deadly challenge that will change the future of the nation forever.",
+        "vi": "Đấu Trường Sinh Tử: Bắt Lửa là tập phim thứ hai trong loạt phim với những sự kiện nối tiếp các diễn biến trong phần một. Chiến thắng Katniss Everdeen và Peeta Mellark tại Đấu trường sinh tử lần 74 thổi bùng lên cuộc nổi loạn tại các quận của Panem. Điều đó khiến họ trở thành mục tiêu săn đuổi của Capitol. Phim lấy bối cảnh tương lai không xa khi Bắc Mỹ bị đe dọa bởi hạn hán, hỏa hoạn, đói kém và đặt ra giả thuyết khi đó chiến tranh được thay thế bằng một trò chơi săn người. Mỗi năm, các quận cử ra đại diện tham dự cuộc đấu một mất một còn để làm trò giải khuây cho các thế lực giàu có. Trò chơi khát máu này được xây dựng như một show truyền hình thực tế truyền đi khắp nơi."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/vrQHDXjVmbYzadOXQ0UaObunoy2.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/x2LjrOo76gA1HWd4NlSd9nOeB1t.jpg"
+      },
+      "score": 7.428,
+      "title": {
+        "en": "The Hunger Games: Catching Fire",
+        "vi": "Trò Chơi Sinh Tử: Bắt Lửa"
+      },
+      "year": 2013,
+      "_id": "6a7db1cf916d65ebc7f9e0ce"
+    },
+    {
+      "slug": "tro-choi-sinh-tu-hung-nhai-phan-2",
+      "backdrop": "https://image.tmdb.org/t/p/w1280/qVgLMRVNB5bHU0inmRa0ueShacN.jpg",
+      "createdAt": "2026-08-13T12:00:14.064Z",
+      "genres": {
+        "en": [
+          "Action",
+          "Adventure",
+          "Science Fiction"
+        ],
+        "vi": [
+          "Phim Hành Động",
+          "Phim Phiêu Lưu",
+          "Phim Khoa Học Viễn Tưởng"
+        ]
+      },
+      "mediaType": "movie",
+      "overview": {
+        "en": "As the war between the Capitol and the districts reaches its peak, Katniss Everdeen embarks on a perilous mission to liberate Panem and confront President Snow. Joined by a team of trusted allies, she navigates deadly traps, shifting loyalties, and the heavy cost of rebellion, determined to bring freedom to her people and end the Hunger Games once and for all.",
+        "vi": "Sau khi được tôn vinh như “Húng Nhại” - biểu tượng cho niềm hy vọng và khát khao tự do, Katniss cùng những người dân ở Quận 13 quyết tâm đứng lên thực hiện cuộc khởi nghĩa nhằm vào Capitol. Cách duy nhất để dành phần thắng chính là trừ khử tổng thống Snow - kẻ chủ mưu đứng đằng sau tất cả những nỗi đau thương mà Panem phải chịu đựng suốt hơn 70 năm qua. Luôn đi trước một bước, mọi thứ với Snow dường như luôn nằm trong dự định, đặc biệt là khi âm mưu của lão được vén màn: Capitol chính là Đấu Trường Sinh Tử lần thứ 76. Một lần nữa, Katniss cùng nhóm của mình bất đắc dĩ sẽ phải tham gia vào trò chơi man rợ này để chấm dứt tất cả."
+      },
+      "poster": {
+        "en": "https://image.tmdb.org/t/p/w500/lImKHDfExAulp16grYm8zD5eONE.jpg",
+        "vi": "https://image.tmdb.org/t/p/w500/40cJNkFU3wGIj8P2rfeJOMYFhHQ.jpg"
+      },
+      "score": 6.901,
+      "title": {
+        "en": "The Hunger Games: Mockingjay - Part 2",
+        "vi": "Trò Chơi Sinh Tử: Húng Nhại - Phần 2"
+      },
+      "year": 2015,
+      "_id": "6a7db1ce916d65ebc7f9e0cc"
+    }
+  ],
+  "resume": null,
+  "resumeLabel": null,
+  "languages": null,
+  "favourite": false,
+  "signedIn": false,
+  "watch": null,
+  "episodeWatch": {},
+  "locale": "vi"
+}

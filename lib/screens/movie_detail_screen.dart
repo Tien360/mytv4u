@@ -1,4 +1,4 @@
-import 'dart:async';
+﻿import 'dart:async';
 import 'dart:ui';
 import 'dart:io';
 import 'dart:convert';
@@ -1157,7 +1157,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        Text(
+                                        SelectableText(
                                           _movie!.displayName,
                                           style: const TextStyle(
                                             fontSize: 48,
@@ -1173,7 +1173,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           ),
                                         ),
                                         const SizedBox(height: 8),
-                                        Text(
+                                        SelectableText(
                                           _movie!.originalName,
                                           style: TextStyle(
                                             fontSize: 20,
@@ -1449,7 +1449,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           const SizedBox(height: 8),
                                         ],
                                         const SizedBox(height: 16),
-                                        Text(
+                                        SelectableText(
                                           _movie!.description.replaceAll(
                                             RegExp(r'<[^>]*>|&[^;]+;'),
                                             '',
@@ -1568,7 +1568,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                       const SizedBox(height: 6),
                                                       SizedBox(
                                                         width: 70,
-                                                        child: Text(
+                                                        child: SelectableText(
                                                           actor['name'] ?? '',
                                                           style:
                                                               const TextStyle(
@@ -1579,8 +1579,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                           textAlign:
                                                               TextAlign.center,
                                                           maxLines: 2,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
                                                         ),
                                                       ),
                                                     ],
@@ -1988,8 +1986,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   Widget _buildRichText(String label, String value) {
-    return RichText(
-      text: TextSpan(
+    return SelectableText.rich(
+        TextSpan(
         children: [
           TextSpan(
             text: label,
@@ -2708,3 +2706,4 @@ class _HoverServerTabState extends State<HoverServerTab> {
     );
   }
 }
+

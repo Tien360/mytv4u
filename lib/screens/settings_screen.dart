@@ -44,6 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   final GlobalKey _languageKey = GlobalKey();
   final GlobalKey _systemKey = GlobalKey();
   final GlobalKey _sourcesKey = GlobalKey();
+  final GlobalKey _shortcutsKey = GlobalKey();
   final GlobalKey _infoKey = GlobalKey();
 
   final ScrollController _scrollController = ScrollController();
@@ -130,6 +131,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
           _subtitleKey,
         ),
         _buildSidebarItem(
+          L10n.t('keyboard_shortcuts') ?? 'Phím tắt',
+          Icons.keyboard,
+          _shortcutsKey,
+        ),
+        _buildSidebarItem(
           L10n.t('info_contact') ?? 'Thông tin',
           Icons.info_outline,
           _infoKey,
@@ -145,6 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     'ophim': true,
     'kkphim': true,
     'vsmov': true,
+    'film4knet': true,
     'phim4k': true,
     'free1': true,
     'motchill': true,
@@ -839,56 +846,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         .toList(),
                                   ),
 
-                                  const SizedBox(height: 48),
 
-                                  _buildSectionTitle(
-                                    Icons.keyboard,
-                                    L10n.t('shortcuts'),
-                                  ),
-                                  const SizedBox(height: 16),
-                                  GlassContainer(
-                                    padding: const EdgeInsets.all(20),
-                                    child: Column(
-                                      children: [
-                                        _buildShortcutRow(
-                                          'F11',
-                                          L10n.t('shortcut_fullscreen'),
-                                        ),
-                                        const Divider(
-                                          color: Colors.white12,
-                                          height: 32,
-                                        ),
-                                        _buildShortcutRow(
-                                          'ESC',
-                                          L10n.t('shortcut_escape'),
-                                        ),
-                                        const Divider(
-                                          color: Colors.white12,
-                                          height: 32,
-                                        ),
-                                        _buildShortcutRow(
-                                          'Space (Cách)',
-                                          L10n.t('shortcut_play_pause'),
-                                        ),
-                                        const Divider(
-                                          color: Colors.white12,
-                                          height: 32,
-                                        ),
-                                        _buildShortcutRow(
-                                          'F',
-                                          L10n.t('shortcut_zoom'),
-                                        ),
-                                        const Divider(
-                                          color: Colors.white12,
-                                          height: 32,
-                                        ),
-                                        _buildShortcutRow(
-                                          'Mũi tên Trái / Phải',
-                                          L10n.t('shortcut_seek'),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
 
                                   const SizedBox(height: 48),
 
@@ -1255,6 +1213,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     ),
                                   ),
 
+                                  SizedBox(key: _shortcutsKey),
+                                  _buildSectionTitle(
+                                    Icons.keyboard,
+                                    L10n.t('shortcuts') ?? 'Phím tắt',
+                                  ),
+                                  const SizedBox(height: 16),
+                                  GlassContainer(
+                                    padding: const EdgeInsets.all(20),
+                                    child: Column(
+                                      children: [
+                                        _buildShortcutRow(
+                                          'F11',
+                                          L10n.t('shortcut_fullscreen') ?? 'Toàn màn hình',
+                                        ),
+                                        const Divider(
+                                          color: Colors.white12,
+                                          height: 32,
+                                        ),
+                                        _buildShortcutRow(
+                                          'ESC',
+                                          L10n.t('shortcut_escape') ?? 'Thoát toàn màn hình',
+                                        ),
+                                        const Divider(
+                                          color: Colors.white12,
+                                          height: 32,
+                                        ),
+                                        _buildShortcutRow(
+                                          L10n.t('key_space') ?? 'Space (Cách)',
+                                          L10n.t('shortcut_play_pause') ?? 'Phát / Tạm dừng',
+                                        ),
+                                        const Divider(
+                                          color: Colors.white12,
+                                          height: 32,
+                                        ),
+                                        _buildShortcutRow(
+                                          'F',
+                                          L10n.t('shortcut_zoom') ?? 'Chế độ lấp đầy',
+                                        ),
+                                        const Divider(
+                                          color: Colors.white12,
+                                          height: 32,
+                                        ),
+                                        _buildShortcutRow(
+                                          L10n.t('key_left_right') ?? 'Mũi tên Trái / Phải',
+                                          L10n.t('shortcut_seek') ?? 'Tua lùi / tới 10s',
+                                        ),
+                                        const Divider(
+                                          color: Colors.white12,
+                                          height: 32,
+                                        ),
+                                        _buildShortcutRow(
+                                          L10n.t('key_up_down') ?? 'Mũi tên Lên / Xuống',
+                                          L10n.t('shortcut_volume') ?? 'Tăng / Giảm âm lượng',
+                                        ),
+                                        const Divider(
+                                          color: Colors.white12,
+                                          height: 32,
+                                        ),
+                                        _buildShortcutRow(
+                                          'M',
+                                          L10n.t('shortcut_mute') ?? 'Tắt / Mở tiếng',
+                                        ),
+                                        const Divider(
+                                          color: Colors.white12,
+                                          height: 32,
+                                        ),
+                                        _buildShortcutRow(
+                                          'N',
+                                          L10n.t('shortcut_next_episode') ?? 'Chuyển tập tiếp theo',
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+
                                   const SizedBox(height: 48),
 
                                   SizedBox(key: _infoKey),
@@ -1426,6 +1458,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (sourceKey == 'ophim') sourceName = 'Ophim';
     if (sourceKey == 'kkphim') sourceName = 'KKPhim';
     if (sourceKey == 'vsmov') sourceName = 'VSMov';
+    if (sourceKey == 'film4knet') sourceName = 'Film4k.net';
     if (sourceKey == 'phim4k') sourceName = 'Phim4K';
     if (sourceKey == 'free1') sourceName = 'Free1';
     if (sourceKey == 'motchill') sourceName = 'Motchill';

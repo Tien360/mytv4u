@@ -1,19 +1,21 @@
-﻿import io
+﻿import re
 
-with io.open('tools/release.dart', 'r', encoding='utf-8') as f:
+with open('tools/release.dart', 'r', encoding='utf-8') as f:
     content = f.read()
 
-# Replace:
-# await stdout.addStream(buildProcess.stdout);
-# await stderr.addStream(buildProcess.stderr);
-# With:
-# buildProcess.stdout.pipe(stdout);
-# buildProcess.stderr.pipe(stderr);
+# Find the part where it prepares files for Inno Setup or just before creating the installer
+# Actually, the easiest way is to add it after "build windows" is done.
+patch = r"""
+  print('[3/6] Sao chép audio.ico...');
+  final audioIcoSrc = File('windows/runner/resources/audio.ico');
+  final audioIcoDest = File('build/windows/x64/runner/Release/audio.ico');
+  if (audioIcoSrc.existsSync()) {
+    audioIcoSrc.copySync(audioIcoDest.path);
+  }
+"""
 
-content = content.replace('await stdout.addStream(buildProcess.stdout);\n    await stderr.addStream(buildProcess.stderr);', 
-                          'buildProcess.stdout.pipe(stdout);\n    buildProcess.stderr.pipe(stderr);')
-
-with io.open('tools/release.dart', 'w', encoding='utf-8') as f:
-    f.write(content)
-
-print('Patched tools/release.dart')
+if "Sao chép audio.ico" not in content:
+    content = re.sub(r'(print\(\'\[3/6\] Đóng gói installer...\'\);)', patch + r'\n  \1', content)
+    with open('tools/release.dart', 'w', encoding='utf-8') as f:
+        f.write(content)
+    print("Updated release.dart")

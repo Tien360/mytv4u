@@ -6,6 +6,7 @@ import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/movie.dart';
 import 'motchill_scraper.dart';
+import 'film4knet_api.dart';
 import 'torrentio_api.dart';
 import 'cinemeta_api.dart';
 
@@ -137,6 +138,7 @@ class PhimApi {
     List<Movie> itemsPremium,
     List<Movie> itemsMotchill,
     List<Movie> itemsStremio,
+    List<Movie> itemsFilm4KNet,
   ) {
     final Map<String, Movie> mergedMap = {};
 
@@ -247,20 +249,22 @@ class PhimApi {
     mergeList(itemsFree1);
     mergeList(itemsPhim4K);
     mergeList(itemsMotchill);
+    mergeList(itemsFilm4KNet); // Nguồn chất lượng cao
     mergeList(itemsPremium); // Cao nhất
     mergeList(itemsStremio); // Rất cao để lấy poster
 
     int getPriority(Movie m) {
       if (m.sourceSlugs.containsKey('premium')) return 0;
-      if (m.sourceSlugs.containsKey('stremio')) return 1;
-      if (m.sourceSlugs.containsKey('nguonc')) return 2;
-      if (m.sourceSlugs.containsKey('ophim')) return 3;
-      if (m.sourceSlugs.containsKey('kkphim')) return 4;
-      if (m.sourceSlugs.containsKey('phim4k')) return 5;
-      if (m.sourceSlugs.containsKey('free1')) return 6;
-      if (m.sourceSlugs.containsKey('vsmov')) return 7;
-      if (m.sourceSlugs.containsKey('motchill')) return 8;
-      return 9;
+      if (m.sourceSlugs.containsKey('film4knet')) return 1;
+      if (m.sourceSlugs.containsKey('stremio')) return 2;
+      if (m.sourceSlugs.containsKey('nguonc')) return 3;
+      if (m.sourceSlugs.containsKey('ophim')) return 4;
+      if (m.sourceSlugs.containsKey('kkphim')) return 5;
+      if (m.sourceSlugs.containsKey('phim4k')) return 6;
+      if (m.sourceSlugs.containsKey('free1')) return 7;
+      if (m.sourceSlugs.containsKey('vsmov')) return 8;
+      if (m.sourceSlugs.containsKey('motchill')) return 9;
+      return 10;
     }
 
     final resultList = mergedMap.values.toList();
@@ -280,6 +284,7 @@ class PhimApi {
     String premiumSuffix,
     Future<List<Movie>> Function() motchillFetcher,
     Future<List<Movie>> Function()? stremioFetcher,
+    Future<List<Movie>> Function()? film4knetFetcher,
   ) async {
     final prefs = await SharedPreferences.getInstance();
     final enabledSources =
@@ -290,6 +295,7 @@ class PhimApi {
           'ophim',
           'kkphim',
           'vsmov',
+          'film4knet',
           'phim4k',
           'free1',
           'motchill',
@@ -325,6 +331,9 @@ class PhimApi {
       (enabledSources.contains('torrentio') && stremioFetcher != null)
           ? stremioFetcher().catchError((_) => <Movie>[])
           : Future.value(<Movie>[]),
+      (enabledSources.contains('film4knet') && film4knetFetcher != null)
+          ? film4knetFetcher().catchError((_) => <Movie>[])
+          : Future.value(<Movie>[]),
     ];
 
     final results = await Future.wait(futures);
@@ -338,6 +347,7 @@ class PhimApi {
       results[6] as List<Movie>,
       results[7] as List<Movie>,
       results[8] as List<Movie>,
+      results[9] as List<Movie>,
     );
   }
 
@@ -354,6 +364,7 @@ class PhimApi {
       '/movies?page=$page',
       () => MotchillScraper.getRecent(page),
       null, // Don't fetch stremio for new updated because it takes too long/no pagination
+      () => Film4kNetApi.getRecent(page),
     );
   }
 
@@ -381,6 +392,7 @@ class PhimApi {
       '/movies?page=$page&filterType=danh-sach&filterValue=$slug',
       () => MotchillScraper.getByList(slug, page),
       null,
+      null,
     );
   }
 
@@ -397,6 +409,7 @@ class PhimApi {
       '$free1Url/the-loai/$slug?page=$page',
       '/movies?page=$page&filterType=the-loai&filterValue=$slug',
       () => MotchillScraper.getByGenre(slug, page),
+      null,
       null,
     );
   }
@@ -415,6 +428,7 @@ class PhimApi {
       '/movies?page=$page&filterType=quoc-gia&filterValue=$slug',
       () => MotchillScraper.getByCountry(slug, page),
       null,
+      null,
     );
   }
 
@@ -430,6 +444,7 @@ class PhimApi {
       '/movies?keyword=$enc',
       () => MotchillScraper.search(keyword),
       () => CinemetaApi.searchCinemeta(keyword),
+      () => Film4kNetApi.search(keyword),
     );
   }
 
@@ -514,7 +529,15 @@ class PhimApi {
     return true;
   }
 
+
+  static String _slugify(String text) {
+    String lower = text.toLowerCase().trim();
+    lower = lower.replaceAll(RegExp(r'[^a-z0-9\s]'), '');
+    return lower.replaceAll(RegExp(r'\s+'), '-');
+  }
+
   static Stream<Movie> fetchMovieDetailStream(
+
     String slug, {
     Movie? initialMovie,
   }) {
@@ -525,7 +548,7 @@ class PhimApi {
     void processAndEmit() {
       if (parsedMap.isEmpty) return;
 
-      final order = [6, 3, 7, 1, 0, 2, 4, 5, 8, 9];
+      final order = [6, 3, 7, 1, 0, 2, 4, 5, 10, 8, 9];
 
       List<Movie> orderedMovies = [];
       List<EpisodeServer> allServers = [];
@@ -543,48 +566,43 @@ class PhimApi {
       Movie merged = orderedMovies.first;
       for (int i = 1; i < orderedMovies.length; i++) {
         var item = orderedMovies[i];
-        bool isPremium = item.source == 'premium';
+        
+        bool mergedHasBackdrop = merged.posterUrl.isNotEmpty && merged.posterUrl != merged.thumbUrl;
+        bool itemHasBackdrop = item.posterUrl.isNotEmpty && item.posterUrl != item.thumbUrl;
+        String bestPosterUrl = mergedHasBackdrop 
+            ? merged.posterUrl 
+            : (itemHasBackdrop ? item.posterUrl : (merged.posterUrl.isNotEmpty ? merged.posterUrl : item.posterUrl));
+
         merged = merged.copyWith(
-          thumbUrl: item.thumbUrl.isNotEmpty ? item.thumbUrl : merged.thumbUrl,
-          posterUrl: item.posterUrl.isNotEmpty
-              ? item.posterUrl
-              : merged.posterUrl,
+          thumbUrl: merged.thumbUrl.isNotEmpty ? merged.thumbUrl : item.thumbUrl,
+          posterUrl: bestPosterUrl,
           currentEpisode:
-              (item.currentEpisode.isNotEmpty &&
-                  item.currentEpisode != 'Đang cập nhật')
-              ? item.currentEpisode
-              : merged.currentEpisode,
+              (merged.currentEpisode.isNotEmpty &&
+                  merged.currentEpisode != 'Đang cập nhật' &&
+                  merged.currentEpisode != 'N/A')
+              ? merged.currentEpisode
+              : item.currentEpisode,
           quality:
-              (item.quality.isNotEmpty &&
-                  item.quality != 'FHD' &&
-                  item.quality != 'N/A')
-              ? item.quality
-              : merged.quality,
-          time: (item.time.isNotEmpty && item.time != 'N/A')
-              ? item.time
-              : merged.time,
+              (merged.quality.isNotEmpty &&
+                  merged.quality != 'N/A')
+              ? merged.quality
+              : item.quality,
+          time: (merged.time.isNotEmpty && merged.time != 'N/A')
+              ? merged.time
+              : item.time,
           language:
-              (item.language.isNotEmpty &&
-                  item.language != 'Vietsub' &&
-                  item.language != 'N/A')
-              ? item.language
-              : merged.language,
-          description: (isPremium && merged.description.isNotEmpty)
+              (merged.language.isNotEmpty &&
+                  merged.language != 'N/A')
+              ? merged.language
+              : item.language,
+          description: merged.description.isNotEmpty
               ? merged.description
-              : (item.description.isNotEmpty
-                    ? item.description
-                    : merged.description),
-          year: item.year.isNotEmpty ? item.year : merged.year,
-          genres: (isPremium && merged.genres.isNotEmpty)
-              ? merged.genres
-              : (item.genres.isNotEmpty ? item.genres : merged.genres),
-          countries: item.countries.isNotEmpty
-              ? item.countries
-              : merged.countries,
-          directors: item.directors.isNotEmpty
-              ? item.directors
-              : merged.directors,
-          casts: item.casts.isNotEmpty ? item.casts : merged.casts,
+              : item.description,
+          year: merged.year.isNotEmpty ? merged.year : item.year,
+          genres: merged.genres.isNotEmpty ? merged.genres : item.genres,
+          countries: merged.countries.isNotEmpty ? merged.countries : item.countries,
+          directors: merged.directors.isNotEmpty ? merged.directors : item.directors,
+          casts: merged.casts.isNotEmpty ? merged.casts : item.casts,
           source: merged.source != item.source ? 'mixed' : merged.source,
         );
       }
@@ -617,22 +635,37 @@ class PhimApi {
             'motchill',
           ];
       final timeout = const Duration(seconds: 5);
+      final List<Future> futures = [];
 
       if (enabledSources.contains('film4knet')) {
         final querySlug = initialMovie?.sourceSlugs['film4knet'] ?? slug;
-        futures.add(
-          Film4kNetApi.getDetail(querySlug).then((fetchedMovie) {
-            if (fetchedMovie != null &&
-                _isSimilarMovieGlobal(initialMovie, fetchedMovie)) {
+        final guessedSlug = (initialMovie != null && initialMovie.originalName.isNotEmpty)
+            ? _slugify(initialMovie.originalName)
+            : querySlug;
+        
+        bool handleFilm4kResponse(Movie? fetchedMovie) {
+           if (fetchedMovie != null && _isSimilarMovieGlobal(initialMovie, fetchedMovie)) {
               parsedMap[10] = fetchedMovie;
               serversMap[10] = fetchedMovie.episodes;
               processAndEmit();
+              return true;
+           }
+           return false;
+        }
+
+        futures.add(
+          Film4kNetApi.getDetail(querySlug).then((fetchedMovie) {
+            bool success = handleFilm4kResponse(fetchedMovie);
+            if (!success && guessedSlug != querySlug && guessedSlug.isNotEmpty) {
+              Film4kNetApi.getDetail(guessedSlug).then(handleFilm4kResponse).catchError((_) {});
             }
+          }).catchError((_) {
+             if (guessedSlug != querySlug && guessedSlug.isNotEmpty) {
+                Film4kNetApi.getDetail(guessedSlug).then(handleFilm4kResponse).catchError((_) {});
+             }
           }),
         );
       }
-
-      final List<Future> futures = [];
 
       if (enabledSources.contains('nguonc')) {
         final querySlug = initialMovie?.sourceSlugs['nguonc'] ?? slug;

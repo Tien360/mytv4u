@@ -1,0 +1,3 @@
+en: Minions & Monsters
+vi: Minions & Quái Vật
+year: 2026

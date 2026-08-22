@@ -1,3 +1,4 @@
+import '../utils/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_windows/webview_windows.dart';
 import 'package:window_manager/window_manager.dart';
@@ -6,7 +7,8 @@ class TvWebViewScreen extends StatefulWidget {
   final String title;
   final String webUrl;
 
-  const TvWebViewScreen({Key? key, required this.title, required this.webUrl}) : super(key: key);
+  const TvWebViewScreen({Key? key, required this.title, required this.webUrl})
+    : super(key: key);
 
   @override
   State<TvWebViewScreen> createState() => _TvWebViewScreenState();
@@ -47,7 +49,7 @@ class _TvWebViewScreenState extends State<TvWebViewScreen> {
             _isFullscreen = true;
           });
           await windowManager.setFullScreen(true);
-          
+
           // Inject Javascript để ẩn giao diện thừa của trang web tinhlagi, chỉ giữ lại khung player
           await _controller.executeScript('''
             try {
@@ -94,68 +96,79 @@ class _TvWebViewScreenState extends State<TvWebViewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: _isFullscreen ? null : AppBar(
-        backgroundColor: const Color(0xFF0F172A),
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.title,
-              style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+      appBar: _isFullscreen
+          ? null
+          : AppBar(
+              backgroundColor: const Color(0xFF0F172A),
+              elevation: 0,
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+              title: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    L10n.t('tv360_webview_player') ??
+                        'Trình phát WebView TV360',
+                    style: TextStyle(color: Colors.blueAccent, fontSize: 12),
+                  ),
+                ],
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.refresh, color: Colors.white),
+                  tooltip: L10n.t('reload_page'),
+                  onPressed: () {
+                    if (_isInitialized) {
+                      _controller.reload();
+                    }
+                  },
+                ),
+              ],
             ),
-            Text(
-              'Trình phát WebView TV360 Trực tiếp',
-              style: TextStyle(color: Colors.blueAccent, fontSize: 12),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh, color: Colors.white),
-            tooltip: 'Tải lại trang',
-            onPressed: () {
-              if (_isInitialized) {
-                _controller.reload();
-              }
-            },
-          ),
-        ],
-      ),
       body: _error != null
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Icon(Icons.error_outline, color: Colors.redAccent, size: 48),
+                  const Icon(
+                    Icons.error_outline,
+                    color: Colors.redAccent,
+                    size: 48,
+                  ),
                   const SizedBox(height: 12),
                   Text(
-                    'Không thể tải WebView: $_error',
+                    L10n.t('webview_load_error', {'error': _error ?? ''}) ??
+                        'Lỗi tải',
                     style: const TextStyle(color: Colors.white70),
                   ),
                 ],
               ),
             )
           : !_isInitialized
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircularProgressIndicator(color: Colors.blue),
-                      SizedBox(height: 16),
-                      Text(
-                        'Đang mở TV360 Web Player trong ứng dụng...',
-                        style: TextStyle(color: Colors.white70),
-                      ),
-                    ],
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(color: Colors.blue),
+                  SizedBox(height: 16),
+                  Text(
+                    L10n.t('opening_tv360_web_player'),
+                    style: TextStyle(color: Colors.white70),
                   ),
-                )
-              : Webview(_controller),
+                ],
+              ),
+            )
+          : Webview(_controller),
     );
   }
 }
-
