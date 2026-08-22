@@ -64,6 +64,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isTrailerPaused = false;
   bool _autoPlayTrailerSetting = true;
   String? _tmdbRating;
+  String? _movieLogo;
   double _averageRating = 0.0;
   int _totalRatings = 0;
   int _userRating = 0;
@@ -266,6 +267,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               }
 
               _fetchTmdbRating(movie);
+              _fetchTmdbLogo(movie);
 
               // Bắt đầu timer phát trailer sau khi có dữ liệu đầu tiên
               if (_autoPlayTimer == null &&
@@ -287,6 +289,27 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             }
           },
         );
+  }
+
+    Future<void> _fetchTmdbLogo(Movie movie) async {
+    try {
+      final isTvSeries = movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1;
+      final lang = L10n.currentLang; // 'vi' or 'en'
+      final logoUrl = await PhimApi.getMovieTmdbLogo(
+        movie.name,
+        movie.originalName,
+        movie.year,
+        isTvSeries,
+        lang,
+      );
+      if (mounted && logoUrl != null) {
+        setState(() {
+          _movieLogo = logoUrl;
+        });
+      }
+    } catch (e) {
+      print('Error fetching tmdb logo: $e');
+    }
   }
 
   Future<void> _fetchTmdbRating(Movie movie) async {
@@ -1157,21 +1180,49 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        SelectableText(
-                                          _movie!.displayName,
-                                          style: const TextStyle(
-                                            fontSize: 48,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            height: 1.1,
-                                            shadows: [
-                                              Shadow(
-                                                color: Colors.black,
-                                                blurRadius: 10,
-                                              ),
-                                            ],
+                                        if (_movieLogo != null)
+                                          Container(
+                                            constraints: const BoxConstraints(maxHeight: 120, maxWidth: 500),
+                                            alignment: Alignment.centerLeft,
+                                            child: Image.network(
+                                              _movieLogo!,
+                                              fit: BoxFit.contain,
+                                              alignment: Alignment.centerLeft,
+                                              errorBuilder: (context, error, stackTrace) {
+                                                return SelectableText(
+                                                  _movie!.displayName,
+                                                  style: const TextStyle(
+                                                    fontSize: 48,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    height: 1.1,
+                                                    shadows: [
+                                                      Shadow(
+                                                        color: Colors.black,
+                                                        blurRadius: 10,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          )
+                                        else
+                                          SelectableText(
+                                            _movie!.displayName,
+                                            style: const TextStyle(
+                                              fontSize: 48,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              height: 1.1,
+                                              shadows: [
+                                                Shadow(
+                                                  color: Colors.black,
+                                                  blurRadius: 10,
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
                                         const SizedBox(height: 8),
                                         SelectableText(
                                           _movie!.originalName,
@@ -2706,4 +2757,7 @@ class _HoverServerTabState extends State<HoverServerTab> {
     );
   }
 }
+
+
+
 
