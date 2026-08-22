@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _historyScrollController = ScrollController();
   Timer? _heroTimer;
   List<Movie> _heroMovies = [];
+  Map<String, String> _heroLogos = {};
   int _currentHeroIndex = 0;
   bool _isLoadingHero = true;
   bool _isLoggedIn = false;
@@ -247,6 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return FadeTransition(opacity: animation, child: child);
             },
             child: Center(
+              key: ValueKey<int>(_currentHeroIndex),
               child: ConstrainedBox(
                 constraints: const BoxConstraints(maxWidth: 1400),
                 child: Padding(
@@ -257,9 +259,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                     clipBehavior: Clip.antiAlias,
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
+              child: GestureDetector(
+                onTap: () => _navigateToDetail(_heroMovies[_currentHeroIndex], 'banner_${_heroMovies[_currentHeroIndex].slug}'),
+                child: MouseRegion(
+                  cursor: SystemMouseCursors.click,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
                   // Image
                   Hero(
                     tag: 'banner_${_heroMovies[_currentHeroIndex].slug}',
@@ -298,16 +304,38 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Title
-                            Text(
-                              _heroMovies[_currentHeroIndex].displayName,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 40, // 2.5rem
-                                fontWeight: FontWeight.bold,
-                                height: 1.1,
+                            // Title / Logo
+                            if (_heroLogos[_heroMovies[_currentHeroIndex].slug] != null)
+                              Container(
+                                constraints: const BoxConstraints(maxHeight: 120, maxWidth: 400),
+                                alignment: Alignment.centerLeft,
+                                child: Image.network(
+                                  _heroLogos[_heroMovies[_currentHeroIndex].slug]!,
+                                  fit: BoxFit.contain,
+                                  alignment: Alignment.centerLeft,
+                                  errorBuilder: (context, error, stackTrace) {
+                                    return Text(
+                                      _heroMovies[_currentHeroIndex].displayName,
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.bold,
+                                        height: 1.1,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              )
+                            else
+                              Text(
+                                _heroMovies[_currentHeroIndex].displayName,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.bold,
+                                  height: 1.1,
+                                ),
                               ),
-                            ),
                             const SizedBox(height: 8),
                             // Original Name
                             Text(
@@ -374,32 +402,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ],
-                            const SizedBox(height: 24),
-                            // Circular Play Button
-                            GestureDetector(
-                              onTap: () => _navigateToDetail(_heroMovies[_currentHeroIndex], 'banner_${_heroMovies[_currentHeroIndex].slug}'),
-                              child: Container(
-                                width: 70,
-                                height: 70,
-                                decoration: BoxDecoration(
-                                  color: Theme.of(context).primaryColor,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Theme.of(context).primaryColor.withOpacity(0.4),
-                                      blurRadius: 15,
-                                      offset: const Offset(0, 4),
-                                    ),
-                                  ],
-                                ),
-                                child: const Icon(Icons.play_arrow, size: 36, color: Colors.white), 
-                              ),
-                            ),
+                            const SizedBox(height: 16),
                           ],
                         ),
                       ),
                     ),
                   ),
+                  ), // end MouseRegion
+                ), // end GestureDetector
                   
                   // Thumbnails
                   Positioned(
