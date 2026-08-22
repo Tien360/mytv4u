@@ -16,7 +16,8 @@ import '../api/update_api.dart';
 import '../widgets/update_dialog.dart';
 
 class HomeScreen extends StatefulWidget {
-  final Function(String, String)? onNavigateToExplore; // Callback để chuyển tab Khám Phá
+  final Function(String, String)?
+  onNavigateToExplore; // Callback để chuyển tab Khám Phá
 
   const HomeScreen({super.key, this.onNavigateToExplore});
 
@@ -38,13 +39,41 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Định nghĩa các hàng
   List<Map<String, dynamic>> get _sections => [
-    {'title': L10n.t('category_movies') ?? 'Phim lẻ', 'type': 'category', 'slug': 'phim-le'},
-    {'title': L10n.t('category_series') ?? 'Phim bộ', 'type': 'category', 'slug': 'phim-bo'},
-    {'title': L10n.t('category_korean') ?? 'Hàn Quốc', 'type': 'country', 'slug': 'han-quoc'},
-    {'title': L10n.t('category_chinese') ?? 'Trung Quốc', 'type': 'country', 'slug': 'trung-quoc'},
-    {'title': L10n.t('category_western') ?? 'Âu Mỹ', 'type': 'country', 'slug': 'au-my'},
-    {'title': L10n.t('category_anime') ?? 'Hoạt hình', 'type': 'category', 'slug': 'hoat-hinh'},
-    {'title': L10n.t('category_tv_shows') ?? L10n.t('tv_shows_vi'), 'type': 'category', 'slug': 'tv-shows'},
+    {
+      'title': L10n.t('category_movies') ?? 'Phim lẻ',
+      'type': 'category',
+      'slug': 'phim-le',
+    },
+    {
+      'title': L10n.t('category_series') ?? 'Phim bộ',
+      'type': 'category',
+      'slug': 'phim-bo',
+    },
+    {
+      'title': L10n.t('category_korean') ?? 'Hàn Quốc',
+      'type': 'country',
+      'slug': 'han-quoc',
+    },
+    {
+      'title': L10n.t('category_chinese') ?? 'Trung Quốc',
+      'type': 'country',
+      'slug': 'trung-quoc',
+    },
+    {
+      'title': L10n.t('category_western') ?? 'Âu Mỹ',
+      'type': 'country',
+      'slug': 'au-my',
+    },
+    {
+      'title': L10n.t('category_anime') ?? 'Hoạt hình',
+      'type': 'category',
+      'slug': 'hoat-hinh',
+    },
+    {
+      'title': L10n.t('category_tv_shows') ?? L10n.t('tv_shows_vi'),
+      'type': 'category',
+      'slug': 'tv-shows',
+    },
   ];
 
   @override
@@ -52,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _loadHeroMovies();
     _loadHistory();
-    
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _checkSilentUpdate();
     });
@@ -74,10 +103,19 @@ class _HomeScreenState extends State<HomeScreen> {
       final movies = await PhimApi.getNewUpdatedMovies(page: 1);
       if (mounted) {
         // Filter movies that have ALL required rich metadata (like the web app)
-        final validMovies = movies.where((m) => m.description.isNotEmpty && m.thumbUrl.isNotEmpty && m.posterUrl.isNotEmpty).toList();
-        
-        List<Movie> selected = validMovies.isNotEmpty ? validMovies.take(5).toList() : movies.take(5).toList();
-        
+        final validMovies = movies
+            .where(
+              (m) =>
+                  m.description.isNotEmpty &&
+                  m.thumbUrl.isNotEmpty &&
+                  m.posterUrl.isNotEmpty,
+            )
+            .toList();
+
+        List<Movie> selected = validMovies.isNotEmpty
+            ? validMovies.take(5).toList()
+            : movies.take(5).toList();
+
         setState(() {
           _heroMovies = selected;
           _isLoadingHero = false;
@@ -87,8 +125,14 @@ class _HomeScreenState extends State<HomeScreen> {
         // Fetch backdrops for movies from TMDB for better quality
         for (int i = 0; i < selected.length; i++) {
           final m = selected[i];
-          final isTvSeries = m.episodes.isNotEmpty && m.episodes.first.items.length > 1;
-          final backdrop = await PhimApi.getMovieTmdbBackdrop(m.name, m.originalName, m.year, isTvSeries);
+          final isTvSeries =
+              m.episodes.isNotEmpty && m.episodes.first.items.length > 1;
+          final backdrop = await PhimApi.getMovieTmdbBackdrop(
+            m.name,
+            m.originalName,
+            m.year,
+            isTvSeries,
+          );
           if (mounted && backdrop != null && backdrop.isNotEmpty) {
             setState(() {
               _heroMovies[i] = m.copyWith(posterUrl: backdrop);
@@ -125,7 +169,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final user = await AuthApi.getCurrentUser();
     if (user != null) {
       _isLoggedIn = true;
-      _userName = user['name'];
+      _userName = user['displayName'];
     } else {
       _isLoggedIn = false;
       _userName = null;
@@ -142,7 +186,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent, // Nền trong suốt để thấy glassmorphism của main_screen
+      backgroundColor: Colors
+          .transparent, // Nền trong suốt để thấy glassmorphism của main_screen
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           setState(() {
@@ -158,36 +203,40 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: SafeArea(
         child: RefreshIndicator(
-        onRefresh: () async {
-          setState(() {
-            _isLoadingHero = true;
-            _heroMovies.clear();
-          });
-          await _loadHeroMovies();
-          await _loadHistory();
-        },
-        child: ListView.builder(
-          controller: _scrollController,
-          itemCount: _sections.length + 3, // Header + Hero + History + Sections
-          itemBuilder: (context, index) {
-            if (index == 0) return _buildGreetingHeader();
-            if (index == 1) return _buildHeroCarousel();
-            if (index == 2) return _buildHistorySection();
-            
-            final section = _sections[index - 3];
-            return HorizontalMovieSection(
-              title: section['title'],
-              fetchType: section['type'],
-              slug: section['slug'],
-              onSeeMore: () {
-                if (widget.onNavigateToExplore != null) {
-                  widget.onNavigateToExplore!(section['type'], section['slug']);
-                }
-              },
-            );
+          onRefresh: () async {
+            setState(() {
+              _isLoadingHero = true;
+              _heroMovies.clear();
+            });
+            await _loadHeroMovies();
+            await _loadHistory();
           },
+          child: ListView.builder(
+            controller: _scrollController,
+            itemCount:
+                _sections.length + 3, // Header + Hero + History + Sections
+            itemBuilder: (context, index) {
+              if (index == 0) return _buildGreetingHeader();
+              if (index == 1) return _buildHeroCarousel();
+              if (index == 2) return _buildHistorySection();
+
+              final section = _sections[index - 3];
+              return HorizontalMovieSection(
+                title: section['title'],
+                fetchType: section['type'],
+                slug: section['slug'],
+                onSeeMore: () {
+                  if (widget.onNavigateToExplore != null) {
+                    widget.onNavigateToExplore!(
+                      section['type'],
+                      section['slug'],
+                    );
+                  }
+                },
+              );
+            },
+          ),
         ),
-      ),
       ),
     );
   }
@@ -226,14 +275,18 @@ class _HomeScreenState extends State<HomeScreen> {
     return Listener(
       onPointerSignal: (pointerSignal) {
         if (pointerSignal is PointerScrollEvent) {
-          if (pointerSignal.scrollDelta.dy > 0 || pointerSignal.scrollDelta.dx > 0) {
+          if (pointerSignal.scrollDelta.dy > 0 ||
+              pointerSignal.scrollDelta.dx > 0) {
             setState(() {
               _currentHeroIndex = (_currentHeroIndex + 1) % _heroMovies.length;
             });
             _startHeroTimer();
-          } else if (pointerSignal.scrollDelta.dy < 0 || pointerSignal.scrollDelta.dx < 0) {
+          } else if (pointerSignal.scrollDelta.dy < 0 ||
+              pointerSignal.scrollDelta.dx < 0) {
             setState(() {
-              _currentHeroIndex = (_currentHeroIndex - 1 + _heroMovies.length) % _heroMovies.length;
+              _currentHeroIndex =
+                  (_currentHeroIndex - 1 + _heroMovies.length) %
+                  _heroMovies.length;
             });
             _startHeroTimer();
           }
@@ -254,215 +307,369 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(15, 32, 15, 48),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.65 < 450 ? 450 : MediaQuery.of(context).size.height * 0.65,
+                    height: MediaQuery.of(context).size.height * 0.65 < 450
+                        ? 450
+                        : MediaQuery.of(context).size.height * 0.65,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(24),
                     ),
                     clipBehavior: Clip.antiAlias,
-              child: GestureDetector(
-                onTap: () => _navigateToDetail(_heroMovies[_currentHeroIndex], 'banner_${_heroMovies[_currentHeroIndex].slug}'),
-                child: MouseRegion(
-                  cursor: SystemMouseCursors.click,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                  // Image
-                  Hero(
-                    tag: 'banner_${_heroMovies[_currentHeroIndex].slug}',
-                    child: CachedNetworkImage(
-                      imageUrl: _heroMovies[_currentHeroIndex].posterUrl.isNotEmpty ? _heroMovies[_currentHeroIndex].posterUrl : _heroMovies[_currentHeroIndex].thumbUrl,
-                      fit: BoxFit.cover,
-                      alignment: Alignment.topCenter,
-                      errorWidget: (context, url, error) => Container(color: Colors.grey[900], child: const Icon(Icons.broken_image)),
-                    ),
-                  ),
-                  
-                  // Gradient for hero-overlay (Left to Right)
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          const Color(0xFF0F111A).withOpacity(1.0),
-                          const Color(0xFF0F111A).withOpacity(0.6),
-                          const Color(0xFF0F111A).withOpacity(0.0),
-                        ],
-                        stops: const [0.0, 0.45, 1.0],
+                    child: GestureDetector(
+                      onTap: () => _navigateToDetail(
+                        _heroMovies[_currentHeroIndex],
+                        'banner_${_heroMovies[_currentHeroIndex].slug}',
                       ),
-                    ),
-                  ),
-                  
-                  // Content
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 64, right: 64), // padding: 0 4rem
-                      child: SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      child: MouseRegion(
+                        cursor: SystemMouseCursors.click,
+                        child: Stack(
+                          fit: StackFit.expand,
                           children: [
-                            // Title / Logo
-                            if (_heroLogos[_heroMovies[_currentHeroIndex].slug] != null)
-                              Container(
-                                constraints: const BoxConstraints(maxHeight: 120, maxWidth: 400),
-                                alignment: Alignment.centerLeft,
-                                child: Image.network(
-                                  _heroLogos[_heroMovies[_currentHeroIndex].slug]!,
-                                  fit: BoxFit.contain,
-                                  alignment: Alignment.centerLeft,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Text(
-                                      _heroMovies[_currentHeroIndex].displayName,
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 40,
-                                        fontWeight: FontWeight.bold,
-                                        height: 1.1,
+                            // Image
+                            Hero(
+                              tag:
+                                  'banner_${_heroMovies[_currentHeroIndex].slug}',
+                              child: CachedNetworkImage(
+                                imageUrl:
+                                    _heroMovies[_currentHeroIndex]
+                                        .posterUrl
+                                        .isNotEmpty
+                                    ? _heroMovies[_currentHeroIndex].posterUrl
+                                    : _heroMovies[_currentHeroIndex].thumbUrl,
+                                fit: BoxFit.cover,
+                                alignment: Alignment.topCenter,
+                                errorWidget: (context, url, error) => Container(
+                                  color: Colors.grey[900],
+                                  child: const Icon(Icons.broken_image),
+                                ),
+                              ),
+                            ),
+
+                            // Gradient for hero-overlay (Left to Right)
+                            Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    const Color(0xFF0F111A).withOpacity(1.0),
+                                    const Color(0xFF0F111A).withOpacity(0.6),
+                                    const Color(0xFF0F111A).withOpacity(0.0),
+                                  ],
+                                  stops: const [0.0, 0.45, 1.0],
+                                ),
+                              ),
+                            ),
+
+                            // Content
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 64,
+                                  right: 64,
+                                ), // padding: 0 4rem
+                                child: SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // Title / Logo
+                                      if (_heroLogos[_heroMovies[_currentHeroIndex]
+                                              .slug] !=
+                                          null)
+                                        Container(
+                                          constraints: const BoxConstraints(
+                                            maxHeight: 120,
+                                            maxWidth: 400,
+                                          ),
+                                          alignment: Alignment.centerLeft,
+                                          child: Image.network(
+                                            _heroLogos[_heroMovies[_currentHeroIndex]
+                                                .slug]!,
+                                            fit: BoxFit.contain,
+                                            alignment: Alignment.centerLeft,
+                                            errorBuilder:
+                                                (context, error, stackTrace) {
+                                                  return Text(
+                                                    _heroMovies[_currentHeroIndex]
+                                                        .displayName,
+                                                    style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 40,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      height: 1.1,
+                                                    ),
+                                                  );
+                                                },
+                                          ),
+                                        )
+                                      else
+                                        Text(
+                                          _heroMovies[_currentHeroIndex]
+                                              .displayName,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 40,
+                                            fontWeight: FontWeight.bold,
+                                            height: 1.1,
+                                          ),
+                                        ),
+                                      const SizedBox(height: 8),
+                                      // Original Name
+                                      Text(
+                                        _heroMovies[_currentHeroIndex]
+                                            .originalName,
+                                        style: TextStyle(
+                                          color: Colors.white.withOpacity(0.8),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 16),
+                                      // Tags
+                                      Row(
+                                        children: [
+                                          if (_heroMovies[_currentHeroIndex]
+                                              .quality
+                                              .isNotEmpty) ...[
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 8,
+                                                    vertical: 4,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color: Theme.of(
+                                                  context,
+                                                ).primaryColor,
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              child: Text(
+                                                _heroMovies[_currentHeroIndex]
+                                                    .quality,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                          ],
+                                          if (_heroMovies[_currentHeroIndex]
+                                              .currentEpisode
+                                              .isNotEmpty) ...[
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 8,
+                                                    vertical: 4,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white.withOpacity(
+                                                  0.15,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              child: Text(
+                                                _heroMovies[_currentHeroIndex]
+                                                    .currentEpisode,
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                          ],
+                                          if (_heroMovies[_currentHeroIndex]
+                                              .year
+                                              .isNotEmpty) ...[
+                                            Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                    horizontal: 8,
+                                                    vertical: 4,
+                                                  ),
+                                              decoration: BoxDecoration(
+                                                color: Colors.white.withOpacity(
+                                                  0.15,
+                                                ),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              child: Text(
+                                                _heroMovies[_currentHeroIndex]
+                                                    .year
+                                                    .toString(),
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(width: 8),
+                                          ],
+                                          ..._heroMovies[_currentHeroIndex]
+                                              .genres
+                                              .take(3)
+                                              .map(
+                                                (genre) => Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                        right: 8.0,
+                                                      ),
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.symmetric(
+                                                          horizontal: 8,
+                                                          vertical: 4,
+                                                        ),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white
+                                                          .withOpacity(0.15),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            4,
+                                                          ),
+                                                    ),
+                                                    child: Text(
+                                                      genre,
+                                                      style: const TextStyle(
+                                                        color: Colors.white,
+                                                        fontSize: 12,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                        ],
+                                      ),
+                                      if (_heroMovies[_currentHeroIndex]
+                                          .description
+                                          .isNotEmpty) ...[
+                                        const SizedBox(height: 16),
+                                        // Description
+                                        Text(
+                                          _heroMovies[_currentHeroIndex]
+                                              .description
+                                              .replaceAll(
+                                                RegExp(r'<[^>]*>|&[^;]+;'),
+                                                '',
+                                              )
+                                              .trim(),
+                                          style: TextStyle(
+                                            color: Colors.white.withOpacity(
+                                              0.7,
+                                            ),
+                                            fontSize: 14,
+                                            height: 1.6,
+                                          ),
+                                          maxLines: 4,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ],
+                                      const SizedBox(height: 16),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+
+                            // Thumbnails
+                            Positioned(
+                              bottom: 32,
+                              right: 32,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: List.generate(
+                                  _heroMovies.length > 5
+                                      ? 5
+                                      : _heroMovies.length,
+                                  (index) {
+                                    final movie = _heroMovies[index];
+                                    final isSelected =
+                                        _currentHeroIndex == index;
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          _currentHeroIndex = index;
+                                        });
+                                        _startHeroTimer(); // Reset timer when clicked
+                                      },
+                                      child: AnimatedOpacity(
+                                        duration: const Duration(
+                                          milliseconds: 300,
+                                        ),
+                                        opacity: isSelected ? 1.0 : 0.6,
+                                        child: AnimatedContainer(
+                                          duration: const Duration(
+                                            milliseconds: 300,
+                                          ),
+                                          width: 120,
+                                          height: 68,
+                                          margin: const EdgeInsets.only(
+                                            left: 12,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(
+                                              8,
+                                            ),
+                                            border: isSelected
+                                                ? Border.all(
+                                                    color: Theme.of(
+                                                      context,
+                                                    ).primaryColor,
+                                                    width: 2,
+                                                  )
+                                                : Border.all(
+                                                    color: Colors.transparent,
+                                                    width: 2,
+                                                  ),
+                                            boxShadow: isSelected
+                                                ? [
+                                                    BoxShadow(
+                                                      color: Theme.of(context)
+                                                          .primaryColor
+                                                          .withOpacity(0.3),
+                                                      blurRadius: 15,
+                                                      offset: const Offset(
+                                                        0,
+                                                        4,
+                                                      ),
+                                                    ),
+                                                  ]
+                                                : [],
+                                            image: DecorationImage(
+                                              image: CachedNetworkImageProvider(
+                                                movie.posterUrl.isNotEmpty
+                                                    ? movie.posterUrl
+                                                    : movie.thumbUrl,
+                                              ),
+                                              fit: BoxFit.cover,
+                                              alignment: Alignment.topCenter,
+                                            ),
+                                          ),
+                                        ),
                                       ),
                                     );
                                   },
                                 ),
-                              )
-                            else
-                              Text(
-                                _heroMovies[_currentHeroIndex].displayName,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.bold,
-                                  height: 1.1,
-                                ),
                               ),
-                            const SizedBox(height: 8),
-                            // Original Name
-                            Text(
-                              _heroMovies[_currentHeroIndex].originalName,
-                              style: TextStyle(color: Colors.white.withOpacity(0.8), fontSize: 16),
                             ),
-                            const SizedBox(height: 16),
-                            // Tags
-                            Row(
-                              children: [
-                                if (_heroMovies[_currentHeroIndex].quality.isNotEmpty) ...[
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(context).primaryColor,
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(_heroMovies[_currentHeroIndex].quality, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 12)),
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                                if (_heroMovies[_currentHeroIndex].currentEpisode.isNotEmpty) ...[
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.15),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(_heroMovies[_currentHeroIndex].currentEpisode, style: const TextStyle(color: Colors.white, fontSize: 12)),
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                                if (_heroMovies[_currentHeroIndex].year.isNotEmpty) ...[
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.15),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(_heroMovies[_currentHeroIndex].year.toString(), style: const TextStyle(color: Colors.white, fontSize: 12)),
-                                  ),
-                                  const SizedBox(width: 8),
-                                ],
-                                ..._heroMovies[_currentHeroIndex].genres.take(3).map((genre) => Padding(
-                                  padding: const EdgeInsets.only(right: 8.0),
-                                  child: Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white.withOpacity(0.15),
-                                      borderRadius: BorderRadius.circular(4),
-                                    ),
-                                    child: Text(genre, style: const TextStyle(color: Colors.white, fontSize: 12)),
-                                  ),
-                                )),
-                              ],
-                            ),
-                            if (_heroMovies[_currentHeroIndex].description.isNotEmpty) ...[
-                              const SizedBox(height: 16),
-                              // Description
-                              Text(
-                                _heroMovies[_currentHeroIndex].description.replaceAll(RegExp(r'<[^>]*>|&[^;]+;'), '').trim(),
-                                style: TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 14, height: 1.6),
-                                maxLines: 4,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ],
-                            const SizedBox(height: 16),
                           ],
                         ),
                       ),
                     ),
                   ),
-                  ), // end MouseRegion
-                ), // end GestureDetector
-                  
-                  // Thumbnails
-                  Positioned(
-                    bottom: 32,
-                    right: 32,
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: List.generate(_heroMovies.length > 5 ? 5 : _heroMovies.length, (index) {
-                        final movie = _heroMovies[index];
-                        final isSelected = _currentHeroIndex == index;
-                        return GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              _currentHeroIndex = index;
-                            });
-                            _startHeroTimer(); // Reset timer when clicked
-                          },
-                          child: AnimatedOpacity(
-                            duration: const Duration(milliseconds: 300),
-                            opacity: isSelected ? 1.0 : 0.6,
-                            child: AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              width: 120,
-                              height: 68,
-                              margin: const EdgeInsets.only(left: 12),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                border: isSelected ? Border.all(color: Theme.of(context).primaryColor, width: 2) : Border.all(color: Colors.transparent, width: 2),
-                                boxShadow: isSelected ? [
-                                  BoxShadow(
-                                    color: Theme.of(context).primaryColor.withOpacity(0.3),
-                                    blurRadius: 15,
-                                    offset: const Offset(0, 4),
-                                  )
-                                ] : [],
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(movie.posterUrl.isNotEmpty ? movie.posterUrl : movie.thumbUrl),
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.topCenter,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
-          ),
-        ),
-      ),
           ),
         ],
       ),
@@ -481,7 +688,11 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Text(
               L10n.t('continue_watching_button'),
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
           const SizedBox(height: 12),
@@ -500,16 +711,23 @@ class _HomeScreenState extends State<HomeScreen> {
                     return GestureDetector(
                       onTap: () {
                         final Map<String, String> parsedSlugs = {};
-                        if (item['sourceSlugs'] != null && item['sourceSlugs'].toString().isNotEmpty) {
+                        if (item['sourceSlugs'] != null &&
+                            item['sourceSlugs'].toString().isNotEmpty) {
                           try {
                             final decoded = jsonDecode(item['sourceSlugs']);
                             if (decoded is Map) {
-                              parsedSlugs.addAll(decoded.map((k, v) => MapEntry(k.toString(), v.toString())));
+                              parsedSlugs.addAll(
+                                decoded.map(
+                                  (k, v) =>
+                                      MapEntry(k.toString(), v.toString()),
+                                ),
+                              );
                             }
                           } catch (_) {}
                         }
                         if (parsedSlugs.isEmpty) {
-                          parsedSlugs[item['source'] ?? 'nguonc'] = item['slug'];
+                          parsedSlugs[item['source'] ?? 'nguonc'] =
+                              item['slug'];
                         }
 
                         final movie = Movie(
@@ -517,7 +735,11 @@ class _HomeScreenState extends State<HomeScreen> {
                           originalName: item['originalName'] ?? '',
                           slug: item['slug'],
                           type: item['type'] ?? '',
-                          imdbId: (item['imdbId'] != null && item['imdbId'].toString().isNotEmpty) ? item['imdbId'] : null,
+                          imdbId:
+                              (item['imdbId'] != null &&
+                                  item['imdbId'].toString().isNotEmpty)
+                              ? item['imdbId']
+                              : null,
                           sourceSlugs: parsedSlugs,
                           thumbUrl: item['thumbUrl'],
                           posterUrl: '',
@@ -532,7 +754,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           directors: [],
                           casts: [],
                           episodes: [],
-                          source: item['source'] ?? 'nguonc'
+                          source: item['source'] ?? 'nguonc',
                         );
                         _navigateToDetail(movie, 'history_${item['slug']}');
                       },
@@ -550,7 +772,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fit: BoxFit.cover,
                                   width: 240,
                                   height: 160,
-                                  errorWidget: (context, url, error) => Container(color: Colors.grey[800], child: const Icon(Icons.broken_image)),
+                                  errorWidget: (context, url, error) =>
+                                      Container(
+                                        color: Colors.grey[800],
+                                        child: const Icon(Icons.broken_image),
+                                      ),
                                 ),
                               ),
                             ),
@@ -560,7 +786,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                 gradient: LinearGradient(
                                   begin: Alignment.topCenter,
                                   end: Alignment.bottomCenter,
-                                  colors: [Colors.transparent, Colors.black.withOpacity(0.9)],
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black.withOpacity(0.9),
+                                  ],
                                 ),
                               ),
                             ),
@@ -573,20 +802,32 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: [
                                   Text(
                                     item['name'],
-                                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 14),
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                    ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   const SizedBox(height: 4),
                                   Text(
                                     '${L10n.t("currently_watching")}${item['currentEpisode']}',
-                                    style: const TextStyle(color: Colors.blueAccent, fontSize: 12, fontWeight: FontWeight.w500),
+                                    style: const TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                             Center(
-                              child: Icon(Icons.play_circle_outline, color: Colors.white54, size: 48),
+                              child: Icon(
+                                Icons.play_circle_outline,
+                                color: Colors.white54,
+                                size: 48,
+                              ),
                             ),
                           ],
                         ),
@@ -605,7 +846,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
-                        icon: const Icon(Icons.chevron_left, size: 30, color: Colors.white),
+                        icon: const Icon(
+                          Icons.chevron_left,
+                          size: 30,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           _historyScrollController.animateTo(
                             _historyScrollController.offset - 500,
@@ -628,7 +873,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
-                        icon: const Icon(Icons.chevron_right, size: 30, color: Colors.white),
+                        icon: const Icon(
+                          Icons.chevron_right,
+                          size: 30,
+                          color: Colors.white,
+                        ),
                         onPressed: () {
                           _historyScrollController.animateTo(
                             _historyScrollController.offset + 500,
@@ -651,7 +900,13 @@ class _HomeScreenState extends State<HomeScreen> {
   void _navigateToDetail(Movie movie, [String? heroTag]) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (_) => MovieDetailScreen(slug: movie.slug, heroTag: heroTag, initialMovie: movie)),
+      MaterialPageRoute(
+        builder: (_) => MovieDetailScreen(
+          slug: movie.slug,
+          heroTag: heroTag,
+          initialMovie: movie,
+        ),
+      ),
     ).then((_) {
       _loadHistory();
     });
@@ -660,7 +915,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 class HorizontalMovieSection extends StatefulWidget {
   final String title;
-  final String fetchType; 
+  final String fetchType;
   final String slug;
   final VoidCallback onSeeMore;
 
@@ -676,7 +931,8 @@ class HorizontalMovieSection extends StatefulWidget {
   State<HorizontalMovieSection> createState() => _HorizontalMovieSectionState();
 }
 
-class _HorizontalMovieSectionState extends State<HorizontalMovieSection> with AutomaticKeepAliveClientMixin {
+class _HorizontalMovieSectionState extends State<HorizontalMovieSection>
+    with AutomaticKeepAliveClientMixin {
   List<Movie> _movies = [];
   bool _isLoading = true;
   final ScrollController _sectionScrollController = ScrollController();
@@ -728,11 +984,18 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> with Au
               children: [
                 Text(
                   widget.title,
-                  style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
                 TextButton(
                   onPressed: widget.onSeeMore,
-                  child: Text(L10n.t('see_more') + ' >', style: const TextStyle(color: Colors.blueAccent)),
+                  child: Text(
+                    L10n.t('see_more') + ' >',
+                    style: const TextStyle(color: Colors.blueAccent),
+                  ),
                 ),
               ],
             ),
@@ -754,14 +1017,24 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> with Au
                           final movie = _movies[index];
                           return Container(
                             width: 240,
-                            margin: const EdgeInsets.symmetric(horizontal: 6, vertical: 8),
+                            margin: const EdgeInsets.symmetric(
+                              horizontal: 6,
+                              vertical: 8,
+                            ),
                             child: HoverMovieCard(
                               movie: movie,
                               heroTag: 'category_${widget.title}_${movie.slug}',
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (_) => MovieDetailScreen(slug: movie.slug, heroTag: 'category_${widget.title}_${movie.slug}', initialMovie: movie)),
+                                  MaterialPageRoute(
+                                    builder: (_) => MovieDetailScreen(
+                                      slug: movie.slug,
+                                      heroTag:
+                                          'category_${widget.title}_${movie.slug}',
+                                      initialMovie: movie,
+                                    ),
+                                  ),
                                 );
                               },
                             ),
@@ -779,7 +1052,11 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> with Au
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
-                              icon: const Icon(Icons.chevron_left, size: 30, color: Colors.white),
+                              icon: const Icon(
+                                Icons.chevron_left,
+                                size: 30,
+                                color: Colors.white,
+                              ),
                               onPressed: () {
                                 _sectionScrollController.animateTo(
                                   _sectionScrollController.offset - 500,
@@ -802,7 +1079,11 @@ class _HorizontalMovieSectionState extends State<HorizontalMovieSection> with Au
                               shape: BoxShape.circle,
                             ),
                             child: IconButton(
-                              icon: const Icon(Icons.chevron_right, size: 30, color: Colors.white),
+                              icon: const Icon(
+                                Icons.chevron_right,
+                                size: 30,
+                                color: Colors.white,
+                              ),
                               onPressed: () {
                                 _sectionScrollController.animateTo(
                                   _sectionScrollController.offset + 500,

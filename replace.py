@@ -1,36 +1,74 @@
 ﻿import re
 
-with open("lib/screens/movie_detail_screen.dart", "r", encoding="utf-8") as f:
-    text = f.read()
+with open('lib/screens/movie_detail_screen.dart', 'r', encoding='utf-8') as f:
+    content = f.read()
 
-# Replace RichText with SelectableText.rich in _buildRichText
-text = re.sub(r'Widget _buildRichText\(String label, String value\) \{\s*return RichText\(', 'Widget _buildRichText(String label, String value) {\n    return SelectableText.rich(', text)
+target = """                                      children: [
+                                        SelectableText(
+                                          _movie!.displayName,
+                                          style: const TextStyle(
+                                            fontSize: 48,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            height: 1.1,
+                                            shadows: [
+                                              Shadow(
+                                                color: Colors.black,
+                                                blurRadius: 10,
+                                              ),
+                                            ],
+                                          ),
+                                        ),"""
 
-# Replace display name Text
-text = re.sub(r'Text\(\s*_movie!\.displayName,', 'SelectableText(\n                                          _movie!.displayName,', text)
+replacement = """                                      children: [
+                                        if (_movieLogo != null)
+                                          Container(
+                                            constraints: const BoxConstraints(maxHeight: 120, maxWidth: 500),
+                                            alignment: Alignment.centerLeft,
+                                            child: Image.network(
+                                              _movieLogo!,
+                                              fit: BoxFit.contain,
+                                              alignment: Alignment.centerLeft,
+                                              errorBuilder: (context, error, stackTrace) {
+                                                return SelectableText(
+                                                  _movie!.displayName,
+                                                  style: const TextStyle(
+                                                    fontSize: 48,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.white,
+                                                    height: 1.1,
+                                                    shadows: [
+                                                      Shadow(
+                                                        color: Colors.black,
+                                                        blurRadius: 10,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          )
+                                        else
+                                          SelectableText(
+                                            _movie!.displayName,
+                                            style: const TextStyle(
+                                              fontSize: 48,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                              height: 1.1,
+                                              shadows: [
+                                                Shadow(
+                                                  color: Colors.black,
+                                                  blurRadius: 10,
+                                                ),
+                                              ],
+                                            ),
+                                          ),"""
 
-# Replace original name Text
-text = re.sub(r'Text\(\s*_movie!\.originalName,', 'SelectableText(\n                                          _movie!.originalName,', text)
-
-# Replace description Text
-text = re.sub(r'Text\(\s*_movie!\.description\.replaceAll\(', 'SelectableText(\n                                          _movie!.description.replaceAll(', text)
-
-# For actor name, we replace Text and remove overflow
-# The original block is:
-# Text(
-#   actor['name'] ?? '',
-#   style: const TextStyle(
-#     color: Colors.white,
-#     fontSize: 11,
-#   ),
-#   textAlign: TextAlign.center,
-#   maxLines: 2,
-#   overflow: TextOverflow.ellipsis,
-# )
-
-text = text.replace("Text(\n                                                          actor['name'] ?? '',\n                                                          style:\n                                                              const TextStyle(\n                                                                color: Colors\n                                                                    .white,\n                                                                fontSize: 11,\n                                                              ),\n                                                          textAlign:\n                                                              TextAlign.center,\n                                                          maxLines: 2,\n                                                          overflow: TextOverflow\n                                                              .ellipsis,\n                                                        )", "SelectableText(\n                                                          actor['name'] ?? '',\n                                                          style:\n                                                              const TextStyle(\n                                                                color: Colors\n                                                                    .white,\n                                                                fontSize: 11,\n                                                              ),\n                                                          textAlign:\n                                                              TextAlign.center,\n                                                          maxLines: 2,\n                                                        )")
-
-with open("lib/screens/movie_detail_screen.dart", "w", encoding="utf-8") as f:
-    f.write(text)
-
-print("Done")
+new_content = content.replace(target, replacement)
+if new_content != content:
+    with open('lib/screens/movie_detail_screen.dart', 'w', encoding='utf-8') as f:
+        f.write(new_content)
+    print("Replaced!")
+else:
+    print("Not found!")
