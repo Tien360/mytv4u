@@ -10,6 +10,7 @@ class Movie {
   final String thumbUrl;
   final String posterUrl;
   final String currentEpisode;
+  final String totalEpisodes;
   final String quality;
   final String language;
   final String year;
@@ -34,6 +35,7 @@ class Movie {
     required this.thumbUrl,
     required this.posterUrl,
     required this.currentEpisode,
+    this.totalEpisodes = '',
     required this.quality,
     required this.language,
     required this.year,
@@ -75,9 +77,32 @@ class Movie {
     Map<String, dynamic> json, {
     String defaultSource = 'nguonc',
   }) {
+    String parsedName = json['name'] ?? '';
+    String parsedOriginalName = json['original_name'] ?? json['origin_name'] ?? '';
+    String parsedYear = _extractYear(json['year']?.toString() ?? '');
+
+    // Premium source specific name parsing logic
+    // Pattern: "Vietnamese Name (Year) English Name"
+    final regex = RegExp(r'^(.*?)\s*\((\d{4})\)\s*(.*)$');
+    final match = regex.firstMatch(parsedName);
+    if (match != null) {
+      String extractedName = match.group(1)?.trim() ?? '';
+      if (extractedName.isNotEmpty) {
+        parsedName = extractedName;
+      }
+      String extractedYear = match.group(2) ?? '';
+      if (parsedYear.isEmpty && extractedYear.isNotEmpty) {
+        parsedYear = extractedYear;
+      }
+      String extractedOriginalName = match.group(3)?.trim() ?? '';
+      if (extractedOriginalName.isNotEmpty) {
+        parsedOriginalName = extractedOriginalName;
+      }
+    }
+
     return Movie(
-      name: json['name'] ?? '',
-      originalName: json['original_name'] ?? json['origin_name'] ?? '',
+      name: parsedName,
+      originalName: parsedOriginalName,
       slug: json['slug'] ?? '',
       type: json['type'] ?? '',
       imdbId: null,
@@ -85,9 +110,10 @@ class Movie {
       thumbUrl: json['thumb_url'] ?? '',
       posterUrl: json['poster_url'] ?? '',
       currentEpisode: json['current_episode'] ?? json['episode_current'] ?? '',
+      totalEpisodes: json['total_episodes']?.toString() ?? json['episode_total']?.toString() ?? '',
       quality: json['quality'] ?? '',
       language: json['language'] ?? json['lang'] ?? '',
-      year: _extractYear(json['year']?.toString() ?? ''),
+      year: parsedYear,
       time: json['time']?.toString() ?? '',
       description: (json['description'] ?? json['content'] ?? '')
           .toString()
@@ -112,6 +138,7 @@ class Movie {
     String? thumbUrl,
     String? posterUrl,
     String? currentEpisode,
+    String? totalEpisodes,
     String? quality,
     String? language,
     String? year,
@@ -134,6 +161,7 @@ class Movie {
       thumbUrl: thumbUrl ?? this.thumbUrl,
       posterUrl: posterUrl ?? this.posterUrl,
       currentEpisode: currentEpisode ?? this.currentEpisode,
+      totalEpisodes: totalEpisodes ?? this.totalEpisodes,
       quality: quality ?? this.quality,
       language: language ?? this.language,
       year: year ?? this.year,

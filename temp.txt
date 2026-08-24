@@ -1,0 +1,92 @@
+e(
+                                    Icons.health_and_safety,
+                                    L10n.t('health_utilities'),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  GlassContainer(
+                                    padding: const EdgeInsets.all(16),
+                                    child: ListTile(
+                                      title: Text(
+                                        L10n.t('watch_limit'),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      trailing: DropdownButton<int>(
+                                        value: _watchLimit,
+                                        dropdownColor: Colors.black87,
+                                        style: const TextStyle(
+                                          color: Colors.amber,
+                                          fontSize: 16,
+                                        ),
+                                        underline: const SizedBox(),
+                                        items: [
+                                          DropdownMenuItem(
+                                            value: 0,
+                                            child: Text(L10n.t('limit_off')),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 60,
+                                            child: Text(
+                                              '60 ${L10n.t('limit_minutes')}',
+                                            ),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 90,
+                                            child: Text(
+                                              '90 ${L10n.t('limit_minutes')}',
+                                            ),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 120,
+                                            child: Text(
+                                              '120 ${L10n.t('limit_minutes')}',
+                                            ),
+                                          ),
+                                          DropdownMenuItem(
+                                            value: 180,
+                                            child: Text(
+                                              '180 ${L10n.t('limit_minutes')}',
+                                            ),
+                                          ),
+                                        ],
+                                        onChanged: (val) async {
+                                          if (val != null) {
+                                            setState(() => _watchLimit = val);
+                                            final prefs =
+                                                await SharedPreferences.getInstance();
+                                            await prefs.setInt(
+                                              'watch_limit',
+                                              val,
+                                            );
+                                          }
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                    GlassContainer(
+                                      padding: const EdgeInsets.all(16),
+                                      child: SwitchListTile(
+                                          title: const Text('Ambient Background'),
+                                          subtitle: const Text(
+                                            'Hiển thị hình nền mờ từ poster phim giúp giao diện sống động hơn',
+                                          ),
+                                          value: _ambientBg,
+                                          activeColor: Colors.blueAccent,
+                                          onChanged: (val) async {
+                                            final prefs = await SharedPreferences.getInstance();
+                                            await prefs.setBool('enable_ambient_bg', val);
+                                            globalEnableAmbient.value = val;
+                                            _syncToFirebase();
+                                            setState(() {
+                                              _ambientBg = val;
+                                            });
+                                          },
+                                        ),
+                                    ),
+
+
+                                  const SizedBox(height: 48),
+                                  SizedBox(key: _languageKey),
+                                  _

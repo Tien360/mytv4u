@@ -23,10 +23,12 @@ class UpdateApi {
   );
 
   // BẠN SẼ ĐỔI SỐ NÀY MỖI KHI RA MẮT BẢN CẬP NHẬT MỚI:
-  static const String currentAppVersion = '26.08.23.n.beta';
+  static const String currentAppVersion = '26.08.24.u.beta';
 
   /// Kiểm tra có bản cập nhật mới không
   static Future<UpdateInfo?> checkForUpdate() async {
+    if (currentAppVersion.contains('.dev')) return null; // Dev builds never ask for updates
+
     try {
       final publicRes = await http.get(Uri.parse(publicUpdateUrl));
       final betaRes = await http.get(Uri.parse(betaUpdateUrl));

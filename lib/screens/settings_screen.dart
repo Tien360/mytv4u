@@ -2,9 +2,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../widgets/next_episode_tracker.dart';
 import '../api/auth_api.dart';
 import '../api/firebase_api.dart';
 import '../widgets/glass_container.dart';
+import '../widgets/ambient_background.dart';
 import '../widgets/global_color_settings.dart';
 import '../widgets/custom_title_bar.dart';
 import '../api/update_api.dart';
@@ -26,7 +28,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
   SharedPreferences? _prefs;
   Map<String, dynamic>? _appSettings;
   bool _isLoadingAppInfo = true;
+  bool _easterEggsEnabled = true;
   bool _hwAccel = true;
+  bool _ambientBg = true;
   double _subSize = 24.0;
   double _subOpacity = 0.3;
   String _subColor = 'White';
@@ -169,6 +173,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   Future<void> _loadSettings() async {
     _prefs = await SharedPreferences.getInstance();
+    _easterEggsEnabled = _prefs!.getBool('enable_easter_eggs') ?? true;
 
     // Sync from Firebase
     final fbSettings = await FirebaseApi.loadUserSettings();
@@ -237,6 +242,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (mounted) {
       setState(() {
         _hwAccel = prefs.getBool('enable_hw_accel') ?? true;
+        _ambientBg = prefs.getBool('enable_ambient_bg') ?? true;
         _subSize = prefs.getDouble('sub_size') ?? 24.0;
         _subOpacity = prefs.getDouble('sub_opacity') ?? 0.3;
         _subColor = prefs.getString('sub_color') ?? 'White';
@@ -493,7 +499,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   const SizedBox(height: 16),
                                   GlassContainer(
                                     padding: const EdgeInsets.all(16),
-                                    child: ListTile(
+                                    child: Column(
+                                      children: [
+                                        ListTile(
                                       title: Text(
                                         L10n.t('watch_limit'),
                                         style: const TextStyle(
@@ -551,6 +559,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           }
                                         },
                                       ),
+                                    ),
+                                    const Divider(color: Colors.white12),
+                                        SwitchListTile(
+                                          title: Text(L10n.t('ambient_bg')),
+                                          subtitle: const Text(
+                                            'Hiển thị hình nền mờ từ poster phim giúp giao diện sống động hơn',
+                                          ),
+                                          value: _ambientBg,
+                                          activeColor: Colors.blueAccent,
+                                          onChanged: (val) async {
+                                            final prefs = await SharedPreferences.getInstance();
+                                            await prefs.setBool('enable_ambient_bg', val);
+                                            globalEnableAmbient.value = val;
+                                            _syncToFirebase();
+                                            setState(() {
+                                              _ambientBg = val;
+                                            });
+                                          },
+                                        ),
+                                      ],
                                     ),
                                   ),
 
@@ -721,7 +749,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           color: Colors.white12,
                                           height: 1,
                                         ),
-                                        SwitchListTile(
+SwitchListTile(
                                           title: Text(L10n.t('hw_accel')),
                                           subtitle: Text(
                                             L10n.t('hw_accel_desc'),
@@ -1289,7 +1317,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
                                   const SizedBox(height: 48),
 
-                                  SizedBox(key: _infoKey),
+                                  
+                                    const SizedBox(height: 16),
+                                    _buildSectionTitle(
+                                      Icons.auto_awesome,
+                                      L10n.t('easter_eggs_title') ?? 'Hieu ung Tuong tac (Easter Eggs)',
+                                    ),
+                                    const SizedBox(height: 8),
+                                    _buildSettingToggle(
+                                      icon: Icons.celebration,
+                                      title: L10n.t('easter_eggs_toggle') ?? 'Bat Hieu ung Trung Phuc Sinh',
+                                      subtitle: L10n.t('easter_eggs_desc') ?? 'Nhan vao dong trang thai tap moi o moi phim de quay thuong hieu ung! Co 4 bac tu Pho thong den Huyen thoai (1%). Chuc ban may man!',
+                                      value: _easterEggsEnabled,
+                                      onChanged: (v) async {
+                                        setState(() => _easterEggsEnabled = v);
+                                        final p = await SharedPreferences.getInstance();
+                                        await p.setBool('enable_easter_eggs', v);
+                                      },
+                                    ),
+                                    SizedBox(key: _infoKey),
                                   _buildSectionTitle(
                                     Icons.info_outline,
                                     L10n.t('info_contact'),
@@ -1542,6 +1588,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Widget _buildSettingToggle({
+    required IconData icon,
+    required String title,
+    required String subtitle,
+    required bool value,
+    required ValueChanged<bool> onChanged,
+  }) {
+    return GlassContainer(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      borderRadius: 12,
+      child: Row(
+        children: [
+          Icon(icon, color: Colors.white70, size: 22),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600, fontSize: 14)),
+                const SizedBox(height: 4),
+                Text(subtitle, style: const TextStyle(color: Colors.white54, fontSize: 12)),
+              ],
+            ),
+          ),
+          Switch(value: value, onChanged: onChanged, activeColor: Colors.amber),
+        ],
+      ),
+    );
+  }
+
   Widget _buildAppInfoCard() {
     if (_isLoadingAppInfo) {
       return const GlassContainer(
@@ -1556,7 +1632,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
       borderRadius: 16,
       child: Column(
         children: [
-          Image.asset('assets/logo.png', height: 48),
+          GestureDetector(
+              onDoubleTap: () => NextEpisodeTracker.triggerLegendaryFromOutside(context),
+              child: Image.asset('assets/logo.png', height: 48),
+            ),
           const SizedBox(height: 24),
           _buildInfoRow(L10n.t('version'), UpdateApi.currentAppVersion),
           const SizedBox(height: 16),

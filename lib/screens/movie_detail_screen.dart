@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:ui';
 import 'dart:io';
 import 'dart:convert';
@@ -22,6 +22,7 @@ import '../widgets/glass_search_bar.dart';
 import '../utils/ui_utils.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/custom_title_bar.dart';
+import '../widgets/next_episode_tracker.dart';
 import 'actor_detail_screen.dart';
 import '../widgets/image_gallery_viewer.dart';
 
@@ -50,7 +51,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isLoadingTrailer = false;
   bool _trailerNotFound = false;
   List<Map<String, String>> _actors = [];
+  List<Map<String, String>> _directorsTmdb = [];
+  Map<String, dynamic>? _tmdbDetails;
   Timer? _autoPlayTimer;
+  final int _phraseSeed = DateTime.now().millisecondsSinceEpoch;
 
   // Inline Trailer
   final _webviewController = WebviewController();
@@ -64,7 +68,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isTrailerPaused = false;
   bool _autoPlayTrailerSetting = true;
   String? _tmdbRating;
-  String? _movieLogo;
+  TmdbLogoInfo? _tmdbLogoInfo;
   double _averageRating = 0.0;
   int _totalRatings = 0;
   int _userRating = 0;
@@ -263,8 +267,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               _categorizeServers(movie.episodes);
 
               if (_actors.isEmpty) {
-                _fetchActors(movie);
-              }
+                  _fetchTmdbDetails(movie);
+                }
 
               _fetchTmdbRating(movie);
               _fetchTmdbLogo(movie);
@@ -291,20 +295,20 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         );
   }
 
-    Future<void> _fetchTmdbLogo(Movie movie) async {
+      Future<void> _fetchTmdbLogo(Movie movie) async {
     try {
-      final isTvSeries = movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1;
-      final lang = L10n.currentLang; // 'vi' or 'en'
-      final logoUrl = await PhimApi.getMovieTmdbLogo(
+      final isTvSeries =
+          movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1;
+      final info = await PhimApi.getMovieTmdbLogo(
         movie.name,
         movie.originalName,
         movie.year,
         isTvSeries,
-        lang,
+        L10n.currentLang,
       );
-      if (mounted && logoUrl != null) {
+      if (mounted && info != null) {
         setState(() {
-          _movieLogo = logoUrl;
+          _tmdbLogoInfo = info;
         });
       }
     } catch (e) {
@@ -341,6 +345,48 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       }
     } catch (e) {
       print('Fetch TMDB rating/backdrop error: $e');
+    }
+  }
+
+  
+  Future<void> _fetchTmdbDetails(Movie movie) async {
+    final isTvSeries = movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1;
+    final details = await PhimApi.getTmdbFullDetails(
+      movie.name,
+      movie.originalName,
+      movie.year,
+      isTvSeries,
+      L10n.currentLang == 'vi' ? 'vi-VN' : 'en-US',
+    );
+
+    if (mounted && details != null) {
+      setState(() {
+        _tmdbDetails = details;
+        if (details['credits'] != null && details['credits']['cast'] != null) {
+           final casts = details['credits']['cast'] as List;
+           _actors = casts.take(15).map((c) => {
+              'id': c['id']?.toString() ?? '',
+              'name': c['name']?.toString() ?? '',
+              'character': c['character']?.toString() ?? '',
+              'profile': c['profile_path'] != null ? 'https://image.tmdb.org/t/p/w200${c['profile_path']}' : '',
+           }).toList();
+        if (details['credits'] != null && details['credits']['crew'] != null) {
+           final crew = details['credits']['crew'] as List;
+           _directorsTmdb = crew.where((c) => c['job'] == 'Director').map((c) => {
+              'id': c['id']?.toString() ?? '',
+              'name': c['name']?.toString() ?? '',
+              'profile': c['profile_path'] != null ? 'https://image.tmdb.org/t/p/w200${c['profile_path']}' : '',
+           }).toList();
+        }
+
+        }
+        if (details['vote_average'] != null && details['vote_average'] > 0) {
+           _tmdbRating = (details['vote_average'] as num).toStringAsFixed(1);
+        }
+      });
+    } else if (mounted) {
+       _fetchActors(movie);
+       _fetchTmdbRating(movie);
     }
   }
 
@@ -799,7 +845,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             );
           }).toList(),
         ),
-        const SizedBox(height: 24),
+        
+const SizedBox(height: 24),
 
         // Episodes Selector
         if (_selectedSeason != null) ...[
@@ -1042,12 +1089,14 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         ? fullHeight
         : collapsedHeight;
 
-    final bool isSeries =
-        _movie!.episodes.isNotEmpty && _movie!.episodes.first.items.length > 1;
-    final String episodeText = isSeries
-        ? '${_movie!.episodes.first.items.length} ${L10n.t('episodes')}'
-        : _movie!.currentEpisode;
-
+    final bool isSeries = _movie!.type == 'series' || _movie!.slug.contains('phim-bo') ||
+          (_movie!.episodes.isNotEmpty && _movie!.episodes.first.items.length > 1 && 
+           !_movie!.episodes.first.items.any((e) => e.name.toLowerCase().contains('1080') || e.name.toLowerCase().contains('720') || e.name.toLowerCase().contains('4k')));
+      final String episodeText = isSeries
+          ? (_movie!.totalEpisodes.isNotEmpty && _movie!.totalEpisodes != '?' && _movie!.totalEpisodes != '0'
+              ? '${_movie!.episodes.first.items.length}/${_movie!.totalEpisodes} ${L10n.t('episodes') ?? 'Tập'}'
+              : '${_movie!.episodes.first.items.length} ${L10n.t('episodes')}')
+          : _movie!.currentEpisode;
     return Scaffold(
       backgroundColor: const Color(0xFF000000),
       body: Stack(
@@ -1180,64 +1229,75 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment: MainAxisAlignment.end,
                                       children: [
-                                        if (_movieLogo != null)
-                                          Container(
-                                            constraints: const BoxConstraints(maxHeight: 120, maxWidth: 500),
-                                            alignment: Alignment.centerLeft,
-                                            child: Image.network(
-                                              _movieLogo!,
-                                              fit: BoxFit.contain,
-                                              alignment: Alignment.centerLeft,
-                                              errorBuilder: (context, error, stackTrace) {
-                                                return SelectableText(
-                                                  _movie!.displayName,
-                                                  style: const TextStyle(
-                                                    fontSize: 48,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.white,
-                                                    height: 1.1,
-                                                    shadows: [
-                                                      Shadow(
-                                                        color: Colors.black,
-                                                        blurRadius: 10,
-                                                      ),
-                                                    ],
+                                                                                Builder(
+                                          builder: (context) {
+                                            String mainTitle = _movie!.name;
+                                            String subTitle = _movie!.originalName;
+
+                                                                                          if (_tmdbLogoInfo != null) {
+                                                if (L10n.currentLang == 'en') {
+                                                  mainTitle = _tmdbLogoInfo!.tmdbEnName;
+                                                  if (mainTitle.isEmpty) mainTitle = _movie!.name;
+                                                  subTitle = _tmdbLogoInfo!.tmdbOriginalName;
+                                                } else {
+                                                  subTitle = _tmdbLogoInfo!.tmdbEnName;
+                                                }
+                                              } else {
+                                                if (L10n.currentLang == 'en' && _movie!.originalName.isNotEmpty) {
+                                                  mainTitle = _movie!.originalName;
+                                                }
+                                              }
+                                              if (mainTitle.isEmpty) mainTitle = "Unknown Title";
+
+                                              bool showMainTitle = true;
+                                              if (_tmdbLogoInfo?.url != null) {
+                                                  if (_tmdbLogoInfo!.lang == 'vi') {
+                                                    showMainTitle = false;
+                                                  }
+                                              }
+                                              bool showSubTitle = subTitle.isNotEmpty && subTitle != mainTitle && _tmdbLogoInfo?.lang != 'en';
+
+
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                if (_tmdbLogoInfo?.url != null)
+                                                  AnimatedMovieLogoWidget(logoUrl: _tmdbLogoInfo!.url!, showMainTitle: showMainTitle),
+                                                if (showMainTitle)
+                                                  SelectableText(
+                                                    mainTitle,
+                                                    style: const TextStyle(
+                                                      fontSize: 48,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.white,
+                                                      height: 1.1,
+                                                      shadows: [
+                                                        Shadow(
+                                                          color: Colors.black,
+                                                          blurRadius: 10,
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                );
-                                              },
-                                            ),
-                                          )
-                                        else
-                                          SelectableText(
-                                            _movie!.displayName,
-                                            style: const TextStyle(
-                                              fontSize: 48,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                              height: 1.1,
-                                              shadows: [
-                                                Shadow(
-                                                  color: Colors.black,
-                                                  blurRadius: 10,
-                                                ),
+                                                if (showSubTitle) ...[
+                                                  if (showMainTitle) const SizedBox(height: 8),
+                                                  SelectableText(
+                                                    subTitle,
+                                                    style: TextStyle(
+                                                      fontSize: 20,
+                                                      color: Colors.white.withOpacity(0.7),
+                                                      shadows: const [
+                                                        Shadow(
+                                                          color: Colors.black,
+                                                          blurRadius: 5,
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ]
                                               ],
-                                            ),
-                                          ),
-                                        const SizedBox(height: 8),
-                                        SelectableText(
-                                          _movie!.originalName,
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            color: Colors.white.withOpacity(
-                                              0.7,
-                                            ),
-                                            shadows: const [
-                                              Shadow(
-                                                color: Colors.black,
-                                                blurRadius: 5,
-                                              ),
-                                            ],
-                                          ),
+                                            );
+                                          },
                                         ),
                                         const SizedBox(height: 16),
 
@@ -1488,31 +1548,82 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                           ),
                                           const SizedBox(height: 8),
                                         ],
-                                        if (_movie!.directors.isNotEmpty &&
-                                            _movie!.directors
-                                                .join()
-                                                .trim()
-                                                .isNotEmpty) ...[
-                                          _buildRichText(
-                                            L10n.t('directors'),
-                                            _movie!.directors.join(', '),
-                                          ),
-                                          const SizedBox(height: 8),
-                                        ],
                                         const SizedBox(height: 16),
-                                        SelectableText(
-                                          _movie!.description.replaceAll(
-                                            RegExp(r'<[^>]*>|&[^;]+;'),
-                                            '',
-                                          ),
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white.withOpacity(
-                                              0.8,
+
+                                          Text(
+                                            L10n.t('overview') ?? 'Nội dung phim',
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
                                             ),
-                                            height: 1.6,
                                           ),
-                                        ),
+                                          const SizedBox(height: 12),
+                                          SelectableText(
+                                            (L10n.currentLang == 'en' && _tmdbDetails != null && _tmdbDetails!['overview'] != null && _tmdbDetails!['overview'].toString().isNotEmpty) 
+                                                ? _tmdbDetails!['overview'] 
+                                                : _movie!.description.replaceAll(
+                                                    RegExp(r'<[^>]*>|&[^;]+;'),
+                                                    '',
+                                                  ),
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white.withValues(alpha: 0.8),
+                                              height: 1.6,
+                                            ),
+                                          ),
+                                            const SizedBox(height: 24),
+                                          if (_tmdbDetails != null) ...[
+                                            if (_tmdbDetails!['status'] != null)
+                                              _buildRichText('${L10n.t('status') ?? 'Trạng thái'}: ', _translateStatus(_tmdbDetails!['status'].toString())),
+                                            if (_tmdbDetails!['production_companies'] != null && (_tmdbDetails!['production_companies'] as List).isNotEmpty) ...[
+                                              const SizedBox(height: 16),
+                                              Text(
+                                                '${L10n.t('production_companies') ?? 'Hãng sản xuất'}:',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 15,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 16),
+                                              Wrap(
+                                                spacing: 12,
+                                                runSpacing: 12,
+                                                crossAxisAlignment: WrapCrossAlignment.center,
+                                                children: (_tmdbDetails!['production_companies'] as List)
+                                                    .map<Widget>((c) {
+                                                      if (c['logo_path'] != null) {
+                                                        return AnimatedLogoWidget(logoPath: c['logo_path']);
+                                                      } else {
+                                                        return Container(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.white.withOpacity(0.1),
+                                                            borderRadius: BorderRadius.circular(8),
+                                                            border: Border.all(color: Colors.white.withOpacity(0.2)),
+                                                          ),
+                                                          child: Text(
+                                                            c['name'] ?? '',
+                                                            style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w500),
+                                                          ),
+                                                        );
+                                                      }
+                                                    })
+                                                    .toList(),
+                                              ),
+                                            ],
+
+if (_tmdbDetails!['budget'] != null && _tmdbDetails!['budget'] > 0 && _tmdbDetails!['revenue'] != null && _tmdbDetails!['revenue'] > 0) ...[
+                                              const SizedBox(height: 16),
+                                              _buildRichText('Kinh phí: ', '\$${(_tmdbDetails!['budget'] / 1000000).toStringAsFixed(1)}M'),
+                                              const SizedBox(height: 16),
+                                              _buildRichText('Doanh thu: ', '\$${(_tmdbDetails!['revenue'] / 1000000).toStringAsFixed(1)}M'),
+                                            ],
+
+
+                                          NextEpisodeTracker(movie: _movie, tmdbDetails: _tmdbDetails, phraseSeed: _phraseSeed),
+],
                                       ],
                                     ),
                                   ),
@@ -1636,14 +1747,84 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                                   ),
                                                 ),
                                               );
-                                            }).toList(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                ],
-                              ),
+                                              }).toList(),
+                                            ),
+                                            if (_directorsTmdb.isNotEmpty) ...[
+                                              const SizedBox(height: 32),
+                                              Text(
+                                                L10n.t('directors') ?? 'Đạo diễn',
+                                                style: const TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              const SizedBox(height: 16),
+                                              Wrap(
+                                                spacing: 16,
+                                                runSpacing: 16,
+                                                children: _directorsTmdb.take(3).map((director) {
+                                                  return MouseRegion(
+                                                    cursor: SystemMouseCursors.click,
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        if (director['id'] != null && director['id']!.isNotEmpty) {
+                                                          _pauseTrailer();
+                                                          Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                              builder: (_) => ActorDetailScreen(
+                                                                actorId: director['id']!,
+                                                                actorName: director['name'] ?? '',
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                      },
+                                                      child: Column(
+                                                        children: [
+                                                          Container(
+                                                            width: 60,
+                                                            height: 60,
+                                                            decoration: BoxDecoration(
+                                                              shape: BoxShape.circle,
+                                                              border: Border.all(color: Colors.white24),
+                                                              color: Colors.white10,
+                                                              image: director['profile']!.isNotEmpty
+                                                                  ? DecorationImage(
+                                                                      image: NetworkImage(director['profile']!),
+                                                                      fit: BoxFit.cover,
+                                                                    )
+                                                                  : null,
+                                                            ),
+                                                            child: director['profile']!.isEmpty
+                                                                ? const Icon(Icons.person, color: Colors.white54)
+                                                                : null,
+                                                          ),
+                                                          const SizedBox(height: 8),
+                                                          SizedBox(
+                                                            width: 70,
+                                                            child: Text(
+                                                              director['name'] ?? '',
+                                                              textAlign: TextAlign.center,
+                                                              maxLines: 2,
+                                                              overflow: TextOverflow.ellipsis,
+                                                              style: const TextStyle(color: Colors.white, fontSize: 12),
+                                                            ),
+                                                          ),
+                                                        ],
 
+                                                      ),
+                                                    ),
+                                                  );
+                                                }).toList(),
+                                              ),
+                                            ],
+                                          ],
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               const SizedBox(height: 60),
 
                               // Servers and Episodes
@@ -1681,7 +1862,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                                   ),
                                 ),
                               ] else ...[
-                                Text(L10n.t('select_episode').toUpperCase(),
+                                Text(
+                                  isSeries 
+                                      ? L10n.t('select_episode').toUpperCase() 
+                                      : (L10n.t('select_server_quality') ?? 'CHỌN NGUỒN / CHẤT LƯỢNG'),
                                   style: TextStyle(
                                     fontSize: 22,
                                     fontWeight: FontWeight.bold,
@@ -1881,6 +2065,20 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                               ],
                               _buildCommentsSection(),
 
+                                // TMDB Collections & Recommendations
+                                if (_tmdbDetails != null) ...[
+                                  if (_tmdbDetails!['collection_details'] != null && _tmdbDetails!['collection_details']['parts'] != null && (_tmdbDetails!['collection_details']['parts'] as List).isNotEmpty)
+                                    TmdbHorizontalList(title: L10n.t('collection') ?? 'Bộ sưu tập', items: _tmdbDetails!['collection_details']['parts'], onSearchAndPlay: _searchAndPlayTmdbMovie),
+                                    
+                                  if (_tmdbDetails!['recommendations'] != null && _tmdbDetails!['recommendations']['results'] != null && (_tmdbDetails!['recommendations']['results'] as List).isNotEmpty)
+                                    TmdbHorizontalList(title: L10n.t('recommendations') ?? 'Có thể bạn cũng thích', items: _tmdbDetails!['recommendations']['results'], onSearchAndPlay: _searchAndPlayTmdbMovie),
+                                    
+                                  if ((_tmdbDetails!['recommendations'] == null || _tmdbDetails!['recommendations']['results'] == null || (_tmdbDetails!['recommendations']['results'] as List).isEmpty) && _tmdbDetails!['similar'] != null && _tmdbDetails!['similar']['results'] != null && (_tmdbDetails!['similar']['results'] as List).isNotEmpty)
+                                    TmdbHorizontalList(title: L10n.t('recommendations') ?? 'Có thể bạn cũng thích', items: _tmdbDetails!['similar']['results'], onSearchAndPlay: _searchAndPlayTmdbMovie),
+                                ],
+                                const SizedBox(height: 40),
+
+
                               const SizedBox(height: 100), // Đệm dưới cùng
                             ],
                           ),
@@ -2034,6 +2232,166 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         ],
       ),
     );
+  }
+
+
+  Future<void> _searchAndPlayTmdbMovie(Map<String, dynamic> tmdbMovie) async {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withValues(alpha: 0.6),
+      barrierDismissible: false,
+      builder: (context) => Dialog(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        child: GlassContainer(
+          width: 300,
+          padding: const EdgeInsets.all(24),
+          borderRadius: 24,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const CircularProgressIndicator(color: Colors.blueAccent),
+              const SizedBox(height: 24),
+              Text(
+                L10n.t('searching_movie') ?? 'Đang tìm kiếm phim...',
+                style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+
+    try {
+      final query = tmdbMovie['title'] ?? tmdbMovie['name'] ?? tmdbMovie['original_title'] ?? tmdbMovie['original_name'];
+      final results = await PhimApi.searchMovies(query);
+      
+      if (mounted) Navigator.pop(context); // Close dialog
+
+      if (results.isNotEmpty) {
+        // Try to match year if possible
+        final year = (tmdbMovie['release_date'] ?? tmdbMovie['first_air_date'] ?? '').toString().split('-').first;
+        var bestMatch = results.first;
+        if (year.isNotEmpty) {
+           final match = results.where((m) => m.year == year).toList();
+           if (match.isNotEmpty) bestMatch = match.first;
+        }
+        
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (context) => MovieDetailScreen(slug: bestMatch.slug, initialMovie: bestMatch),
+            ),
+          );
+        }
+      } else {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(L10n.t('movie_not_found') ?? 'Rất tiếc, hệ thống chưa cập nhật bộ phim này.'),
+              backgroundColor: Colors.redAccent,
+            ),
+          );
+        }
+      }
+    } catch (e) {
+      if (mounted) Navigator.pop(context); // Close dialog
+    }
+  }
+
+  Widget _buildTmdbHorizontalList(String title, List items) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 32),
+        Text(
+          title,
+          style: const TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        const SizedBox(height: 16),
+        SizedBox(
+          height: 220,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: items.length,
+            itemBuilder: (context, index) {
+              final item = items[index];
+              final posterPath = item['poster_path'];
+              if (posterPath == null) return const SizedBox();
+              
+              return Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: InkWell(
+                  onTap: () => _searchAndPlayTmdbMovie(item),
+                  borderRadius: BorderRadius.circular(8),
+                  child: SizedBox(
+                    width: 120,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.network(
+                            'https://image.tmdb.org/t/p/w200$posterPath',
+                            height: 180,
+                            width: 120,
+                            fit: BoxFit.cover,
+                            errorBuilder: (c, e, s) => Container(
+                              height: 180,
+                              width: 120,
+                              color: Colors.white10,
+                              child: const Icon(Icons.error, color: Colors.white54),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          item['title'] ?? item['name'] ?? '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(color: Colors.white70, fontSize: 13),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+          ),
+        ),
+      ],
+    );
+  }
+
+
+  String _translateStatus(String status) {
+    if (L10n.currentLang == 'en') return status;
+    switch (status) {
+      case 'Released':
+        return 'Đã phát hành';
+      case 'Returning Series':
+        return 'Đang phát sóng';
+      case 'Ended':
+        return 'Đã kết thúc';
+      case 'Canceled':
+        return 'Đã hủy';
+      case 'In Production':
+        return 'Đang sản xuất';
+      case 'Planned':
+        return 'Đã lên kế hoạch';
+      case 'Rumored':
+        return 'Tin đồn';
+      case 'Post Production':
+        return 'Hậu kỳ';
+      default:
+        return status;
+    }
   }
 
   Widget _buildRichText(String label, String value) {
@@ -2760,4 +3118,505 @@ class _HoverServerTabState extends State<HoverServerTab> {
 
 
 
+
+
+
+
+class AnimatedLogoWidget extends StatefulWidget {
+  final dynamic logoPath;
+  const AnimatedLogoWidget({Key? key, required this.logoPath}) : super(key: key);
+
+  @override
+  State<AnimatedLogoWidget> createState() => _AnimatedLogoWidgetState();
+}
+
+class _AnimatedLogoWidgetState extends State<AnimatedLogoWidget> with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late int _animationType;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 800),
+    );
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeOutBack);
+    
+    // Pick a random animation type
+    _animationType = DateTime.now().millisecondsSinceEpoch % 4;
+    
+    Future.delayed(Duration(milliseconds: 300 + (DateTime.now().millisecondsSinceEpoch % 300)), () {
+      if (mounted) _controller.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(4),
+        boxShadow: _isHovered 
+            ? [BoxShadow(color: Colors.white.withValues(alpha: 0.5), blurRadius: 10, spreadRadius: 2)]
+            : null,
+      ),
+      child: Image.network(
+        'https://image.tmdb.org/t/p/w200${widget.logoPath}',
+        height: 24,
+        fit: BoxFit.contain,
+      ),
+    );
+
+    child = MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: AnimatedScale(
+        scale: _isHovered ? 1.1 : 1.0,
+        duration: const Duration(milliseconds: 200),
+        child: child,
+      ),
+    );
+
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (context, child) {
+        if (_animationType == 0) {
+          // Slide up and fade
+          return Opacity(
+            opacity: _animation.value.clamp(0.0, 1.0),
+            child: Transform.translate(
+              offset: Offset(0, 20 * (1 - _animation.value)),
+              child: child,
+            ),
+          );
+        } else if (_animationType == 1) {
+          // Scale up
+          return Transform.scale(
+            scale: _animation.value,
+            child: child,
+          );
+        } else if (_animationType == 2) {
+          // Fade only
+          return Opacity(
+            opacity: _animation.value.clamp(0.0, 1.0),
+            child: child,
+          );
+        } else {
+          // Flip 3D
+          
+          return Transform(
+            alignment: Alignment.center,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001)
+              ..rotateY(pi * (1 - _animation.value)),
+            child: Opacity(
+              opacity: _animation.value.clamp(0.0, 1.0),
+              child: child,
+            ),
+          );
+        }
+      },
+      child: child,
+    );
+  }
+}
+
+
+class AnimatedMovieLogoWidget extends StatefulWidget {
+  final String logoUrl;
+  final bool showMainTitle;
+  
+  const AnimatedMovieLogoWidget({Key? key, required this.logoUrl, required this.showMainTitle}) : super(key: key);
+
+  @override
+  State<AnimatedMovieLogoWidget> createState() => _AnimatedMovieLogoWidgetState();
+}
+
+class _AnimatedMovieLogoWidgetState extends State<AnimatedMovieLogoWidget> with TickerProviderStateMixin {
+  late AnimationController _entryController;
+  late AnimationController _sweepController;
+  late int _animationType;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _entryController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1200),
+    );
+    
+    _sweepController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 2000),
+    );
+
+    // 0: Slide from left & Fade
+    // 1: Zoom in with bounce
+    // 2: Flip 3D (X-axis drop)
+    // 3: Elastic slide up
+    // 4: Blur & Scale (simulated via scale + fade)
+    _animationType = DateTime.now().millisecondsSinceEpoch % 5;
+
+    Future.delayed(const Duration(milliseconds: 200), () {
+      if (mounted) _entryController.forward();
+    });
+
+    // Start sweep effect periodically
+    _startSweepLoop();
+  }
+  
+  void _startSweepLoop() async {
+    while (mounted) {
+      await Future.delayed(Duration(seconds: 4 + (DateTime.now().millisecondsSinceEpoch % 4)));
+      if (mounted) {
+        _sweepController.forward(from: 0.0);
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _entryController.dispose();
+    _sweepController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    Widget child = Stack(
+      alignment: Alignment.centerLeft,
+      children: [
+        ImageFiltered(
+          imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+          child: Image.network(
+            widget.logoUrl,
+            fit: BoxFit.contain,
+            alignment: Alignment.centerLeft,
+            color: Colors.white.withValues(alpha: 0.7),
+            errorBuilder: (context, error, stackTrace) => const SizedBox(),
+          ),
+        ),
+        Transform.translate(
+          offset: const Offset(2, 3),
+          child: Image.network(
+            widget.logoUrl,
+            fit: BoxFit.contain,
+            alignment: Alignment.centerLeft,
+            color: Colors.black.withValues(alpha: 0.8),
+            errorBuilder: (context, error, stackTrace) => const SizedBox(),
+          ),
+        ),
+        AnimatedBuilder(
+          animation: _sweepController,
+          builder: (context, child) {
+            if (_sweepController.value == 0 || _sweepController.value == 1) {
+              return child!;
+            }
+            return ShaderMask(
+              blendMode: BlendMode.srcATop,
+              shaderCallback: (bounds) {
+                final x = _sweepController.value * 3.0 - 1.0; // from -1 to 2
+                return LinearGradient(
+                  colors: [
+                    Colors.transparent,
+                    Colors.white.withValues(alpha: 0.1),
+                    Colors.white.withValues(alpha: 0.8),
+                    Colors.white.withValues(alpha: 0.1),
+                    Colors.transparent,
+                  ],
+                  stops: const [0.0, 0.4, 0.5, 0.6, 1.0],
+                  begin: Alignment(x - 0.5, -1),
+                  end: Alignment(x + 0.5, 1),
+                ).createShader(bounds);
+              },
+              child: child,
+            );
+          },
+          child: Image.network(
+            widget.logoUrl,
+            fit: BoxFit.contain,
+            alignment: Alignment.centerLeft,
+            errorBuilder: (context, error, stackTrace) => const SizedBox(),
+          ),
+        ),
+      ],
+    );
+
+    Widget animatedChild = AnimatedBuilder(
+      animation: _entryController,
+      builder: (context, child) {
+        final val = _entryController.value;
+        final curve = Curves.easeOutBack.transform(val);
+        
+        if (_animationType == 0) {
+          // Slide from left & Fade
+          final ease = Curves.easeOutQuart.transform(val);
+          return Opacity(
+            opacity: val.clamp(0.0, 1.0),
+            child: Transform.translate(
+              offset: Offset(-50 * (1 - ease), 0),
+              child: child,
+            ),
+          );
+        } else if (_animationType == 1) {
+          // Zoom in with bounce
+          return Opacity(
+            opacity: (val * 2).clamp(0.0, 1.0),
+            child: Transform.scale(
+              scale: 0.5 + 0.5 * curve,
+              child: child,
+            ),
+          );
+        } else if (_animationType == 2) {
+          // Flip 3D (X-axis drop)
+          return Transform(
+            alignment: Alignment.topCenter,
+            transform: Matrix4.identity()
+              ..setEntry(3, 2, 0.001)
+              ..rotateX(pi / 2 * (1 - curve)),
+            child: Opacity(
+              opacity: val.clamp(0.0, 1.0),
+              child: child,
+            ),
+          );
+        } else if (_animationType == 3) {
+          // Elastic slide up
+          final elastic = Curves.elasticOut.transform(val);
+          return Opacity(
+            opacity: (val * 2).clamp(0.0, 1.0),
+            child: Transform.translate(
+              offset: Offset(0, 40 * (1 - elastic)),
+              child: child,
+            ),
+          );
+        } else {
+          // Swirl / Rotate in
+          return Opacity(
+            opacity: val.clamp(0.0, 1.0),
+            child: Transform.rotate(
+              angle: -0.2 * (1 - curve),
+              child: Transform.scale(
+                scale: 0.8 + 0.2 * curve,
+                child: child,
+              ),
+            ),
+          );
+        }
+      },
+      child: child,
+    );
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: AnimatedScale(
+        scale: _isHovered ? 1.05 : 1.0,
+        duration: const Duration(milliseconds: 200),
+        child: Container(
+          constraints: const BoxConstraints(maxHeight: 120, maxWidth: 500),
+          alignment: Alignment.centerLeft,
+          margin: EdgeInsets.only(bottom: widget.showMainTitle ? 12 : 8),
+          child: animatedChild,
+        ),
+      ),
+    );
+  }
+}
+
+
+
+class TmdbHorizontalList extends StatefulWidget {
+  final String title;
+  final List items;
+  final void Function(Map<String, dynamic>) onSearchAndPlay;
+
+  const TmdbHorizontalList({Key? key, required this.title, required this.items, required this.onSearchAndPlay}) : super(key: key);
+
+  @override
+  State<TmdbHorizontalList> createState() => _TmdbHorizontalListState();
+}
+
+class _TmdbHorizontalListState extends State<TmdbHorizontalList> {
+  final ScrollController _scrollController = ScrollController();
+  bool _showLeftArrow = false;
+  bool _showRightArrow = true;
+  bool _isHovered = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_updateArrows);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateArrows());
+  }
+  
+  @override
+  void didUpdateWidget(covariant TmdbHorizontalList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateArrows());
+  }
+
+  void _updateArrows() {
+    if (!mounted) return;
+    if (!_scrollController.hasClients) return;
+    
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    
+    setState(() {
+      _showLeftArrow = currentScroll > 0;
+      _showRightArrow = currentScroll < maxScroll;
+    });
+  }
+
+  void _scroll(double offset) {
+    if (!_scrollController.hasClients) return;
+    _scrollController.animateTo(
+      (_scrollController.offset + offset).clamp(0.0, _scrollController.position.maxScrollExtent),
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.removeListener(_updateArrows);
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (widget.items.isEmpty) return const SizedBox();
+
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const SizedBox(height: 32),
+          Text(
+            widget.title,
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            height: 220,
+            child: Stack(
+              children: [
+                ListView.builder(
+                  controller: _scrollController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.items.length,
+                  itemBuilder: (context, index) {
+                    final item = widget.items[index];
+                    final posterPath = item['poster_path'];
+                    if (posterPath == null) return const SizedBox();
+
+                    return Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: InkWell(
+                        onTap: () => widget.onSearchAndPlay(item as Map<String, dynamic>),
+                        borderRadius: BorderRadius.circular(8),
+                        child: SizedBox(
+                          width: 120,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Image.network(
+                                  'https://image.tmdb.org/t/p/w200$posterPath',
+                                  height: 180,
+                                  width: 120,
+                                  fit: BoxFit.cover,
+                                  errorBuilder: (c, e, s) => Container(
+                                    height: 180,
+                                    width: 120,
+                                    color: Colors.white10,
+                                    child: const Icon(Icons.error, color: Colors.white54),
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                item['title'] ?? item['name'] ?? '',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(color: Colors.white70, fontSize: 13),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+                
+                // Left Arrow
+                if (_isHovered && _showLeftArrow)
+                  Positioned(
+                    left: 0,
+                    top: 0,
+                    bottom: 40,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [Colors.black.withValues(alpha: 0.8), Colors.transparent],
+                        ),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.chevron_left, color: Colors.white, size: 40),
+                        onPressed: () => _scroll(-400),
+                      ),
+                    ),
+                  ),
+
+                // Right Arrow
+                if (_isHovered && _showRightArrow)
+                  Positioned(
+                    right: 0,
+                    top: 0,
+                    bottom: 40,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.centerRight,
+                          end: Alignment.centerLeft,
+                          colors: [Colors.black.withValues(alpha: 0.8), Colors.transparent],
+                        ),
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.chevron_right, color: Colors.white, size: 40),
+                        onPressed: () => _scroll(400),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 

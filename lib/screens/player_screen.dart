@@ -205,6 +205,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   Future<void> _saveLocalProgress() async {
+    if (widget.isLive) return; // Do not save progress for live streams
     if (_position.inMilliseconds > 0 && _duration.inMilliseconds > 0) {
       final prefs = await SharedPreferences.getInstance();
       final ep = widget.episodes[_currentIndex];
@@ -318,8 +319,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     _playerSubs.add(
       player.stream.error.listen((error) {
         if (mounted) {
+          String errStr = error.toString();
+          if (errStr.contains('ffurl_read') || errStr.contains('0xdfb9b0bb') || errStr.contains('tcp:')) {
+            return; // Bỏ qua cảnh báo gián đoạn mạng tạm thời không gây crash
+          }
           if (_tryFallbackDomain()) return;
-          setState(() => errorMsg = error.toString());
+          setState(() => errorMsg = errStr);
         }
       }),
     );
@@ -353,7 +358,14 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
     _playerSubs.add(
       player.stream.playing.listen((playing) {
-        if (mounted) setState(() => _isPlaying = playing);
+        if (mounted) {
+          setState(() {
+            _isPlaying = playing;
+            if (playing && errorMsg != null) {
+              errorMsg = null; // Auto-dismiss error if video starts playing
+            }
+          });
+        }
       }),
     );
     _playerSubs.add(
@@ -563,7 +575,11 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
   Future<void> _playCurrentUrl(Episode ep) async {
     bool isVideoFile =
-        _currentUrl.contains('.m3u8') || _currentUrl.contains('.mp4');
+        _currentUrl.contains('.m3u8') || 
+        _currentUrl.contains('.mp4') || 
+        _currentUrl.contains('.flv') || 
+        _currentUrl.contains('.mkv') || 
+        _currentUrl.contains('proxy.php');
     _isUsingWebview =
         !isVideoFile &&
         _currentUrl.startsWith('http') &&
@@ -736,7 +752,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       final key = 'continue_${widget.movieName}_${ep.name}';
       final savedPos = prefs.getInt(key) ?? 0;
 
-      if (savedPos > 5000 && mounted && ep.slug != 'trailer') {
+      if (savedPos > 5000 && mounted && ep.slug != 'trailer' && !widget.isLive) {
         showDialog(
           context: context,
           barrierDismissible: false,
@@ -922,7 +938,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     if (track.language != null && track.language.toString().trim().isNotEmpty)
       details.add('[${track.language}]');
 
-    if (details.isEmpty) return 'Luồng ${track.id}';
+    try { if (track.channels != null) details.add('${track.channels}ch'); if (track.bitrate != null && track.bitrate > 0) details.add('${track.bitrate ~/ 1000}kbps'); } catch (_) {} if (details.isEmpty) return 'Luồng ${track.id}';
     return details.join(' ');
   }
 

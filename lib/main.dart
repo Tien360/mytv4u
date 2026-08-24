@@ -6,11 +6,13 @@ import 'package:provider/provider.dart';
 import 'screens/main_screen.dart';
 import 'screens/splash_screen.dart';
 import 'widgets/custom_title_bar.dart';
+import 'widgets/ambient_background.dart';
 import 'package:window_manager/window_manager.dart';
 import 'services/deep_link_service.dart';
 
 import 'package:webview_windows/webview_windows.dart';
 import 'api/stremio_server.dart';
+import 'api/film4k_proxy.dart';
 import 'utils/l10n.dart';
 import 'utils/system_utils.dart';
 import 'addons/addon_manager.dart';
@@ -20,6 +22,7 @@ void main(List<String> args) async {
   
   // Khởi tạo đa ngôn ngữ
   await L10n.load();
+  await initAmbientSettings();
 
   // Khởi tạo Addon Manager
   await AddonManager.init();
@@ -45,6 +48,9 @@ void main(List<String> args) async {
   }
 
   MediaKit.ensureInitialized();
+  
+  // Khởi tạo proxy Film4k
+  Film4kProxy.start();
   
   // Initialize deep link service (register protocol + parse args)
   await DeepLinkService.instance.initialize(args);

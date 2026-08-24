@@ -1,34 +1,29 @@
-import 'dart:io';
-import 'package:http/http.dart' as http;
-import 'package:html/parser.dart' as html_parser;
-
-void main() async {
-  final response = await http.get(Uri.parse('https://tinhlagi.pro/tivi/'));
-  final document = html_parser.parse(response.body);
+﻿void main() {
+  List<String> names = [
+    'Mikael: Thợ Săn Hai Thế Giới (2026) Mikael: Pemburu Dua Alam',
+    'Batman (2022)',
+    'Spider Man 3 Vietsub Thuyết Minh HD'
+  ];
   
-  int totalChannels = 0;
-  final headings = document.querySelectorAll('h2.group-title');
-  for (var heading in headings) {
-    String category = heading.text.trim();
-    category = category.replaceAll(RegExp(r'\s*\(\d+\)$'), '').trim();
+  for (String name in names) {
+    String parsedName = name;
+    String parsedOriginalName = 'Original';
+    String parsedYear = '';
     
-    final grid = heading.nextElementSibling;
-    if (grid != null && grid.classes.contains('channel-grid')) {
-      final aTags = grid.querySelectorAll('a.channel-card');
-      print('Category: $category, found ${aTags.length} channels');
-      totalChannels += aTags.length;
-      
-      for (var a in aTags) {
-        final href = a.attributes['href'] ?? '';
-        final uri = Uri.parse('https://tinhlagi.pro/tivi/' + href);
-        final streamUrl = uri.queryParameters['url'] ?? '';
-        final name = uri.queryParameters['name'] ?? a.querySelector('.channel-name')?.text.trim() ?? 'Unknown';
-        
-        if (streamUrl.contains('.mpd')) {
-          print('FOUND MPD: $streamUrl');
-        }
+    final regex = RegExp(r'^(.*?)\s*\((\d{4})\)\s*(.*)$');
+    final match = regex.firstMatch(parsedName);
+    if (match != null) {
+      parsedName = match.group(1)?.trim() ?? parsedName;
+      String extractedYear = match.group(2) ?? '';
+      if (parsedYear.isEmpty && extractedYear.isNotEmpty) {
+        parsedYear = extractedYear;
+      }
+      String extractedOriginalName = match.group(3)?.trim() ?? '';
+      if (extractedOriginalName.isNotEmpty) {
+        parsedOriginalName = extractedOriginalName;
       }
     }
+    
+    print('Name: $name => parsedName: $parsedName, parsedOriginalName: $parsedOriginalName, year: $parsedYear');
   }
-  print('Total channels matched: $totalChannels');
 }

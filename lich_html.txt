@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch Thi Đấu Bóng Đá - TinhlagiTV</title>
+    <meta name="description" content="Cập nhật lịch thi đấu bóng đá hôm nay nhanh nhất. Xem tỷ số trực tuyến, livescore tự động tại TinhlagiTV.">
+    <meta name="keywords" content="lịch thi đấu bóng đá, tỷ số bóng đá, livescore, kết quả trực tuyến">
+    <link rel="icon" type="image/svg+xml" href="https://tinhlagi.pro/tinhlagi.ico">
+    <link rel="stylesheet" href="style.css?v=1786525222">
+    <style>
+        body { 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            background: #0f172a; 
+            color: #cbd5e1; 
+            height: auto !important; 
+            overflow-y: auto !important; 
+            display: block !important; 
+        }
+        
+        .Header_swiper__kSQjn {
+            margin: 20px auto !important;
+            width: 90% !important;
+            max-width: 950px !important;
+        }
+
+        .container { max-width: 950px; margin: auto; background: #1e293b; padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); width: 90%; box-sizing: border-box; margin-bottom: 50px; }
+        h2 { text-align: center; color: #f8fafc; margin-top: 0; text-transform: uppercase; font-weight: 800; }
+        #last-update { text-align: center; font-size: 13px; color: #94a3b8; margin-bottom: 20px; font-style: italic; }
+        
+        .tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; border-bottom: 2px solid #334155; padding-bottom: 15px; }
+        .tab-btn { background: #334155; border: none; padding: 10px 5px; font-size: 13px; font-weight: bold; color: #cbd5e1; border-radius: 8px; cursor: pointer; transition: 0.3s; text-align: center; width: 100%; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .tab-btn:hover { background: #475569; color: #fff; }
+        .tab-btn.active { background: #3b82f6; color: #fff; box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4); }
+        
+        .tab-panel { display: none; animation: fadeIn 0.3s; }
+        .tab-panel.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        .date-header { background: #334155; color: #f8fafc; padding: 10px 15px; font-weight: bold; margin-top: 20px; border-radius: 6px; border-left: 5px solid #3b82f6; font-size: 15px; }
+        .match-row { display: flex; justify-content: space-between; align-items: center; padding: 12px; border-bottom: 1px dashed #334155; transition: 0.2s; }
+        .match-row:hover { background-color: #273548; border-radius: 6px; }
+        .team { flex: 1; font-weight: 600; font-size: 15px; color: #f1f5f9; }
+        .home { text-align: right; }
+        .away { text-align: left; }
+        .score-box { flex: 0 0 100px; text-align: center; }
+        .score { background: #475569; padding: 6px 15px; border-radius: 20px; font-weight: bold; font-size: 16px; letter-spacing: 1px; display: inline-block; min-width: 40px; color: #f8fafc; }
+        .played .score { background: #ef4444; color: white; }
+        
+        .time { flex: 0 0 60px; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; }
+        
+        .time-time { color: #fb923c; font-size: 14px; font-weight: bold; line-height: 1.2; }
+        .time-date { font-size: 11px; color: #94a3b8; font-weight: normal; margin-bottom: 2px; line-height: 1.2; white-space: nowrap; }
+
+        @media (max-width: 768px) { .tabs { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 600px) {
+            .container { padding: 15px; width: 95%; } 
+            .team { font-size: 13px; } 
+            .score { padding: 4px 10px; font-size: 14px; } 
+            
+            .time { flex: 0 0 55px; } 
+            .time-time { font-size: 12px; }
+            .time-date { font-size: 9.5px; margin-bottom: 1px; letter-spacing: -0.5px; }
+            
+            .tabs { grid-template-columns: repeat(2, 1fr); } 
+            .tab-btn { padding: 8px 5px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body style="display:block;">
+
+    <nav class="Header_swiper__kSQjn" aria-label="Menu điều hướng">
+    <div class="menu-scroll-x">
+        <div class="Header_category__WTD_b ">
+            <a href="https://tinhlagi.pro/sport/">🏠 Home</a>
+        </div>
+            
+        <div class="Header_category__WTD_b Header_active__U7EaI">
+            <a href="lich-thi-dau.php">🏅 LỊCH THI ĐẤU</a>
+        </div>
+        
+        <div class="Header_category__WTD_b ">
+            <a href="highlight.php">🔥 HIGH LIGHT</a>
+        </div>
+        
+        <div class="Header_category__WTD_b"><a href="https://tinhlagi.pro/movie/" target="_blank">🎬 Movie</a></div>
+        <div class="Header_category__WTD_b"><a href="https://tinhlagi.pro/music/" target="_blank">🎵 Music</a></div>
+        <div class="Header_category__WTD_b"><a href="https://tinhlagi.pro/tivi/" target="_blank">📺 Tivi</a></div>
+        <div class="Header_category__WTD_b"><a href="https://tinhlagi.pro/demo/" target="_blank">✨ Demo</a></div>
+        <div class="Header_category__WTD_b"><a href="https://tinhlagi.pro/study/" target="_blank">📚 Study</a></div>
+        <div class="Header_category__WTD_b"><a href="https://tinhlagi.pro/" target="_blank">🌟 Tinhlagi.pro</a></div>
+    </div>
+</nav>
+<main class="container">
+    <h1 style="text-align: center; color: #f8fafc; margin-top: 0; text-transform: uppercase; font-weight: 800;">Lịch Thi Đấu & Tỷ Số</h1>
+    <div id="last-update">Đang kết nối dữ liệu...</div>
+    
+    <div class="tabs" id="tabs-container"></div>
+    <div class="tab-content" id="tab-content-container"></div>
+
+<script>
+let currentActiveTab = 0; 
+let currentLastUpdate = "";
+
+function openTab(event, index) {
+    currentActiveTab = index; 
+    document.querySelectorAll('.tab-panel').forEach(panel => panel.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    
+    document.getElementById(`league-${index}`).classList.add('active');
+    if(event) {
+        event.currentTarget.classList.add('active');
+    } else {
+        let btns = document.querySelectorAll('.tab-btn');
+        if(btns.length > 0) btns[index].classList.add('active');
+    }
+}
+
+function fetchLiveScore() {
+    fetch('livescore_data.json?t=' + new Date().getTime())
+        .then(response => response.json())
+        .then(data => {
+            if (data.last_update === currentLastUpdate) return; 
+            currentLastUpdate = data.last_update;
+
+            document.getElementById('last-update').innerText = "Cập nhật lần cuối : " + data.last_update;
+            
+            if(!data.leagues || data.leagues.length === 0) {
+                document.getElementById('tabs-container').innerHTML = '<p style="color:#ef4444; text-align:center; width:100%; grid-column: 1 / -1;">Dữ liệu đang trống...</p>';
+                return;
+            }
+
+            // --- THUẬT TOÁN ĐOÁN NGÀY THÔNG MINH ---
+            let todayStr = "";
+            let tomorrowStr = "";
+            let isEveningUpdate = false;
+            
+            try {
+                // Tách thời gian từ "03/04/2026 18:50:10"
+                let dateTimeParts = data.last_update.split(' ');
+                let dateParts = dateTimeParts[0].split('/');
+                let timeParts = dateTimeParts[1].split(':');
+                
+                let d = parseInt(dateParts[0]);
+                let m = parseInt(dateParts[1]);
+                let y = dateParts.length > 2 ? parseInt(dateParts[2]) : new Date().getFullYear();
+                
+                let updateDate = new Date(y, m - 1, d);
+                let tomorrowDate = new Date(y, m - 1, d + 1); // Cộng thêm 1 ngày
+                
+                todayStr = String(updateDate.getDate()).padStart(2, '0') + '/' + String(updateDate.getMonth() + 1).padStart(2, '0');
+                tomorrowStr = String(tomorrowDate.getDate()).padStart(2, '0') + '/' + String(tomorrowDate.getMonth() + 1).padStart(2, '0');
+                
+                // Cờ kiểm tra xem web cập nhật vào chiều tối hay không (>= 12h trưa)
+                isEveningUpdate = parseInt(timeParts[0]) >= 12; 
+            } catch(e) {
+                // Đề phòng last_update rỗng hoặc lỗi format thì lấy ngày máy tính
+                let now = new Date();
+                let tmr = new Date(now.getTime() + 86400000);
+                todayStr = String(now.getDate()).padStart(2, '0') + '/' + String(now.getMonth() + 1).padStart(2, '0');
+                tomorrowStr = String(tmr.getDate()).padStart(2, '0') + '/' + String(tmr.getMonth() + 1).padStart(2, '0');
+                isEveningUpdate = now.getHours() >= 12;
+            }
+
+            let tabsHTML = '';
+            let contentHTML = '';
+
+            data.leagues.forEach((league, index) => {
+                let isActive = (index === currentActiveTab) ? 'active' : '';
+                if(currentActiveTab >= data.leagues.length) {
+                    isActive = (index === 0) ? 'active' : '';
+                    currentActiveTab = 0;
+                }
+                
+                let isTodayTab = league.league_name.toLowerCase().includes('hôm nay');
+                
+                tabsHTML += `<button class="tab-btn ${isActive}" onclick="openTab(event, ${index})" title="${league.league_name}">${league.league_name}</button>`;
+                contentHTML += `<div id="league-${index}" class="tab-panel ${isActive}">`;
+                
+                league.days.forEach(day => {
+                    contentHTML += `<div class="date-header">${day.date}</div>`;
+                    
+                    day.matches.forEach(match => {
+                        // Cập nhật: Bắt thêm các trạng thái 'FT', 'Finished' đề phòng API thay đổi từ khóa
+                        let scoreClass = (match.status === 'played' || match.status === 'FT' || match.status === 'Finished') ? 'played' : '';
+                        
+                        let timeHtml = '';
+                        
+                        // 1. Tách ngày và giờ nếu API trả về gộp
+                        let extractedTime = match.time || ""; 
+                        let extractedDate = match.date || "";
+
+                        if (extractedTime.includes('/') || extractedTime.includes('<br>')) {
+                            let parts = extractedTime.replace(/<br\s*\/?>|\n/gi, ' ').split(' ').filter(p => p.trim() !== '');
+                            if (parts.length >= 2) {
+                                extractedTime = parts[0];
+                                extractedDate = parts[1];
+                            }
+                        }
+
+                        // 2. Xử lý hiển thị thời gian và ngày dự đoán
+                        if (isTodayTab) {
+                            let matchDateDisplay = extractedDate;
+                            if (!matchDateDisplay) {
+                                let matchHour = parseInt(extractedTime.split(':')[0]);
+                                if (isEveningUpdate && matchHour >= 0 && matchHour <= 11) {
+                                    matchDateDisplay = tomorrowStr;
+                                } else {
+                                    matchDateDisplay = todayStr;
+                                }
+                            }
+                            timeHtml = `
+                                <span class="time-date">${matchDateDisplay}</span>
+                                <span class="time-time">${extractedTime}</span>
+                            `;
+                        } else {
+                            if (extractedDate) {
+                                timeHtml = `
+                                    <span class="time-date">${extractedDate}</span>
+                                    <span class="time-time">${extractedTime}</span>
+                                `;
+                            } else {
+                                timeHtml = `<span class="time-time">${extractedTime}</span>`;
+                            }
+                        }
+                        
+                        // Xử lý fallback cho tỉ số: nếu API không trả về score nhưng trận đã đá xong thì để '?', chưa đá thì 'vs'
+                        let matchScore = match.score ? match.score : (scoreClass !== '' ? '?' : 'vs');
+
+                        // 3. Render khối HTML cho từng trận đấu (KHÔNG ĐƯỢC XÓA PHẦN NÀY)
+                        contentHTML += `
+                            <div class="match-row ${scoreClass}">
+                                <div class="time">${timeHtml}</div>
+                                <div class="team home">${match.team_home}</div>
+                                <div class="score-box"><span class="score">${matchScore}</span></div>
+                                <div class="team away">${match.team_away}</div>
+                            </div>
+                        `;
+                    });
+                });
+                contentHTML += `</div>`; 
+            });
+            
+            document.getElementById('tabs-container').innerHTML = tabsHTML;
+            document.getElementById('tab-content-container').innerHTML = contentHTML;
+        })
+        .catch(console.error);
+}
+
+fetchLiveScore();
+setInterval(fetchLiveScore, 60000); 
+</script>
+
+</main>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"7704e7cf61ab44c0a10e83e35288a72e","r":1}' crossorigin="anonymous"></script>
+</body>
+</html>

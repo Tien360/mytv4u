@@ -4,6 +4,7 @@ import '../utils/l10n.dart';
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import '../widgets/glass_container.dart';
 import 'package:media_kit/media_kit.dart';
 import 'main_screen.dart';
 import 'movie_detail_screen.dart';
@@ -66,27 +67,50 @@ class _SplashScreenState extends State<SplashScreen>
       showDialog(
         context: context,
         barrierDismissible: false,
+        barrierColor: Colors.black.withValues(alpha: 0.8),
         builder: (context) => WillPopScope(
           onWillPop: () async => false, // Chặn nút back
-          child: AlertDialog(
-            backgroundColor: Colors.grey[900],
-            title: Text(
-              L10n.t('app_disabled'),
-              style: TextStyle(color: Colors.redAccent),
-            ),
-            content: Text(
-              status['killMessage'] ?? L10n.t('contact_developer'),
-              style: const TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            actions: [
-              TextButton(
-                onPressed: () => exit(0),
-                child: Text(
-                  L10n.t('exit_app'),
-                  style: TextStyle(color: Colors.white70),
-                ),
+          child: Dialog(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            child: GlassContainer(
+              width: 400,
+              padding: const EdgeInsets.all(24),
+              borderRadius: 24,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.error_outline, color: Colors.redAccent, size: 48),
+                  const SizedBox(height: 16),
+                  Text(
+                    L10n.t('app_disabled'),
+                    style: const TextStyle(color: Colors.redAccent, fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    status['killMessage'] ?? L10n.t('contact_developer'),
+                    style: const TextStyle(color: Colors.white70, fontSize: 16),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32),
+                  ElevatedButton(
+                    onPressed: () => exit(0),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.redAccent,
+                      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    child: Text(
+                      L10n.t('exit_app'),
+                      style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       );

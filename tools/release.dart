@@ -12,6 +12,9 @@ void main(List<String> args) async {
 
   final version = args[0];
   final notes = args[1];
+  final bool isDev = version.contains('.dev');
+  final setupExePath = 'Releases\\v$version\\MyTV4U_Setup_$version.exe';
+
 
   print('=============================================');
   print('Ã°Å¸Å¡â‚¬ TIÃ¡ÂºÂ¾N TRÃƒÅ’NH PHÃƒÂT HÃƒâ‚¬NH TÃ¡Â»Â° Ã„ÂÃ¡Â»ËœNG MyTV4U');
@@ -37,6 +40,7 @@ void main(List<String> args) async {
     exit(1);
   }
 
+  if (!isDev) {
   // 2. CÃ¡ÂºÂ­p nhÃ¡ÂºÂ­t installer.iss
   print('[2/6] Ã„Âang cÃ¡ÂºÂ­p nhÃ¡ÂºÂ­t kÃ¡Â»â€¹ch bÃ¡ÂºÂ£n Ã„â€˜ÃƒÂ³ng gÃƒÂ³i Inno Setup...');
   final issFile = File('installer.iss');
@@ -57,6 +61,8 @@ void main(List<String> args) async {
     );
     issFile.writeAsStringSync(content);
     print('  -> Ã„ÂÃƒÂ£ sÃ¡Â»Â­a installer.iss');
+  }
+
   }
 
   // 3. ChÃ¡ÂºÂ¡y Flutter Build
@@ -97,6 +103,7 @@ void main(List<String> args) async {
     print('  -> ÄÃ£ sao chÃ©p tv_web_player thÃ nh cÃ´ng!');
   }
 
+  if (!isDev) {
   // 4. ÄÃ³ng gÃ³i Inno Setup
   print('[4/6] Äang Ä‘Ã³ng gÃ³i file Setup.exe báº±ng Inno Setup...');
   final userProfile = Platform.environment['USERPROFILE'];
@@ -120,7 +127,7 @@ void main(List<String> args) async {
   // 5. QuÃ„Æ’ng lÃƒÂªn GitHub
   print('[5/6] Ã„Âang Ã„â€˜Ã¡ÂºÂ©y lÃƒÂªn GitHub...');
   print('[5/6] Ã„ ang Ã„â€˜Ã¡ÂºÂ©y lÃƒÂªn GitHub...');
-  final setupExePath = 'Releases\\v$version\\MyTV4U_Setup_$version.exe';
+
   final ghPath = 'gh';
   if (File(ghPath).existsSync()) {
     bool isBeta = version.contains('.beta');
@@ -196,9 +203,14 @@ void main(List<String> args) async {
     print('  -> LÃ¡Â»â€”i kÃ¡ÂºÂ¿t nÃ¡Â»â€˜i Firebase: $e');
   }
 
+  }
   print('\n=============================================');
-  print('Ã°Å¸Å½â€° Ã„ÂÃƒÆ’ HOÃƒâ‚¬N TÃ¡ÂºÂ¤T TOÃƒâ‚¬N BÃ¡Â»Ëœ QUÃƒÂ TRÃƒÅ’NH PHÃƒÂT HÃƒâ‚¬NH! Ã°Å¸Å½â€°');
-  print('Ã„ÂÃ†Â°Ã¡Â»Âng dÃ¡ÂºÂ«n file: $setupExePath');
+  if (isDev) {
+    print('🎉 ĐÃ HOÀN TẤT BIÊN DỊCH BẢN DEV (Bỏ qua Đóng gói & Phát hành)! 🎉');
+    print('File thực thi tại: build/windows/x64/runner/Release/MyTV4U.exe');
+  } else {
+    print('🎉 ĐÃ HOÀN TẤT TOÀN BỘ QUÁ TRÌNH PHÁT HÀNH! 🎉');
+    print('Đường dẫn file: $setupExePath');
+  }
   print('=============================================');
 }
-

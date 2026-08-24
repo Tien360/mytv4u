@@ -10,6 +10,20 @@ import 'film4knet_api.dart';
 import 'torrentio_api.dart';
 import 'cinemeta_api.dart';
 
+class TmdbLogoInfo {
+  final String? url;
+  final String lang;
+  final String tmdbEnName;
+  final String tmdbOriginalName;
+
+  TmdbLogoInfo({
+    this.url,
+    required this.lang,
+    required this.tmdbEnName,
+    required this.tmdbOriginalName,
+  });
+}
+
 class PhimApi {
   static const String nguoncUrl = 'https://phim.nguonc.com/api';
   static const String kkphimUrl = 'https://phimapi.com/v1/api';
@@ -529,7 +543,6 @@ class PhimApi {
     return true;
   }
 
-
   static String _slugify(String text) {
     String lower = text.toLowerCase().trim();
     lower = lower.replaceAll(RegExp(r'[^a-z0-9\s]'), '');
@@ -537,7 +550,6 @@ class PhimApi {
   }
 
   static Stream<Movie> fetchMovieDetailStream(
-
     String slug, {
     Movie? initialMovie,
   }) {
@@ -566,15 +578,25 @@ class PhimApi {
       Movie merged = orderedMovies.first;
       for (int i = 1; i < orderedMovies.length; i++) {
         var item = orderedMovies[i];
-        
-        bool mergedHasBackdrop = merged.posterUrl.isNotEmpty && merged.posterUrl != merged.thumbUrl;
-        bool itemHasBackdrop = item.posterUrl.isNotEmpty && item.posterUrl != item.thumbUrl;
-        String bestPosterUrl = mergedHasBackdrop 
-            ? merged.posterUrl 
-            : (itemHasBackdrop ? item.posterUrl : (merged.posterUrl.isNotEmpty ? merged.posterUrl : item.posterUrl));
 
-        merged = merged.copyWith(
-          thumbUrl: merged.thumbUrl.isNotEmpty ? merged.thumbUrl : item.thumbUrl,
+        bool mergedHasBackdrop =
+            merged.posterUrl.isNotEmpty && merged.posterUrl != merged.thumbUrl;
+        bool itemHasBackdrop =
+            item.posterUrl.isNotEmpty && item.posterUrl != item.thumbUrl;
+        String bestPosterUrl = mergedHasBackdrop
+            ? merged.posterUrl
+            : (itemHasBackdrop
+                  ? item.posterUrl
+                  : (merged.posterUrl.isNotEmpty
+                        ? merged.posterUrl
+                        : item.posterUrl));
+
+                merged = merged.copyWith(
+            name: merged.name.isNotEmpty ? merged.name : item.name,
+            originalName: merged.originalName.isNotEmpty ? merged.originalName : item.originalName,
+            thumbUrl: merged.thumbUrl.isNotEmpty
+              ? merged.thumbUrl
+              : item.thumbUrl,
           posterUrl: bestPosterUrl,
           currentEpisode:
               (merged.currentEpisode.isNotEmpty &&
@@ -582,17 +604,13 @@ class PhimApi {
                   merged.currentEpisode != 'N/A')
               ? merged.currentEpisode
               : item.currentEpisode,
-          quality:
-              (merged.quality.isNotEmpty &&
-                  merged.quality != 'N/A')
+          quality: (merged.quality.isNotEmpty && merged.quality != 'N/A')
               ? merged.quality
               : item.quality,
           time: (merged.time.isNotEmpty && merged.time != 'N/A')
               ? merged.time
               : item.time,
-          language:
-              (merged.language.isNotEmpty &&
-                  merged.language != 'N/A')
+          language: (merged.language.isNotEmpty && merged.language != 'N/A')
               ? merged.language
               : item.language,
           description: merged.description.isNotEmpty
@@ -600,8 +618,12 @@ class PhimApi {
               : item.description,
           year: merged.year.isNotEmpty ? merged.year : item.year,
           genres: merged.genres.isNotEmpty ? merged.genres : item.genres,
-          countries: merged.countries.isNotEmpty ? merged.countries : item.countries,
-          directors: merged.directors.isNotEmpty ? merged.directors : item.directors,
+          countries: merged.countries.isNotEmpty
+              ? merged.countries
+              : item.countries,
+          directors: merged.directors.isNotEmpty
+              ? merged.directors
+              : item.directors,
           casts: merged.casts.isNotEmpty ? merged.casts : item.casts,
           source: merged.source != item.source ? 'mixed' : merged.source,
         );
@@ -639,31 +661,41 @@ class PhimApi {
 
       if (enabledSources.contains('film4knet')) {
         final querySlug = initialMovie?.sourceSlugs['film4knet'] ?? slug;
-        final guessedSlug = (initialMovie != null && initialMovie.originalName.isNotEmpty)
+        final guessedSlug =
+            (initialMovie != null && initialMovie.originalName.isNotEmpty)
             ? _slugify(initialMovie.originalName)
             : querySlug;
-        
+
         bool handleFilm4kResponse(Movie? fetchedMovie) {
-           if (fetchedMovie != null && _isSimilarMovieGlobal(initialMovie, fetchedMovie)) {
-              parsedMap[10] = fetchedMovie;
-              serversMap[10] = fetchedMovie.episodes;
-              processAndEmit();
-              return true;
-           }
-           return false;
+          if (fetchedMovie != null &&
+              _isSimilarMovieGlobal(initialMovie, fetchedMovie)) {
+            parsedMap[10] = fetchedMovie;
+            serversMap[10] = fetchedMovie.episodes;
+            processAndEmit();
+            return true;
+          }
+          return false;
         }
 
         futures.add(
-          Film4kNetApi.getDetail(querySlug).then((fetchedMovie) {
-            bool success = handleFilm4kResponse(fetchedMovie);
-            if (!success && guessedSlug != querySlug && guessedSlug.isNotEmpty) {
-              Film4kNetApi.getDetail(guessedSlug).then(handleFilm4kResponse).catchError((_) {});
-            }
-          }).catchError((_) {
-             if (guessedSlug != querySlug && guessedSlug.isNotEmpty) {
-                Film4kNetApi.getDetail(guessedSlug).then(handleFilm4kResponse).catchError((_) {});
-             }
-          }),
+          Film4kNetApi.getDetail(querySlug)
+              .then((fetchedMovie) {
+                bool success = handleFilm4kResponse(fetchedMovie);
+                if (!success &&
+                    guessedSlug != querySlug &&
+                    guessedSlug.isNotEmpty) {
+                  Film4kNetApi.getDetail(
+                    guessedSlug,
+                  ).then(handleFilm4kResponse).catchError((_) {});
+                }
+              })
+              .catchError((_) {
+                if (guessedSlug != querySlug && guessedSlug.isNotEmpty) {
+                  Film4kNetApi.getDetail(
+                    guessedSlug,
+                  ).then(handleFilm4kResponse).catchError((_) {});
+                }
+              }),
         );
       }
 
@@ -1472,18 +1504,37 @@ class PhimApi {
 
   static const String _tmdbApiKey = 'e9e9d8da18ae29fc430845952232787c';
 
+  
+  static String _cleanForTmdb(String t) {
+    t = t.replaceAll(RegExp(r'\(.*?\)'), '');
+    t = t.replaceAll(RegExp(r'\[.*?\]'), '');
+    t = t.replaceAll(RegExp(r'(vietsub|thuyết minh|lồng tiếng|bản đẹp|hd|fhd|4k|cam|ts|bluray|web-dl|tập \d+)', caseSensitive: false), '');
+    return t.trim();
+  }
+
   static Future<Map<String, dynamic>?> _searchTmdb(
     String title,
     String originalTitle,
     String year,
-    bool isTvSeries,
-  ) async {
+    bool isTvSeries, {
+    String language = 'vi-VN',
+  }) async {
     String type = isTvSeries ? 'tv' : 'movie';
-    final query = Uri.encodeComponent(
-      originalTitle.isNotEmpty ? originalTitle : title,
-    );
-    final searchUrl =
-        'https://api.themoviedb.org/3/search/multi?query=$query&api_key=$_tmdbApiKey&language=vi-VN';
+    
+    final cleanOriginalTitle = _cleanForTmdb(originalTitle);
+    final cleanTitle = _cleanForTmdb(title);
+    
+    // Fallback order: clean original -> clean title -> raw original -> raw title
+    List<String> queriesToTry = [];
+    if (cleanOriginalTitle.isNotEmpty) queriesToTry.add(cleanOriginalTitle);
+    if (cleanTitle.isNotEmpty && !queriesToTry.contains(cleanTitle)) queriesToTry.add(cleanTitle);
+    if (originalTitle.isNotEmpty && !queriesToTry.contains(originalTitle)) queriesToTry.add(originalTitle);
+    if (title.isNotEmpty && !queriesToTry.contains(title)) queriesToTry.add(title);
+    
+    for (String q in queriesToTry) {
+      final query = Uri.encodeComponent(q);
+      final searchUrl =
+          'https://api.themoviedb.org/3/search/multi?query=$query&api_key=$_tmdbApiKey&language=$language';
 
     try {
       final res = await http.get(Uri.parse(searchUrl));
@@ -1510,6 +1561,7 @@ class PhimApi {
       }
     } catch (e) {
       print('PhimApi _searchTmdb error: $e');
+    }
     }
     return null;
   }
@@ -1601,16 +1653,26 @@ class PhimApi {
     return [];
   }
 
-    static Future<String?> getMovieTmdbLogo(
+  static Future<TmdbLogoInfo?> getMovieTmdbLogo(
     String title,
     String originalTitle,
     String year,
     bool isTvSeries,
-    String language,
+    String appLang,
   ) async {
     try {
-      final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
+      final match = await _searchTmdb(
+        title,
+        originalTitle,
+        year,
+        isTvSeries,
+        language: 'en-US',
+      );
       if (match != null && match['id'] != null) {
+        String tmdbEnName = match['title'] ?? match['name'] ?? originalTitle;
+        String tmdbOriginalName =
+            match['original_title'] ?? match['original_name'] ?? originalTitle;
+
         final imgUrl =
             'https://api.themoviedb.org/3/${match['type']}/${match['id']}/images?api_key=$_tmdbApiKey';
         final res = await http.get(Uri.parse(imgUrl));
@@ -1618,14 +1680,38 @@ class PhimApi {
           final data = json.decode(res.body);
           if (data['logos'] != null && (data['logos'] as List).isNotEmpty) {
             final List logos = data['logos'];
-            var targetLogo = logos.firstWhere(
-                (l) => l['iso_639_1'] == language,
-                orElse: () => null);
-            if (targetLogo != null) {
-              return 'https://image.tmdb.org/t/p/w500${targetLogo['file_path']}';
+
+            List<String?> priorities = [];
+            if (appLang == 'vi') {
+              priorities = ['vi', 'en', 'xx', null, ''];
+            } else {
+              priorities = ['en', 'xx', null, ''];
+            }
+
+            for (String? lang in priorities) {
+              var targetLogo = logos.firstWhere(
+                (l) => l['iso_639_1'] == lang,
+                orElse: () => null,
+              );
+              if (targetLogo != null) {
+                return TmdbLogoInfo(
+                  url:
+                      'https://image.tmdb.org/t/p/w500${targetLogo['file_path']}',
+                  lang: targetLogo['iso_639_1'] ?? 'none',
+                  tmdbEnName: tmdbEnName,
+                  tmdbOriginalName: tmdbOriginalName,
+                );
+              }
             }
           }
         }
+
+        return TmdbLogoInfo(
+          url: null,
+          lang: 'none',
+          tmdbEnName: tmdbEnName,
+          tmdbOriginalName: tmdbOriginalName,
+        );
       }
     } catch (e) {
       print('PhimApi TMDB getMovieTmdbLogo error: $e');
@@ -1655,6 +1741,38 @@ class PhimApi {
     final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
     return match?['tmdbRating'];
   }
+  static Future<Map<String, dynamic>?> getTmdbFullDetails(
+      String title, String originalTitle, String year, bool isTvSeries, String lang) async {
+    try {
+      final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
+      if (match != null && match['id'] != null) {
+        final tmdbId = match['id'];
+        final type = match['type'];
+
+        final url =
+            'https://api.themoviedb.org/3/$type/$tmdbId?api_key=$_tmdbApiKey&append_to_response=recommendations,similar,credits&language=$lang';
+        final res = await http.get(Uri.parse(url));
+        if (res.statusCode == 200) {
+          final data = json.decode(res.body);
+
+          if (type == 'movie' && data['belongs_to_collection'] != null) {
+            final collectionId = data['belongs_to_collection']['id'];
+            final collectionUrl =
+                'https://api.themoviedb.org/3/collection/$collectionId?api_key=$_tmdbApiKey&language=$lang';
+            final collectionRes = await http.get(Uri.parse(collectionUrl));
+            if (collectionRes.statusCode == 200) {
+              data['collection_details'] = json.decode(collectionRes.body);
+            }
+          }
+          return data;
+        }
+      }
+    } catch (e) {
+      print('PhimApi getTmdbFullDetails error: $e');
+    }
+    return null;
+  }
+
 
   static Future<List<Map<String, String>>> getMovieActors(
     String title,
@@ -1740,13 +1858,38 @@ class PhimApi {
         },
       );
 
-      if (ytRes.statusCode == 200) {
-        final regex = RegExp(r'/watch\?v=([a-zA-Z0-9_-]{11})');
-        final match = regex.firstMatch(ytRes.body);
-        if (match != null && match.group(1) != null) {
-          return match.group(1);
+                      if (ytRes.statusCode == 200) {
+          final html = ytRes.body;
+          int startIndex = html.indexOf('var ytInitialData = {');
+          if (startIndex != -1) {
+            int endIndex = html.indexOf(';</script>', startIndex);
+            if (endIndex != -1) {
+              String jsonStr = html.substring(startIndex + 20, endIndex);
+              try {
+                final data = json.decode(jsonStr);
+                final contents = data['contents']?['twoColumnSearchResultsRenderer']?['primaryContents']?['sectionListRenderer']?['contents'] as List?;
+                if (contents != null) {
+                  for (var section in contents) {
+                    if (section['itemSectionRenderer'] != null) {
+                      final items = section['itemSectionRenderer']['contents'] as List?;
+                      if (items != null) {
+                        for (var item in items) {
+                          if (item['videoRenderer'] != null) {
+                            return item['videoRenderer']['videoId'];
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              } catch (e) {
+                print('JSON parse error ytInitialData: $e');
+              }
+            }
+          }
+          
+          // No regex fallback! It hits Ads.
         }
-      }
     } catch (e) {
       print('PhimApi YouTube scrape error: $e');
     }
@@ -1794,4 +1937,5 @@ class PhimApi {
     return [];
   }
 }
+
 

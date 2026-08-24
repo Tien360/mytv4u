@@ -1,6 +1,7 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../models/movie.dart';
+import 'film4k_proxy.dart';
 
 class Film4kNetApi {
   static const String baseUrl = 'https://film4k.net/api';
@@ -102,7 +103,7 @@ class Film4kNetApi {
             Episode(
               name: 'Full',
               slug: 'full',
-              m3u8Url: buildFullUrl(movieData['hlsUrl']),
+              m3u8Url: Film4kProxy.processUrl(buildFullUrl(movieData['hlsUrl'])),
               embedUrl: '',
             ),
           ];
@@ -116,7 +117,7 @@ class Film4kNetApi {
                 Episode(
                   name: 'Full',
                   slug: 'full',
-                  m3u8Url: buildFullUrl(url),
+                  m3u8Url: Film4kProxy.processUrl(buildFullUrl(url)),
                   embedUrl: '',
                 ),
               );
@@ -138,7 +139,7 @@ class Film4kNetApi {
                 Episode(
                   name: epName,
                   slug: '-',
-                  m3u8Url: buildFullUrl(url),
+                  m3u8Url: Film4kProxy.processUrl(buildFullUrl(url)),
                   embedUrl: '',
                 ),
               );

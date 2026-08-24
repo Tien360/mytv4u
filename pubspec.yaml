@@ -33,6 +33,9 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  confetti: ^0.7.0
+  flutter_animate: ^4.5.0
+  lottie: ^3.1.2
   cupertino_icons: ^1.0.8
   media_kit: ^1.2.6
   media_kit_video: ^2.0.1
@@ -83,6 +86,8 @@ flutter:
     - assets/logo.png
     - assets/intro-sound.mp3
     - assets/langs/
+    - assets/lottie/
+    - assets/easter/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

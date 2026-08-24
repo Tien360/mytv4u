@@ -30,11 +30,26 @@ class L10n {
 
   static String t(String key, [Map<String, String>? params]) {
     String text = _localizedStrings[key] ?? key;
+    if (text == key && currentLang == 'vi') {
+      if (key == 'trailer_stop') text = 'Dừng Trailer';
+      if (key == 'trailer_search') text = 'Tìm Trailer';
+      if (key == 'trailer_replay') text = 'Phát lại Trailer';
+      if (key == 'trailer_play') text = 'Phát Trailer';
+    }
+
     if (params != null) {
       params.forEach((k, v) {
         text = text.replaceAll('{$k}', v);
       });
     }
     return text;
+  }
+
+  static List<String> tList(String key) {
+    var val = _localizedStrings[key];
+    if (val is List) {
+      return val.map((e) => e.toString()).toList();
+    }
+    return [t(key)];
   }
 }

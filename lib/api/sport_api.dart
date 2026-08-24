@@ -29,7 +29,7 @@ class SportApi {
 
           final statusBadge = btn.querySelector('.status-badge');
           String status = 'Sắp diễn ra';
-          if (statusBadge != null && statusBadge.text.toLowerCase().contains('live')) {
+          if (statusBadge != null && statusBadge.classes.contains('status-live')) {
             status = 'Live';
           }
           
@@ -52,4 +52,18 @@ class SportApi {
     }
     return [];
   }
+
+  static Future<LivescoreData?> getLiveScores() async {
+    try {
+      final res = await http.get(Uri.parse('https://tinhlagi.pro/sport/livescore_data.json?t=${DateTime.now().millisecondsSinceEpoch}'));
+      if (res.statusCode == 200) {
+        final decoded = json.decode(res.body);
+        return LivescoreData.fromJson(decoded);
+      }
+    } catch (e) {
+      print('Error getting live scores: $e');
+    }
+    return null;
+  }
 }
+

@@ -10,6 +10,7 @@ import 'tv_screen.dart';
 import 'library_screen.dart';
 import 'sport_screen.dart';
 import '../widgets/glass_container.dart';
+import '../widgets/ambient_background.dart';
 import '../widgets/custom_title_bar.dart';
 import 'package:window_manager/window_manager.dart';
 import '../api/stremio_server.dart';
@@ -194,7 +195,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
       body: Stack(
         children: [
           // Background Black
-          Container(color: const Color(0xFF000000)),
+          const AmbientBackground(),
 
           // Main Content
           AnimatedPositioned(

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../utils/l10n.dart';
 import 'package:flutter/gestures.dart';
@@ -9,6 +10,7 @@ import '../api/phim_api.dart';
 import '../api/auth_api.dart';
 import '../api/firebase_api.dart';
 import '../api/cinemeta_api.dart';
+import '../widgets/ambient_background.dart';
 import '../widgets/glass_search_bar.dart';
 import '../widgets/hover_movie_card.dart';
 import 'movie_detail_screen.dart';
@@ -30,7 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _historyScrollController = ScrollController();
   Timer? _heroTimer;
   List<Movie> _heroMovies = [];
-  Map<String, String> _heroLogos = {};
+  Map<String, TmdbLogoInfo> _heroLogos = {};
   int _currentHeroIndex = 0;
   bool _isLoadingHero = true;
   bool _isLoggedIn = false;
@@ -119,6 +121,7 @@ class _HomeScreenState extends State<HomeScreen> {
         setState(() {
           _heroMovies = selected;
           _isLoadingHero = false;
+          _updateAmbientBackground();
         });
         _startHeroTimer();
 
@@ -133,11 +136,25 @@ class _HomeScreenState extends State<HomeScreen> {
             m.year,
             isTvSeries,
           );
-          if (mounted && backdrop != null && backdrop.isNotEmpty) {
-            setState(() {
-              _heroMovies[i] = m.copyWith(posterUrl: backdrop);
-            });
-          }
+            
+            final logoInfo = await PhimApi.getMovieTmdbLogo(
+              m.name,
+              m.originalName,
+              m.year,
+              isTvSeries,
+              L10n.currentLang,
+            );
+            
+            if (mounted) {
+              setState(() {
+                if (backdrop != null && backdrop.isNotEmpty) {
+                  _heroMovies[i] = m.copyWith(posterUrl: backdrop);
+                }
+                if (logoInfo != null && logoInfo.url != null) {
+                  _heroLogos[m.slug] = logoInfo;
+                }
+              });
+            }
         }
       }
     } catch (e) {
@@ -147,12 +164,21 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
+  void _updateAmbientBackground() {
+    if (_heroMovies.isNotEmpty) {
+      globalAmbientImageUrl.value = _heroMovies[_currentHeroIndex].posterUrl.isNotEmpty 
+          ? _heroMovies[_currentHeroIndex].posterUrl 
+          : _heroMovies[_currentHeroIndex].thumbUrl;
+    }
+  }
+
   void _startHeroTimer() {
     _heroTimer?.cancel();
-    _heroTimer = Timer.periodic(const Duration(seconds: 8), (timer) {
+    _heroTimer = Timer.periodic(const Duration(seconds: 15), (timer) {
       if (_heroMovies.isNotEmpty && mounted) {
         setState(() {
           _currentHeroIndex = (_currentHeroIndex + 1) % _heroMovies.length;
+          _updateAmbientBackground();
         });
       }
     });
@@ -279,15 +305,17 @@ class _HomeScreenState extends State<HomeScreen> {
               pointerSignal.scrollDelta.dx > 0) {
             setState(() {
               _currentHeroIndex = (_currentHeroIndex + 1) % _heroMovies.length;
-            });
+          _updateAmbientBackground();
+        });
             _startHeroTimer();
           } else if (pointerSignal.scrollDelta.dy < 0 ||
               pointerSignal.scrollDelta.dx < 0) {
             setState(() {
               _currentHeroIndex =
-                  (_currentHeroIndex - 1 + _heroMovies.length) %
-                  _heroMovies.length;
-            });
+                    (_currentHeroIndex - 1 + _heroMovies.length) %
+                    _heroMovies.length;
+                _updateAmbientBackground();
+              });
             _startHeroTimer();
           }
         }
@@ -377,57 +405,108 @@ class _HomeScreenState extends State<HomeScreen> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       // Title / Logo
-                                      if (_heroLogos[_heroMovies[_currentHeroIndex]
-                                              .slug] !=
-                                          null)
-                                        Container(
-                                          constraints: const BoxConstraints(
-                                            maxHeight: 120,
-                                            maxWidth: 400,
-                                          ),
-                                          alignment: Alignment.centerLeft,
-                                          child: Image.network(
-                                            _heroLogos[_heroMovies[_currentHeroIndex]
-                                                .slug]!,
-                                            fit: BoxFit.contain,
-                                            alignment: Alignment.centerLeft,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                                  return Text(
-                                                    _heroMovies[_currentHeroIndex]
-                                                        .displayName,
+                                        Builder(
+                                          builder: (context) {
+                                            final currentHero = _heroMovies[_currentHeroIndex];
+                                            final logoInfo = _heroLogos[currentHero.slug];
+                                            String mainTitle = currentHero.name;
+                                            String subTitle = currentHero.originalName;
+                                            
+                                            if (logoInfo != null) {
+                                              if (L10n.currentLang == 'en') {
+                                                mainTitle = logoInfo.tmdbEnName;
+                                                subTitle = logoInfo.tmdbOriginalName;
+                                              } else {
+                                                subTitle = logoInfo.tmdbEnName;
+                                              }
+                                            } else {
+                                              if (L10n.currentLang == 'en') {
+                                                mainTitle = currentHero.originalName;
+                                              }
+                                            }
+                                            
+                                            bool showMainTitle = true;
+                                            bool showSubTitle = subTitle.isNotEmpty && subTitle != mainTitle;
+                                            
+                                            if (logoInfo?.url != null) {
+                                              if (logoInfo!.lang == 'none') {
+                                                showMainTitle = true;
+                                              } else {
+                                                showMainTitle = false;
+                                                if (L10n.currentLang == 'vi' && logoInfo.lang == 'en') {
+                                                  showMainTitle = true;
+                                                  showSubTitle = false;
+                                                }
+                                              }
+                                            }
+
+                                            return Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                if (logoInfo?.url != null)
+                                                  Container(
+                                                    constraints: const BoxConstraints(maxHeight: 120, maxWidth: 400),
+                                                    alignment: Alignment.centerLeft,
+                                                    margin: EdgeInsets.only(bottom: showMainTitle ? 12 : 8),
+                                                    child: Stack(
+                                                      alignment: Alignment.centerLeft,
+                                                      children: [
+                                                        ImageFiltered(
+                                                          imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                                                          child: Image.network(
+                                                            logoInfo!.url!,
+                                                            fit: BoxFit.contain,
+                                                            alignment: Alignment.centerLeft,
+                                                            color: Colors.white.withOpacity(0.7),
+                                                            errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                                                          ),
+                                                        ),
+                                                        Transform.translate(
+                                                          offset: const Offset(2, 3),
+                                                          child: Image.network(
+                                                            logoInfo!.url!,
+                                                            fit: BoxFit.contain,
+                                                            alignment: Alignment.centerLeft,
+                                                            color: Colors.black.withOpacity(0.8),
+                                                            errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                                                          ),
+                                                        ),
+                                                        Image.network(
+                                                          logoInfo!.url!,
+                                                          fit: BoxFit.contain,
+                                                          alignment: Alignment.centerLeft,
+                                                          errorBuilder: (context, error, stackTrace) => const SizedBox(),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                if (showMainTitle)
+                                                  Text(
+                                                    mainTitle,
                                                     style: const TextStyle(
                                                       color: Colors.white,
                                                       fontSize: 40,
-                                                      fontWeight:
-                                                          FontWeight.bold,
+                                                      fontWeight: FontWeight.bold,
                                                       height: 1.1,
+                                                      shadows: [Shadow(color: Colors.black87, blurRadius: 10)],
                                                     ),
-                                                  );
-                                                },
-                                          ),
-                                        )
-                                      else
-                                        Text(
-                                          _heroMovies[_currentHeroIndex]
-                                              .displayName,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 40,
-                                            fontWeight: FontWeight.bold,
-                                            height: 1.1,
-                                          ),
+                                                  ),
+                                                if (showSubTitle) ...[
+                                                  const SizedBox(height: 4),
+                                                  Text(
+                                                    subTitle,
+                                                    style: const TextStyle(
+                                                      color: Colors.white70,
+                                                      fontSize: 20,
+                                                      fontWeight: FontWeight.w500,
+                                                      shadows: [Shadow(color: Colors.black87, blurRadius: 6)],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ],
+                                            );
+                                          },
                                         ),
-                                      const SizedBox(height: 8),
-                                      // Original Name
-                                      Text(
-                                        _heroMovies[_currentHeroIndex]
-                                            .originalName,
-                                        style: TextStyle(
-                                          color: Colors.white.withOpacity(0.8),
-                                          fontSize: 16,
-                                        ),
-                                      ),
                                       const SizedBox(height: 16),
                                       // Tags
                                       Row(
@@ -599,6 +678,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onTap: () {
                                         setState(() {
                                           _currentHeroIndex = index;
+                                          _updateAmbientBackground();
                                         });
                                         _startHeroTimer(); // Reset timer when clicked
                                       },

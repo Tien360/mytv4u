@@ -1,26 +1,21 @@
 ﻿import re
 
-with open('lib/screens/library_screen.dart', 'r', encoding='utf-8') as f:
+with open("lib/screens/movie_detail_screen.dart", "r", encoding="utf-8") as f:
     content = f.read()
 
-# The missing brackets should be right before:
-#                 ],
-#               ),
-#             ),
-#             Expanded(
+# Fix 1: _tmdbRating assignment
+content = content.replace(
+    "_tmdbRating = (details['vote_average'] as num).toDouble();",
+    "_tmdbRating = (details['vote_average'] as num).toStringAsFixed(1);"
+)
 
-fix = """
-                      } catch (e) {
-                        print("File picker error: " + e.toString());
-                      }
-                    },
-                  ),
-                  ],
-                  ),
-"""
+# Fix 2: MovieDetailScreen instantiation
+content = content.replace(
+    "MovieDetailScreen(initialMovie: bestMatch)",
+    "MovieDetailScreen(slug: bestMatch.slug, initialMovie: bestMatch)"
+)
 
-content = re.sub(r'\}\s*catch\s*\(e\)\s*\{\s*print\("File picker error: "\s*\+\s*e\.toString\(\)\);\s*\}\s*\},?\s*\),?', fix, content)
-
-with open('lib/screens/library_screen.dart', 'w', encoding='utf-8') as f:
+with open("lib/screens/movie_detail_screen.dart", "w", encoding="utf-8") as f:
     f.write(content)
-print("Fixed syntax")
+
+print("Fixed syntax errors")
