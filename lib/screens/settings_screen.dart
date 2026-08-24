@@ -578,6 +578,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                             });
                                           },
                                         ),
+                                          const Divider(color: Colors.white12),
+                                          SwitchListTile(
+                                            title: Text(L10n.t('easter_eggs_toggle') ?? 'Bật Hiệu ứng Tương tác', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                            subtitle: Text(L10n.t('easter_eggs_desc') ?? 'Nhấn vào dòng trạng thái tập mới ở phim để quay thưởng hiệu ứng! Có 4 bậc từ Phổ thông đến Huyền thoại (1%).', style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                                            secondary: const Icon(Icons.celebration, color: Colors.white70),
+                                            value: _easterEggsEnabled,
+                                            activeColor: Colors.amber,
+                                            onChanged: (v) async {
+                                              setState(() => _easterEggsEnabled = v);
+                                              final p = await SharedPreferences.getInstance();
+                                              await p.setBool('enable_easter_eggs', v);
+                                            },
+                                          ),
                                       ],
                                     ),
                                   ),
@@ -1319,22 +1332,7 @@ SwitchListTile(
 
                                   
                                     const SizedBox(height: 16),
-                                    _buildSectionTitle(
-                                      Icons.auto_awesome,
-                                      L10n.t('easter_eggs_title') ?? 'Hieu ung Tuong tac (Easter Eggs)',
-                                    ),
-                                    const SizedBox(height: 8),
-                                    _buildSettingToggle(
-                                      icon: Icons.celebration,
-                                      title: L10n.t('easter_eggs_toggle') ?? 'Bat Hieu ung Trung Phuc Sinh',
-                                      subtitle: L10n.t('easter_eggs_desc') ?? 'Nhan vao dong trang thai tap moi o moi phim de quay thuong hieu ung! Co 4 bac tu Pho thong den Huyen thoai (1%). Chuc ban may man!',
-                                      value: _easterEggsEnabled,
-                                      onChanged: (v) async {
-                                        setState(() => _easterEggsEnabled = v);
-                                        final p = await SharedPreferences.getInstance();
-                                        await p.setBool('enable_easter_eggs', v);
-                                      },
-                                    ),
+                                    
                                     SizedBox(key: _infoKey),
                                   _buildSectionTitle(
                                     Icons.info_outline,
