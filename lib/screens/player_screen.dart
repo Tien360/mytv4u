@@ -896,13 +896,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
           // Go back to previous screen automatically when player is closed
           if (mounted) {
-            if (widget.lazyPlaylistUrl != null || _episodes.length > 1) {
-              if (_autoNext && _currentIndex + 1 < _episodes.length) {
-                _playNextEpisode();
-              }
-            } else {
-              Navigator.pop(context);
-            }
+            Navigator.pop(context);
           }
           return;
         } catch (e) {
