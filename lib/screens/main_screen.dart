@@ -332,10 +332,29 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                         ),
                         const SizedBox(height: 8),
                         _buildNavItem(
-                          Icons.folder_outlined,
-                          Icons.folder,
-                          L10n.t('nav_library') ?? 'Thư viện',
+
+                          Icons.videogame_asset_outlined,
+
+                          Icons.videogame_asset,
+
+                          L10n.t('nav_gaming') ?? 'Trò chơi',
+
                           5,
+
+                        ),
+
+                        const SizedBox(height: 8),
+
+                        _buildNavItem(
+
+                          Icons.folder_outlined,
+
+                          Icons.folder,
+
+                          L10n.t('nav_library') ?? 'Thư viện',
+
+                          6,
+
                         ),
                       ],
                     ),

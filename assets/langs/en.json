@@ -729,5 +729,7 @@
   "audio_vinyl_desc": "Simulate spinning vinyl record",
   "audio_sleep_timer": "Sleep Timer (Minutes)",
   "timer_off": "Off",
-  "player_settings": "Video Player"
+  "player_settings": "Video Player",
+  "nav_gaming": "Gaming",
+  "game_webview_player": "Game WebView Player"
 }

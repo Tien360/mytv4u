@@ -1,74 +1,36 @@
 ﻿import sys
-sys.stdout.reconfigure(encoding='utf-8')
-with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+with open("lib/screens/main_screen.dart", "r", encoding="utf-8") as f:
     content = f.read()
 
-# I will just replace the whole _buildSidebarMenu()
-new_sidebar = """  Widget _buildSidebarMenu() {
-    return ListView(
-      padding: const EdgeInsets.symmetric(vertical: 24),
-      children: [
-        _buildSidebarItem(
-          L10n.t('sync_account') ?? 'Tài khoản',
-          Icons.account_circle,
-          _accountKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('health_utilities') ?? 'Hệ thống',
-          Icons.settings_suggest,
-          _systemKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('language_settings') ?? 'Ngôn ngữ',
-          Icons.language,
-          _languageKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('player_settings') ?? 'Trình phát Phim',
-          Icons.play_circle_filled,
-          _videoKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('audio_player_title') ?? 'Trình phát Nhạc',
-          Icons.music_note,
-          _audioKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('sources') ?? 'Nguồn phim',
-          Icons.source,
-          _sourcesKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('global_color_settings') ?? 'Màu sắc',
-          Icons.color_lens,
-          _colorKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('subtitles') ?? 'Phụ đề',
-          Icons.subtitles,
-          _subtitleKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('keyboard_shortcuts') ?? 'Phím tắt',
-          Icons.keyboard,
-          _shortcutsKey,
-        ),
-        _buildSidebarItem(
-          L10n.t('info_contact') ?? 'Thông tin',
-          Icons.info_outline,
-          _infoKey,
-        ),
-      ],
-    );
-  }"""
+old_sidebar = """                          _buildNavItem(
+                            Icons.folder_outlined,
+                            Icons.folder,
+                            L10n.t('nav_library') ?? 'Thư viện',
+                            5,
+                          ),"""
+new_sidebar = """                          _buildNavItem(
+                            Icons.videogame_asset_outlined,
+                            Icons.videogame_asset,
+                            L10n.t('nav_gaming') ?? 'Trò chơi',
+                            5,
+                          ),
+                          const SizedBox(height: 8),
+                          _buildNavItem(
+                            Icons.folder_outlined,
+                            Icons.folder,
+                            L10n.t('nav_library') ?? 'Thư viện',
+                            6,
+                          ),"""
 
+# Using regex or simpler replace
 import re
-match = re.search(r'Widget _buildSidebarMenu\(\) \{.*?\n  \}', content, re.DOTALL)
-if match:
-    content = content[:match.start()] + new_sidebar + content[match.end():]
-    print("Replaced sidebar!")
-else:
-    print("Could not find sidebar")
-    
-with open('lib/screens/settings_screen.dart', 'w', encoding='utf-8') as f:
+content = re.sub(
+    r"(\s*)_buildNavItem\(\s*Icons\.folder_outlined,\s*Icons\.folder,\s*L10n\.t\('nav_library'\) \?\? 'Thư viện',\s*5,\s*\),",
+    r"\1_buildNavItem(\n\1  Icons.videogame_asset_outlined,\n\1  Icons.videogame_asset,\n\1  L10n.t('nav_gaming') ?? 'Trò chơi',\n\1  5,\n\1),\n\1const SizedBox(height: 8),\n\1_buildNavItem(\n\1  Icons.folder_outlined,\n\1  Icons.folder,\n\1  L10n.t('nav_library') ?? 'Thư viện',\n\1  6,\n\1),",
+    content
+)
+
+with open("lib/screens/main_screen.dart", "w", encoding="utf-8") as f:
     f.write(content)
+print("Patched main_screen")

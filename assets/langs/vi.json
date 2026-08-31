@@ -731,5 +731,7 @@
   "audio_vinyl_desc": "Mô phỏng đĩa than xoay khi phát nhạc",
   "audio_sleep_timer": "Hẹn giờ tắt (Phút)",
   "timer_off": "Tắt",
-  "player_settings": "Trình phát Phim"
+  "player_settings": "Trình phát Phim",
+  "nav_gaming": "Trò chơi",
+  "game_webview_player": "Trình phát Game WebView"
 }
