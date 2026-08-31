@@ -6,7 +6,8 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import '../widgets/glass_container.dart';
 import '../utils/l10n.dart';
-import 'game_webview_screen.dart';
+import 'player_screen.dart';
+import '../models/movie.dart';
 
 class GamingScreen extends StatefulWidget {
   const GamingScreen({Key? key}) : super(key: key);
@@ -23,7 +24,7 @@ class _GamingScreenState extends State<GamingScreen> {
     {
       'title': 'Stealth Master',
       'url': 'https://www.youtube.com/playables/UgkxAa2Gygx3bQRx4kOraVwUFW_3mO1tH0h5',
-      'image': 'https://play-lh.googleusercontent.com/D4s3L2P-uA6l2Qh6bTz7H2lXq7S1j-K3J_Y5_8T-M0D0sM-s1QZ0Y-7L0X0B_6F2W2U=w512-h512',
+      'image': 'https://img.utdstc.com/icon/e19/39f/e1939faab6c7d1f1f1e53674c5b703f69c75ff345494a3c55b1d60e9f7014fdf:600',
     }
   ];
 
@@ -128,7 +129,19 @@ class _GamingScreenState extends State<GamingScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => GameWebViewScreen(title: title, webUrl: url),
+        builder: (context) => PlayerScreen(
+          movieName: title,
+          episodes: [
+            Episode(
+              name: title,
+              slug: 'game',
+              m3u8Url: '',
+              embedUrl: url,
+            )
+          ],
+          currentEpisodeIndex: 0,
+          isLive: true,
+        ),
       ),
     );
   }
