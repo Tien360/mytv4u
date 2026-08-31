@@ -1,0 +1,74 @@
+### Kênh mới cần bổ sung:
+- VTVPrime 1 (Nhóm: TV)
+- VTVPrime 2 (Nhóm: TV)
+- VTVPrime 3 (Nhóm: TV)
+- VTVPrime 4 (Nhóm: TV)
+- VTVPrime 5 (Nhóm: TV)
+- VTVPrime 6 (Nhóm: TV)
+- VTVPrime 7 (Nhóm: TV)
+- VTVPrime 8 (Nhóm: TV)
+- VTVPrime 9 (Nhóm: TV)
+- VTVPrime 10 (Nhóm: TV)
+- VTVPrime 11 (Nhóm: TV)
+- VTVPrime 12 (Nhóm: TV)
+- VTV6 (Nhóm: TV)
+- SCTV1 (Nhóm: TV)
+- SCTV3 (Nhóm: TV)
+- SCTV4 (Nhóm: TV)
+- SCTV5 (Nhóm: TV)
+- SCTV7 (Nhóm: TV)
+- SCTV8 (Nhóm: TV)
+- SCTV9 (Nhóm: TV)
+- SCTV10 (Nhóm: TV)
+- SCTV11 (Nhóm: TV)
+- SCTV12 (Nhóm: TV)
+- SCTV13 (Nhóm: TV)
+- SCTV14 (Nhóm: TV)
+- SCTV15 (Nhóm: TV)
+- SCTV16 (Nhóm: TV)
+- SCTV17 (Nhóm: TV)
+- SCTV18 (Nhóm: TV)
+- SCTV19 (Nhóm: TV)
+- SCTV Phim Tổng Hợp (Nhóm: TV)
+- SCTV4K (Nhóm: TV)
+- HTV2 - Vie Channel (Nhóm: TV)
+- HTV5 - B Channel (Nhóm: TV)
+- HTVC Thuần Việt (Nhóm: TV)
+- HTVC Gia đình HD (Nhóm: TV)
+- HTVC Phụ nữ HD (Nhóm: TV)
+- HTVC Du lịch Cuộc sống HD (Nhóm: TV)
+- HTVC Ca nhạc HD (Nhóm: TV)
+- HTVC Plus HD (Nhóm: TV)
+- THVL1 - Báo và PTTH Vĩnh Long (Nhóm: TV)
+- THVL2 - Báo và PTTH Vĩnh Long (Nhóm: TV)
+- THVL3 - Báo và PTTH Vĩnh Long (Nhóm: TV)
+- THVL5 - Báo và PTTH Vĩnh Long (Nhóm: TV)
+
+### Kênh cần cập nhật Logo:
+- vtv1 -> VTV1
+- vtv2 -> VTV2
+- vtv3 -> VTV3
+- vtv4 -> VTV4
+- vtv5 -> VTV5
+- vtv5tnb -> VTV5 Tây Nam Bộ
+- vtv5tn -> VTV5 Tây Nguyên
+- vtv7 -> VTV7
+- vtv8 -> VTV8
+- vtv9 -> VTV9
+- vtv10 -> VTV10
+- htvtt -> HTV Thể Thao
+- antv -> ANTV HD
+- qpvn -> QPVN HD
+- sctv6 -> SCTV6
+- outdoor -> Outdoor Channel
+- history -> History HD
+- kix -> KIX HD
+- hgtv -> HGTV
+- davinci -> Da Vinci HD
+- cnbc -> CNBC
+- tv5monde -> TV5Monde
+- nhkworld -> NHK World
+- arirang -> Arirang
+- bloomberg -> Bloomberg
+- fashiontv -> Fashion TV
+- vietnamtoday -> Vietnam Today

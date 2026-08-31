@@ -1,0 +1,50 @@
+751:                                   ),
+752:                                   const SizedBox(height: 16),
+753:                                   GlassContainer(
+754:                                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+755:                                     child: Column(
+756:                                       children: [
+757:                                         ListTile(
+758:                                           contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+759:                                           leading: const Icon(Icons.graphic_eq, color: Colors.white),
+760:                                           title: Text(L10n.t('visualizer_type') ?? 'Kiểu sóng âm', style: const TextStyle(color: Colors.white)),
+761:                                           trailing: DropdownButton<String>(
+762:                                             dropdownColor: Colors.grey[900],
+763:                                             value: ['none', 'inline', 'bars', 'circle'].contains(_prefs?.getString('audio_visualizer')) ? _prefs?.getString('audio_visualizer') : 'bars',
+764:                                             underline: const SizedBox(),
+765:                                             items: [
+766:                                               DropdownMenuItem(value: 'none', child: Text(L10n.t('viz_none') ?? 'Tắt', style: const TextStyle(color: Colors.white))),
+767:                                               DropdownMenuItem(value: 'inline', child: Text(L10n.t('viz_inline') ?? 'Nhỏ (cạnh tên)', style: const TextStyle(color: Colors.white))),
+768:                                               DropdownMenuItem(value: 'bars', child: Text(L10n.t('viz_bars') ?? 'Lớn (dưới ảnh)', style: const TextStyle(color: Colors.white))),
+769:                                               DropdownMenuItem(value: 'circle', child: Text(L10n.t('viz_circle') ?? 'Vòng tròn đĩa', style: const TextStyle(color: Colors.white))),
+770:                                             ],
+771:                                             onChanged: (val) {
+772:                                               if (val != null) {
+773:                                                 _prefs?.setString('audio_visualizer', val);
+774:                                                 setState(() {});
+775:                                                 _syncToFirebase();
+776:                                               }
+777:                                             },
+778:                                           ),
+779:                                         ),
+780:                                         const Divider(color: Colors.white12, height: 32),
+781:                                         ListTile(
+782:                                           contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+783:                                           leading: const Icon(Icons.album, color: Colors.white),
+784:                                           title: Text(L10n.t('vinyl_effect') ?? 'Hiệu ứng Đĩa than', style: const TextStyle(color: Colors.white)),
+785:                                           trailing: Switch(
+786:                                             value: _prefs?.getBool('audio_vinyl') ?? true,
+787:                                             activeColor: Colors.blueAccent,
+788:                                             onChanged: (val) {
+789:                                               _prefs?.setBool('audio_vinyl', val);
+790:                                               setState(() {});
+791:                                               _syncToFirebase();
+792:                                             },
+793:                                           ),
+794:                                           const Divider(color: Colors.white12),
+795:                                           SwitchListTile(
+796:                                             contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+797:                                             title: Text(L10n.t('auto_next_ep') ?? 'Tự động chuyển tập', style: const TextStyle(color: Colors.white)),
+798:                                             value: _autoNext,
+799:                                             activeColor: Colors.blueAccent,
+800:                                             onChanged: (val) async {

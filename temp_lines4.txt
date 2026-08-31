@@ -1,0 +1,15 @@
+786:                                             value: _prefs?.getBool('audio_vinyl') ?? true,
+787:                                             activeColor: Colors.blueAccent,
+788:                                             onChanged: (val) {
+789:                                               _prefs?.setBool('audio_vinyl', val);
+790:                                               setState(() {});
+791:                                               _syncToFirebase();
+792:                                             },
+793:                                           ),
+794:                                           const Divider(color: Colors.white12),
+795:                                           SwitchListTile(
+796:                                             contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+797:                                             title: Text(L10n.t('auto_next_ep') ?? 'Tự động chuyển tập', style: const TextStyle(color: Colors.white)),
+798:                                             value: _autoNext,
+799:                                             activeColor: Colors.blueAccent,
+800:                                             onChanged: (val) async {

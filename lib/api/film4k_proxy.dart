@@ -1,10 +1,12 @@
 ﻿import 'dart:io';
 import 'dart:async';
+import 'dart:math';
 import 'package:http/http.dart' as http;
 
 class Film4kProxy {
   static HttpServer? _server;
   static int _port = 0;
+  static final http.Client _sharedClient = http.Client();
 
   static Future<void> start() async {
     if (_server != null) return;
@@ -19,10 +21,12 @@ class Film4kProxy {
       if (path.startsWith('/api/hls/')) {
         final url = 'https://film4k.net${request.uri.toString()}';
         try {
-          final response = await http.get(Uri.parse(url), headers: {'User-Agent': 'Mozilla/5.0'});
+          final requestHttp = http.Request('GET', Uri.parse(url));
+          requestHttp.headers['User-Agent'] = 'Mozilla/5.0';
+          final streamedResponse = await _sharedClient.send(requestHttp);
           
-          if (response.statusCode == 200) {
-            String content = response.body;
+          if (streamedResponse.statusCode == 200) {
+            String content = await streamedResponse.stream.bytesToString();
             content = content.replaceAllMapped(RegExp(r'https://[^"\n\r]+'), (match) {
               final original = match.group(0)!;
               if (original.contains('tiktokcdn.com')) {
@@ -31,6 +35,7 @@ class Film4kProxy {
               return original;
             });
             content = content.replaceAll('https://film4k.net/api/hls/', 'http://localhost:$_port/api/hls/');
+            content = content.replaceAll('URI="/api/hls/', 'URI="http://localhost:$_port/api/hls/');
             
             request.response.statusCode = 200;
             request.response.headers.add('Access-Control-Allow-Origin', '*');
@@ -38,7 +43,7 @@ class Film4kProxy {
             request.response.write(content);
             await request.response.close();
           } else {
-            request.response.statusCode = response.statusCode;
+            request.response.statusCode = streamedResponse.statusCode;
             await request.response.close();
           }
         } catch (e) {
@@ -54,16 +59,14 @@ class Film4kProxy {
         }
         
         try {
-          final client = http.Client();
           final requestHttp = http.Request('GET', Uri.parse(realUrl));
           requestHttp.headers['User-Agent'] = 'Mozilla/5.0';
           
-          final streamedResponse = await client.send(requestHttp);
+          final streamedResponse = await _sharedClient.send(requestHttp);
           
           if (streamedResponse.statusCode == 200 || streamedResponse.statusCode == 206) {
             request.response.statusCode = 200;
             request.response.headers.add('Access-Control-Allow-Origin', '*');
-            // Allow media_kit to infer from the stream or URL
             request.response.headers.contentType = ContentType.parse('application/octet-stream');
             
             List<int> buffer = [];
@@ -75,10 +78,8 @@ class Film4kProxy {
             
             request.response.done.then((_) {
               sub?.cancel();
-              client.close();
             }).catchError((_) {
               sub?.cancel();
-              client.close();
             });
 
             sub = streamedResponse.stream.listen((chunk) {
@@ -87,14 +88,14 @@ class Film4kProxy {
                   request.response.add(chunk);
                 } catch (_) {
                   sub?.cancel();
-                  client.close();
                 }
               } else {
                 buffer.addAll(chunk);
                 
                 if (isPngStego) {
                   int idx = -1;
-                  for (int i = 0; i <= buffer.length - 8; i++) {
+                  int startIdx = max(0, buffer.length - chunk.length - 8);
+                  for (int i = startIdx; i <= buffer.length - 8; i++) {
                     bool match = true;
                     for (int j = 0; j < 8; j++) {
                       if (buffer[i + j] != iend[j]) {
@@ -114,18 +115,15 @@ class Film4kProxy {
                       request.response.add(buffer.sublist(idx + 8));
                     } catch (_) {
                       sub?.cancel();
-                      client.close();
                     }
                     buffer.clear();
                   } else if (buffer.length > 50 * 1024) {
-                    // If no PNG header found within first 50KB, it is a normal file!
                     isPngStego = false;
                     headerSkipped = true;
                     try {
                       request.response.add(buffer);
                     } catch (_) {
                       sub?.cancel();
-                      client.close();
                     }
                     buffer.clear();
                   }
@@ -138,16 +136,13 @@ class Film4kProxy {
                 }
                 await request.response.close();
               } catch (_) {}
-              client.close();
             }, onError: (e) {
               try { request.response.close(); } catch (_) {}
-              client.close();
             });
             
           } else {
             request.response.statusCode = streamedResponse.statusCode;
             await request.response.close();
-            client.close();
           }
         } catch (e) {
           try {

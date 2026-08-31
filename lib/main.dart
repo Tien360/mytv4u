@@ -16,12 +16,17 @@ import 'api/film4k_proxy.dart';
 import 'utils/l10n.dart';
 import 'utils/system_utils.dart';
 import 'addons/addon_manager.dart';
+import 'globals.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main(List<String> args) async {
   WidgetsFlutterBinding.ensureInitialized();
   
   // Khởi tạo đa ngôn ngữ
   await L10n.load();
+  final prefs = await SharedPreferences.getInstance();
+  isMinimalistUi.value = prefs.getBool('minimalist_ui') ?? false;
+  
   await initAmbientSettings();
 
   // Khởi tạo Addon Manager

@@ -24,6 +24,10 @@ void main(List<String> args) async {
 
   await autoTranslate();
 
+  print('[0/6] Tải công cụ lõi yt-dlp...');
+  final ytRes = await Process.run('dart', ['run', 'tools/download_ytdlp.dart']);
+  print(ytRes.stdout);
+
   // 1. CÃ¡ÂºÂ­p nhÃ¡ÂºÂ­t lib/api/update_api.dart
   print('[1/6] Ã„Âang cÃ¡ÂºÂ­p nhÃ¡ÂºÂ­t mÃƒÂ£ nguÃ¡Â»â€œn Dart...');
   final updateApiFile = File('lib/api/update_api.dart');
@@ -129,7 +133,7 @@ void main(List<String> args) async {
   print('[5/6] Ã„ ang Ã„â€˜Ã¡ÂºÂ©y lÃƒÂªn GitHub...');
 
   final ghPath = 'gh';
-  if (File(ghPath).existsSync()) {
+  if (true) {
     bool isBeta = version.contains('.beta');
     List<String> ghArgs = [
       'release', 'create', version, setupExePath, 

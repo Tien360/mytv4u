@@ -1,0 +1,63 @@
+1. [vtv1] VTV1 HD
+2. [vtv2] VTV2 HD
+3. [vtv3] VTV3 HD
+4. [vtv4] VTV4 HD
+5. [vtv5] VTV5 HD
+6. [vtv5tnb] VTV5 Tây Nam Bộ
+7. [vtv5tn] VTV5 Tây Nguyên
+8. [vtv7] VTV7 HD
+9. [vtv8] VTV8 HD
+10. [vtv9] VTV9 HD
+11. [vtv10] VTV Cần Thơ
+12. [vtvcab1] VTVcab 1 - ON Vie Giải Trí
+13. [vtvcab2] VTVcab 2 - ON Phim Việt
+14. [vtvcab10] VTVcab 10 - ON Cine HD
+15. [vtvcab19] VTVcab 19 - ON Vie Dramas
+16. [vtvcab8] VTVcab 8 - ON BiBi
+17. [vtvcab4] VTVcab 4 - ON Movies HD
+18. [vtvcab5] VTVcab 5 - ON E Channel
+19. [vtvcab15] VTVcab 15 - ON Music HD
+20. [htv1] HTV1 HD
+21. [htv3] HTV3 HD
+22. [htv4] HTV4 HD
+23. [htv7] HTV7 HD
+24. [htv9] HTV9 HD
+25. [htvkey] HTV Key HD
+26. [htvtt] HTV Thể thao HD
+27. [antv] ANTV HD
+28. [qpvn] QPVN HD
+29. [sctv2] SCTV2 HD
+30. [sctv6] SCTV6 HD
+31. [danang1] Đà Nẵng TV1 HD
+32. [nghean] Nghệ An TV HD
+33. [quangngai] Quảng Ngãi TV
+34. [dongthap1] Đồng Tháp 1 HD
+35. [cantho1] Cần Thơ 1 HD
+36. [angiang1] An Giang TV1 HD
+37. [angiang2] An Giang TV2 HD
+38. [camau] Cà Mau TV
+39. [caobang] Cao Bằng TV
+40. [dienbien] Điện Biên TV
+41. [dongnai1] Đồng Nai 1
+42. [dongnai2] Đồng Nai 2
+43. [dongthap2] Đồng Tháp 2
+44. [tayninh] Tây Ninh TV
+45. [thainguyen] Thái Nguyên TV
+46. [outdoor] Outdoor Channel HD
+47. [history] History HD
+48. [kix] KIX HD
+49. [hgtv] HGTV HD
+50. [davinci] Da Vinci HD
+51. [cnbc] CNBC International
+52. [tv5monde] TV5Monde Asia HD
+53. [euronews] Euronews English HD
+54. [france24en] France 24 English HD
+55. [france24fr] France 24 Français HD
+56. [nhkworld] NHK World-Japan HD
+57. [arirang] Arirang TV HD
+58. [bbcnews] BBC News HD
+59. [bloomberg] Bloomberg TV HD
+60. [fashiontv] FashionTV Paris HD
+61. [nasatv] NASA TV HD
+62. [tvbvietnam] TVB Vietnam HD
+63. [vietnamtoday] Vietnam Today HD

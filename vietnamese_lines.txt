@@ -1,0 +1,11 @@
+80: : 'Thư viện & Yêu thích',
+93: 'Mở Link',
+117: 'Mở File',
+258: // Cập nhật lại list sau khi trở về từ Detail
+312: 'Mở đường dẫn mạng (URL)',
+324: hintText: 'Nhập link video/audio (mp4, m3u8, mp3...)',
+353: 'Đánh dấu là luồng trực tiếp (Live)',
+369: child: const Text('Hủy', style: TextStyle(color: Colors.white54, fontSize: 16)),
+380: String movieName = 'Luồng Mạng';
+402: name: 'Đang tải danh sách Mix/Playlist...',
+504: : const Text('Mở', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),

@@ -1,0 +1,332 @@
+[
+  {
+    "name": "VTVPrime 1",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT1/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 2",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT2/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 3",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT3/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 4",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT4/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 5",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT5/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 6",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT6/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 7",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT7/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 8",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT8/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 9",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT9/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 10",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livesctvng.vtvprime.vn/Live_DASHDRM1/ONSPORT10/manifest.mpd"
+  },
+  {
+    "name": "VTVPrime 11",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livevliatmcdw.seenow.vn/live/data8/SKSS1/Live_DASHDRM/SKSS1.mpd"
+  },
+  {
+    "name": "VTVPrime 12",
+    "logo": "https://vtvprime.vn/sideLogoBig.png",
+    "url": "https://livevliatmcdw.seenow.vn/live/data8/SKSS2/Live_DASHDRM/SKSS2.mpd"
+  },
+  {
+    "name": "VTV1",
+    "logo": "https://i.ytimg.com/vi/dGohEWXz7Sk/maxresdefault.jpg",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/vtv1-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV2",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV2.jpg",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/vtv2-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV3",
+    "logo": "https://i.ytimg.com/vi/4jr8Y13NSME/maxresdefault.jpg",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/vtv3-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV4",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV4.jpg",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/vtv4-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV5",
+    "logo": "https://s12811.cdn.mytvnet.vn/vimages/b5/5c/cc/c2/22/29/b5cc2-pvtv5hd-channel-unkn.png",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/vtv5-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV5 Tây Nam Bộ",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/maxresdefault.jpg",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv5tnb/live-hls-avc/vtv5tnb-avc1_4000000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV5 Tây Nguyên",
+    "logo": "https://s7730.cdn.mytvnet.vn/vimages/d4/46/61/1c/cf/f6/d461c-pvtv5tynguynhd-channel-unkn.png",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv5tn/live-hls-avc/vtv5tn-avc1_4000000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV6",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV6.png",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv6/live247-hls-avc/vtv6-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV7",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV7.png",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/vtv7-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV8",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/vtv8.jpg",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv8/live-hls-avc/vtv8-avc1_4000000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV9",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV9.png",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/vtv9-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "VTV10",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/VTV10.png",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/vtv10-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "SCTV1",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv1.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv1"
+  },
+  {
+    "name": "SCTV2 - TODAY TV",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/SCTV2TODAYTV.jpg",
+    "url": "https://freem3u.xyz/api/live/play.m3u8?vid=201"
+  },
+  {
+    "name": "SCTV3",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv3.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv3"
+  },
+  {
+    "name": "SCTV4",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv4.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv4"
+  },
+  {
+    "name": "SCTV5",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/SCTV5.jpg",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv5"
+  },
+  {
+    "name": "SCTV6",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv6.png",
+    "url": "https://live.fptplay53.net/epzhd2/film360_vhls.smil/chunklist_b5000000.m3u8"
+  },
+  {
+    "name": "SCTV7",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv7.webp",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv7"
+  },
+  {
+    "name": "SCTV8",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv8.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv8"
+  },
+  {
+    "name": "SCTV9",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/SCTV9.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv9"
+  },
+  {
+    "name": "SCTV10",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/SCTV10.jpg",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv10"
+  },
+  {
+    "name": "SCTV11",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv11.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv11"
+  },
+  {
+    "name": "SCTV12",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv12.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv12"
+  },
+  {
+    "name": "SCTV13",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv13.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv13"
+  },
+  {
+    "name": "SCTV14",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv14.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv14"
+  },
+  {
+    "name": "SCTV15",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/SCTV15.png",
+    "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV15HD/Live_DASHDRM/SCTV15HD.mpd"
+  },
+  {
+    "name": "SCTV16",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv16.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv16"
+  },
+  {
+    "name": "SCTV17",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/SCTV17.png",
+    "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV17/Live_DASHDRM/SCTV17.mpd"
+  },
+  {
+    "name": "SCTV18",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv18.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv18"
+  },
+  {
+    "name": "SCTV19",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv19.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv19"
+  },
+  {
+    "name": "SCTV20",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/SCTV20.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv20"
+  },
+  {
+    "name": "SCTV21 - Việt Nam Ký Ức",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/SCTV21.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctv21"
+  },
+  {
+    "name": "SCTV22",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/SCTV22.png",
+    "url": "https://liveatmvng.vtvprime.vn/live/data8/SCTV22/Live_DASHDRM/SCTV22.mpd"
+  },
+  {
+    "name": "SCTV Phim Tổng Hợp",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctvpth.png",
+    "url": "https://vmttv.dpdns.org/VTVGo/?sctvphim"
+  },
+  {
+    "name": "SCTV4K",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/SCTV4K.png",
+    "url": "https://vietanhtv.id.vn/sctv/sctv-4k/index.m3u8"
+  },
+  {
+    "name": "HTV1 - Đài PTTH Thành Phố Hồ Chí Minh",
+    "logo": "https://s7771.cdn.mytvnet.vn/vimages/8c/ce/ee/e7/79/98/8cee7-phtv1hd-channel-unkn.png",
+    "url": "https://freem3u.xyz/api/live/play.m3u8?vid=190"
+  },
+  {
+    "name": "HTV2 - Vie Channel",
+    "logo": "https://s7768.cdn.mytvnet.vn/vimages/a0/07/73/39/9e/e6/a0739-phtv2hd-channel-unkn.png",
+    "url": "https://freem3u.xyz/api/live/play.m3u8?vid=191"
+  },
+  {
+    "name": "HTV3 - Đài PTTH Thành Phố Hồ Chí Minh",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/HTV3.jpg",
+    "url": "https://freem3u.xyz/api/live/play.m3u8?vid=192"
+  },
+  {
+    "name": "HTV4 - Đài PTTH Thành Phố Hồ Chí Minh",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/HTV4.jpg",
+    "url": "https://freem3u.xyz/api/live/play.m3u8?vid=9"
+  },
+  {
+    "name": "HTV5 - B Channel",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/HTV5.jpg",
+    "url": "https://freem3u.xyz/api/live/play.m3u8?vid=151"
+  },
+  {
+    "name": "HTV7 - Đài PTTH Thành Phố Hồ Chí Minh",
+    "logo": "https://img-zlr1.tv360.vn/image1/2020_09_23/1600822381421/47d2615f6141_640_360.png",
+    "url": "https://live.fptplay53.net/live/media/htv7/live247-hls-avc/htv7-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "HTV9 - Đài PTTH Thành Phố Hồ Chí Minh",
+    "logo": "https://img-zlr1.tv360.vn/image1/2020_09_23/1600822390705/a9fc59138d3b_640_360.png",
+    "url": "https://live-a.fptplay53.net/live/media/htv9/live247-hls-avc/htv9-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "HTV Thể Thao",
+    "logo": "https://img-zlr1.tv360.vn/image1/2023/04/03/16/1680514594557/ab2557f0b015_640_360.png",
+    "url": "https://live.fptplay53.net/live/media/htvthethao/live247-hls-avc/htvthethao-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "HTVC Thuần Việt",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/htvcthuanviet.png",
+    "url": "https://live.fptplay53.net/epzhd1/htvcthuanviethd_vhls.smil/chunklist.m3u8"
+  },
+  {
+    "name": "HTVC Gia đình HD",
+    "logo": "",
+    "url": "https://live.fptplay53.net/epzhd1/htvcgiadinh_vhls.smil/chunklist.m3u8"
+  },
+  {
+    "name": "HTVC Phụ nữ HD",
+    "logo": "https://img-zlr1.tv360.vn/image1/2020_09_23/1600823432136/86f5cc6afcf6_640_360.png",
+    "url": "https://live.fptplay53.net/epzhd1/htvcphunu_vhls.smil/chunklist.m3u8"
+  },
+  {
+    "name": "HTVC Du lịch Cuộc sống HD",
+    "logo": "https://img-zlr1.tv360.vn/image1/2020/12/25/08/1608860643587/bb01290ccde1_640_360.png",
+    "url": "https://live.fptplay53.net/epzhd1/htvcdulich_vhls.smil/chunklist_b5000000.m3u8"
+  },
+  {
+    "name": "HTVC Ca nhạc HD",
+    "logo": "https://img-zlr1.tv360.vn/image1/2020_09_23/1600823449894/0834e6a36f71_640_360.png",
+    "url": "https://live.fptplay53.net/epzhd1/htvcmusic_vhls.smil/chunklist.m3u8"
+  },
+  {
+    "name": "HTVC Plus HD",
+    "logo": "https://vietanhtv.id.vn/logo/htvcplus.png",
+    "url": "https://live.fptplay53.net/epzhd1/htvcplus_vhls.smil/chunklist_b5000000.m3u8"
+  },
+  {
+    "name": "THVL1 - Báo và PTTH Vĩnh Long",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/THVL1.webp",
+    "url": "https://live.fptplay53.net/live/media/vinhlong1/live247-hls-avc/vinhlong1-avc1_3800000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "THVL2 - Báo và PTTH Vĩnh Long",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/THVL2.webp",
+    "url": "https://live.fptplay53.net/live/media/vinhlong2/live247-hls-avc/vinhlong2-avc1_3800000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "THVL3 - Báo và PTTH Vĩnh Long",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/THVL3.webp",
+    "url": "https://vips-livecdn.fptplay.net/live/media/vinhlong3/live247-hls-avc/vinhlong3-avc1_5600000=10000-mp4a_131600=20000.m3u8"
+  },
+  {
+    "name": "THVL5 - Báo và PTTH Vĩnh Long",
+    "logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/THVL5.webp",
+    "url": "https://live.fptplay53.net/epzhd2/vinhlong5hd_vhls.smil/chunklist_b5000000.m3u8"
+  }
+]

@@ -1,5 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../globals.dart';
+import 'package:webview_windows/webview_windows.dart';
+import 'package:path/path.dart' as p;
+import 'package:path_provider/path_provider.dart';
+import 'dart:async';
+import 'dart:io';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../widgets/next_episode_tracker.dart';
@@ -9,6 +15,7 @@ import '../widgets/glass_container.dart';
 import '../widgets/ambient_background.dart';
 import '../widgets/global_color_settings.dart';
 import '../widgets/custom_title_bar.dart';
+import '../widgets/optimizer_dialog.dart';
 import '../api/update_api.dart';
 import '../widgets/update_dialog.dart';
 import '../utils/l10n.dart';
@@ -29,6 +36,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Map<String, dynamic>? _appSettings;
   bool _isLoadingAppInfo = true;
   bool _easterEggsEnabled = true;
+  bool _isYtLinked = false;
   bool _hwAccel = true;
   bool _ambientBg = true;
   double _subSize = 24.0;
@@ -41,12 +49,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
   int _watchLimit = 0;
   String _appLang = 'vi';
   bool _backgroundPlayback = false;
+  String _audioVisualizer = 'bars';
+  int _audioSleepTimer = 0;
+  bool _audioVinyl = true;
 
   final GlobalKey _accountKey = GlobalKey();
   final GlobalKey _colorKey = GlobalKey();
   final GlobalKey _subtitleKey = GlobalKey();
   final GlobalKey _languageKey = GlobalKey();
   final GlobalKey _systemKey = GlobalKey();
+  final GlobalKey _audioKey = GlobalKey();
+  final GlobalKey _videoKey = GlobalKey();
   final GlobalKey _sourcesKey = GlobalKey();
   final GlobalKey _shortcutsKey = GlobalKey();
   final GlobalKey _infoKey = GlobalKey();
@@ -100,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
-  Widget _buildSidebarMenu() {
+    Widget _buildSidebarMenu() {
     return ListView(
       padding: const EdgeInsets.symmetric(vertical: 24),
       children: [
@@ -118,6 +131,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
           L10n.t('language_settings') ?? 'Ngôn ngữ',
           Icons.language,
           _languageKey,
+        ),
+        _buildSidebarItem(
+          L10n.t('player_settings') ?? 'Trình phát Phim',
+          Icons.play_circle_filled,
+          _videoKey,
+        ),
+        _buildSidebarItem(
+          L10n.t('audio_player_title') ?? 'Trình phát Nhạc',
+          Icons.music_note,
+          _audioKey,
         ),
         _buildSidebarItem(
           L10n.t('sources') ?? 'Nguồn phim',
@@ -174,6 +197,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<void> _loadSettings() async {
     _prefs = await SharedPreferences.getInstance();
     _easterEggsEnabled = _prefs!.getBool('enable_easter_eggs') ?? true;
+    _isYtLinked = _prefs!.getBool('is_yt_linked') ?? false;
 
     // Sync from Firebase
     final fbSettings = await FirebaseApi.loadUserSettings();
@@ -210,6 +234,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
           'background_playback',
           fbSettings['background_playback'],
         );
+      if (fbSettings.containsKey('audio_visualizer'))
+        await _prefs!.setString('audio_visualizer', fbSettings['audio_visualizer']);
+      if (fbSettings.containsKey('audio_sleep_timer'))
+        await _prefs!.setInt('audio_sleep_timer', fbSettings['audio_sleep_timer']);
+      if (fbSettings.containsKey('audio_vinyl'))
+        await _prefs!.setBool('audio_vinyl', fbSettings['audio_vinyl']);
       if (fbSettings.containsKey('color_preset'))
         await _prefs!.setString('color_preset', fbSettings['color_preset']);
       if (fbSettings.containsKey('color_brightness'))
@@ -253,6 +283,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         _watchLimit = prefs.getInt('watch_limit') ?? 0;
         _appLang = prefs.getString('app_lang') ?? 'vi';
         _backgroundPlayback = prefs.getBool('background_playback') ?? false;
+        _audioVisualizer = prefs.getString('audio_visualizer') ?? 'bars';
+        _audioSleepTimer = prefs.getInt('audio_sleep_timer') ?? 0;
+        _audioVinyl = prefs.getBool('audio_vinyl') ?? true;
       });
     }
 
@@ -301,6 +334,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       'color_brightness',
       'color_contrast',
       'color_saturation',
+      'audio_visualizer',
+      'audio_sleep_timer',
+      'audio_vinyl',
     ];
     final Map<String, dynamic> data = {};
     for (final key in keys) {
@@ -358,7 +394,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final isDesktop = MediaQuery.of(context).size.width >= 800;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF000000),
+      backgroundColor: Colors.black,
       drawer: isDesktop
           ? null
           : Drawer(
@@ -367,6 +403,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
       body: Stack(
         children: [
+          const AmbientBackground(),
           SafeArea(
             child: Row(
               children: [
@@ -501,7 +538,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                     padding: const EdgeInsets.all(16),
                                     child: Column(
                                       children: [
-                                        ListTile(
+                                                                                  Container(
+                                            width: double.infinity,
+                                            margin: const EdgeInsets.only(bottom: 16),
+                                            decoration: BoxDecoration(
+                                              color: Colors.blueAccent.withOpacity(0.1),
+                                              borderRadius: BorderRadius.circular(12),
+                                              border: Border.all(color: Colors.blueAccent.withOpacity(0.3)),
+                                            ),
+                                            child: ListTile(
+                                              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                                              leading: const Icon(Icons.speed, color: Colors.blueAccent, size: 32),
+                                              title: Text(L10n.t('setting_opt_title') ?? 'Trợ lý Tối ưu hóa (Khuyên dùng)', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16)),
+                                              subtitle: Text(L10n.t('setting_opt_desc') ?? 'Tự động quét cấu hình máy tính và thiết lập giao diện mượt mà nhất.', style: const TextStyle(color: Colors.white70)),
+                                              trailing: ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  backgroundColor: Colors.blueAccent,
+                                                  padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                                                ),
+                                                onPressed: () async {
+                                                  final result = await showDialog(context: context, builder: (_) => const OptimizerDialog());
+                                                  if (result != null) {
+                                                    _loadSettings();
+                                                  }
+                                                },
+                                                child: Text(L10n.t('setting_opt_btn') ?? 'Quét ngay', style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+                                              ),
+                                            ),
+                                          ),
+ListTile(
                                       title: Text(
                                         L10n.t('watch_limit'),
                                         style: const TextStyle(
@@ -580,6 +646,21 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                         ),
                                           const Divider(color: Colors.white12),
                                           SwitchListTile(
+                                            title: Text(L10n.t('setting_min_title') ?? 'Giao diện tối giản (Máy yếu)', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                            subtitle: Text(L10n.t('opt_apply_min') ?? 'Bật Giao diện tối giản (Tắt 100% hiệu ứng kính mờ/gương)', style: const TextStyle(color: Colors.white54, fontSize: 13)),
+                                            secondary: const Icon(Icons.flash_on, color: Colors.amber),
+                                            value: isMinimalistUi.value,
+                                            activeColor: Colors.amber,
+                                            onChanged: (v) async {
+                                              final p = await SharedPreferences.getInstance();
+                                              await p.setBool('minimalist_ui', v);
+                                              isMinimalistUi.value = v;
+                                              setState(() {});
+                                              _syncToFirebase();
+                                            },
+                                          ),
+                                          const Divider(color: Colors.white12),
+                                          SwitchListTile(
                                             title: Text(L10n.t('easter_eggs_toggle') ?? 'Bật Hiệu ứng Tương tác', style: const TextStyle(color: Colors.white, fontSize: 16)),
                                             subtitle: Text(L10n.t('easter_eggs_desc') ?? 'Nhấn vào dòng trạng thái tập mới ở phim để quay thưởng hiệu ứng! Có 4 bậc từ Phổ thông đến Huyền thoại (1%).', style: const TextStyle(color: Colors.white54, fontSize: 12)),
                                             secondary: const Icon(Icons.celebration, color: Colors.white70),
@@ -647,6 +728,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                   ),
                                   const SizedBox(height: 48),
 
+                                  SizedBox(key: _videoKey),
                                   _buildSectionTitle(
                                     Icons.play_circle_outline,
                                     L10n.t('video_player'),
@@ -762,6 +844,61 @@ class _SettingsScreenState extends State<SettingsScreen> {
                                           color: Colors.white12,
                                           height: 1,
                                         ),
+                                        const Divider(color: Colors.white12, height: 1),
+                                        SwitchListTile(
+                                          title: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro tự động', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                          value: _prefs?.getBool('enable_skip_intro') ?? false,
+                                          activeColor: Colors.amber,
+                                          onChanged: (val) async {
+                                            final prefs = await SharedPreferences.getInstance();
+                                            await prefs.setBool('enable_skip_intro', val);
+                                            setState(() {});
+                                            _syncToFirebase();
+                                          },
+                                        ),
+                                        if (_prefs?.getBool('enable_skip_intro') ?? false) ...[
+                                          ListTile(
+                                            contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                                            title: Text(L10n.t('skip_intro_duration') ?? 'Thời lượng bỏ qua', style: const TextStyle(color: Colors.white70)),
+                                            trailing: SizedBox(
+                                              width: 150,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  Text('${_prefs?.getInt('skip_intro_duration') ?? 85} s', style: const TextStyle(color: Colors.white70)),
+                                                  const SizedBox(width: 8),
+                                                  Expanded(
+                                                    child: Slider(
+                                                      value: (_prefs?.getInt('skip_intro_duration') ?? 85).toDouble(),
+                                                      min: 30,
+                                                      max: 180,
+                                                      divisions: 30,
+                                                      onChanged: (val) async {
+                                                        final prefs = await SharedPreferences.getInstance();
+                                                        await prefs.setInt('skip_intro_duration', val.toInt());
+                                                        setState(() {});
+                                                        _syncToFirebase();
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                        const Divider(color: Colors.white12, height: 1),
+                                        SwitchListTile(
+                                          title: Text(L10n.t('background_playback') ?? 'Phát dưới nền', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                          subtitle: Text(L10n.t('background_playback_sub') ?? 'Tiếp tục phát âm thanh khi ẩn ứng dụng', style: const TextStyle(color: Colors.white54, fontSize: 13)),
+                                          value: _prefs?.getBool('background_playback') ?? false,
+                                          activeColor: Colors.amber,
+                                          onChanged: (val) async {
+                                            final prefs = await SharedPreferences.getInstance();
+                                            await prefs.setBool('background_playback', val);
+                                            setState(() {});
+                                            _syncToFirebase();
+                                          },
+                                        ),
 SwitchListTile(
                                           title: Text(L10n.t('hw_accel')),
                                           subtitle: Text(
@@ -788,11 +925,87 @@ SwitchListTile(
 
                                   const SizedBox(height: 48),
 
+                                  const SizedBox(height: 48),
+                                  SizedBox(key: _audioKey),
+                                  _buildSectionTitle(
+                                    Icons.music_note,
+                                    L10n.t('audio_player_title') ?? 'Trình phát Nhạc',
+                                  ),
+                                  const SizedBox(height: 16),
+                                  GlassContainer(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Column(
+                                      children: [
+                                        ListTile(
+                                          title: Text(L10n.t('visualizer_type') ?? 'Kiểu sóng âm', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                          trailing: DropdownButton<String>(
+                                            value: ['none', 'inline', 'bars', 'circle'].contains(_audioVisualizer) ? _audioVisualizer : 'bars',
+                                            dropdownColor: Colors.black87,
+                                            style: const TextStyle(color: Colors.amber, fontSize: 16),
+                                            underline: const SizedBox(),
+                                            items: [
+                                              DropdownMenuItem(value: 'none', child: Text(L10n.t('viz_none') ?? 'Tắt')),
+                                              DropdownMenuItem(value: 'inline', child: Text(L10n.t('viz_inline') ?? 'Nhỏ (cạnh tên)')),
+                                              DropdownMenuItem(value: 'bars', child: Text(L10n.t('viz_bars') ?? 'Lớn (dưới ảnh)')),
+                                              DropdownMenuItem(value: 'circle', child: Text(L10n.t('viz_circle') ?? 'Vòng tròn đĩa')),
+                                            ],
+                                            onChanged: (val) async {
+                                              if (val != null) {
+                                                setState(() => _audioVisualizer = val);
+                                                final p = await SharedPreferences.getInstance();
+                                                await p.setString('audio_visualizer', val);
+                                                _syncToFirebase();
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                        const Divider(color: Colors.white12, height: 1),
+                                        SwitchListTile(
+                                          title: Text(L10n.t('vinyl_effect') ?? 'Hiệu ứng Đĩa than', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                          subtitle: Text(L10n.t('audio_vinyl_desc') ?? 'Mô phỏng đĩa than xoay khi phát nhạc', style: const TextStyle(color: Colors.white54, fontSize: 13)),
+                                          value: _audioVinyl,
+                                          activeColor: Colors.amber,
+                                          onChanged: (val) async {
+                                            setState(() => _audioVinyl = val);
+                                            final p = await SharedPreferences.getInstance();
+                                            await p.setBool('audio_vinyl', val);
+                                            _syncToFirebase();
+                                          },
+                                        ),
+                                        const Divider(color: Colors.white12, height: 1),
+                                        ListTile(
+                                          title: Text(L10n.t('sleep_timer') ?? 'Hẹn giờ tắt (phút)', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                          trailing: DropdownButton<int>(
+                                            value: [0, 15, 30, 60, 120].contains(_audioSleepTimer) ? _audioSleepTimer : 0,
+                                            dropdownColor: Colors.black87,
+                                            style: const TextStyle(color: Colors.amber, fontSize: 16),
+                                            underline: const SizedBox(),
+                                            items: [
+                                              DropdownMenuItem(value: 0, child: Text(L10n.t('off') ?? 'Tắt')),
+                                              DropdownMenuItem(value: 15, child: const Text('15')),
+                                              DropdownMenuItem(value: 30, child: const Text('30')),
+                                              DropdownMenuItem(value: 60, child: const Text('60')),
+                                              DropdownMenuItem(value: 120, child: const Text('120')),
+                                            ],
+                                            onChanged: (val) async {
+                                              if (val != null) {
+                                                setState(() => _audioSleepTimer = val);
+                                                final p = await SharedPreferences.getInstance();
+                                                await p.setInt('audio_sleep_timer', val);
+                                                _syncToFirebase();
+                                              }
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 48),
+                                  SizedBox(key: _sourcesKey),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      SizedBox(key: _sourcesKey),
                                       _buildSectionTitle(
                                         Icons.source,
                                         L10n.t('movie_sources'),
@@ -1383,8 +1596,10 @@ SwitchListTile(
     return GlassContainer(
       padding: const EdgeInsets.all(20),
       borderRadius: 16,
-      child: Row(
+      child: Column(
         children: [
+          Row(
+            children: [
           CircleAvatar(
             radius: 36,
             backgroundImage: _currentUser!['photoURL']!.isNotEmpty
@@ -1443,10 +1658,165 @@ SwitchListTile(
               ),
             ),
           ),
+            ],
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 16),
+            child: Divider(color: Colors.white10),
+          ),
+          // YouTube
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _isYtLinked ? Colors.redAccent.withOpacity(0.1) : Colors.white10,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.smart_display, color: _isYtLinked ? Colors.redAccent : Colors.grey, size: 24),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  L10n.t('sync_yt') ?? 'YouTube (Gợi ý Cá nhân hóa)', 
+                  style: TextStyle(
+                    color: _isYtLinked ? Colors.white : Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              if (_isYtLinked)
+                OutlinedButton.icon(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('is_yt_linked', false);
+                    setState(() => _isYtLinked = false);
+                    try {
+                      final exeName = File(Platform.resolvedExecutable).uri.pathSegments.last.replaceAll('.exe', '');
+                      final defaultWebviewPath = '${Platform.environment['LOCALAPPDATA']}\\flutter_webview_windows\\${exeName}\\EBWebView';
+                      final dir = Directory(defaultWebviewPath);
+                      if (dir.existsSync()) {
+                        dir.deleteSync(recursive: true);
+                      }
+                    } catch (e) {}
+                  },
+                  icon: const Icon(Icons.link_off, size: 18),
+                  label: Text(L10n.t('btn_disconnect') ?? 'Ngắt kết nối'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.redAccent,
+                    side: const BorderSide(color: Colors.redAccent),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                )
+              else
+                ElevatedButton.icon(
+                  onPressed: _openYoutubeLogin,
+                  icon: const Icon(Icons.link, size: 18),
+                  label: Text(L10n.t('btn_connect') ?? 'Kết nối'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+
         ],
       ),
     );
   }
+
+
+  Future<void> _openYoutubeLogin() async {
+    final _controller = WebviewController();
+    Timer? checkTimer;
+    
+    final appDataDir = await getApplicationSupportDirectory();
+    final profileDir = p.join(appDataDir.path, 'youtube_webview_profile');
+    
+    try {
+      try {
+        await WebviewController.initializeEnvironment(userDataPath: profileDir);
+      } catch (e) {}
+      await _controller.initialize();
+      await _controller.setBackgroundColor(Colors.transparent);
+      await _controller.setPopupWindowPolicy(WebviewPopupWindowPolicy.deny);
+      await _controller.loadUrl('https://accounts.google.com/ServiceLogin?service=youtube&continue=https://www.youtube.com');
+      
+      if (!mounted) return;
+      
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          if (checkTimer == null) {
+            checkTimer = Timer.periodic(const Duration(seconds: 2), (t) async {
+              try {
+                if (_controller.value.isInitialized) {
+                  final html = await _controller.executeScript("document.documentElement.innerHTML") as String?;
+                  if (html != null && (html.contains('id="avatar-btn"') || html.contains('data-testid="account-menu-button"'))) {
+                    t.cancel();
+                    await _prefs!.setBool('is_yt_linked', true);
+                    setState(() { _isYtLinked = true; });
+                    if (Navigator.canPop(context)) Navigator.pop(context);
+                  }
+                }
+              } catch (e) {}
+            });
+          }
+          
+          return Dialog(
+            backgroundColor: const Color(0xFF1E1E1E),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+            child: Container(
+              width: 800,
+              height: 600,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Row(
+                        children: [
+                          Icon(Icons.security, color: Colors.green, size: 24),
+                          SizedBox(width: 8),
+                          Text('Đăng nhập YouTube', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                        ],
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.close, color: Colors.white),
+                        onPressed: () {
+                          checkTimer?.cancel();
+                          _controller.dispose();
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  Expanded(
+                    child: Webview(_controller),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+    } catch (e) {
+      debugPrint('WebView Error: $e');
+    }
+  }
+
 
   Widget _buildLoginCard() {
     return GlassContainer(
@@ -1490,6 +1860,74 @@ SwitchListTile(
               ),
               elevation: 4,
             ),
+          ),
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Divider(color: Colors.white10),
+          ),
+          // YouTube
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: _isYtLinked ? Colors.redAccent.withOpacity(0.1) : Colors.white10,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.smart_display, color: _isYtLinked ? Colors.redAccent : Colors.grey, size: 24),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Text(
+                  L10n.t('sync_yt') ?? 'YouTube (Gợi ý Cá nhân hóa)', 
+                  style: TextStyle(
+                    color: _isYtLinked ? Colors.white : Colors.grey,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
+              if (_isYtLinked)
+                OutlinedButton.icon(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('is_yt_linked', false);
+                    setState(() => _isYtLinked = false);
+                    try {
+                      final exeName = File(Platform.resolvedExecutable).uri.pathSegments.last.replaceAll('.exe', '');
+                      final defaultWebviewPath = '${Platform.environment['LOCALAPPDATA']}\\flutter_webview_windows\\${exeName}\\EBWebView';
+                      final dir = Directory(defaultWebviewPath);
+                      if (dir.existsSync()) {
+                        dir.deleteSync(recursive: true);
+                      }
+                    } catch (e) {}
+                  },
+                  icon: const Icon(Icons.link_off, size: 18),
+                  label: Text(L10n.t('btn_disconnect') ?? 'Ngắt kết nối'),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.redAccent,
+                    side: const BorderSide(color: Colors.redAccent),
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                )
+              else
+                ElevatedButton.icon(
+                  onPressed: _openYoutubeLogin,
+                  icon: const Icon(Icons.link, size: 18),
+                  label: Text(L10n.t('btn_connect') ?? 'Kết nối'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+            ],
           ),
         ],
       ),
@@ -1794,6 +2232,9 @@ SwitchListTile(
                 await prefs.remove('enabled_sources');
                 await prefs.remove('app_lang');
                 await prefs.remove('background_playback');
+                await prefs.remove('audio_visualizer');
+                await prefs.remove('audio_sleep_timer');
+                await prefs.remove('audio_vinyl');
 
                 await L10n.load('vi');
 

@@ -1,0 +1,70 @@
+681:                                     children: _sources.keys
+682:                                         .where(
+683:                                           (key) =>
+684:                                               key == 'premium' ||
+685:                                               key == 'torrentio',
+686:                                         )
+687:                                         .map(
+688:                                           (key) => _buildModernSourceCard(key),
+689:                                         )
+690:                                         .toList(),
+691:                                   ),
+692: 
+693:                                   const SizedBox(height: 24),
+694: 
+695:                                   // Nhóm Nguồn Standard
+696:                                   Text(
+697:                                     L10n.t('source_standard'),
+698:                                     style: const TextStyle(
+699:                                       fontSize: 18,
+700:                                       fontWeight: FontWeight.bold,
+701:                                       color: Colors.blueAccent,
+702:                                     ),
+703:                                   ),
+704:                                   const SizedBox(height: 12),
+705:                                   Wrap(
+706:                                     spacing: 16,
+707:                                     runSpacing: 16,
+708:                                     children: _sources.keys
+709:                                         .where(
+710:                                           (key) =>
+711:                                               key != 'premium' &&
+712:                                               key != 'torrentio',
+713:                                         )
+714:                                         .map(
+715:                                           (key) => _buildModernSourceCard(key),
+716:                                         )
+717:                                         .toList(),
+718:                                   ),
+719:                                   const SizedBox(height: 48),
+720:                                                                     SizedBox(key: _videoKey),
+721:                                   _buildSectionTitle(
+722:                                     Icons.play_circle_outline,
+723:                                     L10n.t('video_player') ?? 'Trình phát Video',
+724:                                   ),
+725:                                   const SizedBox(height: 16),
+726:                                   GlassContainer(
+727:                                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+728:                                     child: Column(
+729:                                       children: [
+730:                                         SwitchListTile(
+731:                                           contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+732:                                           title: Text(L10n.t('enable_hw_accel') ?? 'Tăng tốc phần cứng (HW Acceleration)', style: const TextStyle(color: Colors.white)),
+733:                                           subtitle: Text(L10n.t('enable_hw_accel_sub') ?? 'Sử dụng GPU để giải mã video, giảm tải CPU và tiết kiệm pin.', style: const TextStyle(color: Colors.white54, fontSize: 13)),
+734:                                           value: _prefs?.getBool('enable_hw_accel') ?? true,
+735:                                           activeColor: Colors.blueAccent,
+736:                                           onChanged: (val) {
+737:                                             _prefs?.setBool('enable_hw_accel', val);
+738:                                             setState(() {});
+739:                                             _syncToFirebase();
+740:                                           },
+741:                                         ),
+742:                                       ],
+743:                                     ),
+744:                                   ),
+745:                                   const SizedBox(height: 48),
+746: 
+747:                                   SizedBox(key: _audioKey),
+748:                                   _buildSectionTitle(
+749:                                     Icons.library_music,
+750:                                     L10n.t('audio_player_title') ?? 'Trình phát Nhạc',

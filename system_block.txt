@@ -1,0 +1,400 @@
+                                          onChanged: (val) async {
+                                            final prefs = await SharedPreferences.getInstance();
+                                            await prefs.setBool('enable_ambient_bg', val);
+                                            globalEnableAmbient.value = val;
+                                            _syncToFirebase();
+                                            setState(() {
+                                              _ambientBg = val;
+                                            });
+                                          },
+                                        ),
+                                          const Divider(color: Colors.white12),
+                                          SwitchListTile(
+                                            title: Text(L10n.t('setting_egg_title'), style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                            subtitle: Text(L10n.t('setting_egg_desc'), style: const TextStyle(color: Colors.white54, fontSize: 12)),
+                                            secondary: const Icon(Icons.celebration, color: Colors.white70),
+                                            value: _easterEggsEnabled,
+                                            activeColor: Colors.amber,
+                                            onChanged: (v) async {
+                                              setState(() => _easterEggsEnabled = v);
+                                              final p = await SharedPreferences.getInstance();
+                                              await p.setBool('enable_easter_eggs', v);
+                                            },
+                                          ),
+========================================
+Tool Call: run_command at line 30639
+========================================
+
+========================================
+Tool Call: run_command at line 30658
+========================================
+
+========================================
+Tool Call: view_file at line 30660
+========================================
+
+========================================
+Tool Call: replace_file_content at line 30664
+========================================
+          const SizedBox(height: 24),
+          Text(L10n.t('sync_status') ?? 'TRẠNG THÁI KẾT NỐI:', style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 12, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 12),
+          
+          // Google Auth / Firebase
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.cloud_sync, color: isGoogleLinked ? Colors.blueAccent : Colors.grey, size: 20),
+                  const SizedBox(width: 8),
+                  Text(L10n.t('sync_firebase') ?? 'Dữ liệu cá nhân trên Firebase', style: TextStyle(color: isGoogleLinked ? Colors.white : Colors.grey)),
+                ],
+              ),
+              if (isGoogleLinked)
+                OutlinedButton(
+                  onPressed: () async {
+                    await _handleLogout();
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.redAccent,
+                    side: const BorderSide(color: Colors.redAccent),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  ),
+                  child: Text(L10n.t('btn_disconnect') ?? 'Ngắt kết nối', style: const TextStyle(fontSize: 12)),
+                )
+              else
+                ElevatedButton(
+                  onPressed: _handleLogin,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  ),
+                  child: Text(L10n.t('btn_connect') ?? 'Kết nối', style: const TextStyle(fontSize: 12, color: Colors.white)),
+                ),
+            ],
+          ),
+          
+          const Padding(
+            padding: EdgeInsets.symmetric(vertical: 8),
+            child: Divider(color: Colors.white10),
+          ),
+          
+          // YouTube
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.play_circle_filled, color: isYtLinked ? Colors.redAccent : Colors.grey, size: 20),
+                  const SizedBox(width: 8),
+                  Text(L10n.t('sync_yt') ?? 'YouTube (Gợi ý Cá nhân hóa)', style: TextStyle(color: isYtLinked ? Colors.white : Colors.grey)),
+                ],
+              ),
+              if (isYtLinked)
+                OutlinedButton(
+                  onPressed: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    await prefs.setBool('is_yt_linked', false);
+                    setState(() => _isYtLinked = false);
+                    
+                    try {
+                      final exeName = File(Platform.resolvedExecutable).uri.pathSegments.last.replaceAll('.exe', '');
+                      final defaultWebviewPath = '${Platform.environment['LOCALAPPDATA']}\\flutter_webview_windows\\${exeName}\\EBWebView';
+                      final dir = Directory(defaultWebviewPath);
+                      if (dir.existsSync()) {
+                        dir.deleteSync(recursive: true);
+                      }
+                    } catch (e) {
+                      debugPrint('Failed to delete WebView data: $e');
+                    }
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(L10n.t('yt_unlink_msg'))));
+                  },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.redAccent,
+                    side: const BorderSide(color: Colors.redAccent),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  ),
+                  child: Text(L10n.t('btn_disconnect') ?? 'Ngắt kết nối', style: const TextStyle(fontSize: 12)),
+                )
+              else
+                ElevatedButton(
+                  onPressed: _openYoutubeLogin,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.redAccent,
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  ),
+                  child: Text(L10n.t('btn_connect') ?? 'Kết nối', style: const TextStyle(fontSize: 12, color: Colors.white)),
+                ),
+            ],
+          ),
+========================================
+Tool Call: write_to_file at line 30732
+========================================
+# Kế hoạch Chi tiết: Xây dựng Trình phát Âm thanh (Audio Player)
+
+Dưới đây là bản thiết kế chi tiết từng bước (Step-by-step) để đảm bảo không bỏ sót bất kỳ yêu cầu nào về định dạng, giao diện (Đĩa than vs Podcast), hiệu ứng sóng âm, cũng như đồng bộ cài đặt.
+
+---
+
+## BƯỚC 1: Xử lý Luồng dữ liệu (Routing & Format Detection)
+**Mục tiêu:** Mở rộng khả năng nhận diện file và chuyển hướng đúng sang Trình phát Âm thanh thay vì Video.
+1. **Mở rộng định dạng:** Cập nhật `FilePicker` tại `library_screen.dart` để hỗ trợ hàng loạt chuẩn âm thanh: `.mp3, .flac, .wav, .m4a, .aac, .ogg, .wma, .opus, .amr`.
+2. **Hỗ trợ Đa file (Multi-select):** Cho phép người dùng quét chọn nhiều file âm thanh cùng lúc. Toàn bộ file sẽ được đóng gói thành một mảng `Playlist`.
+3. **Phân luồng:** Khi nhấn "Mở", hệ thống kiểm tra đuôi file. Nếu thuộc nhóm Audio $\rightarrow$ Khởi chạy `audio_player_screen.dart` (màn hình mới), giữ nguyên kích thước cửa sổ hiện tại của app (Fullscreen hay thu nhỏ đều kế thừa từ cửa sổ gốc).
+
+---
+
+## BƯỚC 2: Phân tích Thời lượng & Khởi tạo Giao diện (Logic & UI)
+**Mục tiêu:** Nhận diện thông minh loại âm thanh để hiển thị giao diện phù hợp (Nhạc vs Thu âm).
+1. **Khởi tạo Core `media_kit`:** Load danh sách file vào engine. Lắng nghe thông số `Duration` (thời lượng) của file đang phát.
+2. **Logic Rẽ nhánh Giao diện (Đĩa than vs Ghi âm):**
+   - **Tình huống Nhạc (Dưới 20 phút):**
+     - Hiển thị **Mâm Đĩa Than (Vinyl)** ở giữa màn hình.
+     - Sử dụng `AnimationController` làm quay đĩa than khi nhạc chạy, dừng khi Pause.
+     - Trích xuất Ảnh bìa (Cover Art) từ file. Nếu có: Lồng ảnh bìa vào tâm đĩa than. Nếu không có: Dùng ảnh nốt nhạc mặc định (như ảnh bạn vừa gửi).
+   - **Tình huống Podcast / Ghi âm (Trên 20 phút):**
+     - Đĩa than là không hợp lý. Chuyển sang hiển thị **Biểu tượng Micro thu âm / Cuộn băng Cassette** tĩnh hoặc hình ảnh tương đối trang trọng hơn.
+
+---
+
+## BƯỚC 3: Xây dựng Hệ thống Điều khiển & Danh sách (Controls & Playlist)
+**Mục tiêu:** Đầy đủ công năng của một máy nghe nhạc chuyên nghiệp.
+1. **Thanh Playback (Dưới cùng):**
+   - Thanh trượt (Seekbar) xịn xò để tua nhạc.
+   - Nút Play/Pause, Next, Previous.
+2. **Cơ chế Lặp & Xáo trộn (Play Modes):**
+   - 1 nút bấm đổi luân phiên 4 trạng thái: **Tuần tự** $\rightarrow$ **Lặp toàn bộ List** $\rightarrow$ **Lặp 1 bài** $\rightarrow$ **Phát ngẫu nhiên (Shuffle)**.
+3. **Sidebar Danh sách phát (Playlist):**
+   - Một khung bên phải (hoặc nhấn nút để trượt ra) hiển thị danh sách tất cả các bài hát đang load.
+   - Cho phép click đúp vào bài bất kỳ để nhảy track. Có highlight bài đang phát.
+
+---
+
+## BƯỚC 4: Hiệu ứng Sóng âm & Chất lượng nhạc (Visualizer & Info)
+**Mục tiêu:** Làm giao diện sống động và cung cấp thông số kỹ thuật (dành cho người chơi hệ Audiophile).
+1. **Thông số kỹ thuật:** Đọc từ engine và hiển thị ngay trên màn hình các thông số: Định dạng (FLAC/MP3), Bitrate (VD: 320kbps, 1411kbps lossles), Sample Rate.
+2. **Hệ thống Visualizer (Sóng âm nhảy theo nhạc):**
+   - Tạo ít nhất **3 kiểu hiệu ứng** khác nhau (sử dụng Animation/Lottie hoặc thư viện vẽ đồ thị âm thanh giả lập nhịp điệu):
+     - *Kiểu 1: Cột EQ nhấp nháy (Bars)*
+     - *Kiểu 2: Sóng nước uốn lượn (Waveform)*
+     - *Kiểu 3: Vòng tròn tỏa nhiệt (Pulse - bao quanh đĩa than)*
+   - Visualizer sẽ ngưng nhảy nếu nhạc Pause.
+
+---
+
+## BƯỚC 5: Đồng bộ Cài đặt (In-player & Global Settings)
+**Mục tiêu:** Cho phép người dùng tùy biến Trình chơi nhạc ở mọi nơi.
+1. **Cài đặt trong Trình phát (In-player):**
+   - Có nút bánh răng cài đặt. Cho phép: Chọn kiểu Sóng âm (1/2/3), Hẹn giờ tắt nhạc (Sleep Timer).
+2. **Cài đặt tổng (Global Settings):**
+   - Tạo thêm một mục **"Audio Player"** trong `settings_screen.dart` bên cạnh Video Player.
+   - Đồng bộ các thiết lập: "Kiểu sóng âm mặc định", "Giao diện đĩa than mặc định", để lần sau mở file nó tự động áp dụng.
+
+---
+
+### Xác nhận trước khi thi hành:
+- Kế hoạch này đã phủ kín mọi trường hợp bạn yêu cầu (đa định dạng, nhận diện file dài > 20p, giao diện đĩa than có bìa/không bìa, list đa bài, các chế độ loop/shuffle, sóng âm chọn lọc, và đồng bộ cài đặt).
+- Bạn có muốn điều chỉnh con số **20 phút** làm ranh giới giữa "Nhạc" và "Ghi âm" lên **30 phút** cho chắc ăn với các bản nhạc Giao hưởng không? Hay giữ 20 phút?
+========================================
+Tool Call: write_to_file at line 30740
+========================================
+- `[ ]` Thêm cấu hình Audio Player vào SharedPreferences và màn hình `settings_screen.dart`.
+- `[ ]` Mở rộng `library_screen.dart` cho phép chọn đa định dạng âm thanh và nhiều file cùng lúc.
+- `[ ]` Xây dựng khung giao diện `audio_player_screen.dart`.
+- `[ ]` Tích hợp engine `media_kit` phát Audio, cấu hình luồng Playlist, PlayModes (Shuffle, Repeat).
+- `[ ]` Trích xuất siêu dữ liệu (Metadata, Bitrate, Ảnh bìa) từ file âm thanh.
+- `[ ]` Viết hiệu ứng Animation cho Đĩa Than (quay/dừng).
+- `[ ]` Xây dựng logic ranh giới 30 phút (Giao diện Nhạc vs Giao diện Podcast).
+- `[ ]` Thiết kế 3 loại hiệu ứng Visualizer giả lập.
+- `[ ]` Xây dựng Playlist Sidebar và Khung điều khiển (Controls).
+========================================
+Tool Call: write_to_file at line 30741
+========================================
+- `[ ]` Thêm cấu hình Audio Player vào SharedPreferences và màn hình `settings_screen.dart`.
+- `[ ]` Mở rộng `library_screen.dart` cho phép chọn đa định dạng âm thanh và nhiều file cùng lúc.
+- `[ ]` Xây dựng khung giao diện `audio_player_screen.dart`.
+- `[ ]` Tích hợp engine `media_kit` phát Audio, cấu hình luồng Playlist, PlayModes (Shuffle, Repeat).
+- `[ ]` Trích xuất siêu dữ liệu (Metadata, Bitrate, Ảnh bìa) từ file âm thanh.
+- `[ ]` Viết hiệu ứng Animation cho Đĩa Than (quay/dừng).
+- `[ ]` Xây dựng logic ranh giới 30 phút (Giao diện Nhạc vs Giao diện Podcast).
+- `[ ]` Thiết kế 3 loại hiệu ứng Visualizer giả lập.
+- `[ ]` Xây dựng Playlist Sidebar và Khung điều khiển (Controls).
+========================================
+Tool Call: invoke_subagent at line 30746
+========================================
+
+========================================
+Tool Call: run_command at line 30754
+========================================
+
+========================================
+Tool Call: run_command at line 30766
+========================================
+
+========================================
+Tool Call: run_command at line 30768
+========================================
+
+========================================
+Tool Call: run_command at line 30770
+========================================
+
+========================================
+Tool Call: run_command at line 30999
+========================================
+
+========================================
+Tool Call: run_command at line 31009
+========================================
+
+========================================
+Tool Call: run_command at line 31012
+========================================
+
+========================================
+Tool Call: replace_file_content at line 31016
+========================================
+import 'settings_screen.dart';
+import '../utils/l10n.dart';
+import 'package:media_kit/media_kit.dart';
+========================================
+Tool Call: run_command at line 31018
+========================================
+
+========================================
+Tool Call: run_command at line 31020
+========================================
+
+========================================
+Tool Call: run_command at line 31022
+========================================
+
+========================================
+Tool Call: run_command at line 31024
+========================================
+
+========================================
+Tool Call: run_command at line 31032
+========================================
+
+========================================
+Tool Call: run_command at line 31034
+========================================
+
+========================================
+Tool Call: run_command at line 31036
+========================================
+
+========================================
+Tool Call: run_command at line 31616
+========================================
+
+========================================
+Tool Call: run_command at line 31618
+========================================
+
+========================================
+Tool Call: run_command at line 31620
+========================================
+
+========================================
+Tool Call: run_command at line 31622
+========================================
+
+========================================
+Tool Call: run_command at line 31624
+========================================
+
+========================================
+Tool Call: run_command at line 31681
+========================================
+
+========================================
+Tool Call: run_command at line 31683
+========================================
+
+========================================
+Tool Call: write_to_file at line 31693
+========================================
+# Add Audio Settings to Global Settings & Fix Sync Bug
+
+Mục tiêu: Đưa cấu hình Trình phát nhạc ra ngoài Cài đặt chung, khắc phục lỗi đồng bộ màu sắc toàn cục, và bổ sung bản dịch L10n cho thư viện.
+
+## User Review Required
+
+Please review the proposed UI placement for the Audio Player settings in the Settings Screen.
+
+## Proposed Changes
+
+---
+
+### [MODIFY] assets/langs/vi.json & assets/langs/en.json
+
+- **L10n Thư viện**: Thêm các key `open_link` (Mở Link), `open_file` (Mở File).
+- **L10n Thông báo Youtube**: Thêm key `open_url_hint` với nội dung "Nhập link video/audio (mp4, m3u8, youtube...)".
+
+---
+
+### [MODIFY] lib/screens/library_screen.dart
+
+- Thay thế chuỗi tĩnh `'Mở Link'` thành `L10n.t('open_link') ?? 'Mở Link'`.
+- Thay thế chuỗi tĩnh `'Mở File'` (nằm ngay dưới Mở Link) thành `L10n.t('open_file') ?? 'Mở File'`.
+- Thay chuỗi gợi ý nhập link thành `L10n.t('open_url_hint')`.
+
+---
+
+### [MODIFY] lib/screens/settings_screen.dart
+
+- **Khắc phục Bug màu sắc**: Ở hàm gọi `GlobalColorSettings(onSettingsChanged: (_) {})`, đổi thành:
+  ```dart
+  onSettingsChanged: (_) {
+    _syncToFirebase();
+  }
+  ```
+  Nhờ đó, khi người dùng đổi màu ở Cài đặt, nó sẽ được lưu lên Firebase ngay. Lần sau mở lại Cài đặt sẽ không bị tải đè "Mặc định" từ Firebase xuống nữa.
+- **Thêm Audio Settings vào Firebase Sync**: Thêm `audio_visualizer`, `audio_vinyl`, `audio_sleep_timer` vào danh sách `keys` của hàm `_syncToFirebase()` và hàm `_loadSettingsFromFirebase()`.
+- **Thêm giao diện Audio Settings**: Thêm phần Giao diện "Trình phát Nhạc" (Visualizer, Vinyl Effect, Sleep Timer) ngay bên dưới phần Video Player, gán `key: _audioKey` để sidebar có thể cuộn tới. Mỗi khi thay đổi, lưu vào `SharedPreferences` và gọi `_syncToFirebase()`.
+
+---
+
+### [MODIFY] lib/screens/audio_player_screen.dart
+
+- **Đồng bộ hai chiều**: Bất cứ khi nào cấu hình (sóng âm, đĩa than, hẹn giờ) bị thay đổi trong cửa sổ cài đặt thu nhỏ của Trình phát nhạc, thay vì chỉ lưu `SharedPreferences`, ta sẽ gọi thêm `FirebaseApi.saveUserSettings({ 'audio_vinyl': val })` để cập nhật lập tức lên máy chủ. Đảm bảo cấu hình không bị ghi đè khi ra ngoài trang chủ.
+- Đảm bảo đọc các biến này từ `SharedPreferences` khi mở AudioPlayer. (Hiện tại đã có, chỉ cần kiểm tra kỹ lại).
+
+## Verification Plan
+
+- Mở trang Library: Kiểm tra chữ "Mở Link", "Mở file", "Nhập link..." đã đổi thành ngôn ngữ chuẩn và có nhắc tới Youtube.
+- Mở Settings: Kiểm tra mục "Trình phát Nhạc" đã hiển thị ngay dưới "Trình phát Video".
+- Đổi Màu sắc trong Settings: Kiểm tra sau khi đóng app mở lại, màu sắc vẫn lưu đúng preset (ví dụ Vivid), không bị nhảy về Mặc định.
+- Chỉnh hiệu ứng đĩa than trong Audio Player: Ra ngoài Settings kiểm tra thấy cài đặt cũng đã thay đổi tương ứng (đồng bộ hóa hoàn hảo).
+
+========================================
+Tool Call: write_to_file at line 31694
+========================================
+# Add Audio Settings to Global Settings & Fix Sync Bug
+
+Mục tiêu: Đưa cấu hình Trình phát nhạc ra ngoài Cài đặt chung, khắc phục lỗi đồng bộ màu sắc toàn cục, và bổ sung bản dịch L10n cho thư viện.
+
+## User Review Required
+
+Please review the proposed UI placement for the Audio Player settings in the Settings Screen.
+
+## Proposed Changes
+
+---
+
+### [MODIFY] assets/langs/vi.json & assets/langs/en.json
+
+- **L10n Thư viện**: Thêm các key `open_link` (Mở Link), `open_file` (Mở File).
+- **L10n Thông báo Youtube**: Thêm key `open_url_hint` với nội dung "Nhập link video/audio (mp4, m3u8, youtube...)".
+
+---
+
+### [MODIFY] lib/screens/library_screen.dart
+
+- Thay thế chuỗi tĩnh `'Mở Link'` thành `L10n.t('open_link') ?? 'Mở Link'`.
+- Thay thế chuỗi tĩnh `'Mở File'` (nằm ngay dưới Mở Link) thành `L10n.t('open_file') ?? 'Mở File'`.
+- Thay chuỗi gợi ý nhập link thành `L10n.t('open_url_hint')`.
+

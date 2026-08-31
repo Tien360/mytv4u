@@ -9,8 +9,10 @@ import 'settings_screen.dart';
 import 'tv_screen.dart';
 import 'library_screen.dart';
 import 'sport_screen.dart';
+import 'youtube_screen.dart';
 import '../widgets/glass_container.dart';
 import '../widgets/ambient_background.dart';
+import '../widgets/spider_easter_egg.dart';
 import '../widgets/custom_title_bar.dart';
 import 'package:window_manager/window_manager.dart';
 import '../api/stremio_server.dart';
@@ -88,8 +90,8 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
           onTapOverride ??
           () {
             setState(() {
-              _selectedIndex = index;
-            });
+                _selectedIndex = index;
+              });
           },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
@@ -330,7 +332,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                         _buildNavItem(
                           Icons.folder_outlined,
                           Icons.folder,
-                          'Thư viện',
+                          L10n.t('nav_library') ?? 'Thư viện',
                           5,
                         ),
                       ],

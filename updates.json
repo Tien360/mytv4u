@@ -1,0 +1,137 @@
+{
+  "vtv1": {
+    "new_logo": "https://i.ytimg.com/vi/dGohEWXz7Sk/maxresdefault.jpg",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv1/live247-hls-avc/vtv1-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV1"
+  },
+  "vtv2": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV2.jpg",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv2/live247-hls-avc/vtv2-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV2"
+  },
+  "vtv3": {
+    "new_logo": "https://i.ytimg.com/vi/4jr8Y13NSME/maxresdefault.jpg",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv3/live247-hls-avc/vtv3-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV3"
+  },
+  "vtv4": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV4.jpg",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv4/live247-hls-avc/vtv4-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV4"
+  },
+  "vtv5": {
+    "new_logo": "https://s12811.cdn.mytvnet.vn/vimages/b5/5c/cc/c2/22/29/b5cc2-pvtv5hd-channel-unkn.png",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv5/live247-hls-avc/vtv5-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV5"
+  },
+  "vtv5tnb": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/maxresdefault.jpg",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv5tnb/live-hls-avc/vtv5tnb-avc1_4000000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV5 Tây Nam Bộ"
+  },
+  "vtv5tn": {
+    "new_logo": "https://s7730.cdn.mytvnet.vn/vimages/d4/46/61/1c/cf/f6/d461c-pvtv5tynguynhd-channel-unkn.png",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv5tn/live-hls-avc/vtv5tn-avc1_4000000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV5 Tây Nguyên"
+  },
+  "vtv7": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV7.png",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv7/live247-hls-avc/vtv7-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV7"
+  },
+  "vtv8": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/vtv8.jpg",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv8/live-hls-avc/vtv8-avc1_4000000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV8"
+  },
+  "vtv9": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/VTV9.png",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv9/live247-hls-avc/vtv9-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV9"
+  },
+  "vtv10": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/VTV10.png",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vtv10/live247-hls-avc/vtv10-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "VTV10"
+  },
+  "htvtt": {
+    "new_logo": "https://img-zlr1.tv360.vn/image1/2023/04/03/16/1680514594557/ab2557f0b015_640_360.png",
+    "new_url": "https://live.fptplay53.net/live/media/htvthethao/live247-hls-avc/htvthethao-avc1_5600000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "HTV Thể Thao"
+  },
+  "antv": {
+    "new_logo": "https://img-zlr1.tv360.vn/image1/2020_09_23/1600822516608/b33963dc0df8_640_360.png",
+    "new_url": "https://live.fptplay53.net/fnxhd2/anninhtv_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "ANTV HD"
+  },
+  "qpvn": {
+    "new_logo": "https://i.ytimg.com/vi/sFLUmdwp0Z8/maxresdefault.jpg",
+    "new_url": "https://live.fptplay53.net/fnxhd2/quocphongvnhd_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "QPVN HD"
+  },
+  "sctv6": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/sctv6.png",
+    "new_url": "https://live.fptplay53.net/epzhd2/film360_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "SCTV6"
+  },
+  "outdoor": {
+    "new_logo": "https://images.fptplay53.net/media/channels/icon_channel_outdoor-channel_165649323545.png",
+    "new_url": "https://live.fptplay53.net/epzhd2/outdoorfhd_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "Outdoor Channel"
+  },
+  "history": {
+    "new_logo": "https://img-zlr1.tv360.vn/image1/2024/06/03/22/1717427367441/869de47c9504_640_360.png",
+    "new_url": "https://freem3u.xyz/api/live/play.m3u8?vid=9856",
+    "m3u_name": "History HD"
+  },
+  "kix": {
+    "new_logo": "https://static.wikia.nocookie.net/logos/images/2/26/KIX.png/revision/latest/scale-to-width-down/1200?cb=20211017094335&path-prefix=vi",
+    "new_url": "https://live.fptplay53.net/fnxhd2/kixhd_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "KIX HD"
+  },
+  "hgtv": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/hgtv.png",
+    "new_url": "https://liveh34.vtvprime.vn/hls/HGTV/03.m3u8",
+    "m3u_name": "HGTV"
+  },
+  "davinci": {
+    "new_logo": "https://images.fptplay53.net/media/channels/icon_channel_da-vinci-learning_165655659384.png",
+    "new_url": "https://live.fptplay53.net/fnxhd2/davincihd_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "Da Vinci HD"
+  },
+  "cnbc": {
+    "new_logo": "https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/30b1d744249569.56076e09dd31e.png",
+    "new_url": "https://live.fptplay53.net/fnxhd1/cnbchd_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "CNBC"
+  },
+  "tv5monde": {
+    "new_logo": "https://information.tv5monde.com/sites/tv5-info/files/styles/entete/public/2023-11/tv5monde_logo.jpg",
+    "new_url": "https://freem3u.xyz/api/live/play.m3u8?vid=9852",
+    "m3u_name": "TV5Monde"
+  },
+  "nhkworld": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/Logo/refs/heads/main/nhkworld.png",
+    "new_url": "https://live.fptplay53.net/fnxhd2/nhkworld_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "NHK World"
+  },
+  "arirang": {
+    "new_logo": "https://i.ytimg.com/vi/ZqVyukYe4YM/hq720.jpg",
+    "new_url": "https://live.fptplay53.net/fnxhd1/airanghd_vhls.smil/chunklist_b5000000.m3u8",
+    "m3u_name": "Arirang"
+  },
+  "bloomberg": {
+    "new_logo": "https://i.imgur.com/rxFZgIK.png",
+    "new_url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/bloomberg.smil/manifest.mpd",
+    "m3u_name": "Bloomberg"
+  },
+  "fashiontv": {
+    "new_logo": "https://m.media-amazon.com/images/I/91B05VQC2kL.png",
+    "new_url": "https://s2129134.cdn.mytvnet.vn/pkg20/live_dzones/ftv.smil/manifest.mpd",
+    "m3u_name": "Fashion TV"
+  },
+  "vietnamtoday": {
+    "new_logo": "https://raw.githubusercontent.com/vuminhthanh12/vuminhthanh12/refs/heads/main/VietnamToday.jpg",
+    "new_url": "https://vips-livecdn.fptplay.net/live/media/vietnamtoday/live-hls-avc/vietnamtoday-avc1_4000000=10000-mp4a_131600=20000.m3u8",
+    "m3u_name": "Vietnam Today"
+  }
+}

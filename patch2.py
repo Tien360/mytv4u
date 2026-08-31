@@ -1,43 +1,50 @@
 ﻿import re
 
-with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\player_screen.dart"
+with open(path, 'r', encoding='utf-8') as f:
     content = f.read()
 
-target = '''                            const SizedBox(height: 48),
-                            
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _buildSectionTitle(Icons.source, L10n.t('movie_sources')),'''
-replacement = '''                            const SizedBox(height: 48),
+# Fix _openInWebPlayer to use embed URL
+search_func = """      String targetUrl = widget.lazyPlaylistUrl ?? _currentUrl;"""
+new_func = """      String targetUrl = widget.lazyPlaylistUrl ?? _currentUrl;
+      
+      // If YouTube, use embed to hide comments/sidebar and play cleanly
+      if (targetUrl.contains('youtube.com') || targetUrl.contains('youtu.be')) {
+        String? vid;
+        if (targetUrl.contains('v=')) {
+          final uri = Uri.parse(targetUrl);
+          vid = uri.queryParameters['v'];
+        } else if (targetUrl.contains('youtu.be/')) {
+          vid = targetUrl.split('youtu.be/').last.split('?').first;
+        }
+        if (vid != null) {
+          targetUrl = "https://www.youtube.com/embed/$vid?autoplay=1";
+        }
+      }"""
+if "https://www.youtube.com/embed/$vid?autoplay=1" not in content:
+    content = content.replace(search_func, new_func)
 
-                            _buildSectionTitle(Icons.color_lens, 'Màu sắc Video (Toàn cục)'),
-                            const SizedBox(height: 16),
-                            if (_prefs != null)
-                              GlassContainer(
-                                padding: const EdgeInsets.all(16),
-                                borderRadius: 16,
-                                color: Colors.white.withOpacity(0.05),
-                                borderColor: Colors.white.withOpacity(0.1),
-                                child: GlobalColorSettings(
-                                  prefs: _prefs!,
-                                  onSettingsChanged: (data) => _syncToFirebase(),
-                                ),
-                              ),
-                            
-                            const SizedBox(height: 48),
-                            
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                _buildSectionTitle(Icons.source, L10n.t('movie_sources')),'''
-content = content.replace(target, replacement)
+# Add button safely using regex
+pattern = r"(\s*)(// Settings Gear Button)"
+replacement = r"""\1// Web Player Button (YouTube 4K+)
+\1if (_isYoutube && _ytQualities.any((q) => q >= 2160)) ...[
+\1  IconButton(
+\1    icon: const Icon(
+\1      Icons.open_in_browser,
+\1      color: Colors.white,
+\1      size: 20,
+\1    ),
+\1    onPressed: _openInWebPlayer,
+\1    tooltip: 'Phát bằng trình duyệt (Tối ưu 4K/8K)',
+\1    padding: const EdgeInsets.all(4),
+\1    constraints: const BoxConstraints(),
+\1  ),
+\1  const SizedBox(width: 10),
+\1]
+\1\2"""
+if "Icons.open_in_browser" not in content:
+    content = re.sub(pattern, replacement, content)
 
-# Add import
-if "import '../widgets/global_color_settings.dart';" not in content:
-    content = content.replace("import '../widgets/glass_container.dart';", "import '../widgets/glass_container.dart';\nimport '../widgets/global_color_settings.dart';")
-
-with open('lib/screens/settings_screen.dart', 'w', encoding='utf-8') as f:
+with open(path, 'w', encoding='utf-8') as f:
     f.write(content)
-
-print('Patched successfully')
+print("Updated player_screen.dart")

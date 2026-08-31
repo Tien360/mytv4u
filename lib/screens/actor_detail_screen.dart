@@ -7,6 +7,7 @@ import '../widgets/hover_movie_card.dart';
 import '../widgets/custom_title_bar.dart';
 import '../widgets/glass_container.dart';
 import 'movie_detail_screen.dart';
+import '../globals.dart';
 
 import '../utils/l10n.dart';
 class ActorDetailScreen extends StatefulWidget {
@@ -147,10 +148,12 @@ class _ActorDetailScreenState extends State<ActorDetailScreen> {
               ),
             ),
           Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
-              child: Container(color: Colors.black.withOpacity(0.5)),
-            ),
+            child: isMinimalistUi.value 
+              ? Container(color: Colors.black87)
+              : BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 50.0, sigmaY: 50.0),
+                  child: Container(color: Colors.black.withOpacity(0.5)),
+                ),
           ),
           
           // Content

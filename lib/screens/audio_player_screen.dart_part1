@@ -1,0 +1,411 @@
+import 'dart:ui' as ui;
+import 'package:flutter/material.dart';
+import '../widgets/tonearm_widget.dart';
+import 'package:palette_generator/palette_generator.dart';
+import 'package:flutter/services.dart';
+import 'audio_visualizer.dart';
+import 'package:id3/id3.dart';
+import 'dart:convert';
+import 'dart:io';
+
+import 'settings_screen.dart';
+import '../utils/l10n.dart';
+import 'package:media_kit/media_kit.dart';
+
+import 'dart:typed_data';
+import 'dart:math' as math;
+import 'dart:ui';
+import 'package:file_picker/file_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class AudioPlayerScreen extends StatefulWidget {
+  final List<PlatformFile> files;
+  final int initialIndex;
+
+  const AudioPlayerScreen({Key? key, required this.files, this.initialIndex = 0}) : super(key: key);
+
+  @override
+  _AudioPlayerScreenState createState() => _AudioPlayerScreenState();
+}
+
+class _AudioPlayerScreenState extends State<AudioPlayerScreen> with TickerProviderStateMixin {
+  late List<PlatformFile> _playlistFiles;
+  late final Player player;
+  int currentIndex = 0;
+  bool isPlaying = false;
+  Duration position = Duration.zero;
+  Duration duration = Duration.zero;
+  Uint8List? coverArt;
+  Color _dominantColor = Colors.blueAccent;
+  final Map<String, Uint8List?> _coverCache = {};
+  String title = '';
+  String artist = '';
+  bool isShuffle = false;
+  int repeatMode = 0; // 0: off, 1: all, 2: one
+
+  late AnimationController _spinController;
+  late AnimationController _vizController;
+  
+  String visualizerType = 'bars';
+  int sleepTimerMinutes = 0;
+  bool _showPlaylist = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _playlistFiles = List.from(widget.files);
+    currentIndex = widget.initialIndex;
+    player = Player();
+    
+    _spinController = AnimationController(vsync: this, duration: const Duration(seconds: 3));
+    _vizController = AnimationController(vsync: this, duration: const Duration(milliseconds: 500))..repeat(reverse: true);
+    
+    _loadSettings();
+
+    player.stream.playing.listen((playing) {
+      if (mounted) {
+        setState(() => isPlaying = playing);
+        if (playing) {
+          _spinController.repeat();
+          _vizController.repeat(reverse: true);
+        } else {
+          _spinController.stop();
+          _vizController.stop();
+        }
+      }
+    });
+    
+    player.stream.position.listen((pos) {
+      if (mounted) setState(() => position = pos);
+    });
+    
+    player.stream.duration.listen((dur) {
+      if (mounted) setState(() => duration = dur);
+    });
+    
+    player.stream.completed.listen((completed) {
+      if (completed) {
+        _handleCompletion();
+      }
+    });
+
+    _loadCurrent();
+  }
+
+  Future<void> _loadSettings() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      visualizerType = prefs.getString('audio_visualizer') ?? 'bars';
+      sleepTimerMinutes = prefs.getInt('audio_sleep_timer') ?? 0;
+    });
+    
+    if (sleepTimerMinutes > 0) {
+      Future.delayed(Duration(minutes: sleepTimerMinutes), () {
+        if (mounted) player.pause();
+      });
+    }
+  }
+
+  void _handleCompletion() {
+    if (repeatMode == 2) {
+      player.seek(Duration.zero);
+      player.play();
+    } else if (isShuffle) {
+      currentIndex = math.Random().nextInt(_playlistFiles.length);
+      _loadCurrent();
+    } else if (currentIndex < _playlistFiles.length - 1) {
+      _next();
+    } else if (repeatMode == 1) {
+      currentIndex = 0;
+      _loadCurrent();
+    }
+  }
+
+
+  Future<Uint8List?> _getThumbnail(String path) async {
+    if (_coverCache.containsKey(path)) return _coverCache[path];
+    try {
+      if (path.toLowerCase().endsWith('.mp3')) {
+        // Read async to avoid freezing UI
+        final bytes = await File(path).readAsBytes();
+        final mp3 = MP3Instance(bytes);
+        if (mp3.parseTagsSync()) {
+          final tags = mp3.getMetaTags();
+          if (tags != null && tags['APIC'] != null) {
+            _coverCache[path] = base64Decode(tags['APIC']['base64']);
+            return _coverCache[path];
+          }
+        }
+      }
+    } catch (_) {}
+    _coverCache[path] = null;
+    return null;
+  }
+
+  Future<void> _loadCurrent() async {
+    final file = _playlistFiles[currentIndex];
+    final path = file.path!;
+    
+    setState(() {
+      title = file.name.replaceAll(RegExp(r'\.[a-zA-Z0-9]+$'), '');
+      artist = 'Unknown Artist';
+      coverArt = null;
+    });
+    
+    // Try to extract ID3 tags
+    try {
+      if (path.toLowerCase().endsWith('.mp3')) {
+        MP3Instance mp3 = MP3Instance(File(path).readAsBytesSync());
+        if (mp3.parseTagsSync()) {
+          Map<String, dynamic>? tags = mp3.getMetaTags();
+          if (tags != null) {
+            setState(() {
+              title = tags['Title'] ?? title;
+              artist = tags['Artist'] ?? artist;
+              if (tags['APIC'] != null && tags['APIC']['base64'] != null) {
+                coverArt = base64Decode(tags['APIC']['base64']);
+              }
+            });
+          }
+        }
+      }
+    } catch (e) {
+      // Ignore id3 parsing errors
+    }
+    _updateDominantColor();
+    
+    await player.open(Media(path));
+    player.play();
+  }
+
+  Future<void> _addFiles(Function setSheetState) async {
+    var files = await FilePicker.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['mp3', 'wav', 'flac', 'm4a', 'aac', 'wma', 'ogg'],
+      allowMultiple: true,
+    );
+    if (files != null && files.isNotEmpty) {
+      setState(() {
+        for (var file in files) {
+          if (file.path != null) {
+            _playlistFiles.add(file);
+          }
+        }
+      });
+      setSheetState(() {});
+    }
+  }
+
+  Future<void> _updateDominantColor() async {
+    if (coverArt == null) {
+      if (mounted) setState(() => _dominantColor = Colors.blueAccent);
+      return;
+    }
+    try {
+      final PaletteGenerator generator = await PaletteGenerator.fromImageProvider(
+        MemoryImage(coverArt!),
+        size: const Size(100, 100),
+      );
+      if (mounted) {
+        setState(() {
+          _dominantColor = generator.dominantColor?.color ?? generator.vibrantColor?.color ?? Colors.blueAccent;
+        });
+      }
+    } catch (e) {
+      if (mounted) setState(() => _dominantColor = Colors.blueAccent);
+    }
+  }
+
+  void _toggleShuffle() {
+    setState(() {
+      isShuffle = !isShuffle;
+    });
+  }
+
+  void _toggleRepeat() {
+    setState(() {
+      repeatMode = (repeatMode + 1) % 3;
+    });
+  }
+
+  void _next() {
+    if (isShuffle) {
+      currentIndex = math.Random().nextInt(_playlistFiles.length);
+      _loadCurrent();
+    } else if (currentIndex < _playlistFiles.length - 1) {
+      currentIndex++;
+      _loadCurrent();
+    } else if (repeatMode == 1) {
+      currentIndex = 0;
+      _loadCurrent();
+    }
+  }
+
+  void _prev() {
+    if (position.inSeconds > 3) {
+      player.seek(Duration.zero);
+    } else if (currentIndex > 0) {
+      currentIndex--;
+      _loadCurrent();
+    } else if (repeatMode == 1) {
+      currentIndex = _playlistFiles.length - 1;
+      _loadCurrent();
+    }
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    _spinController.dispose();
+    _vizController.dispose();
+    super.dispose();
+  }
+
+  String _formatDuration(Duration d) {
+    String twoDigits(int n) => n.toString().padLeft(2, "0");
+    String twoDigitMinutes = twoDigits(d.inMinutes.remainder(60));
+    String twoDigitSeconds = twoDigits(d.inSeconds.remainder(60));
+    if (d.inHours > 0) {
+      return "${d.inHours}:$twoDigitMinutes:$twoDigitSeconds";
+    }
+    return "$twoDigitMinutes:$twoDigitSeconds";
+  }
+
+
+
+  void _showAudioSettings() {
+    showDialog(
+      context: context,
+      barrierColor: Colors.black.withOpacity(0.5),
+      builder: (context) {
+        return Center(
+          child: Material(
+            color: Colors.transparent,
+            child: Container(
+              width: 500,
+              decoration: BoxDecoration(
+                color: const Color(0x33000000),
+                borderRadius: BorderRadius.circular(24),
+                border: Border.all(color: const Color(0x33FFFFFF)),
+                boxShadow: const [BoxShadow(color: Colors.black26, blurRadius: 20)],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(24),
+                child: BackdropFilter(
+                  filter: ui.ImageFilter.blur(sigmaX: 40, sigmaY: 40),
+                  child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: StatefulBuilder(
+                      builder: (context, setDialogState) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text("Cài đặt Trình phát", style: TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+                            const SizedBox(height: 24),
+                            ListTile(
+                              leading: const Icon(Icons.graphic_eq, color: Colors.white),
+                              title: const Text('Vị trí & Kiểu sóng âm', style: TextStyle(color: Colors.white)),
+                              trailing: DropdownButton<String>(
+                                dropdownColor: Colors.grey[900],
+                                value: ['inline', 'bars', 'circle'].contains(visualizerType) ? visualizerType : 'inline',
+                                underline: const SizedBox(),
+                                items: const [
+                                  DropdownMenuItem(value: 'inline', child: Text('Nhỏ (cạnh tên)', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 'bars', child: Text('Lớn (dưới ảnh)', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 'circle', child: Text('Vòng tròn đĩa', style: TextStyle(color: Colors.white))),
+                                ],
+                                onChanged: (val) async {
+                                  if (val != null) {
+                                    final prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('audio_visualizer', val);
+                                    setDialogState(() => visualizerType = val);
+                                    setState(() => visualizerType = val);
+                                  }
+                                },
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.info_outline, color: Colors.white),
+                              title: const Text('Chất lượng âm thanh', style: TextStyle(color: Colors.white)),
+                              trailing: Builder(
+                                builder: (context) {
+                                  String qualityInfo = "Chưa rõ";
+                                  if (duration.inSeconds > 0) {
+                                    try {
+                                      int bytes = File(_playlistFiles[currentIndex].path!).lengthSync();
+                                      int kbps = ((bytes * 8) / duration.inSeconds / 1000).round();
+                                      qualityInfo = " kbps";
+                                      if (kbps > 320) qualityInfo += " (Lossless)";
+                                      else if (kbps >= 256) qualityInfo += " (HQ)";
+                                      else if (kbps >= 128) qualityInfo += " (Standard)";
+                                    } catch (e) {
+                                      qualityInfo = "Lỗi đọc file";
+                                    }
+                                  }
+                                  return Text(qualityInfo, style: const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold));
+                                }
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.timer, color: Colors.white),
+                              title: const Text('Hẹn giờ tắt (phút)', style: TextStyle(color: Colors.white)),
+                              trailing: DropdownButton<int>(
+                                dropdownColor: Colors.grey[900],
+                                value: sleepTimerMinutes,
+                                underline: const SizedBox(),
+                                items: const [
+                                  DropdownMenuItem(value: 0, child: Text('Tắt', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 15, child: Text('15', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 30, child: Text('30', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 60, child: Text('60', style: TextStyle(color: Colors.white))),
+                                ],
+                                onChanged: (val) async {
+                                  if (val != null) {
+                                    final prefs = await SharedPreferences.getInstance();
+                                    prefs.setInt('audio_sleep_timer', val);
+                                    setDialogState(() => sleepTimerMinutes = val);
+                                    setState(() => sleepTimerMinutes = val);
+                                    if (val > 0) {
+                                      Future.delayed(Duration(minutes: val), () {
+                                        if (mounted) player.pause();
+                                      });
+                                    }
+                                  }
+                                },
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.repeat, color: Colors.white),
+                              title: const Text('Chế độ lặp lại', style: TextStyle(color: Colors.white)),
+                              trailing: DropdownButton<int>(
+                                dropdownColor: Colors.grey[900],
+                                value: repeatMode,
+                                underline: const SizedBox(),
+                                items: const [
+                                  DropdownMenuItem(value: 0, child: Text('Không lặp', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 1, child: Text('Lặp danh sách', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 2, child: Text('Lặp 1 bài', style: TextStyle(color: Colors.white))),
+                                ],
+                                onChanged: (val) {
+                                  if (val != null) {
+                                    setDialogState(() => repeatMode = val);
+                                    setState(() => repeatMode = val);
+                                  }
+                                },
+                              ),
+                            ),
+                          ],
+                        );
+                      }
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      }
+    );
+  }
+

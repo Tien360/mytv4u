@@ -4,6 +4,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../globals.dart';
 
 final ValueNotifier<String?> globalAmbientImageUrl = ValueNotifier<String?>(null);
 final ValueNotifier<bool> globalEnableAmbient = ValueNotifier<bool>(true);
@@ -43,9 +44,12 @@ class _AmbientBackgroundState extends State<AmbientBackground> with SingleTicker
     return ValueListenableBuilder<bool>(
       valueListenable: globalEnableAmbient,
       builder: (context, isEnabled, child) {
-        if (!isEnabled) {
-          return Container(color: const Color(0xFF000000));
-        }
+        return ValueListenableBuilder<bool>(
+          valueListenable: isMinimalistUi,
+          builder: (context, isMinimalist, _) {
+            if (!isEnabled || isMinimalist) {
+              return Container(color: const Color(0xFF000000));
+            }
 
         return ValueListenableBuilder<String?>(
           valueListenable: globalAmbientImageUrl,
@@ -89,6 +93,8 @@ class _AmbientBackgroundState extends State<AmbientBackground> with SingleTicker
                       },
                     ),
             );
+          },
+        );
           },
         );
       },

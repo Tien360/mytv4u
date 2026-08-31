@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import '../utils/l10n.dart';
 import 'package:html/parser.dart' as html_parser;
 
 import '../models/sport_match.dart';
@@ -16,7 +17,7 @@ class SportApi {
         for (var btn in buttons) {
           final title = btn.attributes['data-title'] ?? '';
           final time = btn.attributes['data-time'] ?? '';
-          final league = btn.attributes['data-league'] ?? 'Giải đấu khác';
+          final league = btn.attributes['data-league'] ?? L10n.t('other-leagues') ?? 'Giải đấu khác';
           final sourcesStr = btn.attributes['data-sources'] ?? '[]';
           
           List<SportSource> sources = [];

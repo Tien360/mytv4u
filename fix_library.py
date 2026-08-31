@@ -1,45 +1,7 @@
-﻿import re
+﻿content = open('lib/screens/library_screen.dart', 'r', encoding='utf-8').read()
 
-with open('lib/screens/library_screen.dart', 'r', encoding='utf-8') as f:
-    content = f.read()
+content = content.replace("'Mở Link'", "L10n.t('open-link') ?? 'Mở Link'")
+content = content.replace("'Mở File'", "L10n.t('open-file') ?? 'Mở File'")
+content = content.replace("'Nhập link video/audio (mp4, m3u8, mp3...)'", "L10n.t('open-url-hint') ?? 'Nhập link video/audio/youtube (mp4, m3u8, youtube...)'")
 
-replacement = '''
-                      try {
-                        FilePickerResult? result = await FilePicker.platform.pickFiles(
-                          type: FileType.custom,
-                          allowedExtensions: ['mp4', 'mkv', 'avi', 'flv', 'webm', 'mov', 'ts'],
-                        );
-                        if (result != null && result.files.single.path != null) {
-                          String path = result.files.single.path!;
-                          String filename = result.files.single.name;
-                          String fileUrl = "file:///" + path.replaceAll(r'\\\\', '/');
-                          
-                          if (context.mounted) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => PlayerScreen(
-                                  episodes: [
-                                    Episode(
-                                      name: 'Full',
-                                      slug: 'full',
-                                      m3u8Url: fileUrl,
-                                      embedUrl: '',
-                                    )
-                                  ],
-                                  currentEpisodeIndex: 0,
-                                  movieName: filename,
-                                ),
-                              ),
-                            );
-                          }
-                        }
-                      } catch (e) {
-                         print("File picker error: " + e.toString());
-                      }
-'''
-content = re.sub(r'try\s*\{\s*FilePickerResult\? result = await FilePicker\.platform\.pickFiles\([\s\S]*?catch\s*\(e\)\s*\{\s*print\("File picker error: " \+ e\.toString\(\)\);\s*\}', replacement, content)
-
-with open('lib/screens/library_screen.dart', 'w', encoding='utf-8') as f:
-    f.write(content)
-print("Updated library_screen.dart")
+open('lib/screens/library_screen.dart', 'w', encoding='utf-8').write(content)

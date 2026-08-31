@@ -1,19 +1,11 @@
-﻿with open('lib/api/phim_api.dart', 'r', encoding='utf-8') as f:
+﻿import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\player_screen.dart"
+with open(path, 'r', encoding='utf-8') as f:
     content = f.read()
 
-content = content.replace(
-    "'https://api.themoviedb.org/3/${match['type']}/${match['id']}/images?api_key=$_tmdbApiKey'",
-    "\"https://api.themoviedb.org/3/${match['type']}/${match['id']}/images?api_key=$_tmdbApiKey\""
-)
-content = content.replace(
-    "'https://api.themoviedb.org/3/${match['type']}/${match['id']}/credits?api_key=$_tmdbApiKey&language=vi-VN'",
-    "\"https://api.themoviedb.org/3/${match['type']}/${match['id']}/credits?api_key=$_tmdbApiKey&language=vi-VN\""
-)
-content = content.replace(
-    "'https://api.themoviedb.org/3/${match['type']}/${match['id']}/videos?api_key=$_tmdbApiKey'",
-    "\"https://api.themoviedb.org/3/${match['type']}/${match['id']}/videos?api_key=$_tmdbApiKey\""
-)
+content = re.sub(r"\](\s*)// Settings Gear Button", r"],\1// Settings Gear Button", content)
 
-with open('lib/api/phim_api.dart', 'w', encoding='utf-8') as f:
+with open(path, 'w', encoding='utf-8') as f:
     f.write(content)
-print("Replaced quotes!")
+print("Fixed syntax")

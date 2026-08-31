@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'glass_container.dart';
 
 import '../models/update_info.dart';
 import '../api/update_api.dart';
@@ -50,21 +51,10 @@ class _UpdateDialogState extends State<UpdateDialog> {
       child: Dialog(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        child: Container(
+        child: GlassContainer(
           width: 450,
           padding: const EdgeInsets.all(24),
-          decoration: BoxDecoration(
-            color: Colors.black.withValues(alpha: 0.6),
-            borderRadius: BorderRadius.circular(24),
-            border: Border.all(color: Colors.white10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.5),
-                blurRadius: 20,
-                spreadRadius: 5,
-              )
-            ],
-          ),
+          borderRadius: 24,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,4 +1,5 @@
 import 'player_screen.dart';
+import 'audio_player_screen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import '../widgets/glass_container.dart';
@@ -82,8 +83,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                     children: [
                       ElevatedButton.icon(
                         icon: const Icon(Icons.link, color: Colors.white),
-                        label: const Text(
-                          'Mở Link',
+                        label: Text(
+                          L10n.t('open-link') ?? 'Mở Link',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -106,8 +107,8 @@ class LibraryScreenState extends State<LibraryScreen> {
                       const SizedBox(width: 12),
                       ElevatedButton.icon(
                         icon: const Icon(Icons.folder_open, color: Colors.white),
-                        label: const Text(
-                          'Mở File',
+                        label: Text(
+                          L10n.t('open-file') ?? 'Mở File',
                           style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -129,49 +130,50 @@ class LibraryScreenState extends State<LibraryScreen> {
                         var files = await FilePicker.pickFiles(
                           type: FileType.custom,
                           allowedExtensions: [
-                            
-                            'mp4',
-                            'mkv',
-                            'avi',
-                            'flv',
-                            'webm',
-                            'mov',
-                            'ts',
-                            'mp3',
-                            'm4a',
-                            'wav',
-                            'flac',
-                            'aac',
-
+                            'mp4', 'mkv', 'avi', 'flv', 'webm', 'mov', 'ts',
+                            'mp3', 'm4a', 'wav', 'flac', 'aac', 'ogg', 'wma', 'opus', 'amr'
                           ],
-                          allowMultiple: false,
+                          allowMultiple: true,
                         );
-                        if (files != null &&
-                            files.isNotEmpty &&
-                            files.single.path != null) {
-                          String path = files.single.path!;
-                          String filename = files.single.name;
-                          String fileUrl =
-                              "file:///" + path.replaceAll(r'\\', '/');
-
-                          if (context.mounted) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (_) => PlayerScreen(
-                                  episodes: [
-                                    Episode(
-                                      name: 'Full',
-                                      slug: 'full',
-                                      m3u8Url: fileUrl,
-                                      embedUrl: '',
-                                    ),
-                                  ],
-                                  currentEpisodeIndex: 0,
-                                  movieName: filename,
+                        if (files != null && files.isNotEmpty) {
+                          String ext = files.first.name.split('.').last.toLowerCase();
+                          bool isAudio = ['mp3', 'm4a', 'wav', 'flac', 'aac', 'ogg', 'wma', 'opus', 'amr'].contains(ext);
+                          if (isAudio) {
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => AudioPlayerScreen(
+                                    files: files,
+                                    initialIndex: 0,
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
+                            }
+                          } else if (files.first.path != null) {
+                            String path = files.first.path!;
+                            String filename = files.first.name;
+                            String fileUrl = "file:///" + path.replaceAll(r'\', '/');
+
+                            if (context.mounted) {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (_) => PlayerScreen(
+                                    episodes: [
+                                      Episode(
+                                        name: 'Full',
+                                        slug: 'full',
+                                        m3u8Url: fileUrl,
+                                        embedUrl: '',
+                                      ),
+                                    ],
+                                    currentEpisodeIndex: 0,
+                                    movieName: filename,
+                                  ),
+                                ),
+                              );
+                            }
                           }
                         }
                       
@@ -313,7 +315,7 @@ class LibraryScreenState extends State<LibraryScreen> {
                   controller: _urlController,
                   style: const TextStyle(color: Colors.white),
                   decoration: InputDecoration(
-                    hintText: 'Nhập link video/audio (mp4, m3u8, mp3...)',
+                    hintText: L10n.t('open-url-hint') ?? 'Nhập link video/audio/youtube (mp4, m3u8, youtube...)',
                     hintStyle: const TextStyle(color: Colors.white30),
                     filled: true,
                     fillColor: Colors.black.withValues(alpha: 0.2),

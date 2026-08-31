@@ -125,18 +125,18 @@ class SportScreenState extends State<SportScreen> {
                 indicatorColor: Colors.blueAccent,
                 labelColor: Colors.blueAccent,
                 unselectedLabelColor: Colors.white54,
-                tabs: const [
-                  Tab(text: "Đang diễn ra (Live)"),
-                  Tab(text: "Sắp diễn ra"),
-                  Tab(text: "Lịch Thi Đấu & Tỷ Số"),
+                tabs: [
+                  Tab(text: L10n.t('live-ongoing') ?? "Đang diễn ra (Live)"),
+                  Tab(text: L10n.t('live-upcoming') ?? "Sắp diễn ra"),
+                  Tab(text: L10n.t('live-schedule-scores') ?? "Lịch Thi Đấu & Tỷ Số"),
                 ],
               ),
               Expanded(
                 child: TabBarView(
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    _buildMatchGrid(liveMatches, 'Không có trận đấu nào đang diễn ra.'),
-                    _buildMatchGrid(upcomingMatches, 'Không có trận đấu nào sắp diễn ra.'),
+                    _buildMatchGrid(liveMatches, L10n.t('no-live-matches') ?? 'Không có trận đấu nào đang diễn ra.'),
+                    _buildMatchGrid(upcomingMatches, L10n.t('no-upcoming-matches') ?? 'Không có trận đấu nào sắp diễn ra.'),
                     const SportLivescoreWidget(),
                   ],
                 ),
@@ -227,7 +227,7 @@ class SportScreenState extends State<SportScreen> {
                 children: [
                   Expanded(
                     child: Text(
-                      match.league,
+                      match.league == 'Giải đấu khác' ? (L10n.t('other-leagues') ?? 'Giải đấu khác') : match.league,
                       style: const TextStyle(
                         color: Colors.white70,
                         fontSize: 12,
@@ -348,7 +348,7 @@ class SportScreenState extends State<SportScreen> {
                   Text(
                     match.sources.isNotEmpty 
                         ? '${match.sources.length} Nguồn phát'
-                        : 'Chưa có nguồn',
+                        : L10n.t('no-sources-yet') ?? 'Chưa có nguồn',
                     style: TextStyle(
                       color: match.sources.isNotEmpty ? Colors.white54 : Colors.redAccent.withValues(alpha: 0.5), 
                       fontSize: 12,
@@ -415,7 +415,7 @@ class _SportLivescoreWidgetState extends State<SportLivescoreWidget> with Automa
           children: [
             const Icon(Icons.info_outline, color: Colors.white54, size: 48),
             const SizedBox(height: 16),
-            const Text('Không có dữ liệu lịch thi đấu.', style: TextStyle(color: Colors.white70)),
+            Text(L10n.t('no-schedule-data') ?? 'Không có dữ liệu lịch thi đấu.', style: TextStyle(color: Colors.white70)),
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _fetchData,

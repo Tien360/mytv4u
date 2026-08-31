@@ -189,11 +189,13 @@ class Episode {
   final String slug;
   final String m3u8Url;
   final String embedUrl;
+  final String? filename;
 
   Episode({
     required this.name,
     required this.slug,
     required this.m3u8Url,
     required this.embedUrl,
+    this.filename,
   });
 }

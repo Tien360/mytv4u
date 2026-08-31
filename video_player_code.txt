@@ -1,0 +1,230 @@
+========================================
+
+========================================
+Tool Call: run_command at line 24855
+========================================
+
+========================================
+Tool Call: run_command at line 24857
+========================================
+
+========================================
+Tool Call: run_command at line 24859
+========================================
+
+========================================
+Tool Call: run_command at line 24861
+========================================
+
+========================================
+Tool Call: run_command at line 24863
+========================================
+
+========================================
+Tool Call: run_command at line 24912
+========================================
+
+========================================
+Tool Call: run_command at line 26351
+========================================
+
+========================================
+Tool Call: run_command at line 26353
+========================================
+
+========================================
+Tool Call: run_command at line 26367
+========================================
+
+========================================
+Tool Call: run_command at line 26369
+========================================
+
+========================================
+Tool Call: run_command at line 26371
+========================================
+
+========================================
+Tool Call: run_command at line 26400
+========================================
+
+========================================
+Tool Call: run_command at line 26402
+========================================
+
+========================================
+Tool Call: run_command at line 26404
+========================================
+
+========================================
+Tool Call: run_command at line 26406
+========================================
+
+========================================
+Tool Call: run_command at line 26408
+========================================
+
+========================================
+Tool Call: run_command at line 26438
+========================================
+
+========================================
+Tool Call: run_command at line 26440
+========================================
+
+========================================
+Tool Call: run_command at line 26446
+========================================
+
+========================================
+Tool Call: run_command at line 26448
+========================================
+
+========================================
+Tool Call: replace_file_content at line 26450
+========================================
+                                        SwitchListTile(
+                                          title: Text(
+                                            L10n.t('auto_next'),
+                                            style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          value: _autoNext,
+                                          activeColor: Colors.amber,
+                                          onChanged: (val) async {
+                                            setState(() => _autoNext = val);
+                                            final prefs =
+                                                await SharedPreferences.getInstance();
+                                            await prefs.setBool(
+                                              'auto_next',
+                                              val,
+                                            );
+                                            _syncToFirebase();
+                                          },
+                                        ),
+                                        const Divider(color: Colors.white12, height: 1),
+                                        SwitchListTile(
+                                          title: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro tự động', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                          value: _enableSkipIntro,
+                                          activeColor: Colors.amber,
+                                          onChanged: (val) async {
+                                            final prefs = await SharedPreferences.getInstance();
+                                            await prefs.setBool('enable_skip_intro', val);
+                                            _syncToFirebase();
+                                            setState(() {
+                                              _enableSkipIntro = val;
+                                            });
+                                          },
+                                        ),
+                                        if (_enableSkipIntro) ...[
+                                          ListTile(
+                                            title: Text(L10n.t('skip_intro_duration') ?? 'Thời lượng bỏ qua', style: const TextStyle(color: Colors.white70)),
+                                            trailing: SizedBox(
+                                              width: 150,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.end,
+                                                children: [
+                                                  Text('$_skipIntroDuration s', style: const TextStyle(color: Colors.white70)),
+                                                  const SizedBox(width: 8),
+                                                  Expanded(
+                                                    child: Slider(
+                                                      value: _skipIntroDuration.toDouble(),
+                                                      min: 30,
+                                                      max: 180,
+                                                      divisions: 30,
+                                                      onChanged: (val) async {
+                                                        final prefs = await SharedPreferences.getInstance();
+                                                        await prefs.setInt('skip_intro_duration', val.toInt());
+                                                        _syncToFirebase();
+                                                        setState(() {
+                                                          _skipIntroDuration = val.toInt();
+                                                        });
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+========================================
+Tool Call: run_command at line 26475
+========================================
+
+========================================
+Tool Call: run_command at line 26477
+========================================
+
+========================================
+Tool Call: run_command at line 26479
+========================================
+
+========================================
+Tool Call: run_command at line 26481
+========================================
+
+========================================
+Tool Call: replace_file_content at line 26483
+========================================
+    return Scaffold(
+      backgroundColor: Colors.transparent,
+      drawer: isDesktop
+          ? null
+          : Drawer(
+              backgroundColor: const Color(0xFF1A1A1A),
+              child: SafeArea(child: _buildSidebarMenu()),
+            ),
+      body: Stack(
+        children: [
+          const AmbientBackground(),
+          SafeArea(
+========================================
+Tool Call: run_command at line 26485
+========================================
+
+========================================
+Tool Call: replace_file_content at line 26489
+========================================
+    return Scaffold(
+      backgroundColor: Colors.black,
+      drawer: isDesktop
+========================================
+Tool Call: run_command at line 26731
+========================================
+
+========================================
+Tool Call: run_command at line 26735
+========================================
+
+========================================
+Tool Call: run_command at line 26737
+========================================
+
+========================================
+Tool Call: run_command at line 26739
+========================================
+
+========================================
+Tool Call: run_command at line 26743
+========================================
+
+========================================
+Tool Call: run_command at line 26745
+========================================
+
+========================================
+Tool Call: run_command at line 26751
+========================================
+
+========================================
+Tool Call: run_command at line 26753
+========================================
+
+========================================
+Tool Call: run_command at line 26757
+========================================
+
+========================================
+Tool Call: run_command at line 26771

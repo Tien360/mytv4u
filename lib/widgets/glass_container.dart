@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import '../globals.dart';
 
 class GlassContainer extends StatelessWidget {
   final Widget child;
@@ -27,25 +28,37 @@ class GlassContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: margin,
-      width: width,
-      height: height,
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
-          child: Container(
-            padding: padding,
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(borderRadius),
-              border: Border.all(color: borderColor, width: 1),
+    return ValueListenableBuilder<bool>(
+      valueListenable: isMinimalistUi,
+      builder: (context, isMinimalist, _) {
+        final innerContainer = Container(
+          padding: padding,
+          decoration: BoxDecoration(
+            color: isMinimalist ? const Color(0xFF1E1E1E) : color,
+            borderRadius: BorderRadius.circular(borderRadius),
+            border: Border.all(
+              color: isMinimalist ? Colors.white12 : borderColor, 
+              width: 1
             ),
-            child: child,
           ),
-        ),
-      ),
+          child: child,
+        );
+
+        return Container(
+          margin: margin,
+          width: width,
+          height: height,
+          child: isMinimalist
+              ? innerContainer
+              : ClipRRect(
+                  borderRadius: BorderRadius.circular(borderRadius),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: blur, sigmaY: blur),
+                    child: innerContainer,
+                  ),
+                ),
+        );
+      },
     );
   }
 }

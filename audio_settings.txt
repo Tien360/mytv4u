@@ -1,0 +1,29 @@
+showVinyl = val);
+                                  setState(() => showVinyl = val);
+                                },
+                              ),
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.timer, color: Colors.white),
+                              title: Text(L10n.t('sleep_timer') ?? 'Hẹn giờ tắt (phút)', style: const TextStyle(color: Colors.white)),
+                              trailing: DropdownButton<int>(
+                                dropdownColor: Colors.grey[900],
+                                value: sleepTimerMinutes,
+                                underline: const SizedBox(),
+                                items: [
+                                  DropdownMenuItem(value: 0, child: Text(L10n.t('off') ?? 'Tắt', style: const TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 15, child: const Text('15', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 30, child: const Text('30', style: TextStyle(color: Colors.white))),
+                                  DropdownMenuItem(value: 60, child: const Text('60', style: TextStyle(color: Colors.white))),
+                                ],
+                                onChanged: (val) async {
+                                  if (val != null) {
+                                    final prefs = await SharedPreferences.getInstance();
+                                    prefs.setInt('audio_sleep_timer', val);
+                                    setDialogState(() => sleepTimerMinutes = val);
+                                    setState(() => sleepTimerMinutes = val);
+                                    if (val > 0) {
+                                      Future.delayed(Duration(minutes: val), () {
+                                        if (mounted) player.pause();
+                                      });
+                                 

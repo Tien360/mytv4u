@@ -1,0 +1,200 @@
+751:                                   ),
+752:                                   const SizedBox(height: 16),
+753:                                   GlassContainer(
+754:                                     padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+755:                                     child: Column(
+756:                                       children: [
+757:                                         ListTile(
+758:                                           contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+759:                                           leading: const Icon(Icons.graphic_eq, color: Colors.white),
+760:                                           title: Text(L10n.t('visualizer_type') ?? 'Kiểu sóng âm', style: const TextStyle(color: Colors.white)),
+761:                                           trailing: DropdownButton<String>(
+762:                                             dropdownColor: Colors.grey[900],
+763:                                             value: ['none', 'inline', 'bars', 'circle'].contains(_prefs?.getString('audio_visualizer')) ? _prefs?.getString('audio_visualizer') : 'bars',
+764:                                             underline: const SizedBox(),
+765:                                             items: [
+766:                                               DropdownMenuItem(value: 'none', child: Text(L10n.t('viz_none') ?? 'Tắt', style: const TextStyle(color: Colors.white))),
+767:                                               DropdownMenuItem(value: 'inline', child: Text(L10n.t('viz_inline') ?? 'Nhỏ (cạnh tên)', style: const TextStyle(color: Colors.white))),
+768:                                               DropdownMenuItem(value: 'bars', child: Text(L10n.t('viz_bars') ?? 'Lớn (dưới ảnh)', style: const TextStyle(color: Colors.white))),
+769:                                               DropdownMenuItem(value: 'circle', child: Text(L10n.t('viz_circle') ?? 'Vòng tròn đĩa', style: const TextStyle(color: Colors.white))),
+770:                                             ],
+771:                                             onChanged: (val) {
+772:                                               if (val != null) {
+773:                                                 _prefs?.setString('audio_visualizer', val);
+774:                                                 setState(() {});
+775:                                                 _syncToFirebase();
+776:                                               }
+777:                                             },
+778:                                           ),
+779:                                         ),
+780:                                         const Divider(color: Colors.white12, height: 32),
+781:                                         ListTile(
+782:                                           contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+783:                                           leading: const Icon(Icons.album, color: Colors.white),
+784:                                           title: Text(L10n.t('vinyl_effect') ?? 'Hiệu ứng Đĩa than', style: const TextStyle(color: Colors.white)),
+785:                                           trailing: Switch(
+786:                                             value: _prefs?.getBool('audio_vinyl') ?? true,
+787:                                             activeColor: Colors.blueAccent,
+788:                                             onChanged: (val) {
+789:                                               _prefs?.setBool('audio_vinyl', val);
+790:                                               setState(() {});
+791:                                               _syncToFirebase();
+792:                                             },
+793:                                           ),
+794:                                           const Divider(color: Colors.white12),
+795:                                           SwitchListTile(
+796:                                             contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+797:                                             title: Text(L10n.t('auto_next_ep') ?? 'Tự động chuyển tập', style: const TextStyle(color: Colors.white)),
+798:                                             value: _autoNext,
+799:                                             activeColor: Colors.blueAccent,
+800:                                             onChanged: (val) async {
+801:                                               setState(() => _autoNext = val);
+802:                                               final prefs = await SharedPreferences.getInstance();
+803:                                               await prefs.setBool('auto_next', val);
+804:                                             },
+805:                                           ),
+806:                                           const Divider(color: Colors.white12),
+807:                                           SwitchListTile(
+808:                                             contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+809:                                             title: Text(L10n.t('auto_play_trailer') ?? 'Tự động phát Trailer', style: const TextStyle(color: Colors.white)),
+810:                                             value: _autoPlayTrailer,
+811:                                             activeColor: Colors.blueAccent,
+812:                                             onChanged: (val) async {
+813:                                               setState(() => _autoPlayTrailer = val);
+814:                                               final prefs = await SharedPreferences.getInstance();
+815:                                               await prefs.setBool('auto_play_trailer', val);
+816:                                             },
+817:                                           ),
+818:                                           const Divider(color: Colors.white12),
+819:                                           SwitchListTile(
+820:                                             contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+821:                                             title: Text(L10n.t('bg_playback') ?? 'Phát trong nền', style: const TextStyle(color: Colors.white)),
+822:                                             subtitle: Text('Tiếp tục phát âm thanh khi ẩn ứng dụng', style: const TextStyle(color: Colors.white54, fontSize: 12)),
+823:                                             value: _backgroundPlayback,
+824:                                             activeColor: Colors.blueAccent,
+825:                                             onChanged: (val) async {
+826:                                               setState(() => _backgroundPlayback = val);
+827:                                               final prefs = await SharedPreferences.getInstance();
+828:                                               await prefs.setBool('background_playback', val);
+829:                                             },
+830:                                           ),
+831:                                           const Divider(color: Colors.white12),
+832:                                           ListTile(
+833:                                             contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+834:                                             title: Text(L10n.t('default_speed') ?? 'Tốc độ phát mặc định', style: const TextStyle(color: Colors.white)),
+835:                                             trailing: DropdownButton<double>(
+836:                                               dropdownColor: Colors.black87,
+837:                                               value: _defaultSpeed,
+838:                                               style: const TextStyle(color: Colors.amber, fontSize: 16),
+839:                                               underline: const SizedBox(),
+840:                                               items: const [
+841:                                                 DropdownMenuItem(value: 0.5, child: Text('0.5x')),
+842:                                                 DropdownMenuItem(value: 0.75, child: Text('0.75x')),
+843:                                                 DropdownMenuItem(value: 1.0, child: Text('1.0x')),
+844:                                                 DropdownMenuItem(value: 1.25, child: Text('1.25x')),
+845:                                                 DropdownMenuItem(value: 1.5, child: Text('1.5x')),
+846:                                                 DropdownMenuItem(value: 2.0, child: Text('2.0x')),
+847:                                               ],
+848:                                               onChanged: (val) async {
+849:                                                 if (val != null) {
+850:                                                   setState(() => _defaultSpeed = val);
+851:                                                   final prefs = await SharedPreferences.getInstance();
+852:                                                   await prefs.setDouble('default_speed', val);
+853:                                                 }
+854:                                               },
+855:                                             ),
+856:                                           ),
+857:                                           const Divider(color: Colors.white12),
+858:                                           SwitchListTile(
+859:                                             contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+860:                                             title: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro tự động', style: const TextStyle(color: Colors.white)),
+861:                                             value: _prefs?.getBool('enable_skip_intro') ?? true,
+862:                                             activeColor: Colors.blueAccent,
+863:                                             onChanged: (val) async {
+864:                                               setState(() {
+865:                                                 _prefs?.setBool('enable_skip_intro', val);
+866:                                               });
+867:                                               _syncToFirebase();
+868:                                             },
+869:                                           ),
+870:                                           if (_prefs?.getBool('enable_skip_intro') ?? true) ...[
+871:                                             ListTile(
+872:                                               contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+873:                                               title: Text(L10n.t('skip_intro_duration') ?? 'Thời lượng bỏ qua', style: const TextStyle(color: Colors.white)),
+874:                                               trailing: SizedBox(
+875:                                                 width: 150,
+876:                                                 child: Row(
+877:                                                   children: [
+878:                                                     Expanded(
+879:                                                       child: Slider(
+880:                                                         value: (_prefs?.getInt('skip_intro_duration') ?? 85).toDouble(),
+881:                                                         min: 10,
+882:                                                         max: 180,
+883:                                                         divisions: 34,
+884:                                                         activeColor: Colors.blueAccent,
+885:                                                         onChanged: (val) async {
+886:                                                           setState(() {
+887:                                                             _prefs?.setInt('skip_intro_duration', val.toInt());
+888:                                                           });
+889:                                                           _syncToFirebase();
+890:                                                         },
+891:                                                       ),
+892:                                                     ),
+893:                                                     Text('${_prefs?.getInt('skip_intro_duration') ?? 85}s', style: const TextStyle(color: Colors.amber)),
+894:                                                   ],
+895:                                                 ),
+896:                                               ),
+897:                                             ),
+898:                                           ],
+899:                                         ),
+900:                                         const Divider(color: Colors.white12, height: 32),
+901:                                         ListTile(
+902:                                           contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+903:                                           leading: const Icon(Icons.timer, color: Colors.white),
+904:                                           title: Text(L10n.t('sleep_timer') ?? 'Hẹn giờ tắt (phút)', style: const TextStyle(color: Colors.white)),
+905:                                           trailing: DropdownButton<int>(
+906:                                             dropdownColor: Colors.grey[900],
+907:                                             value: [0, 15, 30, 45, 60].contains(_prefs?.getInt('audio_sleep_timer') ?? 0) ? (_prefs?.getInt('audio_sleep_timer') ?? 0) : 0,
+908:                                             underline: const SizedBox(),
+909:                                             items: [0, 15, 30, 45, 60].map((v) => DropdownMenuItem(value: v, child: Text(v == 0 ? (L10n.t('viz_none') ?? 'Tắt') : '', style: const TextStyle(color: Colors.white)))).toList(),
+910:                                             onChanged: (val) {
+911:                                               if (val != null) {
+912:                                                 _prefs?.setInt('audio_sleep_timer', val);
+913:                                                 setState(() {});
+914:                                                 _syncToFirebase();
+915:                                               }
+916:                                             },
+917:                                           ),
+918:                                         ),
+919:                                       ],
+920:                                     ),
+921:                                   ),
+922:                                   const SizedBox(height: 48),
+923: 
+924:                                   SizedBox(key: _colorKey),
+925:                                   _buildSectionTitle(
+926:                                     Icons.color_lens,
+927:                                     L10n.t('global_color_settings'),
+928:                                   ),
+929:                                   const SizedBox(height: 16),
+930:                                   if (_prefs != null)
+931:                                     GlobalColorSettings(
+932:                                       prefs: _prefs!,
+933:                                       onSettingsChanged: (_) {},
+934:                                     ),
+935:                                   const SizedBox(height: 48),
+936:                                   Row(
+937:                                     mainAxisAlignment:
+938:                                         MainAxisAlignment.spaceBetween,
+939:                                     children: [
+940:                                       SizedBox(key: _subtitleKey),
+941:                                       _buildSectionTitle(
+942:                                         Icons.subtitles,
+943:                                         L10n.t('subtitles'),
+944:                                       ),
+945:                                       TextButton.icon(
+946:                                         onPressed: () async {
+947:                                           final prefs =
+948:                                               await SharedPreferences.getInstance();
+949:                                           await prefs.setDouble(
+950:                                             'sub_size',

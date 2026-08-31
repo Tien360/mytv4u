@@ -1,0 +1,73 @@
+1. [vtv1] VTV1 HD
+2. [vtv2] VTV2 HD
+3. [vtv3] VTV3 HD
+4. [vtv4] VTV4 HD
+5. [vtv5] VTV5 HD
+6. [vtv5tnb] VTV5 Tây Nam Bộ
+7. [vtv5tn] VTV5 Tây Nguyên
+8. [vtv7] VTV7 HD
+9. [vtv8] VTV8 HD
+10. [vtv9] VTV9 HD
+11. [vtv10] VTV Cần Thơ
+12. [vtvcab1] VTVcab 1 - ON Vie Giải Trí
+13. [vtvcab2] VTVcab 2 - ON Phim Việt
+14. [vtvcab10] VTVcab 10 - ON Cine HD
+15. [vtvcab19] VTVcab 19 - ON Vie Dramas
+16. [vtvcab8] VTVcab 8 - ON BiBi
+17. [vtvcab4] VTVcab 4 - ON Movies HD
+18. [vtvcab5] VTVcab 5 - ON E Channel
+19. [vtvcab15] VTVcab 15 - ON Music HD
+20. [htv1] HTV1 HD
+21. [htv3] HTV3 HD
+22. [htv4] HTV4 HD
+23. [htv7] HTV7 HD
+24. [htv9] HTV9 HD
+25. [htvkey] HTV Key HD
+26. [htvtt] HTV Thể thao HD
+27. [antv] ANTV HD
+28. [qpvn] QPVN HD
+29. [sctv2] SCTV2 HD
+30. [sctv6] SCTV6 HD
+31. [thvl1] THVL1 HD (Vĩnh Long 1)
+32. [thvl2] THVL2 HD (Vĩnh Long 2)
+33. [thvl3] THVL3 HD (Vĩnh Long 3)
+34. [hanoi1] Hà Nội 1 (HN1)
+35. [hanoi2] Hà Nội 2 (HN2)
+36. [haiphong] Hải Phòng TV (THP)
+37. [danang1] Đà Nẵng TV1 HD
+38. [nghean] Nghệ An TV HD
+39. [quangngai] Quảng Ngãi TV
+40. [dongthap1] Đồng Tháp 1 HD
+41. [cantho1] Cần Thơ 1 HD
+42. [angiang1] An Giang TV1 HD
+43. [angiang2] An Giang TV2 HD
+44. [camau] Cà Mau TV
+45. [caobang] Cao Bằng TV
+46. [dienbien] Điện Biên TV
+47. [dongnai1] Đồng Nai 1
+48. [dongnai2] Đồng Nai 2
+49. [dongthap2] Đồng Tháp 2
+50. [hue] Thừa Thiên Huế (TRT)
+51. [lamdong] Lâm Đồng TV (LTV)
+52. [tayninh] Tây Ninh TV
+53. [thainguyen] Thái Nguyên TV
+54. [outdoor] Outdoor Channel HD
+55. [afn] Asian Food Network (AFN)
+56. [history] History HD
+57. [kix] KIX HD
+58. [hgtv] HGTV HD
+59. [davinci] Da Vinci HD
+60. [cnbc] CNBC International
+61. [tv5monde] TV5Monde Asia HD
+62. [euronews] Euronews English HD
+63. [dwnews] DW News HD (Đức)
+64. [france24en] France 24 English HD
+65. [france24fr] France 24 Français HD
+66. [nhkworld] NHK World-Japan HD
+67. [arirang] Arirang TV HD
+68. [bbcnews] BBC News HD
+69. [bloomberg] Bloomberg TV HD
+70. [fashiontv] FashionTV Paris HD
+71. [nasatv] NASA TV HD
+72. [tvbvietnam] TVB Vietnam HD
+73. [vietnamtoday] Vietnam Today HD

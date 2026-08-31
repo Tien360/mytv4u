@@ -1,8 +1,11 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'dart:async';
 import 'dart:ui';
 import 'dart:io';
 import 'dart:convert';
 import 'dart:math';
+import '../globals.dart';
 import 'package:flutter/material.dart';
 import '../utils/l10n.dart';
 import 'package:flutter/services.dart';
@@ -25,6 +28,13 @@ import '../widgets/custom_title_bar.dart';
 import '../widgets/next_episode_tracker.dart';
 import 'actor_detail_screen.dart';
 import '../widgets/image_gallery_viewer.dart';
+import '../widgets/spider_easter_egg.dart';
+import '../widgets/ironman_easter_egg.dart';
+import '../widgets/minion_easter_egg.dart';
+import '../widgets/kungfu_panda_easter_egg.dart';
+import '../widgets/fast_furious_easter_egg.dart';
+import '../widgets/tom_jerry_easter_egg.dart';
+import '../widgets/naruto_easter_egg.dart';
 
 class MovieDetailScreen extends StatefulWidget {
   final String slug;
@@ -43,6 +53,8 @@ class MovieDetailScreen extends StatefulWidget {
 }
 
 class _MovieDetailScreenState extends State<MovieDetailScreen> {
+  Map<String, dynamic>? _premiumMetadata;
+  bool _isFetchingPremiumMeta = false;
   Movie? _movie;
   bool _isLoading = true;
   StreamSubscription<Movie>? _movieSubscription;
@@ -67,6 +79,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isTrailerExpanded = false;
   bool _isTrailerPaused = false;
   bool _autoPlayTrailerSetting = true;
+  bool _easterEggsEnabled = true;
+  bool _isFinancialExpanded = false;
   String? _tmdbRating;
   TmdbLogoInfo? _tmdbLogoInfo;
   double _averageRating = 0.0;
@@ -97,6 +111,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   List<Comment> _comments = [];
   bool _isLoadingComments = true;
   int _visibleComments = 5;
+  int _selectedEpisodeChunk = 0;
   final TextEditingController _commentController = TextEditingController();
   Map<String, String>? _currentUser;
   bool _isSubmittingComment = false;
@@ -109,6 +124,31 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     super.initState();
     _loadSettings();
     _fetchDetail();
+    
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final queryLower = (widget.initialMovie?.name ?? '').toLowerCase() + ' ' + (widget.initialMovie?.originalName ?? '').toLowerCase();
+      if (queryLower.contains('spider man') || queryLower.contains('spiderman') || queryLower.contains('người nhện') || queryLower.contains('nguoi nhen') || queryLower.contains('peter parker')) {
+        SpiderEasterEgg.show(context);
+      }
+      if (queryLower.contains('iron man') || queryLower.contains('ironman') || queryLower.contains('người sắt') || queryLower.contains('nguoi sat') || queryLower.contains('tony stark')) {
+        IronmanEasterEgg.show(context);
+      }
+      if (queryLower.contains('minion') || queryLower.contains('kẻ trộm mặt trăng') || queryLower.contains('ke trom mat trang') || queryLower.contains('despicable me') || queryLower.contains('gru')) {
+        MinionEasterEgg.show(context);
+      }
+      if (queryLower.contains('kung fu panda') || queryLower.contains('kungfu panda') || queryLower.contains('gấu trúc') || queryLower.contains('gau truc') || queryLower.contains('thần long đại hiệp') || queryLower.contains('po')) {
+        KungfuPandaEasterEgg.show(context);
+      }
+      if (queryLower.contains('fast and furious') || queryLower.contains('fast & furious') || queryLower.contains('quá nhanh quá nguy hiểm') || queryLower.contains('toretto') || queryLower.contains('dominic')) {
+        FastFuriousEasterEgg.show(context);
+      }
+      if (queryLower.contains('tom and jerry') || queryLower.contains('tom & jerry') || queryLower.contains('tom và jerry') || queryLower.contains('tom va jerry')) {
+        TomJerryEasterEgg.show(context);
+      }
+      if (queryLower.contains('naruto') || queryLower.contains('sasuke') || queryLower.contains('kakashi') || queryLower.contains('hokage') || queryLower.contains('akatsuki') || queryLower.contains('cửu vĩ') || queryLower.contains('boruto')) {
+        NarutoEasterEgg.show(context);
+      }
+    });
     _fetchFirebaseRatings();
     _loadUserAndComments();
     _checkWatchlistStatus();
@@ -248,6 +288,143 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     }
   }
 
+  
+  
+  Map<String, String> _parseQualityFromFilename(String fn) {
+    fn = fn.toUpperCase();
+    String res = '';
+    if (fn.contains('2160') || fn.contains('4K') || fn.contains('UHD')) res = '4K';
+    else if (fn.contains('1080')) res = '1080P';
+    else if (fn.contains('720')) res = '720P';
+
+    String hdr = '';
+    if (fn.contains('.DV.') || fn.contains('DOLBY VISION') || fn.contains('DOLBY.VISION')) hdr = 'Dolby Vision';
+    else if (fn.contains('HDR10+') || fn.contains('HDR10PLUS')) hdr = 'HDR10+';
+    else if (fn.contains('HDR10')) hdr = 'HDR10';
+    else if (fn.contains('.HDR.') || fn.contains(' HDR ')) hdr = 'HDR';
+
+    String audio = '';
+    if (fn.contains('ATMOS')) audio = 'Atmos';
+    else if (fn.contains('TRUEHD') || fn.contains('TRUE.HD')) audio = 'TrueHD';
+    else if (fn.contains('DTS-HD') || fn.contains('DTS.HD')) audio = 'DTS-HD';
+    else if (fn.contains('DTS')) audio = 'DTS';
+    else if (fn.contains('DDP') || fn.contains('DD+') || fn.contains('EAC3')) audio = 'DD+';
+    else if (fn.contains(' AC3') || fn.contains('.AC3') || fn.contains('DD5.1')) audio = 'DD';
+    else if (fn.contains('AAC')) audio = 'AAC';
+
+    return {'resolution': res, 'hdr': hdr, 'audio': audio};
+  }
+
+  Future<void> _fetchPremiumMetadata() async {
+    if (_movie == null || _isFetchingPremiumMeta) return;
+    
+    List<Map<String, dynamic>> premiumEps = [];
+    for (var server in _movie!.episodes) {
+      if (server.serverName.toLowerCase().contains('premium')) {
+        for (var ep in server.items) {
+          final uri = Uri.tryParse(ep.m3u8Url);
+          if (uri != null && uri.pathSegments.isNotEmpty) {
+            // Đánh giá chất lượng từ tên file/server (vd: 2160p, 1080p, 4K)
+            String textToSearch = (server.serverName + " " + ep.name).toUpperCase();
+            int score = 1;
+            if (textToSearch.contains('4K') || textToSearch.contains('2160')) score = 4;
+            else if (textToSearch.contains('1080')) score = 3;
+            else if (textToSearch.contains('720')) score = 2;
+            
+            premiumEps.add({
+               'id': uri.pathSegments.last,
+               'score': score,
+               'filename': ep.filename ?? ''
+            });
+          }
+        }
+      }
+    }
+    
+    if (premiumEps.isEmpty) return;
+    
+    _isFetchingPremiumMeta = true;
+    
+    // Tìm điểm số cao nhất theo tên
+    int maxScore = 1;
+    for (var ep in premiumEps) {
+      if (ep['score'] > maxScore) maxScore = ep['score'];
+    }
+    
+    // Lấy TẤT CẢ các file có điểm cao nhất (tối đa 3 file) để check API tìm HDR/Audio xịn nhất
+    final checkIds = premiumEps.where((e) => e['score'] == maxScore).map((e) => e['id'].toString()).take(3).toList();
+    Map<String, dynamic>? bestMeta;
+    int bestScore = -1;
+    
+    for (var ep in premiumEps.where((e) => e['score'] == maxScore).take(3)) {
+      var id = ep['id'].toString();
+      try {
+        final res = await http.get(
+          Uri.parse('https://medata.phim4k.workers.dev/?id=$id'),
+          headers: {'User-Agent': 'Mozilla/5.0'}
+        ).timeout(const Duration(seconds: 4));
+        if (res.statusCode == 200) {
+          final data = json.decode(res.body);
+          final resStr = (data['resolution'] ?? '').toString().toUpperCase();
+          int score = 1;
+          if (resStr.contains('4K') || resStr.contains('2160')) score = 4;
+          else if (resStr.contains('1080')) score = 3;
+          else if (resStr.contains('720')) score = 2;
+          
+          if (score > bestScore) {
+            bestScore = score;
+            bestMeta = data;
+            bestMeta!['fallback_filename'] = ep['filename'];
+          }
+        }
+      } catch (e) {}
+    }
+    
+    if (mounted && bestMeta != null) {
+      setState(() {
+        _premiumMetadata = bestMeta;
+      });
+    }
+  }
+
+
+  String _getPremiumQualityText() {
+    if (_premiumMetadata == null) return '';
+    String res = (_premiumMetadata!['resolution'] ?? '').toString().split(' ')[0];
+    String hdr = (_premiumMetadata!['hdr'] ?? '').toString();
+    
+    // Fallback HDR detection from filename if API returns SDR or Unknown
+    if (hdr == 'SDR' || hdr == 'Unknown' || hdr.isEmpty) {
+      String fn = (_premiumMetadata!['fallback_filename'] ?? '').toString().toUpperCase();
+      if (fn.contains('.DV.') || fn.contains('DOLBY VISION') || fn.contains('DOLBY.VISION')) hdr = 'Dolby Vision';
+      else if (fn.contains('HDR10+') || fn.contains('HDR10PLUS')) hdr = 'HDR10+';
+      else if (fn.contains('HDR10')) hdr = 'HDR10';
+      else if (fn.contains('.HDR.') || fn.contains(' HDR ')) hdr = 'HDR';
+    }
+    
+    String audio = '';
+    if (_premiumMetadata!['audioTracks'] != null && (_premiumMetadata!['audioTracks'] as List).isNotEmpty) {
+      String codec = (_premiumMetadata!['audioTracks'] as List).first['codec'] ?? '';
+      String codecUpper = codec.toUpperCase();
+      if (codecUpper.contains('ATMOS')) audio = 'Atmos';
+      else if (codecUpper.contains('TRUEHD')) audio = 'TrueHD';
+      else if (codecUpper.contains('DOLBY DIGITAL PLUS') || codecUpper.contains('EAC3') || codecUpper.contains('DD+')) audio = 'DD+';
+      else if (codecUpper.contains('DOLBY DIGITAL') || codecUpper.contains('AC3')) audio = 'DD';
+      else if (codecUpper.contains('DTS-HD MA')) audio = 'DTS-HD MA';
+      else if (codecUpper.contains('DTS-HD')) audio = 'DTS-HD';
+      else if (codecUpper.contains('DTS')) audio = 'DTS';
+      else if (codecUpper.contains('AAC')) audio = 'AAC';
+      else audio = codec.split(' ')[0];
+    }
+    
+    List<String> parts = [];
+    if (res.isNotEmpty && res != 'Unknown') parts.add(res);
+    if (hdr.isNotEmpty && hdr != 'Unknown') parts.add(hdr);
+    if (audio.isNotEmpty && audio != 'Unknown') parts.add(audio);
+    
+    return parts.join(' ');
+  }
+
   void _fetchDetail() {
     _movieSubscription =
         PhimApi.fetchMovieDetailStream(
@@ -271,7 +448,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 }
 
               _fetchTmdbRating(movie);
-              _fetchTmdbLogo(movie);
+              _fetchPremiumMetadata();
+                _fetchTmdbLogo(movie);
 
               // Bắt đầu timer phát trailer sau khi có dữ liệu đầu tiên
               if (_autoPlayTimer == null &&
@@ -474,12 +652,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     final isTv =
         _movie!.slug.contains('phim-bo') ||
         _movie!.currentEpisode.toLowerCase().contains('tập');
-    final ytKey = await PhimApi.getTrailerStreamUrl(
-      _movie!.name,
-      _movie!.originalName,
-      _movie!.year,
-      isTv,
-    );
+    final ytKey = await PhimApi.getTrailerStreamUrl(_movie!, isTv);
 
     if (ytKey != null && mounted) {
       await _initWebview(ytKey);
@@ -754,35 +927,96 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     }
 
     if (!hasSeasons) {
-      // Normal flat list rendering
-      return Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: _currentServer!.items.asMap().entries.map((entry) {
-          final index = entry.key;
-          final ep = entry.value;
-          return HoverEpisodeButton(
-            text: ep.name,
-            onTap: () async {
-              _pauseTrailer();
-              FirebaseApi.saveContinueWatching(_movie!, ep.name);
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (_) => PlayerScreen(
-                    episodes: _currentServer!.items,
-                    currentEpisodeIndex: index,
-                    movieName: _movie!.name,
-                    imdbId: _movie!.imdbId,
-                  ),
-                ),
+      final items = _currentServer!.items;
+      final int chunkSize = 50;
+      final int maxChunks = (items.length / chunkSize).ceil();
+      
+      // Ensure chunk index is valid
+      if (_selectedEpisodeChunk >= maxChunks) {
+        _selectedEpisodeChunk = 0;
+      }
+      
+      final int startIdx = _selectedEpisodeChunk * chunkSize;
+      final int endIdx = (startIdx + chunkSize > items.length) ? items.length : startIdx + chunkSize;
+      final chunkItems = items.sublist(startIdx, endIdx);
+
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (maxChunks > 1) ...[
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                children: List.generate(maxChunks, (chunkIdx) {
+                  final s = chunkIdx * chunkSize + 1;
+                  final e = (chunkIdx * chunkSize + chunkSize > items.length) ? items.length : chunkIdx * chunkSize + chunkSize;
+                  final isActive = _selectedEpisodeChunk == chunkIdx;
+                  return Padding(
+                    padding: const EdgeInsets.only(right: 8.0, bottom: 12.0),
+                    child: GestureDetector(
+                      onTap: () => setState(() => _selectedEpisodeChunk = chunkIdx),
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: isActive ? Colors.blueAccent : Colors.white.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          '$s - $e',
+                          style: TextStyle(
+                            color: isActive ? Colors.white : Colors.white70,
+                            fontWeight: isActive ? FontWeight.bold : FontWeight.normal,
+                          ),
+                        ),
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            ),
+          ],
+          Wrap(
+            spacing: 12,
+            runSpacing: 12,
+            children: chunkItems.asMap().entries.map((entry) {
+              // We need the true global index for PlayerScreen
+              final index = startIdx + entry.key;
+              final ep = entry.value;
+
+              String dispName = ep.name;
+              if (ep.filename != null && ep.filename!.isNotEmpty) {
+                var q = _parseQualityFromFilename(ep.filename!);
+                List<String> tags = [];
+                if (q['hdr']!.isNotEmpty) tags.add(q['hdr']!);
+                if (q['audio']!.isNotEmpty) tags.add(q['audio']!);
+                if (tags.isNotEmpty) {
+                  dispName += ' • ${tags.join(' ')}';
+                }
+              }
+
+              return HoverEpisodeButton(
+                text: dispName,
+                onTap: () async {
+                  _pauseTrailer();
+                  FirebaseApi.saveContinueWatching(_movie!, ep.name);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => PlayerScreen(
+                        episodes: items,
+                        currentEpisodeIndex: index,
+                        movieName: _movie!.name,
+                        imdbId: _movie!.imdbId,
+                      ),
+                    ),
+                  );
+                },
               );
-            },
-          );
-        }).toList(),
+            }).toList(),
+          ),
+        ],
       );
     }
-
     // P2P TV Series UI: Season -> Episode -> Streams
     // 1. Group items by Season
     final Map<int, List<Episode>> seasonsMap = {};
@@ -1109,12 +1343,14 @@ const SizedBox(height: 24),
             ),
           ),
           Positioned.fill(
-            child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 80.0, sigmaY: 80.0),
-              child: Container(
-                color: Colors.black.withOpacity(0.6), // Phủ đen nhẹ lên màu gốc
-              ),
-            ),
+            child: isMinimalistUi.value 
+              ? Container(color: Colors.black87)
+              : BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 80.0, sigmaY: 80.0),
+                  child: Container(
+                    color: Colors.black.withOpacity(0.6), // Phủ đen nhẹ lên màu gốc
+                  ),
+                ),
           ),
 
           // 1. Background Media (Banner / Trailer)
@@ -1315,10 +1551,26 @@ const SizedBox(height: 24),
                                                 color: Colors.amber,
                                               ),
                                             if (_premiumServers.isNotEmpty)
-                                              _buildBadge(
-                                                'Premium TM - Vietsub',
-                                                Colors.blueAccent,
-                                              ),
+                                                _buildBadge(
+                                                  'Premium TM - Vietsub',
+                                                  Colors.blueAccent,
+                                                ),
+                                              
+                                              if (_premiumMetadata != null) 
+                                                _buildBadge(
+                                                  _getPremiumQualityText(),
+                                                  Colors.greenAccent,
+                                                )
+                                              else if (_movie!.quality.isNotEmpty)
+                                                _buildBadge(
+                                                  _movie!.quality,
+                                                  Colors.greenAccent,
+                                                ),
+                                              if (_getAgeRating() != null)
+                                                _buildBadge(
+                                                  _getAgeRating()!,
+                                                  ['R', 'NC-17', 'TV-MA', '18+'].contains(_getAgeRating()) ? Colors.redAccent : Colors.orangeAccent,
+                                                ),
                                             _buildBadgeIcon(
                                               Icons.layers,
                                               episodeText,
@@ -1614,11 +1866,9 @@ const SizedBox(height: 24),
                                               ),
                                             ],
 
-if (_tmdbDetails!['budget'] != null && _tmdbDetails!['budget'] > 0 && _tmdbDetails!['revenue'] != null && _tmdbDetails!['revenue'] > 0) ...[
+if (_easterEggsEnabled && _tmdbDetails!['budget'] != null && _tmdbDetails!['budget'] > 0 && _tmdbDetails!['revenue'] != null && _tmdbDetails!['revenue'] > 0) ...[
                                               const SizedBox(height: 16),
-                                              _buildRichText('Kinh phí: ', '\$${(_tmdbDetails!['budget'] / 1000000).toStringAsFixed(1)}M'),
-                                              const SizedBox(height: 16),
-                                              _buildRichText('Doanh thu: ', '\$${(_tmdbDetails!['revenue'] / 1000000).toStringAsFixed(1)}M'),
+                                              _buildFinancialBox(_tmdbDetails!['budget'], _tmdbDetails!['revenue']),
                                             ],
 
 
@@ -2121,6 +2371,182 @@ if (_tmdbDetails!['budget'] != null && _tmdbDetails!['budget'] > 0 && _tmdbDetai
               ),
             ),
         ],
+      ),
+    );
+  }
+
+  
+  String? _getAgeRating() {
+    if (_tmdbDetails == null) return null;
+    
+    // TV Shows
+    if (_tmdbDetails!['content_ratings'] != null && _tmdbDetails!['content_ratings']['results'] != null) {
+      final results = _tmdbDetails!['content_ratings']['results'] as List;
+      var usRating = results.firstWhere((r) => r['iso_3166_1'] == 'US', orElse: () => null);
+      if (usRating != null && usRating['rating'] != null && usRating['rating'].toString().isNotEmpty) {
+        return usRating['rating'].toString();
+      }
+      for (var r in results) {
+        if (r['rating'] != null && r['rating'].toString().isNotEmpty) return r['rating'].toString();
+      }
+    }
+    
+    // Movies
+    if (_tmdbDetails!['release_dates'] != null && _tmdbDetails!['release_dates']['results'] != null) {
+      final results = _tmdbDetails!['release_dates']['results'] as List;
+      var usRating = results.firstWhere((r) => r['iso_3166_1'] == 'US', orElse: () => null);
+      if (usRating != null && usRating['release_dates'] != null) {
+        for (var d in usRating['release_dates']) {
+          if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+        }
+      }
+      for (var r in results) {
+        if (r['release_dates'] != null) {
+          for (var d in r['release_dates']) {
+             if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+          }
+        }
+      }
+    }
+    return null;
+  }
+
+  
+  Widget _buildFinancialBox(int budget, int revenue) {
+    final bool profitable = revenue > budget;
+    final String budgetStr = '\$${(budget / 1000000).toStringAsFixed(1)}M';
+    final String revenueStr = '\$${(revenue / 1000000).toStringAsFixed(1)}M';
+    
+    final double ratio = budget > 0 ? revenue / budget : 0;
+    final String ratioStr = 'x${ratio.toStringAsFixed(1)}';
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isFinancialExpanded = !_isFinancialExpanded;
+        });
+      },
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOutQuart,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        decoration: BoxDecoration(
+          color: _isFinancialExpanded ? Colors.white.withOpacity(0.08) : Colors.white.withOpacity(0.03),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: profitable 
+                ? Colors.greenAccent.withOpacity(_isFinancialExpanded ? 0.5 : 0.2)
+                : Colors.redAccent.withOpacity(_isFinancialExpanded ? 0.5 : 0.2),
+          ),
+          boxShadow: _isFinancialExpanded && profitable ? [
+            BoxShadow(color: Colors.greenAccent.withOpacity(0.1), blurRadius: 10, spreadRadius: 1)
+          ] : [],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Icon(Icons.monetization_on_outlined, color: profitable ? Colors.greenAccent : Colors.redAccent, size: 20),
+                const SizedBox(width: 8),
+                const Text(
+                  'Hiệu quả Thương mại',
+                  style: TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.bold),
+                ),
+                const Spacer(),
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: profitable ? Colors.greenAccent.withOpacity(0.2) : Colors.redAccent.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    profitable ? 'Lãi $ratioStr' : 'Lỗ',
+                    style: TextStyle(
+                      color: profitable ? Colors.greenAccent : Colors.redAccent,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                AnimatedRotation(
+                  turns: _isFinancialExpanded ? 0.5 : 0,
+                  duration: const Duration(milliseconds: 300),
+                  child: const Icon(Icons.keyboard_arrow_down, color: Colors.white54, size: 20),
+                ),
+              ],
+            ),
+            AnimatedCrossFade(
+              firstChild: const SizedBox(height: 0, width: double.infinity),
+              secondChild: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Kinh phí', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                      Text(budgetStr, style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final double maxVal = (budget > revenue ? budget : revenue).toDouble();
+                      final double budgetWidth = maxVal > 0 ? (budget / maxVal) * constraints.maxWidth : 0;
+                      return Row(
+                        children: [
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 800),
+                            curve: Curves.easeOutQuart,
+                            height: 4,
+                            width: budgetWidth,
+                            decoration: BoxDecoration(
+                              color: Colors.white30,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Doanh thu', style: TextStyle(color: Colors.white70, fontSize: 13)),
+                      Text(revenueStr, style: const TextStyle(color: Colors.greenAccent, fontSize: 13, fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  const SizedBox(height: 6),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final double maxVal = (budget > revenue ? budget : revenue).toDouble();
+                      final double revenueWidth = maxVal > 0 ? (revenue / maxVal) * constraints.maxWidth : 0;
+                      return Row(
+                        children: [
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 800),
+                            curve: Curves.easeOutQuart,
+                            height: 4,
+                            width: revenueWidth,
+                            decoration: BoxDecoration(
+                              color: profitable ? Colors.greenAccent : Colors.redAccent,
+                              borderRadius: BorderRadius.circular(2),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ],
+              ),
+              crossFadeState: _isFinancialExpanded ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+              duration: const Duration(milliseconds: 300),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -3001,9 +3427,33 @@ class _HoverEpisodeButtonState extends State<HoverEpisodeButton> {
         onTap: widget.onTap,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-            child: AnimatedContainer(
+          child: isMinimalistUi.value 
+            ? AnimatedContainer(
+                duration: const Duration(milliseconds: 200),
+                decoration: BoxDecoration(
+                  color: _isHovered
+                      ? const Color(0xFF2A2A2A)
+                      : const Color(0xFF1E1E1E),
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(
+                    color: _isHovered
+                        ? Colors.white.withOpacity(0.5)
+                        : Colors.white.withOpacity(0.1),
+                  ),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                child: Text(
+                  widget.text,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  ),
+                ),
+              )
+            : BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               decoration: BoxDecoration(
                 color: _isHovered
@@ -3031,9 +3481,9 @@ class _HoverEpisodeButtonState extends State<HoverEpisodeButton> {
                 ),
               ),
             ),
+            ),
           ),
         ),
-      ),
     );
   }
 }
@@ -3089,7 +3539,26 @@ class _HoverServerTabState extends State<HoverServerTab> {
         onTap: widget.onTap,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: BackdropFilter(
+          child: isMinimalistUi.value 
+            ? AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              decoration: BoxDecoration(
+                color: widget.isSelected ? baseColor : ( _isHovered ? const Color(0xFF2A2A2A) : const Color(0xFF1E1E1E)),
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: borderColor, width: 1),
+              ),
+              child: Text(
+                widget.text,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: widget.isSelected
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
+              ),
+            )
+            : BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: AnimatedContainer(
               duration: const Duration(milliseconds: 200),

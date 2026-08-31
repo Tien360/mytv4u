@@ -1,0 +1,8 @@
+              SideControlPanel(
+                          player: player,
+                          mode: _activePanel,
+                          onClose: () =>
+                              setState(() => _activePanel = SidePanelMode.none),
+                        ),
+                      ],
+      

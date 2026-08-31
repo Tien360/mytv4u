@@ -1249,6 +1249,7 @@ class PhimApi {
                   slug: (ep['slug'] ?? '').toString(),
                   m3u8Url: processed,
                   embedUrl: (ep['link_embed'] ?? ep['embed'] ?? '').toString(),
+                  filename: (ep['filename'] ?? '').toString(),
                 );
               }).toList();
               premiumServers.add(
@@ -1750,7 +1751,7 @@ class PhimApi {
         final type = match['type'];
 
         final url =
-            'https://api.themoviedb.org/3/$type/$tmdbId?api_key=$_tmdbApiKey&append_to_response=recommendations,similar,credits&language=$lang';
+            'https://api.themoviedb.org/3/$type/$tmdbId?api_key=$_tmdbApiKey&append_to_response=recommendations,similar,credits,release_dates,content_ratings&language=$lang';
         final res = await http.get(Uri.parse(url));
         if (res.statusCode == 200) {
           final data = json.decode(res.body);
@@ -1809,31 +1810,63 @@ class PhimApi {
     return [];
   }
 
-  static Future<String?> getTrailerStreamUrl(
-    String title,
-    String originalTitle,
-    String year,
-    bool isTvSeries,
-  ) async {
+  static Future<String?> getTrailerStreamUrl(Movie movie, bool isTvSeries) async {
     try {
-      final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
-      if (match != null && match['id'] != null) {
-        final videoUrl =
-            'https://api.themoviedb.org/3/${match['type']}/${match['id']}/videos?api_key=$_tmdbApiKey';
+      String? tmdbId;
+      String type = isTvSeries ? 'tv' : 'movie';
+
+      if (movie.imdbId != null && movie.imdbId != '' && movie.imdbId != 'N/A') {
+        final findUrl = 'https://api.themoviedb.org/3/find/${movie.imdbId}?external_source=imdb_id&api_key=$_tmdbApiKey';
+        final findRes = await http.get(Uri.parse(findUrl)).timeout(const Duration(seconds: 10));
+        if (findRes.statusCode == 200) {
+          final findData = json.decode(findRes.body);
+          if (findData['movie_results'] != null && findData['movie_results'].isNotEmpty) {
+            tmdbId = findData['movie_results'][0]['id'].toString();
+            type = 'movie';
+          } else if (findData['tv_results'] != null && findData['tv_results'].isNotEmpty) {
+            tmdbId = findData['tv_results'][0]['id'].toString();
+            type = 'tv';
+          }
+        }
+      }
+
+      if (tmdbId == null) {
+        final match = await _searchTmdb(movie.name, movie.originalName, movie.year, isTvSeries);
+        if (match != null && match['id'] != null) {
+          tmdbId = match['id'].toString();
+          type = match['type'] ?? type;
+        }
+      }
+
+      if (tmdbId != null) {
+        final videoUrl = 'https://api.themoviedb.org/3/$type/$tmdbId/videos?api_key=$_tmdbApiKey&language=vi-VN&include_video_language=vi,en,ko,zh,ja,th,es,fr,de,ru,pt,it,hi,tl,id,ms,ar,tr,null';
         final videoRes = await http.get(Uri.parse(videoUrl));
         if (videoRes.statusCode == 200) {
           final videoData = json.decode(videoRes.body);
           if (videoData['results'] != null && videoData['results'].isNotEmpty) {
             final List results = videoData['results'];
+            List<String> langs = ['vi', 'en', 'ko', 'zh', 'ja', 'th', 'es', 'fr', 'de', 'ru', 'pt', 'it', 'hi', 'tl', 'id', 'ms', 'ar', 'tr', ''];
+            
+            for (var lang in langs) {
+              var trailer = results.firstWhere(
+                (v) => v['site'] == 'YouTube' && v['type'] == 'Trailer' && (v['iso_639_1'] == lang || (lang == '' && v['iso_639_1'] == null)),
+                orElse: () => null,
+              );
+              if (trailer != null) return trailer['key'];
+            }
+            
+            for (var lang in langs) {
+              var trailer = results.firstWhere(
+                (v) => v['site'] == 'YouTube' && (v['iso_639_1'] == lang || (lang == '' && v['iso_639_1'] == null)),
+                orElse: () => null,
+              );
+              if (trailer != null) return trailer['key'];
+            }
+
             var trailer = results.firstWhere(
-              (v) => v['site'] == 'YouTube' && v['type'] == 'Trailer',
-              orElse: () => null,
-            );
-            trailer ??= results.firstWhere(
               (v) => v['site'] == 'YouTube',
               orElse: () => null,
             );
-
             if (trailer != null) {
               return trailer['key'];
             }
@@ -1844,9 +1877,8 @@ class PhimApi {
       print('PhimApi TMDB getTrailerStreamUrl error: $e');
     }
 
-    // Fallback: Tìm kiếm trực tiếp trên YouTube bằng tên gốc (Original Title) + "trailer"
     try {
-      final query = Uri.encodeComponent('$originalTitle trailer');
+      final query = Uri.encodeComponent('${movie.originalName} trailer');
       final ytUrl = Uri.parse(
         'https://www.youtube.com/results?search_query=$query',
       );
@@ -1858,38 +1890,36 @@ class PhimApi {
         },
       );
 
-                      if (ytRes.statusCode == 200) {
-          final html = ytRes.body;
-          int startIndex = html.indexOf('var ytInitialData = {');
-          if (startIndex != -1) {
-            int endIndex = html.indexOf(';</script>', startIndex);
-            if (endIndex != -1) {
-              String jsonStr = html.substring(startIndex + 20, endIndex);
-              try {
-                final data = json.decode(jsonStr);
-                final contents = data['contents']?['twoColumnSearchResultsRenderer']?['primaryContents']?['sectionListRenderer']?['contents'] as List?;
-                if (contents != null) {
-                  for (var section in contents) {
-                    if (section['itemSectionRenderer'] != null) {
-                      final items = section['itemSectionRenderer']['contents'] as List?;
-                      if (items != null) {
-                        for (var item in items) {
-                          if (item['videoRenderer'] != null) {
-                            return item['videoRenderer']['videoId'];
-                          }
+      if (ytRes.statusCode == 200) {
+        final html = ytRes.body;
+        int startIndex = html.indexOf('var ytInitialData = {');
+        if (startIndex != -1) {
+          int endIndex = html.indexOf(';</script>', startIndex);
+          if (endIndex != -1) {
+            String jsonStr = html.substring(startIndex + 20, endIndex);
+            try {
+              final data = json.decode(jsonStr);
+              final contents = data['contents']?['twoColumnSearchResultsRenderer']?['primaryContents']?['sectionListRenderer']?['contents'] as List?;
+              if (contents != null) {
+                for (var section in contents) {
+                  if (section['itemSectionRenderer'] != null) {
+                    final items = section['itemSectionRenderer']['contents'] as List?;
+                    if (items != null) {
+                      for (var item in items) {
+                        if (item['videoRenderer'] != null) {
+                          return item['videoRenderer']['videoId'];
                         }
                       }
                     }
                   }
                 }
-              } catch (e) {
-                print('JSON parse error ytInitialData: $e');
               }
+            } catch (e) {
+              print('JSON parse error ytInitialData: $e');
             }
           }
-          
-          // No regex fallback! It hits Ads.
         }
+      }
     } catch (e) {
       print('PhimApi YouTube scrape error: $e');
     }
@@ -1937,5 +1967,6 @@ class PhimApi {
     return [];
   }
 }
+
 
 

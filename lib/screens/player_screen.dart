@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:http/http.dart' as http;
@@ -15,6 +16,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../utils/hardware_info.dart';
 import '../models/movie.dart';
 import '../api/motchill_scraper.dart';
 import '../api/opensubtitles_api.dart';
@@ -33,6 +35,7 @@ class PlayerScreen extends StatefulWidget {
   final int? season;
   final int? episode;
   final bool isLive;
+  final String? lazyPlaylistUrl;
 
   const PlayerScreen({
     super.key,
@@ -43,6 +46,7 @@ class PlayerScreen extends StatefulWidget {
     this.season,
     this.episode,
     this.isLive = false,
+    this.lazyPlaylistUrl,
   });
 
   @override
@@ -57,7 +61,15 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   double _subSize = 24.0;
   double _subOpacity = 0.3;
   bool _isPlayerInit = false;
+  int _systemRamMB = 4096;
+  
   bool _isPlayerInitialized = false;
+
+  List<Episode> _episodes = [];
+  bool _isLoadingPlaylist = false;
+
+  
+  
   bool _isDisposed = false;
   final List<StreamSubscription> _playerSubs = [];
 
@@ -75,7 +87,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     if (widget.isLive) return true;
     if (_autoDetectedLive) return true;
 
-    final currentEp = widget.episodes[_currentIndex];
+    final currentEp = _episodes[_currentIndex];
     final url = currentEp.m3u8Url.toLowerCase();
 
     // Auto-detect by URL keywords common in TV / live streams
@@ -99,6 +111,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   late int _currentIndex;
   late String _currentUrl;
   bool _backgroundPlayback = false;
+  bool _enableSkipIntro = true;
+  int _skipIntroDuration = 85;
   bool _wasPlayingBeforeMinimize = false;
   bool _isPiPMode = false;
   Rect? _prePiPBounds;
@@ -121,6 +135,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
   // media_kit state
   Duration _position = Duration.zero;
+  Duration _buffer = Duration.zero;
   Duration _duration = Duration.zero;
   bool _isPlaying = false;
   double _volume = 100.0;
@@ -130,6 +145,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   double? _hoverSeekFraction;
   final GlobalKey _seekbarKey = GlobalKey();
 
+  
+  // YouTube Quality State
+  List<String> _ytQualities = [];
+  String _selectedYtQuality = '4K (2160p)';
+  
+  bool get _isYoutubeLink => _currentUrl.contains('youtube.com') || _currentUrl.contains('youtu.be');
   List<VideoTrack> _videoTracks = [];
   List<AudioTrack> _audioTracks = [];
   List<SubtitleTrack> _subtitleTracks = [];
@@ -147,6 +168,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   void initState() {
     super.initState();
     windowManager.addListener(this);
+
+    _episodes = List.from(widget.episodes);
+    if (widget.lazyPlaylistUrl != null) {
+      _loadLazyPlaylist(widget.lazyPlaylistUrl!);
+    }
+
     _focusNode.requestFocus();
     _startHideControlsTimer();
     _loadSettingsAndInit();
@@ -208,7 +235,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     if (widget.isLive) return; // Do not save progress for live streams
     if (_position.inMilliseconds > 0 && _duration.inMilliseconds > 0) {
       final prefs = await SharedPreferences.getInstance();
-      final ep = widget.episodes[_currentIndex];
+      final ep = _episodes[_currentIndex];
       final key = 'continue_${widget.movieName}_${ep.name}';
       await prefs.setInt(key, _position.inMilliseconds);
     }
@@ -227,11 +254,17 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     }
 
     final prefs = await SharedPreferences.getInstance();
+    _systemRamMB = await HardwareInfo.getSystemRamMB();
     if (mounted) {
       setState(() {
         _hwAccel = prefs.getBool('enable_hw_accel') ?? true;
         _subSize = prefs.getDouble('sub_size') ?? 24.0;
         _subOpacity = prefs.getDouble('sub_opacity') ?? 0.3;
+          _autoNext = prefs.getBool('auto_next') ?? true;
+          _playbackSpeed = prefs.getDouble('default_speed') ?? 1.0;
+          _backgroundPlayback = prefs.getBool('background_playback') ?? false;
+          _enableSkipIntro = prefs.getBool('enable_skip_intro') ?? true;
+          _skipIntroDuration = prefs.getInt('skip_intro_duration') ?? 85;
       });
     }
     _initMediaKit();
@@ -272,13 +305,179 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     return false;
   }
 
+  
+  
+  Future<void> _loadLazyPlaylist(String url) async {
+    setState(() => _isLoadingPlaylist = true);
+    try {
+      final exeDir = File(Platform.resolvedExecutable).parent.path;
+      File ytExe = File('\\\yt-dlp.exe');
+      if (!ytExe.existsSync()) {
+        ytExe = File('\\uild\\windows\\x64\\runner\\Release\\yt-dlp.exe');
+      }
+      final exePath = ytExe.existsSync() ? ytExe.path : 'yt-dlp';
+
+      List<String> args = ['--js-runtimes', 'node', '--dump-json', '--flat-playlist', url];
+      if (url.contains('list=RD')) {
+        args.insert(0, '25');
+        args.insert(0, '--playlist-end');
+      }
+      final prefs = await SharedPreferences.getInstance();
+      final isYtLinked = prefs.getBool('is_yt_linked') ?? false;
+      if (isYtLinked) {
+        final localAppData = Platform.environment['LOCALAPPDATA'];
+        final exeName = File(Platform.resolvedExecutable).uri.pathSegments.last.replaceAll('.exe', '');
+        final defaultWebviewPath = '${Platform.environment['LOCALAPPDATA']}\\flutter_webview_windows\\${exeName}\\EBWebView';
+        final appDataDir = await getApplicationSupportDirectory();
+        final customWebviewPath = '\\\youtube_webview_profile\\EBWebView';
+        
+        String ebPath = defaultWebviewPath;
+        if (Directory(customWebviewPath).existsSync()) {
+          ebPath = customWebviewPath;
+        }
+        args.insert(0, 'edge:' + ebPath);
+        args.insert(0, '--cookies-from-browser');
+      }
+
+      ProcessResult res = await Process.run(exePath, args);
+      
+      // yt-dlp might return exitCode 1 if some videos in the playlist are hidden/unavailable
+      // So we should check if stdout has content instead of strictly checking exitCode 0
+      if (res.stdout.toString().trim().isEmpty && isYtLinked) {
+        debugPrint('Cookie extraction failed or empty. Retrying without cookies...');
+        
+        List<String> fallbackArgs = ['--js-runtimes', 'node', '--dump-json', '--flat-playlist', url];
+        if (url.contains('list=RD')) {
+          fallbackArgs.insert(0, '25');
+          fallbackArgs.insert(0, '--playlist-end');
+        }
+        res = await Process.run(exePath, fallbackArgs);
+      }
+
+      if (res.stdout.toString().trim().isNotEmpty) {
+        final lines = res.stdout.toString().split('\n').where((l) => l.trim().isNotEmpty).toList();
+        final List<Episode> newEps = [];
+        for (var line in lines) {
+          try {
+            final json = jsonDecode(line);
+            final title = json['title'] ?? 'Video';
+            final id = json['id'] ?? '';
+            if (id.isNotEmpty) {
+              newEps.add(Episode(name: title, slug: id, m3u8Url: 'https://www.youtube.com/watch?v=' + id, embedUrl: 'https://i.ytimg.com/vi/' + id + '/maxresdefault.jpg'));
+            }
+          } catch(e) {}
+        }
+        if (mounted && newEps.isNotEmpty) {
+          setState(() {
+            _episodes = newEps;
+            // Also update the current episode name if we were on the first dummy one
+            if (_currentIndex < _episodes.length) { _currentTitle = _episodes[_currentIndex].name; }
+          });
+        }
+      } else {
+         debugPrint('yt-dlp failed: ');
+      }
+    } catch (e) {
+      debugPrint('Playlist load error: ');
+    }
+    if (mounted) setState(() => _isLoadingPlaylist = false);
+  }
+
+  Future<void> _fetchYoutubeQualities(String url) async {
+    try {
+      List<String> args = ['--js-runtimes', 'node', '-J', '--no-warnings'];
+      final prefs = await SharedPreferences.getInstance();
+      final isYtLinked = prefs.getBool('is_yt_linked') ?? false;
+      if (isYtLinked) {
+         final exeName = File(Platform.resolvedExecutable).uri.pathSegments.last.replaceAll('.exe', '');
+         final defaultWebviewPath = '${Platform.environment['LOCALAPPDATA']}\\flutter_webview_windows\\${exeName}\\EBWebView';
+         final customWebviewPath = '\\youtube_webview_profile\\EBWebView';
+         String ebPath = defaultWebviewPath;
+         if (Directory(customWebviewPath).existsSync()) {
+           ebPath = customWebviewPath;
+         }
+         args.add('--cookies-from-browser');
+         args.add('edge:' + ebPath);
+      }
+      args.add(url);
+      
+      final result = await Process.run('yt-dlp', args);
+      if (result.exitCode == 0) {
+        final data = jsonDecode(result.stdout);
+        
+          if (data['title'] != null && _currentIndex >= 0 && _currentIndex < _episodes.length) {
+            _episodes[_currentIndex] = Episode(
+              name: data['title'],
+              slug: _episodes[_currentIndex].slug,
+              m3u8Url: _episodes[_currentIndex].m3u8Url,
+              embedUrl: _episodes[_currentIndex].embedUrl,
+              filename: _episodes[_currentIndex].filename,
+            );
+            if (_isYoutubeLink || widget.lazyPlaylistUrl != null) {
+              _currentTitle = data['title'];
+            }
+          }
+
+          final formats = data['formats'] as List;
+        final Set<int> heights = {};
+        for (var f in formats) {
+          if (f['vcodec'] != 'none' && f['vcodec'] != null && f['height'] != null) {
+            heights.add(f['height'] as int);
+          }
+        }
+        final sorted = heights.toList()..sort((a, b) => b.compareTo(a));
+        final List<String> realQualities = [];
+        for (var h in sorted) {
+          if (h >= 4320) realQualities.add('8K (4320p)');
+          else if (h >= 2160) realQualities.add('4K (2160p)');
+          else if (h == 1440) realQualities.add('1440p');
+          else if (h == 1080) realQualities.add('1080p');
+          else if (h == 720) realQualities.add('720p');
+          else if (h == 480) realQualities.add('480p');
+          else if (h == 360) realQualities.add('360p');
+          else if (h == 240) realQualities.add('240p');
+          else if (h == 144) realQualities.add('144p');
+        }
+        if (mounted) {
+          setState(() {
+            _ytQualities = realQualities.toSet().toList();
+            if (!_ytQualities.contains(_selectedYtQuality) && _ytQualities.isNotEmpty) {
+              // Try to find the closest fallback or just pick highest
+              bool found = false;
+              if (_selectedYtQuality.contains('4K') && _ytQualities.contains('1080p')) {
+                 _selectedYtQuality = '1080p'; found = true;
+              }
+              if (!found) _selectedYtQuality = _ytQualities.first;
+            }
+          });
+        }
+      }
+    } catch (e) {
+      debugPrint('yt-dlp parse error: ');
+    }
+  }
+
   void _initMediaKit() {
-    player = Player(
-      configuration: const PlayerConfiguration(
-        bufferSize: 32 * 1024 * 1024,
-        pitch: false,
-      ),
-    );
+    int bufferSize = 32 * 1024 * 1024;
+    String demuxerMaxBytes = '64M';
+    String demuxerMaxBackBytes = '32M';
+    
+    if (_systemRamMB > 8192) {
+      bufferSize = 512 * 1024 * 1024; // 512MB
+      demuxerMaxBytes = '1024M'; // 1GB Cache
+      demuxerMaxBackBytes = '512M';
+    } else if (_systemRamMB > 4096) {
+      bufferSize = 64 * 1024 * 1024;
+      demuxerMaxBytes = '128M';
+      demuxerMaxBackBytes = '64M';
+    }
+
+      player = Player(
+        configuration: PlayerConfiguration(
+          bufferSize: 32 * 1024 * 1024,
+          title: 'MyTV4U',
+        ),
+      );
 
     // Tối ưu tốc độ tải luồng HLS/m3u8 (giảm độ trễ ban đầu)
     try {
@@ -288,8 +487,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         'cache-pause',
         'no',
       ); // Phát ngay khi có dữ liệu, không chờ đầy buffer
-      platform.setProperty('demuxer-max-bytes', '64M');
-      platform.setProperty('demuxer-max-back-bytes', '32M');
+      platform.setProperty('demuxer-max-bytes', demuxerMaxBytes);
+      platform.setProperty('demuxer-max-back-bytes', demuxerMaxBackBytes);
+      
+      
       platform.setProperty(
         'network-timeout',
         '10',
@@ -297,6 +498,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
       // Cấu hình FFmpeg bên dưới MPV để tăng tốc HLS
       platform.setProperty('demuxer-lavf-o-append', 'fflags=+fastseek');
+      
       platform.setProperty(
         'demuxer-lavf-o-append',
         'http_persistent=1',
@@ -305,6 +507,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         'demuxer-lavf-o-append',
         'hls_flags=+independent_segments',
       ); // Xử lý các mảnh độc lập
+      
+      // Luôn cho mpv/yt-dlp biết dùng Node.js để giải mã YouTube n challenge
+      platform.setProperty('ytdl-raw-options', 'js-runtimes=node');
     } catch (e) {
       debugPrint('Error setting MPV properties: $e');
     }
@@ -379,10 +584,14 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
           final isNearEnd =
               !_isLiveStream &&
               _duration.inSeconds > 0 &&
-              (_position.inSeconds >= _duration.inSeconds - 120);
+              (_position.inSeconds >= _duration.inSeconds - 180);
 
           if (isNearEnd) {
-            _playNextEpisode();
+            if (_currentIndex + 1 < _episodes.length) {
+              _playNextEpisode();
+            } else {
+              if (mounted) Navigator.pop(context);
+            }
           } else {
             debugPrint('Luồng bị ngắt giữa chừng. Không tự động nhảy tập.');
             if (mounted)
@@ -436,7 +645,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     });
 
     _initMediaKit();
-    await _playCurrentUrl(widget.episodes[_currentIndex]);
+    await _playCurrentUrl(_episodes[_currentIndex]);
     await player.seek(pos);
     if (!isPlaying) player.pause();
   }
@@ -492,7 +701,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   Future<void> _initEpisode(int index) async {
-    if (index < 0 || index >= widget.episodes.length) return;
+    if (index < 0 || index >= _episodes.length) return;
     setState(() {
       _currentIndex = index;
       errorMsg = null;
@@ -502,7 +711,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       _selectedSubtitleTrack = null;
     });
 
-    final ep = widget.episodes[index];
+    final ep = _episodes[index];
+    if (ep.name.contains('Đang tải') || ep.name.contains('loading')) {
+      return; // Do not pass dummy playlist URLs to media_kit
+    }
     String targetUrl = ep.m3u8Url.isNotEmpty ? ep.m3u8Url : ep.embedUrl;
     final epName = ep.name.toLowerCase().startsWith('tập')
         ? ep.name
@@ -684,7 +896,13 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
           // Go back to previous screen automatically when player is closed
           if (mounted) {
-            Navigator.pop(context);
+            if (widget.lazyPlaylistUrl != null || _episodes.length > 1) {
+              if (_autoNext && _currentIndex + 1 < _episodes.length) {
+                _playNextEpisode();
+              }
+            } else {
+              Navigator.pop(context);
+            }
           }
           return;
         } catch (e) {
@@ -740,7 +958,44 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         headers['Referer'] = 'https://motchillv.io/';
       }
 
-      player.open(Media(_currentUrl, httpHeaders: headers), play: false);
+              if (_isYoutubeLink) {
+            String heightTarget = '2160';
+            if (_selectedYtQuality.contains('8K') || _selectedYtQuality.contains('4320')) heightTarget = '4320';
+            else if (_selectedYtQuality.contains('4K') || _selectedYtQuality.contains('2160')) heightTarget = '2160';
+            else if (_selectedYtQuality.contains('1440')) heightTarget = '1440';
+            else if (_selectedYtQuality.contains('1080')) heightTarget = '1080';
+            else if (_selectedYtQuality.contains('720')) heightTarget = '720';
+            else if (_selectedYtQuality.contains('480')) heightTarget = '480';
+            else if (_selectedYtQuality.contains('360')) heightTarget = '360';
+            else if (_selectedYtQuality.contains('240')) heightTarget = '240';
+            else if (_selectedYtQuality.contains('144')) heightTarget = '144';
+            
+            try {
+               String options = 'js-runtimes=node';
+               final prefs = await SharedPreferences.getInstance();
+               final isYtLinked = prefs.getBool('is_yt_linked') ?? false;
+               if (isYtLinked) {
+                 final exeName = File(Platform.resolvedExecutable).uri.pathSegments.last.replaceAll('.exe', '');
+                 final defaultWebviewPath = '${Platform.environment['LOCALAPPDATA']}\\flutter_webview_windows\\${exeName}\\EBWebView';
+                 final customWebviewPath = '\\youtube_webview_profile\\EBWebView';
+                 String ebPath = defaultWebviewPath;
+                 if (Directory(customWebviewPath).existsSync()) {
+                   ebPath = customWebviewPath;
+                 }
+                 options += ',cookies-from-browser=edge:' + ebPath;
+               }
+               (player.platform as dynamic).setProperty('ytdl-format', 'bestvideo[height<=?'+heightTarget+']+bestaudio/best');
+               (player.platform as dynamic).setProperty('ytdl-raw-options', options);
+            } catch(e) {
+               debugPrint('ytdl property set error: $e');
+            }
+          }
+          if (_isYoutubeLink) {
+             await player.open(Media(_currentUrl), play: false);
+          } else {
+             await player.open(Media(_currentUrl, httpHeaders: headers), play: false);
+          }
+      if (_isYoutubeLink) _fetchYoutubeQualities(_currentUrl);
       await _applyGlobalColorSettings();
       if (ep.slug == 'trailer' &&
           ep.embedUrl.isNotEmpty &&
@@ -768,7 +1023,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Tiếp tục xem?',
+                    L10n.t('resume_watching') ?? 'Tiếp tục xem?',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -777,7 +1032,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    'Bạn đã xem đến ${_formatDuration(Duration(milliseconds: savedPos))}. Bạn muốn xem tiếp hay xem lại từ đầu?',
+                    L10n.t('resume_watching_desc')?.replaceAll('{time}', _formatDuration(Duration(milliseconds: savedPos))) ?? 'Bạn đã xem đến ${_formatDuration(Duration(milliseconds: savedPos))}. Bạn muốn xem tiếp hay xem lại từ đầu?',
                     style: const TextStyle(color: Colors.white70, fontSize: 16),
                   ),
                   const SizedBox(height: 24),
@@ -791,7 +1046,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                           prefs.remove(key);
                         },
                         child: Text(
-                          L10n.t('from_beginning') ?? 'Từ đầu',
+                          L10n.t('from_beginning') ?? L10n.t('from_start') ?? 'Từ đầu',
                           style: TextStyle(color: Colors.white54, fontSize: 16),
                         ),
                       ),
@@ -848,7 +1103,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   void _playNextEpisode() {
-    if (_currentIndex + 1 < widget.episodes.length) {
+    if (_currentIndex + 1 < _episodes.length) {
       _initEpisode(_currentIndex + 1);
     }
   }
@@ -1012,7 +1267,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   Widget _buildNextEpisodeOverlay() {
-    bool hasNext = _currentIndex + 1 < widget.episodes.length;
+    bool hasNext = _currentIndex + 1 < _episodes.length;
     int remaining = _duration.inSeconds - _position.inSeconds;
 
     return Container(
@@ -1031,14 +1286,14 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
             children: [
               Text(
                 hasNext
-                    ? 'Tập tiếp theo sẽ phát sau $remaining giây'
-                    : 'Phim sẽ đóng sau $remaining giây',
+                    ? (L10n.t('next_ep_in')?.replaceAll('{time}', remaining.toString()) ?? 'Tập tiếp theo sẽ phát sau $remaining giây')
+                    : (L10n.t('close_in')?.replaceAll('{time}', remaining.toString()) ?? 'Phim sẽ đóng sau $remaining giây'),
                 style: const TextStyle(color: Colors.white70, fontSize: 14),
               ),
               const SizedBox(height: 4),
               Text(
                 hasNext
-                    ? widget.episodes[_currentIndex + 1].name
+                    ? _episodes[_currentIndex + 1].name
                     : L10n.t('finished') ?? 'Kết thúc',
                 style: const TextStyle(
                   color: Colors.white,
@@ -1164,7 +1419,35 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                             builder: (context, setTabState) => ListView(
                               padding: const EdgeInsets.all(16),
                               children: [
-                                if (_videoTracks.isNotEmpty) ...[
+                                if (_isYoutubeLink && _ytQualities.isNotEmpty) ...[
+                                  ListTile(
+                                    title: Text(
+                                      L10n.t('video_quality') ?? 'Chất lượng Video',
+                                      style: const TextStyle(color: Colors.white),
+                                    ),
+                                    trailing: DropdownButton<String>(
+                                      dropdownColor: Colors.grey[900],
+                                      value: _ytQualities.contains(_selectedYtQuality) ? _selectedYtQuality : _ytQualities.first,
+                                      style: const TextStyle(color: Colors.white),
+                                      underline: const SizedBox(),
+                                      items: _ytQualities.map((q) {
+                                        return DropdownMenuItem(
+                                          value: q,
+                                          child: Text(q, style: const TextStyle(fontSize: 14)),
+                                        );
+                                      }).toList(),
+                                      onChanged: (val) async {
+                                        if (val != null) {
+                                          setState(() => _selectedYtQuality = val);
+                                          final pos = _position;
+                                          await _playCurrentUrl(_episodes[_currentIndex]);
+                                          await player.seek(pos);
+                                          player.play();
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ] else if (_videoTracks.isNotEmpty) ...[
                                   ListTile(
                                     title: Text(
                                       L10n.t('video_quality') ??
@@ -1468,7 +1751,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               ),
                               _buildInfoRow(
                                 L10n.t('current_ep') ?? 'Tập đang phát',
-                                widget.episodes[_currentIndex].name,
+                                _episodes[_currentIndex].name,
                               ),
                               _buildInfoRow(
                                 L10n.t('duration') ?? 'Thời lượng',
@@ -1562,7 +1845,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                         setState(() {
                           _currentMotchillServerIndex = e.key;
                           _currentUrl = e.value['link']!;
-                          _playCurrentUrl(widget.episodes[_currentIndex]);
+                          _playCurrentUrl(_episodes[_currentIndex]);
                         });
                       },
                     ),
@@ -1645,7 +1928,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
               return KeyEventResult.handled;
             }
             if (event.logicalKey == LogicalKeyboardKey.keyN) {
-              if (_currentIndex + 1 < widget.episodes.length) {
+              if (_currentIndex + 1 < _episodes.length) {
                 _playNextEpisode();
               }
               return KeyEventResult.handled;
@@ -1749,10 +2032,32 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                     ),
                   ),
 
+                
+                // Skip Intro Button
+                if (!widget.isLive && _enableSkipIntro && _duration.inSeconds > _skipIntroDuration && _position.inSeconds > 0 && _position.inSeconds < _skipIntroDuration && !_isUsingWebview)
+                  Positioned(
+                    bottom: 100,
+                    right: 32,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.fast_forward, color: Colors.white),
+                      label: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro', style: const TextStyle(color: Colors.white)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.black.withOpacity(0.8),
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          side: const BorderSide(color: Colors.white24, width: 1),
+                        ),
+                      ),
+                      onPressed: () {
+                        player.seek(Duration(seconds: _skipIntroDuration));
+                      },
+                    ),
+                  ),
                 // Next Episode Overlay (Near End)
                 if (!widget.isLive &&
                     _duration.inSeconds > 0 &&
-                    (_duration.inSeconds - _position.inSeconds) <= 30 &&
+                    (_duration.inSeconds - _position.inSeconds) <= 180 &&
                     !_isUsingWebview)
                   Positioned(
                     bottom: 100,
@@ -1817,6 +2122,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                     if (_isFullscreen) {
                                       await windowManager.setFullScreen(false);
                                     }
+                                    await player.stop();
                                     if (mounted) Navigator.pop(context);
                                   },
                                   tooltip: L10n.t('go_back') ?? 'Quay lại',
@@ -1956,6 +2262,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                     ).withOpacity(0.2),
                                                   ),
                                                   child: Slider(
+                                                    secondaryTrackValue: _buffer.inMilliseconds.toDouble().clamp(0.0, _duration.inMilliseconds.toDouble() > 0 ? _duration.inMilliseconds.toDouble() : 1.0),
                                                     value: _position
                                                         .inMilliseconds
                                                         .toDouble()
@@ -2434,7 +2741,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               child: Wrap(
                                 spacing: 8,
                                 runSpacing: 8,
-                                children: widget.episodes.asMap().entries.map((
+                                children: _episodes.asMap().entries.map((
                                   entry,
                                 ) {
                                   final index = entry.key;
@@ -2470,17 +2777,39 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                 : Colors.transparent,
                                           ),
                                         ),
-                                        child: Text(
-                                          ep.name,
-                                          style: TextStyle(
-                                            color: isCurrent
-                                                ? Colors.blueAccent
-                                                : Colors.white,
-                                            fontWeight: isCurrent
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                        child: Row(
+                                            children: [
+                                              if (ep.embedUrl.startsWith('https://i.ytimg.com/')) ...[
+                                                ClipRRect(
+                                                  borderRadius: BorderRadius.circular(6),
+                                                  child: Image.network(
+                                                    ep.embedUrl,
+                                                    width: 100,
+                                                    height: 56,
+                                                    fit: BoxFit.cover,
+                                                    errorBuilder: (context, error, stackTrace) => const SizedBox(width: 100, height: 56, child: Icon(Icons.error, color: Colors.white30)),
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 12),
+                                              ],
+                                              Expanded(
+                                                child: Text(
+                                                  ep.name,
+                                                  style: TextStyle(
+                                                    color: isCurrent
+                                                        ? Colors.blueAccent
+                                                        : Colors.white,
+                                                    fontWeight: isCurrent
+                                                        ? FontWeight.bold
+                                                        : FontWeight.normal,
+                                                    height: 1.3,
+                                                  ),
+                                                  maxLines: 2,
+                                                  overflow: TextOverflow.ellipsis,
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
                                       ),
                                     ),
                                   );

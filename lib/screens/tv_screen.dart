@@ -1,9 +1,13 @@
 import '../utils/l10n.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 import '../api/tv_api.dart';
 import '../models/movie.dart';
-import 'player_screen.dart';
+import 'tv_player_screen.dart';
 import 'tv_webview_screen.dart';
+import 'player_screen.dart';
 import '../widgets/glass_container.dart';
 
 class TvScreen extends StatefulWidget {
@@ -327,6 +331,19 @@ class _TvChannelCardState extends State<_TvChannelCard> {
   bool _isHovered = false;
 
   Widget _buildChannelLogo() {
+    if (widget.channel.logo.isNotEmpty) {
+      return CachedNetworkImage(
+        imageUrl: widget.channel.logo,
+        height: 60,
+        fit: BoxFit.contain,
+        placeholder: (context, url) => const CircularProgressIndicator(color: Color(0xFF3B82F6)),
+        errorWidget: (context, url, error) => _buildFallbackLogo(),
+      );
+    }
+    return _buildFallbackLogo();
+  }
+
+  Widget _buildFallbackLogo() {
     final id = widget.channel.id.toLowerCase();
 
     // Custom High-Quality Branded Badges for each TV station

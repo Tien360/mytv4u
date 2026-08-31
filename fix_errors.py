@@ -1,16 +1,37 @@
-﻿with open("lib/widgets/next_episode_tracker.dart", "r", encoding="utf-8") as f:
-    text = f.read()
+﻿import re
 
-# Fix movie id -> slug
-text = text.replace("widget.movie?.id", "widget.movie?.slug")
+content = open('lib/screens/audio_player_screen.dart', 'r', encoding='utf-8').read()
 
-# Fix bounce
-text = text.replace("textWidget.animate().bounce()", "textWidget.animate().scale().moveY(end: -5, duration: 200.ms)")
+# 1. Define _toggleShuffle and _toggleRepeat
+new_methods = '''  void _toggleShuffle() {
+    setState(() {
+      isShuffle = !isShuffle;
+    });
+  }
 
-# Fix emoji bed
-text = text.replace("🛏️", "")
-text = text.replace("⏳", "")
+  void _toggleRepeat() {
+    setState(() {
+      repeatMode = (repeatMode + 1) % 3;
+    });
+  }
 
-with open("lib/widgets/next_episode_tracker.dart", "w", encoding="utf-8") as f:
-    f.write(text)
-print("Fixed widget")
+  void _next() {'''
+content = content.replace('  void _next() {', new_methods)
+
+# 2. Call _updateDominantColor
+old_setState = '''      if (mounted) {
+        setState(() {});
+      }
+    });'''
+new_setState = '''      if (mounted) {
+        setState(() {});
+      }
+      _updateDominantColor();
+    });'''
+content = content.replace(old_setState, new_setState)
+
+# 3. Fix EOF closing parenthesis
+if content.endswith('      ),\n    );\n  }\n}\n'):
+    content = content.replace('      ),\n    );\n  }\n}\n', '      ),\n      ),\n    );\n  }\n}\n')
+
+open('lib/screens/audio_player_screen.dart', 'w', encoding='utf-8').write(content)

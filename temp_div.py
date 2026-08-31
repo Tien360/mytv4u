@@ -1,0 +1,5 @@
+﻿content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+content = content.replace('const Divider(color: Colors.white12)', 'const Divider(color: Colors.white12, height: 32)')
+content = content.replace('const Divider(color: Colors.white12, height: 16)', 'const Divider(color: Colors.white12, height: 32)')
+content = content.replace('const Divider(\n                                            color: Colors.white12,', 'const Divider(\n                                            color: Colors.white12, height: 32,')
+open('lib/screens/settings_screen.dart', 'w', encoding='utf-8').write(content)

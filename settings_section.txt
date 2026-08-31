@@ -1,0 +1,33 @@
+          ),
+
+
+
+                                  const SizedBox(height: 48),
+
+                                  SizedBox(key: _colorKey),
+                                  _buildSectionTitle(
+                                    Icons.color_lens,
+                                    L10n.t('global_color_settings'),
+                                  ),
+                                  const SizedBox(height: 16),
+                                  if (_prefs != null)
+                                    GlobalColorSettings(
+                                      prefs: _prefs!,
+                                      onSettingsChanged: (_) {},
+                                    ),
+
+                                  const SizedBox(height: 48),
+
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(key: _subtitleKey),
+                                      _buildSectionTitle(
+                                        Icons.subtitles,
+                                        L10n.t('subtitles'),
+                                      ),
+                                      TextButton.icon(
+                                        onPressed: () async {
+                                          final prefs =
+                                              await SharedPreferences.getInstance

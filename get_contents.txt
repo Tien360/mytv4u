@@ -1,0 +1,1134 @@
+Line 525: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "prem
+Line 1440: Get-Content "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -TotalCount 30
+Line 1443: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "p2p"
+Line 1446: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "Nguồ
+Line 1455: Get-Content "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -TotalCount 150
+Line 1482: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "Swit
+Line 1486: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "_bui
+Line 1490: Get-Content "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" | Select-String -Patte
+Line 1502: Get-Content "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" | Select-String -Patte
+Line 3170: Get-Content lib\screens\settings_screen.dart
+Line 3173: Get-Content lib\screens\settings_screen.dart -TotalCount 250
+Line 3204: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "Nguá»“n phim" -Context 5,20
+Line 3210: Get-Content lib\screens\settings_screen.dart -TotalCount 75
+Line 3473: Get-Content lib\screens\settings_screen.dart -TotalCount 50
+Line 3766: Get-Content lib\screens\settings_screen.dart | Select-String "version"
+Line 3819: Get-Content lib\screens\settings_screen.dart | Select-Object -First 15
+Line 4108: Select-String -Path "lib\screens\settings_screen.dart" -Pattern "phím tắt|subtitleFontSize|ESC" -Con
+Line 4111: Select-String -Path "lib\screens\settings_screen.dart" -Pattern "Tuỳ chỉnh phụ đề" -Context 3,10
+Line 4135: Get-Content "lib\screens\settings_screen.dart" | Select-Object -Skip 613 -First 33
+Line 4335: Get-Content "lib\screens\settings_screen.dart" | Select-String -Pattern "subSize" -Context 15,15
+Line 4417: Get-Content "lib\screens\settings_screen.dart" -TotalCount 70
+Line 4420: Get-Content "lib\screens\settings_screen.dart" | Select-String -Pattern "build" -Context 3,30
+Line 4423: Get-Content "lib\screens\settings_screen.dart" -TotalCount 200 | Select-String -Pattern "Widget buil
+Line 4426: (Get-Content "lib\screens\settings_screen.dart").Length
+Line 4432: Get-Content "lib\screens\settings_screen.dart" -TotalCount 500 | Select-String -Pattern "Phụ đề" -Co
+Line 4437: Get-Content "lib\screens\settings_screen.dart" | Select-String -Pattern "sub_size" -Context 5,50
+Line 4579: Get-Content "lib\screens\settings_screen.dart" | Select-String -Pattern "auto_next" -Context 3,25
+Line 4749: Get-Content "lib\screens\settings_screen.dart" -TotalCount 250 | Select-String -Pattern "L10n" -Cont
+Line 4757: Get-Content "lib\screens\settings_screen.dart" -TotalCount 10
+Line 4808: Get-Content "lib\screens\settings_screen.dart" -TotalCount 500 | Select-String -Pattern "auto_play_t
+Line 4811: Get-Content "lib\screens\settings_screen.dart" -TotalCount 500 | Select-String -Pattern "appLang|_ap
+Line 4966: Get-Content "lib\screens\settings_screen.dart" | Select-Object -Skip 180 -First 400 | Out-File -Enco
+Line 4971: Copy-Item "lib\screens\settings_screen.dart" "lib\screens\settings_screen_backup.dart"
+Line 4974: Get-Content -Path "lib\screens\settings_screen.dart" | Select-String -Pattern "_buildSectionTitle\(I
+Line 4977: $content = Get-Content "lib\screens\settings_screen.dart" -Raw
+$newContent = $content -replace "(?s)
+Line 4988: dart format lib/screens/settings_screen.dart
+Line 5002: Copy-Item "lib\screens\settings_screen_backup.dart" "lib\screens\settings_screen.dart" -Force
+Line 5005: Select-String -Pattern "Kiểm tra phiên bản mới" -Path "lib\screens\settings_screen.dart" -Context 0,
+Line 5008: Select-String -Pattern "_buildSourceSwitch\('torrentio'" -Path "lib\screens\settings_screen.dart" -C
+Line 5013: Select-String -Pattern "_buildSourceSwitch" -Path "lib\screens\settings_screen.dart" -Context 0,20
+Line 5016: Select-String -Pattern "Nguồn phim khả dụng" -Path "lib\screens\settings_screen.dart" -Context 0,50
+Line 5019: Get-Content "lib\screens\settings_screen.dart" -Tail 100
+Line 5022: Select-String -Pattern "Widget build\(BuildContext context\)" -Path "lib\screens\settings_screen.dar
+Line 5028: Get-Content "lib\screens\settings_screen.dart" | Select-Object -Skip 190 -First 35
+Line 5034: Select-String -Pattern "L10n.t\('watch_limit'\)" -Path "lib\screens\settings_screen.dart" -Context 5
+Line 5040: Select-String -Pattern "Kiểm tra phiên bản mới" -Path "lib\screens\settings_screen.dart" -Context 0,
+Line 5043: Select-String -Pattern "Điều khoản sử dụng & Miễn trừ trách nhiệm" -Path "lib\screens\settings_scree
+Line 5336: Select-String -Pattern "[áàảãạâấầẩẫậăắằẳẵặéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđÁÀẢÃẠÂẤẦ
+Line 5342: python -c "
+import os
+
+replacements = {
+    '\'Tài khoản đồng bộ\'': 'L10n.t(\'sync_account\')',
+   
+Line 5345: Select-String -Pattern "[áàảãạâấầẩẫậăắằẳẵặéèẻẽẹêếềểễệíìỉĩịóòỏõọôốồổỗộơớờởỡợúùủũụưứừửữựýỳỷỹỵđÁÀẢÃẠÂẤẦ
+Line 5348: python -c "
+import json
+
+vi_path = 'assets/langs/vi.json'
+with open(vi_path, 'r', encoding='utf-8') 
+Line 5603: Get-Content lib/screens/settings_screen.dart | Select-Object -Index 398,399,543,544,550,551,567,568,
+Line 9520: Select-String -Path "T:\Project\Phim\mytv4u_core\lib\screens\settings_screen.dart" -Pattern "Nguồn P
+Line 9535: Get-Content T:\Project\Phim\mytv4u_core\lib\screens\settings_screen.dart | Select-Object -Skip 630 -
+Line 14233: Select-String -Pattern "SharedPreferences" lib\screens\settings_screen.dart -Context 2,2
+Line 14235: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "hw_accel" -Context 15,15
+Line 14237: Get-Content lib\screens\settings_screen.dart | Select-Object -First 55
+Line 14243: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "hw_accel" -Context 15,15
+Line 14346: Set-Content release_notes_beta.txt -Value "- Thêm chế độ Picture-in-Picture.`n- Tuỳ chọn Phát dưới n
+Line 14584: Get-Content lib\screens\settings_screen.dart -TotalCount 50
+Line 14619: Set-Content patch_settings_sources.py -Value @"
+import re
+
+with open('lib/screens/settings_screen.da
+Line 14623: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "Nguồn phim" -Context 5,5
+Line 14625: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "Trình phát|SettingsScreen" -C
+Line 14627: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "Widget build\(BuildContext co
+Line 14629: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 330 -First 50
+Line 14631: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "Nguồn phim|Thông tin" -Contex
+Line 14633: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "_sources" -Context 3,10
+Line 14635: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "void initState\(\)" -Context 
+Line 14644: Set-Content patch_settings_ui.py -Value @"
+import re
+
+with open('lib/screens/settings_screen.dart', 
+Line 14646: dart analyze lib\screens\settings_screen.dart
+Line 14651: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "GlobalColorSettings" -Context
+Line 14654: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "movie_sources" -Context 5,5
+Line 14656: Set-Content patch2.py -Value @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encodi
+Line 14841: Get-Content lib\screens\settings_screen.dart | Select-Object -First 100
+Line 14843: Get-Content lib\screens\settings_screen.dart | Select-String "GlobalColorSettings" -Context 3,5
+Line 14845: Select-String "GlobalColorSettings" lib\screens\settings_screen.dart
+Line 14847: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 300 -First 50
+Line 14849: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 350 -First 100
+Line 14851: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 450 -First 100
+Line 14853: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 180 -First 100
+Line 14855: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 235 -First 20
+Line 14857: Set-Content patch_settings.py -Value @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r'
+Line 14918: [Console]::OutputEncoding = [System.Text.Encoding]::UTF8; Get-Content lib\screens\settings_screen.da
+Line 14957: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 240 -First 30
+Line 14959: Set-Content patch_fix.py -Value @"
+import io
+import re
+
+# 1. Fix player_screen.dart
+with io.open('li
+Line 15027: Set-Content patch_fix2.py -Value @"
+import io
+
+with io.open('lib/screens/settings_screen.dart', 'r',
+Line 15336: Get-Content lib\screens\settings_screen.dart | Select-Object -First 300
+Line 15400: Get-Content lib\screens\settings_screen.dart | Measure-Object -Line
+Line 15402: Get-Content lib\screens\settings_screen.dart -TotalCount 250
+Line 15405: Get-Content lib\screens\settings_screen.dart | Select-Object -First 100
+Line 15407: Get-Content lib\screens\settings_screen.dart -TotalCount 400 | Select-Object -Skip 180 -First 100
+Line 15409: $content = @"
+import os
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-
+Line 15411: $content = @"
+import os
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15415: Get-Content lib\screens\settings_screen.dart -Tail 20
+Line 15417: $content = Get-Content lib\screens\settings_screen.dart
+$content[730..770]
+Line 15419: git diff HEAD~1 lib\screens\settings_screen.dart | Select-Object -Skip 300 -First 50
+Line 15421: git show HEAD:lib/screens/settings_screen.dart > old_settings.dart
+Line 15425: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 740 -First 30
+Line 15427: $content = @"
+import os
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-
+Line 15431: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 180 -First 100
+Line 15433: Get-Content lib\screens\settings_screen.dart | Select-String "GlobalKey"
+Line 15528: Get-Content lib\screens\settings_screen.dart | Select-String "_buildSidebarMenu()" -Context 0,15
+Line 15530: $content = @"
+import os
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-
+Line 15532: Get-Content lib\screens\settings_screen.dart | Select-String "SizedBox(key:"
+Line 15534: Get-Content lib\screens\settings_screen.dart | Select-String "SizedBox(key:" -SimpleMatch
+Line 15536: Get-Content lib\screens\settings_screen.dart | Select-String "health_utilities" -Context 2,2; Get-Co
+Line 15538: Get-Content lib\screens\settings_screen.dart | Select-String "Icons.source" -Context 2,2
+Line 15540: $content = @"
+import os
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-
+Line 15550: Get-Content lib\screens\settings_screen.dart | Select-String "_buildSidebarMenu\(\)" -Context 0,15
+Line 15552: $content = @"
+import os
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15554: Get-Content lib\screens\settings_screen.dart | Select-String "SizedBox\(key:" -SimpleMatch
+Line 15556: python -c "import re; f=open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read(); keys
+Line 15558: Get-Content lib\screens\settings_screen.dart | Select-String "Scrollable.ensureVisible" -Context 0,5
+Line 15629: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "Sống động|Rạp phim" -Context 
+Line 15641: Get-Content lib\screens\settings_screen.dart | Select-String "language" -Context 3,3
+Line 15643: Get-Content lib\screens\settings_screen.dart | Select-String "language_settings" -Context 15,15
+Line 15651: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15666: Get-Content lib\screens\settings_screen.dart | Select-String "_languageKey"
+Line 15669: Get-Content lib\screens\settings_screen.dart | Select-String "GlobalKey\(\)" -Context 1,1
+Line 15671: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15727: Get-Content lib\screens\settings_screen.dart | Select-String "Text color" -Context 5,20
+Line 15729: Get-Content lib\screens\settings_screen.dart | Select-String "sub_color" -Context 3,30
+Line 15731: Get-Content lib\screens\settings_screen.dart | Select-String "Slider" -Context 3,3
+Line 15733: Get-Content lib\screens\settings_screen.dart | Select-String "sub_size" -Context 3,5
+Line 15735: Get-Content lib\screens\settings_screen.dart | Select-String "DropdownButton<String>" -Context 3,0
+Line 15737: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15739: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "Spacer\(\)" -Context 3,3
+Line 15741: Get-Content lib\screens\settings_screen.dart | Select-String "Switch" -Context 3,3
+Line 15756: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15758: Get-Content lib\screens\settings_screen.dart | Select-String "_buildSidebarItem" -Context 3,30
+Line 15760: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15786: Get-Content lib\screens\settings_screen.dart | Select-String "Language settings|Video Player" -Conte
+Line 15788: Get-Content lib\screens\settings_screen.dart | Select-String "_languageKey" -Context 3,30
+Line 15790: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 650 -First 60
+Line 15792: Get-Content lib\screens\settings_screen.dart | Select-String -Pattern "SizedBox\(key: _languageKey\)
+Line 15795: Get-Content lib\screens\settings_screen.dart | Select-String "video_player" -Context 5,10
+Line 15797: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 500 -First 100
+Line 15799: Get-Content lib\screens\settings_screen.dart | Select-String "_systemKey" -Context 3,60
+Line 15801: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15811: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 570 -First 60
+Line 15813: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 380 -First 100
+Line 15815: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 15817: dart analyze | Select-String "settings_screen.dart" -Context 3,3
+Line 15819: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 380 -First 30
+Line 15821: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 410 -First 30
+Line 15823: dart analyze lib\screens\settings_screen.dart
+Line 16181: Get-Content screens\settings_screen.dart | Select-Object -Skip 560 -First 30
+Line 16183: Get-Content screens\settings_screen.dart | Select-Object -Skip 570 -First 20
+Line 16185: Get-Content screens\settings_screen.dart | Select-Object -Skip 500 -First 90
+Line 16187: Get-Content screens\settings_screen.dart | Select-Object -Skip 300 -First 30
+Line 16189: Get-Content screens\settings_screen.dart | Select-String "children:"
+Line 16191: Get-Content screens\settings_screen.dart | Select-String "if \(_prefs != null\)" -Context 5,5
+Line 16193: Get-Content screens\settings_screen.dart | Select-String "global_color_settings"
+Line 16195: Get-Content screens\settings_screen.dart | Select-Object -Skip 565 -First 35
+Line 16197: Get-Content screens\settings_screen.dart | Select-Object -Skip 480 -First 35
+Line 16199: Get-Content screens\settings_screen.dart | Select-Object -Skip 450 -First 30
+Line 16201: cat screens\settings_screen.dart
+Line 16207: dart analyze lib\screens\settings_screen.dart
+Line 16209: $content = Get-Content lib\screens\settings_screen.dart -Raw; $content = $content -replace 'if \(_pr
+Line 16211: git add lib/screens/settings_screen.dart; git commit -m "fix(ui): use ternary operator instead of co
+Line 16217: Get-Content lib\screens\settings_screen.dart | Select-String "\], // 15" -Context 3,3
+Line 16219: Get-Content lib\screens\settings_screen.dart | Select-String "GlobalColorSettings" -Context 3,3
+Line 16221: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 565 -First 80
+Line 16223: Get-Content lib\screens\settings_screen.dart | Select-String "_buildAppInfoCard" -Context 3,20
+Line 16225: Get-Content lib\screens\settings_screen.dart | Select-String ",,"
+Line 16227: dart format lib\screens\settings_screen.dart
+Line 16229: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 750 -First 35
+Line 16231: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 270 -First 30
+Line 16233: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 300 -First 30
+Line 16235: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 330 -First 30
+Line 16237: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 16239: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 770 -First 5
+Line 16241: $content = @"
+def check_balance(text):
+    stack = []
+    for i, c in enumerate(text):
+        if c 
+Line 16243: $content = @"
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+    text = 
+Line 16245: $content = @"
+def check_balance(text):
+    stack = []
+    for i, c in enumerate(text):
+        if c 
+Line 16248: git show HEAD~2:lib/screens/settings_screen.dart | Select-String "_subtitleKey" -Context 3,3
+Line 16250: git show HEAD~2:lib/screens/settings_screen.dart | Select-String "SizedBox\(key: _subtitleKey\)" -Co
+Line 16252: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 570 -First 25
+Line 16254: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 340 -First 10
+Line 16256: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 750 -First 35
+Line 16258: $content = @"
+def check_balance(text):
+    stack = []
+    for i, c in enumerate(text):
+        if c 
+Line 16260: $content = @"
+def check_balance(text):
+    stack = []
+    for i, c in enumerate(text):
+        if c 
+Line 16262: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 505 -First 20
+Line 16264: git show HEAD~3:lib/screens/settings_screen.dart | Select-String "SizedBox\(key: _sourcesKey\)" -Con
+Line 16266: git show HEAD~3:lib/screens/settings_screen.dart | Select-String "SizedBox\(key: _sourcesKey\)" -Con
+Line 16268: git show HEAD~3:lib/screens/settings_screen.dart | Select-Object -Skip 485 -First 20
+Line 16270: git show HEAD~3:lib/screens/settings_screen.dart | Select-Object -Skip 480 -First 40
+Line 16272: git show HEAD~4:lib/screens/settings_screen.dart | Select-Object -Skip 480 -First 40
+Line 16274: git log -p -n 3 lib/screens/settings_screen.dart | Select-String "Row\(" -Context 2,2
+Line 16276: git log -S "Row(" --oneline lib\screens\settings_screen.dart
+Line 16278: git show 4fd106c:lib/screens/settings_screen.dart | Select-String "Row" -Context 3,3 | Select-Object
+Line 16280: git show HEAD~4:lib/screens/settings_screen.dart | Select-Object -Skip 450 -First 30
+Line 16282: git show HEAD~4:lib/screens/settings_screen.dart | Select-String "_sourcesKey" -Context 3,5
+Line 16284: git show HEAD~4:lib/screens/settings_screen.dart > tools/old.dart; python tools/check_balance2.py to
+Line 16288: git log -p -n 1 757eb03 lib/screens/settings_screen.dart | Select-String "movie_sources" -Context 10
+Line 16290: git show HEAD~4:lib/screens/settings_screen.dart | Select-String "movie_sources" -Context 3,10
+Line 16292: git show HEAD~4:lib/screens/settings_screen.dart | Select-Object -Skip 500 -First 20
+Line 16294: git show 4fd106c^:lib/screens/settings_screen.dart | Select-String "_sourcesKey" -Context 3,10
+Line 16296: git show HEAD~4:lib/screens/settings_screen.dart > tools/test_format.dart; dart format tools/test_fo
+Line 16298: git show HEAD~4:lib/screens/settings_screen.dart | Out-File -Encoding UTF8 tools/test_format.dart; d
+Line 16300: git show HEAD~10:lib/screens/settings_screen.dart | Select-String "_subtitleKey" -Context 3,3
+Line 16302: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 570 -First 25
+Line 16304: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 590 -First 25
+Line 16306: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 565 -First 25
+Line 16308: git show 4fd106c:lib/screens/settings_screen.dart | Select-String "restore_default" -Context 3,5
+Line 16310: git show 4fd106c -U0 lib/screens/settings_screen.dart
+Line 16312: git show 4fd106c lib/screens/settings_screen.dart | Select-Object -Skip 30 -First 30
+Line 16314: Get-Content lib\screens\settings_screen.dart | Select-String "_languageKey" -Context 3,25
+Line 16316: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 565 -First 30
+Line 16318: git show HEAD~4:lib/screens/settings_screen.dart | Select-String "_subtitleKey" -Context 3,3
+Line 16326: git checkout HEAD~1 lib/screens/settings_screen.dart; dart format lib/screens/settings_screen.dart
+Line 16328: git show HEAD~10:lib/screens/settings_screen.dart | Select-String "SizedBox\(key: _sourcesKey\)" -Co
+Line 16330: git show HEAD~10:lib/screens/settings_screen.dart | Select-Object -Skip 480 -First 30
+Line 16333: git show HEAD~10:lib/screens/settings_screen.dart > tools/test2.dart; python tools/check_balance5.py
+Line 16335: git show HEAD~10:lib/screens/settings_screen.dart | Out-File -Encoding UTF8 tools/test2.dart; python
+Line 16337: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 410 -First 20
+Line 16339: git show 4fd106c -U10 lib/screens/settings_screen.dart
+Line 16341: $content = @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+
+Line 16347: git add lib/screens/settings_screen.dart; git commit -m "fix(ui): fix corrupted brackets and missing
+Line 16495: Get-Content lib\screens\settings_screen.dart | Select-String "enabledSources.contains" -Context 3,3
+Line 16497: Get-Content lib\screens\settings_screen.dart | Select-String "_sources = {" -Context 0,10
+Line 16499: $code = "
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+    text = f.re
+Line 16505: git add lib/api/film4knet_api.dart lib/api/phim_api.dart lib/screens/settings_screen.dart; git commi
+Line 16990: Get-Content lib\screens\settings_screen.dart | Select-String "film4knet" -Context 3,3
+Line 16992: Get-Content lib\screens\settings_screen.dart | Select-String "Film4k.net" -Context 3,3
+Line 16994: Get-Content lib\screens\settings_screen.dart | Select-String "SourcesTab" -Context 0,50
+Line 16996: Get-Content lib\screens\settings_screen.dart | Select-Object -First 60
+Line 17044: Get-Content lib\screens\settings_screen.dart | Select-String "enabled_sources" -Context 0,20
+Line 17046: Get-Content lib\screens\settings_screen.dart | Select-String "Map<String, bool> _sources" -Context 0
+Line 17048: Get-Content lib\screens\settings_screen.dart | Select-String "enabledList" -Context 2,5
+Line 17050: Get-Content lib\screens\settings_screen.dart | Select-String "Source Standard" -Context 5,20
+Line 17052: Get-Content lib\screens\settings_screen.dart | Select-String "Source" -Context 0,5
+Line 17056: Get-Content lib\screens\settings_screen.dart | Select-String "_buildModernSourceCard" -Context 0,20 
+Line 17058: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 1420 -First 20
+Line 17084: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 820 -First 20
+Line 17692: Get-Content lib\screens\settings_screen.dart | Select-Object -First 40
+Line 17694: Get-Content lib\screens\settings_screen.dart | Select-String "Widget build" -Context 0,50
+Line 17696: Get-Content lib\screens\settings_screen.dart | Select-String "Widget _buildSidebarMenu" -Context 0,3
+Line 17698: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 300 -First 60
+Line 17700: Get-Content lib\screens\settings_screen.dart | Select-String "Widget _buildSidebarMenu" -Context 0,5
+Line 17702: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 400 -First 50
+Line 17704: Get-Content lib\screens\settings_screen.dart | Select-String "SingleChildScrollView" -Context 0,50
+Line 17706: Get-Content lib\screens\settings_screen.dart | Select-String "infoKey" -Context 5,5
+Line 17714: Get-Content lib\screens\settings_screen.dart | Select-String "_infoKey" -Context 3,3
+Line 17716: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 680 -First 30
+Line 17718: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 720 -First 50
+Line 17720: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 850 -First 50
+Line 17722: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 900 -First 50
+Line 17724: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 840 -First 60
+Line 17728: Get-Content lib\screens\settings_screen.dart | Select-String "_infoKey" -Context 3,3
+Line 17730: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 950 -First 30
+Line 17732: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 1000 -First 50
+Line 17734: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 1150 -First 50
+Line 17736: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 1200 -First 50
+Line 17901: $code = "
+import re
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+    c
+Line 17913: Get-Content lib\screens\settings_screen.dart | Select-String "keyboard_shortcuts" -Context 2,2
+Line 17915: Get-Content lib\screens\settings_screen.dart | Select-Object -Skip 1215 -First 70
+Line 17921: $code = "
+import json
+files = ['assets/langs/en.json', 'assets/langs/vi.json']
+new_keys = {
+    'en.
+Line 19710: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String -P
+Line 19712: (Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart)[250..265]
+Line 19714: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String -P
+Line 20387: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 50 | S
+Line 20389: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 50
+Line 20391: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "_
+Line 20393: $code = @'
+import re
+
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+   
+Line 20395: dart analyze lib/widgets/ambient_background.dart lib/screens/home_screen.dart lib/screens/settings_s
+Line 20407: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20431: git restore lib/screens/settings_screen.dart
+Line 20433: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "a
+Line 20435: $code = @'
+import re
+
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+   
+Line 20437: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20443: dart analyze lib/screens/settings_screen.dart
+Line 20467: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "_
+Line 20470: $code = @'
+import re
+
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+   
+Line 20473: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "_
+Line 20486: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 50
+Line 20702: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "S
+Line 20704: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "W
+Line 20706: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "_
+Line 20708: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "g
+Line 20710: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "_
+Line 20712: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "_
+Line 20714: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20716: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "d
+Line 20718: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "L
+Line 20720: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "L
+Line 20722: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20724: $code = @'
+import re
+
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+   
+Line 20726: dart analyze lib/screens/settings_screen.dart
+Line 20746: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20758: $code = @'
+import re
+
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+   
+Line 20760: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20762: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    content = 
+Line 20781: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20783: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-Object -S
+Line 20785: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "_
+Line 20797: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "A
+Line 20806: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "G
+Line 20808: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-String "h
+Line 20810: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart | Select-Object -S
+Line 20812: $content = Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart
+$start 
+Line 20814: python -c "
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+    content =
+Line 20816: python -c "
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+    content =
+Line 20822: $code = @'
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+   
+Line 20824: dart analyze lib/screens/settings_screen.dart
+Line 20830: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 505 | 
+Line 20832: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 505 | 
+Line 20834: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 530 | 
+Line 20836: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 590 | 
+Line 20840: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    content = 
+Line 20842: dart analyze lib/screens/settings_screen.dart
+Line 20844: Get-Content -Path t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart -TotalCount 525 | 
+Line 22747: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "egg|easter|log
+Line 22751: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "_buildAppInfoC
+Line 22754: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "shared_prefere
+Line 22767: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "Image.asset.*l
+Line 22769: $code = @'
+# 1. Wrap logo with GestureDetector for double-tap
+import re
+
+with open("lib/screens/sett
+Line 22771: # Check if _buildSettingToggle and _easterEggsEnabled exist, and add them if needed
+$code = @'
+with 
+Line 22779: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "_easterEggsEna
+Line 22781: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-Object -First 30
+Line 22785: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "_prefs = await
+Line 22788: (Get-Content lib\screens\settings_screen.dart -Encoding UTF8) | Select-String "_prefs = await Shared
+Line 22794: (Get-Content lib\screens\settings_screen.dart -Encoding UTF8) | Select-String "Widget _buildAppInfoC
+Line 23022: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String "easter" -Context 2,2
+Line 23024: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "Sức khỏe|Healt
+Line 23026: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "health_utiliti
+Line 23028: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "easter_eggs_ti
+Line 23030: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "Widget _buildS
+Line 23032: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "L10n.t\('limit
+Line 23034: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 23036: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    lines = f.
+Line 23038: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 23040: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "easter_eggs_ti
+Line 23042: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 23044: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "_buildSettingT
+Line 23046: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 23048: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 23050: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "easter_eggs_ti
+Line 23052: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 23054: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "easter_eggs_ti
+Line 23056: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 23058: Get-Content lib\screens\settings_screen.dart -Encoding UTF8 | Select-String -Pattern "easter_eggs_ti
+Line 23060: $code = @'
+with open("lib/screens/settings_screen.dart", "r", encoding="utf-8") as f:
+    text = f.r
+Line 24353: Get-Content lib/screens/settings_screen.dart -Encoding UTF8 -TotalCount 50
+Line 24355: Get-Content lib/screens/settings_screen.dart -Encoding UTF8 | Select-String "SharedPreferences.getIn
+Line 24358: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24362: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24372: dart analyze lib/screens/player_screen.dart lib/screens/settings_screen.dart
+Line 24374: Get-Content lib/screens/settings_screen.dart -Encoding UTF8 | Select-Object -Skip 215 -First 20
+Line 24376: dart analyze lib/screens/player_screen.dart lib/screens/settings_screen.dart | Select-String "error 
+Line 24382: Get-Content lib/screens/settings_screen.dart -Encoding UTF8 -TotalCount 60 | Select-Object -Skip 30
+Line 24384: $code = @'
+import re
+
+path1 = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+wit
+Line 24386: dart analyze lib/screens/player_screen.dart lib/screens/settings_screen.dart | Select-String "error 
+Line 24388: dart analyze lib/screens/player_screen.dart lib/screens/settings_screen.dart
+Line 24472: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24480: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24482: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24486: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24490: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24492: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24494: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24642: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24644: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24646: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24648: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24650: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24652: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24654: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24660: dart analyze lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scr
+Line 24662: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24664: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24666: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24668: git restore lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scre
+Line 24670: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24672: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24674: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24702: dart analyze lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scr
+Line 24705: $code = @'
+import re
+
+# 1. Fix library_screen.dart
+path_lib = r"T:\Project\Phim\mytv4u_flutter\lib\s
+Line 24707: dart analyze lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scr
+Line 24709: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24711: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24713: python -c "import sys; sys.stdout.reconfigure(encoding='utf-8'); content = open(r'T:\Project\Phim\my
+Line 24796: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24798: dart analyze lib/screens/settings_screen.dart | Select-String "error - "
+Line 24813: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24816: dart analyze lib/screens/settings_screen.dart | Select-String "error - "
+Line 24824: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24832: dart analyze lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scr
+Line 24851: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24853: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24855: dart analyze lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scr
+Line 24857: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24859: dart analyze lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scr
+Line 24861: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 24863: dart analyze lib/screens/settings_screen.dart lib/screens/library_screen.dart lib/screens/player_scr
+Line 24912: cat lib/screens/settings_screen.dart | Select-String "Webview\("
+Line 26351: cat lib/screens/settings_screen.dart | Select-String -Context 2,15 "SharedPreferences"
+Line 26353: cat lib/screens/settings_screen.dart | Select-String -Context 2,15 "bool _autoNext"
+Line 26367: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 26369: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 26371: dart analyze lib/screens/settings_screen.dart
+Line 26400: cat lib/screens/settings_screen.dart | Select-String -Context 20,20 "Bỏ qua Intro tự động"
+Line 26402: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 26404: git checkout lib/screens/settings_screen.dart
+Line 26406: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 26408: dart analyze lib/screens/settings_screen.dart
+Line 26438: cat lib/screens/settings_screen.dart | Select-String -Context 2,5 "Bỏ qua Intro"
+Line 26440: cat lib/screens/settings_screen.dart | Select-String -Context 2,15 "'auto_next'"
+Line 26446: cat -n lib/screens/settings_screen.dart | Select-String -Context 2,30 "L10n.t\('auto_next'\)"
+Line 26448: $lines = Get-Content lib/screens/settings_screen.dart; for ($i=0; $i -lt $lines.Length; $i++) { if (
+Line 26475: cat lib/screens/settings_screen.dart | Select-String -Context 2,15 "Scaffold"
+Line 26477: cat lib/screens/settings_screen.dart | Select-String -Context 0,0 "ambient_background"
+Line 26479: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 26481: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 26485: cat lib/screens/settings_screen.dart | Select-String -Context 2,2 "ambient_background"
+Line 26731: cat lib/screens/settings_screen.dart | Select-String -Pattern "youtube|tài khoản|liên kết|cookie" -C
+Line 26735: git diff lib/screens/settings_screen.dart
+Line 26737: git grep -i "youtube" lib/screens/settings_screen.dart
+Line 26739: git grep -i "liên kết" lib/screens/settings_screen.dart
+Line 26743: cat lib/screens/settings_screen.dart | Select-String "_buildYouTubeLinkCard"
+Line 26745: git log -p -1 lib/screens/settings_screen.dart
+Line 26751: git log -p -S "YouTube" lib/screens/settings_screen.dart | head -n 50
+Line 26753: git log -p -S "YouTube" lib/screens/settings_screen.dart | Select-Object -First 50
+Line 26757: cat lib/screens/settings_screen.dart | Select-String "Cookies"
+Line 26771: cat lib/screens/settings_screen.dart | Select-String "Thông tin"
+Line 26773: cat lib/screens/settings_screen.dart | Select-String "_buildSectionTitle" -Context 0,2
+Line 26775: $lines = Get-Content lib/screens/settings_screen.dart; for ($i=0; $i -lt $lines.Length; $i++) { if (
+Line 26777: $lines = Get-Content lib/screens/settings_screen.dart; for ($i=0; $i -lt $lines.Length; $i++) { if (
+Line 26779: $lines = Get-Content lib/screens/settings_screen.dart; for ($i=100; $i -lt $lines.Length; $i++) { if
+Line 26783: $code = @'
+import re
+
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with
+Line 26798: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 26808: cat lib/screens/settings_screen.dart | Select-String "_buildYouTubeLinkCard" -Context 3,3
+Line 26810: cat lib/screens/settings_screen.dart | Select-String "_buildYouTubeLinkCard\(\)" -Context 3,3
+Line 26812: cat lib/screens/settings_screen.dart | Select-String "_buildLoginCard" -Context 3,3
+Line 26814: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 26816: cat lib/screens/settings_screen.dart | Select-String "_buildYouTubeLinkCard\(\)" -Context 3,3
+Line 26824: cat lib/screens/settings_screen.dart | Select-String "WebviewController" -Context 5,20
+Line 26830: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27119: cat lib/screens/settings_screen.dart | Select-String "YouTube" -Context 3,25
+Line 27121: cat lib/screens/settings_screen.dart | Select-String "yt_linked" -Context 3,3
+Line 27123: $code = @'
+import re
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with 
+Line 27129: cat lib/screens/settings_screen.dart | Select-String "bool " -Context 0,10
+Line 27131: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27159: cat lib/screens/settings_screen.dart | Select-String "_loadSettings\(\)" -Context 3,30
+Line 27161: cat lib/screens/settings_screen.dart | Select-String "watch_limit" -Context 3,30
+Line 27163: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27165: cat lib/screens/settings_screen.dart | Select-String "_isYtLinked = _prefs" -Context 2,2
+Line 27167: cat lib/screens/settings_screen.dart | Select-String "_easterEggsEnabled =" -Context 3,3
+Line 27169: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27171: cat lib/screens/settings_screen.dart | Select-String "_isYtLinked" -Context 3,3
+Line 27173: cat lib/screens/settings_screen.dart | Select-String "is_yt_linked" -Context 3,3
+Line 27175: cat lib/screens/settings_screen.dart | Select-String "setBool.*is_yt_linked" -Context 3,3
+Line 27177: cat lib/screens/settings_screen.dart | Select-String "_openYoutubeLogin" -Context 3,25
+Line 27179: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27181: cat lib/screens/settings_screen.dart | Select-String "setBool\('is_yt_linked', true\)" -Context 3,3
+Line 27183: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27185: cat lib/screens/settings_screen.dart | Select-String "setBool\('is_yt_linked'" -Context 3,3
+Line 27201: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27203: cat lib/screens/settings_screen.dart | Select-String "yt_link_title" -Context 3,3
+Line 27205: cat lib/screens/settings_screen.dart | Select-String "yt_login_btn" -Context 3,3
+Line 27207: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27209: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 27225: cat lib/screens/settings_screen.dart | Select-Object -Skip 1450 -First 50
+Line 27227: $code = @'
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
+with open(path,
+Line 28471: Get-Content lib\screens\settings_screen.dart | Select-String "skip|auto_next|auto_play|hw_decoding|r
+Line 28487: Get-Content lib\screens\settings_screen.dart | Select-String "prefs.set"
+Line 28489: python -c "
+import codecs
+with codecs.open('lib/screens/settings_screen.dart', 'r', 'utf-8') as f:
+ 
+Line 28493: python -c "
+import codecs, re
+with codecs.open('lib/screens/settings_screen.dart', 'r', 'utf-8') as 
+Line 28495: Get-Content lib\screens\settings_screen.dart | Select-String "skip_intro"
+Line 28497: Get-Content lib\screens\settings_screen.dart | Select-String "skip_intro" -Context 3,3
+Line 28499: Get-Content lib\screens\settings_screen.dart | Select-String "enableSkipIntro" -Context 3,3
+Line 28501: Get-Content lib\screens\settings_screen.dart | Select-String "_loadSettings" -Context 0,20
+Line 29052: Get-Content lib\screens\settings_screen.dart | Select-String "Youtube" -Context 3,3 -CaseSensitive:$
+Line 29054: Get-Content lib\screens\settings_screen.dart | Select-String "_buildYouTubeLinkCard" -Context 3,25
+Line 29395: Get-Content lib\screens\settings_screen.dart | Select-String "is_yt_linked" -Context 5,5
+Line 29397: Get-Content lib\screens\settings_screen.dart | Select-String "WebviewController" -Context 3,30
+Line 29399: Get-Content lib\screens\settings_screen.dart | Select-String "userDataFolder" -Context 3,3
+Line 29401: Get-Content lib\screens\settings_screen.dart | Select-String "profileDir" -Context 3,3
+Line 29420: $script = @"
+import re
+
+def patch(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+  
+Line 29430: $script = @"
+import re
+
+def revert_patch(filepath):
+    with open(filepath, 'r', encoding='utf-8') a
+Line 29508: Get-Content lib\screens\settings_screen.dart | Select-String "yt_unlink_msg" -Context 10,10
+Line 29510: Get-Content lib\screens\settings_screen.dart | Select-String "import 'dart:io';"
+Line 29512: Get-Content lib\screens\settings_screen.dart -TotalCount 15
+Line 29514: $script = @"
+import re
+
+def patch_settings(filepath):
+    with open(filepath, 'r', encoding='utf-8')
+Line 29516: Get-Content lib\screens\settings_screen.dart | Select-String "defaultWebviewPath =" -Context 1,1
+Line 29518: $script = @'
+def patch_settings(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+    
+Line 29520: Get-Content lib\screens\settings_screen.dart | Select-String "defaultWebviewPath =" -Context 1,1
+Line 29522: $script = @'
+import re
+def patch_settings(filepath):
+    with open(filepath, 'r', encoding='utf-8') 
+Line 29524: Get-Content lib\screens\settings_screen.dart | Select-String "defaultWebviewPath =" -Context 1,1
+Line 29527: $script = @'
+def patch_settings(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+    
+Line 29529: Get-Content lib\screens\settings_screen.dart | Select-String "defaultWebviewPath =" -Context 1,1
+Line 29537: Get-Content lib\screens\settings_screen.dart -TotalCount 250 | Select-String "_buildUserCard|_buildY
+Line 29539: Get-Content lib\screens\settings_screen.dart | Select-String "_buildUserCard|_buildYoutubeCard" -Con
+Line 29547: Get-Content lib\screens\settings_screen.dart -TotalCount 250 | Select-String "_showYouTubeLoginDialo
+Line 29549: Get-Content lib\screens\settings_screen.dart | Select-String "YouTubeLogin" -Context 5,50
+Line 29551: $script = @'
+import re
+
+def refactor_settings(filepath):
+    with open(filepath, 'r', encoding='utf-
+Line 29557: Get-Content lib\screens\settings_screen.dart | Select-String "AuthApi" -Context 3,3
+Line 29559: $script = @'
+def fix_auth(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        co
+Line 29795: Get-Content lib\screens\settings_screen.dart | Select-String "_handleLogin" -Context 3,25
+Line 29797: Get-Content lib\screens\settings_screen.dart | Select-String "YouTube \(G" -Context 3,25
+Line 29799: Get-Content lib\screens\settings_screen.dart | Select-String "yt_unlink_msg" -Context 3,25
+Line 29801: Get-Content lib\screens\settings_screen.dart | Select-String "_openYoutubeLogin" -Context 3,25
+Line 30257: Select-String -Path lib\screens\settings_screen.dart -Pattern "SharedPreferences" -Context 3,3
+Line 30278: Select-String -Path lib\screens\settings_screen.dart -Pattern "SwitchListTile" -Context 2,2
+Line 30282: Select-String -Path lib\screens\settings_screen.dart -Pattern "bool _ambientBg" -Context 3,3
+Line 30284: Select-String -Path lib\screens\settings_screen.dart -Pattern "_loadSettings" -Context 3,30
+Line 30286: Select-String -Path lib\screens\settings_screen.dart -Pattern "setState" -Context 5,20
+Line 30290: Select-String -Path lib\screens\settings_screen.dart -Pattern "_loadSettings" -Context 5,10
+Line 30294: Select-String -Path lib\screens\settings_screen.dart -Pattern "SwitchListTile\(.*ambient_bg" -Contex
+Line 30296: Select-String -Path lib\screens\settings_screen.dart -Pattern "L10n.t\('ambient_bg'\)" -Context 3,20
+Line 30300: Select-String -Path lib\screens\settings_screen.dart -Pattern "import.*" -Context 3,20
+Line 30425: Select-String -Path lib\screens\settings_screen.dart -Pattern "ambient_bg|easter_eggs_toggle" -Conte
+Line 30428: Select-String -Path lib\screens\settings_screen.dart -Pattern "display_settings" -Context 3,3
+Line 30617: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "Heal
+Line 30619: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "heal
+Line 30639: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "getB
+Line 30658: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "TRẠN
+Line 30754: git diff lib/screens/library_screen.dart lib/screens/settings_screen.dart
+Line 30766: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "Audi
+Line 30768: git diff lib\screens\settings_screen.dart
+Line 30770: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "audi
+Line 30999: $py = @"
+import os
+content = open('lib/screens/audio_player_screen.dart', 'r', encoding='utf-8').rea
+Line 31009: Get-Content -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" | Select-String 
+Line 31012: Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -Pattern "visu
+Line 31018: Get-Content -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -TotalCount 500 
+Line 31020: Get-Content -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -TotalCount 500 
+Line 31022: $py = @"
+import os
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 31024: dart analyze lib/screens/settings_screen.dart lib/screens/audio_player_screen.dart
+Line 31032: Get-Content -Path "t:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart" -TotalCount 200 
+Line 31034: $py = @"
+import os
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 31036: dart analyze lib/screens/settings_screen.dart
+Line 31616: Get-Content lib/screens/settings_screen.dart | Select-Object -First 40
+Line 31618: Get-Content lib/screens/settings_screen.dart | Select-String "Player" -Context 5, 5
+Line 31620: Get-Content lib/screens/settings_screen.dart | Select-String "_audioKey" -Context 3, 20
+Line 31622: Get-Content lib/screens/settings_screen.dart | Select-String "_audioKey" -Context 3, 20
+Line 31624: Get-Content lib/screens/settings_screen.dart | Select-String "GlobalColorSettings" -Context 3, 30
+Line 31681: Get-Content lib/screens/settings_screen.dart | Select-String "color_preset" -Context 3, 5
+Line 31683: Get-Content lib/screens/settings_screen.dart | Select-String "Firebase" -Context 3, 5
+Line 31767: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+# 1. Fix 
+Line 31769: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 31771: Get-Content lib/screens/settings_screen.dart | Select-String "GlobalColorSettings" -Context 3, 3
+Line 31773: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 31775: Get-Content lib/screens/settings_screen.dart | Select-String "video_player" -Context 3, 3
+Line 31777: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 31779: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 31781: Get-Content lib/screens/settings_screen.dart | Select-String "video_player" -Context 0, 100
+Line 31783: Get-Content lib/screens/settings_screen.dart | Select-String "SizedBox(key: _colorKey)" -Context 10,
+Line 31785: Get-Content lib/screens/settings_screen.dart | Select-String "_colorKey" -Context 3, 3
+Line 31787: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+content = 
+Line 31789: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+ui_code =
+Line 31846: Get-Content lib/screens/settings_screen.dart | Select-String "_buildSidebarItem" -Context 3, 20
+Line 31849: Get-Content lib/screens/settings_screen.dart | Select-String "_buildSectionTitle" -Context 0, 0
+Line 31851: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+import re
+
+Line 31853: Get-Content lib/screens/settings_screen.dart | Select-String "video_player" -Context 3, 3
+Line 31855: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 31857: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 31859: Get-Content lib/screens/settings_screen.dart | Select-String "_buildSidebarItem" -Context 2, 40
+Line 31861: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 31863: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 31865: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+for i, lin
+Line 31867: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 715 -First 5
+Line 31869: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 31871: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+start_idx 
+Line 31873: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 31875: Get-Content lib/screens/settings_screen.dart | Select-String "Divider" -Context 3, 3
+Line 31877: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 31909: flutter analyze lib/screens/settings_screen.dart
+Line 31914: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 31988: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 970 -First 20
+Line 31992: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+content = 
+Line 32003: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 970 -First 20
+Line 32005: flutter analyze lib/screens/settings_screen.dart
+Line 32083: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 32085: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+for i, lin
+Line 32087: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 490 -First 10
+Line 32089: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 475 -First 20
+Line 32091: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 738 -First 20
+Line 32093: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 32095: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+keys = ['
+Line 32097: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+print(cont
+Line 32099: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+print(cont
+Line 32101: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 32103: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 32105: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+a = conten
+Line 32107: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 32109: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32111: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32113: Get-Content lib/screens/settings_screen.dart | Select-String "120"
+Line 32115: Get-Content lib/screens/settings_screen.dart | Select-Object -Last 10
+Line 32120: Get-Content lib/screens/settings_screen.dart | Select-String "_buildUnifiedAccountSection" -Context 
+Line 32122: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32124: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32126: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32128: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32130: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32132: Get-Content lib/screens/settings_screen.dart | Select-String "Divider" -Context 0, 1
+Line 32163: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+content = 
+Line 32165: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32167: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32187: flutter analyze lib/screens/settings_screen.dart lib/widgets/optimizer_dialog.dart
+Line 32192: $py = @"
+import re
+content = open('task.md', 'r', encoding='utf-8').read()
+content = content.replace
+Line 32206: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 2560 -First 20
+Line 32209: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+print(cont
+Line 32211: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 1060 -First 10
+Line 32213: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32215: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32217: git checkout lib/screens/settings_screen.dart
+Line 32219: flutter analyze lib/screens/settings_screen.dart
+Line 32221: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 32224: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 32226: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32228: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+idx = cont
+Line 32230: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+keys = ['_
+Line 32232: $py = @"
+import re
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+
+Line 32238: Get-Content lib/screens/settings_screen.dart | Select-String "_audioKey"
+Line 32242: $py = @"
+import json
+for line in open(r'C:\Users\Asus\.gemini\antigravity\brain\d8a141a0-75a6-456a-8
+Line 32247: Get-Content lib/screens/settings_screen.dart | Select-String "L10n.t" -Context 0, 1 -TotalCount 5
+Line 32249: Get-Content lib/screens/settings_screen.dart | Select-String "L10n.t" -Context 0, 1 | Select-Object 
+Line 32253: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 2560 -First 20
+Line 32255: (Get-Content lib/screens/settings_screen.dart).Length
+Line 32259: flutter analyze lib/screens/settings_screen.dart
+Line 32264: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 1175 -First 20
+Line 32266: $py = @"
+import json
+for line in open(r'C:\Users\Asus\.gemini\antigravity\brain\6745bc9b-1158-4c1a-9
+Line 32290: $py = @"
+import json
+with open('extracted_audio.txt', 'w', encoding='utf-8') as f:
+    for line in o
+Line 32304: $py = @'''
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read
+Line 32306: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 32308: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 32312: $py = @"
+import re
+
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+Line 32314: flutter analyze lib/screens/settings_screen.dart
+Line 32319: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 1245 -First 20
+Line 32321: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+content = 
+Line 32329: Get-Content lib/screens/settings_screen.dart | Select-Object -Skip 795 -First 10
+Line 32332: $py = @"
+content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+content = 
+Line 32387: Get-Content lib/screens/settings_screen.dart | Select-String "class " -Context 0, 0
+Line 32393: $py = @"
+import json
+with open('all_settings_changes.txt', 'w', encoding='utf-8') as f:
+    for line
+Line 32399: $py = @"
+import json
+with open('all_settings_changes.txt', 'w', encoding='utf-8') as f:
+    for line
+Line 32409: $py = @"
+import json
+for i, line in enumerate(open(r'C:\Users\Asus\.gemini\antigravity\brain\d8a141a
+Line 32417: $py = @"
+import os
+
+hdir = r"C:\Users\Asus\AppData\Roaming\Cursor\User\History"
+
+found = []
+for root
+Line 32440: $py = @"
+import json
+import glob
+
+folders = [
+    r"C:\Users\Asus\.gemini\antigravity\brain\f235fc4e
+Line 32450: $py = @"
+import json
+with open('all_settings_replacements.txt', 'w', encoding='utf-8') as f:
+    for
+Line 32455: $py = @"
+import json
+with open('all_multi_reps.txt', 'w', encoding='utf-8') as f:
+    for i, line in
+Line 32461: Get-Content lib/screens/settings_screen.dart | Select-String "watch_limit" -Context 3, 20
+Line 32463: Get-Content lib/screens/settings_screen.dart | Select-String -Pattern "minimalist_ui|easter_eggs|amb
+Line 32465: Get-Content lib/screens/settings_screen.dart | Select-String -Pattern "_systemKey" -Context 3, 40
+Line 32468: Get-Content lib/screens/settings_screen.dart | Select-String -Pattern "watch_limit" -Context 0, 50
+Line 32470: Get-Content lib/screens/settings_screen.dart | Select-String -Pattern "auto_play_trailer" -Context 0
+Line 32472: Get-Content lib/screens/settings_screen.dart | Select-String -Pattern "auto_play_trailer" -Context 3
+Line 32476: $py = @"
+import json
+
+with open('get_contents.txt', 'w', encoding='utf-8') as f:
+    for i, line in 

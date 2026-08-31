@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:media_kit/media_kit.dart';
 import 'glass_container.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../utils/l10n.dart';
 enum SidePanelMode { none, color, subtitle, audio, secondarySubtitle }
@@ -48,9 +49,24 @@ double _secSubDelay = 0.0;
     _loadProperties();
   }
 
-  void _loadProperties() {
-    // MediaKit MPV doesn't easily expose getters for these dynamically without async.
-    // In a real app we'd track these in the parent. For now, default to 0.
+  void _loadProperties() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (mounted) {
+      setState(() {
+        _preset = prefs.getString('color_preset') ?? 'default';
+        _brightness = prefs.getDouble('color_brightness') ?? 0.0;
+        _contrast = prefs.getDouble('color_contrast') ?? 0.0;
+        _saturation = prefs.getDouble('color_saturation') ?? 0.0;
+      });
+    }
+  }
+  
+  void _saveProperties() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('color_preset', _preset);
+    await prefs.setDouble('color_brightness', _brightness);
+    await prefs.setDouble('color_contrast', _contrast);
+    await prefs.setDouble('color_saturation', _saturation);
   }
 
   void _applyPropertiesToPlayer() {
@@ -76,6 +92,7 @@ double _secSubDelay = 0.0;
       _saturation = _presets[presetName]!['saturation']!;
       _applyPropertiesToPlayer();
     });
+    _saveProperties();
   }
 
   void _onSliderChanged(String type, double val) {

@@ -1,17 +1,26 @@
 ﻿import re
-with open('lib/screens/movie_detail_screen.dart', 'r', encoding='utf-8') as f:
-    text = f.read()
 
-replacement = '''if (name.contains('p2p') || name.contains('torrent')) {
-          _p2pServers.add(server);
-        } else if (name.contains('film4k archive')) {
-          _vietsubServers.add(server); // Force Film4k into standard tab
-        } else if (name.contains('premium') ||'''
+path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\movie_detail_screen.dart"
+with open(path, 'r', encoding='utf-8') as f:
+    content = f.read()
 
-text = text.replace('''if (name.contains('p2p') || name.contains('torrent')) {
-          _p2pServers.add(server);
-        } else if (name.contains('premium') ||''', replacement)
+# Add import
+if "ironman_easter_egg.dart" not in content:
+    content = content.replace("import '../widgets/spider_easter_egg.dart';", "import '../widgets/spider_easter_egg.dart';\nimport '../widgets/ironman_easter_egg.dart';")
 
-with open('lib/screens/movie_detail_screen.dart', 'w', encoding='utf-8') as f:
-    f.write(text)
-print('Done!')
+# Add trigger logic
+trigger_logic = """if (queryLower.contains('spider man') || queryLower.contains('spiderman') || queryLower.contains('ng\u01b0\u1eddi nh\u1ec7n') || queryLower.contains('nguoi nhen') || queryLower.contains('peter parker')) {
+        SpiderEasterEgg.show(context);
+      }
+      if (queryLower.contains('iron man') || queryLower.contains('ironman') || queryLower.contains('ng\u01b0\u1eddi s\u1eaft') || queryLower.contains('nguoi sat') || queryLower.contains('tony stark')) {
+        IronmanEasterEgg.show(context);
+      }"""
+content = re.sub(
+    r"if \(queryLower.contains\('spider man'\)[\s\S]*?SpiderEasterEgg\.show\(context\);\s*\}",
+    trigger_logic,
+    content
+)
+
+with open(path, 'w', encoding='utf-8') as f:
+    f.write(content)
+print("Updated movie_detail_screen.dart")

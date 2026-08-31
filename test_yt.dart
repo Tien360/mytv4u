@@ -1,20 +1,18 @@
-import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+﻿import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 void main() async {
   var yt = YoutubeExplode();
-  var manifest = await yt.videos.streamsClient.getManifest('dQw4w9WgXcQ'); // Rick Astley
-  
-  var muxedStreams = manifest.muxed.sortByVideoQuality();
-  print('Muxed streams sorted by video quality:');
-  for (var stream in muxedStreams) {
-    print('Resolution: ${stream.videoResolution}, Bitrate: ${stream.bitrate}, Size: ${stream.size}');
+  try {
+    var manifest = await yt.videos.streamsClient.getManifest('0cB5SdPbwtc');
+    print('Audio streams: ${manifest.audioOnly.length}');
+    print('Video streams: ${manifest.videoOnly.length}');
+    print('Muxed streams: ${manifest.muxed.length}');
+    if (manifest.muxed.isNotEmpty) {
+      print('URL: ${manifest.muxed.first.url}');
+    }
+  } catch (e) {
+    print('Error: $e');
+  } finally {
+    yt.close();
   }
-  
-  var videoOnlyStreams = manifest.videoOnly.sortByVideoQuality();
-  print('\nVideo-only streams sorted by video quality:');
-  for (var stream in videoOnlyStreams) {
-    print('Resolution: ${stream.videoResolution}, Bitrate: ${stream.bitrate}, Size: ${stream.size}');
-  }
-  
-  yt.close();
 }

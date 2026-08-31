@@ -123,7 +123,7 @@ class DeepLinkService {
         'HKCU\\Software\\Classes\\$audioProgId\\DefaultIcon',
         '/ve',
         '/d',
-        '"$audioIcoPath"',
+        '"$exePath",1',
         '/f',
       ]);
       await Process.run('cmd', [
@@ -212,7 +212,7 @@ class DeepLinkService {
       }
 
       // Notify Windows Explorer to refresh icons
-      // await Process.run('cmd', ['/c', 'ie4uinit.exe', '-show']);
+      await Process.run('cmd', ['/c', 'ie4uinit.exe', '-show']);
 
       debugPrint('[DeepLink] Protocol & Context Menus registered -> $exePath');
     } catch (e) {

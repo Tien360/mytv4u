@@ -7,19 +7,46 @@ class Film4kNetApi {
   static const String baseUrl = 'https://film4k.net/api';
 
   static Movie normalize(Map<String, dynamic> item) {
-    final titleObj = item['title'] ?? {};
-    final title = titleObj['vi'] ?? titleObj['en'] ?? '';
-    final originalName = titleObj['en'] ?? title;
+    String title = '';
+    String originalName = '';
+    
+    if (item['title'] is Map) {
+      final titleObj = item['title'];
+      title = titleObj['vi'] ?? titleObj['en'] ?? '';
+      originalName = titleObj['en'] ?? title;
+    } else if (item['title'] is String) {
+      title = item['title'];
+      originalName = item['originalName'] ?? item['original_name'] ?? title;
+    }
 
-    final posterObj = item['poster'] ?? {};
-    final poster = posterObj['vi'] ?? posterObj['en'] ?? '';
+    String poster = '';
+    if (item['poster'] is Map) {
+      final posterObj = item['poster'];
+      poster = posterObj['vi'] ?? posterObj['en'] ?? '';
+    } else if (item['poster'] is String) {
+      poster = item['poster'];
+    }
 
     final backdrop = item['backdrop'] ?? '';
-    final overviewObj = item['overview'] ?? {};
-    final overview = overviewObj['vi'] ?? overviewObj['en'] ?? '';
+    
+    String overview = '';
+    if (item['overview'] is Map) {
+      final overviewObj = item['overview'];
+      overview = overviewObj['vi'] ?? overviewObj['en'] ?? '';
+    } else if (item['overview'] is String) {
+      overview = item['overview'];
+    }
 
-    final genresObj = item['genres'] ?? {};
-    final genresList = genresObj['vi'] ?? genresObj['en'] ?? [];
+    List<String> genresList = [];
+    if (item['genres'] is Map) {
+      final genresObj = item['genres'];
+      final rawGenres = genresObj['vi'] ?? genresObj['en'] ?? [];
+      if (rawGenres is List) {
+        genresList = rawGenres.map((e) => e.toString()).toList();
+      }
+    } else if (item['genres'] is List) {
+      genresList = (item['genres'] as List).map((e) => e.toString()).toList();
+    }
 
     return Movie(
       name: title,
@@ -35,7 +62,7 @@ class Film4kNetApi {
       year: (item['year'] ?? '').toString(),
       time: '',
       description: overview,
-      genres: (genresList as List).map((e) => e.toString()).toList(),
+      genres: genresList,
       countries: [],
       directors: [],
       casts: [],
@@ -73,13 +100,12 @@ class Film4kNetApi {
 
   static Future<Movie?> getDetail(String slug) async {
     try {
-      final res = await http.get(Uri.parse('$baseUrl/title/$slug'));
+      final res = await http.get(Uri.parse('$baseUrl/watch/$slug'));
       if (res.statusCode == 200) {
         final data = json.decode(res.body);
         final movieData = data['movie'] ?? {};
         var movie = normalize(movieData);
 
-        // Parse episodes
         Map<String, List<Episode>> servers = {};
 
         bool isValidUrl(String url) {
@@ -95,23 +121,23 @@ class Film4kNetApi {
           }
           return url;
         }
+        
+        bool shouldIgnoreLabel(String label) {
+          final lower = label.toLowerCase();
+          return lower.contains('kkphim') || 
+                 lower.contains('vsmov') || 
+                 lower.contains('nguonc') || 
+                 lower.contains('ophim');
+        }
 
-        // If single movie, sources are directly in movieData
-        if (movieData['hlsUrl'] != null && isValidUrl(movieData['hlsUrl'])) {
-          String serverName = 'Film4K Archive';
-          servers[serverName] = [
-            Episode(
-              name: 'Full',
-              slug: 'full',
-              m3u8Url: Film4kProxy.processUrl(buildFullUrl(movieData['hlsUrl'])),
-              embedUrl: '',
-            ),
-          ];
-        } else if (movieData['sources'] != null) {
-          for (var src in movieData['sources']) {
+        final rootSources = data['sources'] as List? ?? [];
+        if (rootSources.isNotEmpty) {
+          for (var src in rootSources) {
             String url = src['url'] ?? '';
             if (isValidUrl(url)) {
-              String serverName = src['label'] ?? 'Film4K Archive';
+              String rawLabel = src['label'] ?? 'Archive';
+              if (shouldIgnoreLabel(rawLabel)) continue;
+              String serverName = 'Film4kNet - ' + rawLabel;
               if (!servers.containsKey(serverName)) servers[serverName] = [];
               servers[serverName]!.add(
                 Episode(
@@ -123,17 +149,34 @@ class Film4kNetApi {
               );
             }
           }
+        } else if (movieData['hlsUrl'] != null && isValidUrl(movieData['hlsUrl'])) {
+          String serverName = 'Film4kNet - Archive';
+          servers[serverName] = [
+            Episode(
+              name: 'Full',
+              slug: 'full',
+              m3u8Url: Film4kProxy.processUrl(buildFullUrl(movieData['hlsUrl'])),
+              embedUrl: '',
+            ),
+          ];
         }
 
-        // If series, sources are in episodes array
         final epsList = data['episodes'] as List? ?? [];
         for (var ep in epsList) {
-          String epName = ep['title'] ?? 'Tập ';
+          String epName = 'Tập ';
+          if (ep['episode'] != null) {
+            epName = 'Tập ${ep['episode']}';
+          } else if (ep['title'] != null) {
+            epName = ep['title'];
+          }
+
           final sources = ep['sources'] as List? ?? [];
           for (var src in sources) {
             String url = src['url'] ?? '';
             if (isValidUrl(url)) {
-              String serverName = src['label'] ?? 'Film4K Archive';
+              String rawLabel = src['label'] ?? 'Archive';
+              if (shouldIgnoreLabel(rawLabel)) continue;
+              String serverName = 'Film4kNet - ' + rawLabel;
               if (!servers.containsKey(serverName)) servers[serverName] = [];
               servers[serverName]!.add(
                 Episode(
