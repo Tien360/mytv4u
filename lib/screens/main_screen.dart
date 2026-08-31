@@ -8,6 +8,7 @@ import 'search_screen.dart';
 import 'settings_screen.dart';
 import 'tv_screen.dart';
 import 'library_screen.dart';
+import 'gaming_screen.dart';
 import 'sport_screen.dart';
 import 'youtube_screen.dart';
 import '../widgets/glass_container.dart';
@@ -57,6 +58,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
       SearchScreen(key: _searchKey),
       TvScreen(key: _tvKey),
       SportScreen(key: _sportKey),
+      const GamingScreen(key: PageStorageKey('GamingScreen')),
       const LibraryScreen(key: PageStorageKey('LibraryScreen')),
     ];
     windowManager.addListener(this);
