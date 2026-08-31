@@ -249,7 +249,7 @@ class _MovieDetailScreenTestState extends State<MovieDetailScreenTest> {
           "window.dartShouldPause = true; if(typeof player !== 'undefined' && player && player.pauseVideo) { player.pauseVideo(); }",
         );
         // Load blank page to fully stop audio playback
-        await _webviewController.loadUrl('about:blank');
+        
       } catch (e) {}
     }
     if (mounted) {
@@ -1607,18 +1607,33 @@ const SizedBox(height: 24),
             child: Stack(
               children: [
                 Positioned.fill(
-                  child: _showInlineTrailer && _isWebviewInitialized
-                      ? Webview(_webviewController)
-                      : (hasBackdrop
-                            ? Hero(
-                                tag: widget.heroTag ?? widget.slug,
-                                child: CachedNetworkImage(
-                                  imageUrl: heroImage,
-                                  fit: BoxFit.cover,
-                                  alignment: Alignment.topCenter,
-                                ),
-                              )
-                            : const SizedBox.shrink()),
+                  child: Stack(
+                    children: [
+                      // Base image
+                      if (hasBackdrop)
+                        Positioned.fill(
+                          child: Hero(
+                            tag: widget.heroTag ?? widget.slug,
+                            child: CachedNetworkImage(
+                              imageUrl: heroImage,
+                              fit: BoxFit.cover,
+                              alignment: Alignment.topCenter,
+                            ),
+                          ),
+                        ),
+                      // Webview (Always mounted once initialized so JS executes properly, hidden via Offstage)
+                      if (_isWebviewInitialized)
+                        Positioned.fill(
+                          child: IgnorePointer(
+                            ignoring: !_showInlineTrailer,
+                            child: Opacity(
+                              opacity: _showInlineTrailer ? 1.0 : 0.0,
+                              child: Webview(_webviewController),
+                            ),
+                          ),
+                        ),
+                    ],
+                  ),
                 ),
                 if (!(_showInlineTrailer && _isWebviewInitialized) && hasBackdrop)
                   Positioned.fill(
