@@ -1,8 +1,11 @@
 ﻿import sys
 sys.stdout.reconfigure(encoding='utf-8')
-with open('lib/screens/main_screen.dart', 'r', encoding='utf-8') as f:
+with open('lib/screens/movie_detail_screen.dart', 'r', encoding='utf-8') as f:
     content = f.read()
 
-idx = content.find("builder: (_) => const SettingsScreen(),")
-if idx != -1:
-    print(content[idx-200:idx+200])
+import re
+matches = re.finditer(r'Navigator\.push\(', content)
+for m in matches:
+    idx = m.start()
+    print("--------------------")
+    print(content[idx-300:idx+200])

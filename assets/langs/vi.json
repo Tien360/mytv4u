@@ -733,5 +733,8 @@
   "timer_off": "Tắt",
   "player_settings": "Trình phát Phim",
   "nav_gaming": "Trò chơi",
-  "game_webview_player": "Trình phát Game WebView"
+  "game_webview_player": "Trình phát Game WebView",
+  "air_schedule": "Lịch phát sóng",
+  "no_schedule_found": "Chưa có thông tin lịch chiếu từ TMDB.",
+  "air_date": "Ngày chiếu"
 }

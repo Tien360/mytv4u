@@ -1,13 +1,7 @@
-﻿import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:webview_windows/webview_windows.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as p;
 import '../widgets/glass_container.dart';
 import '../utils/l10n.dart';
-import 'player_screen.dart';
-import '../models/movie.dart';
+import 'game_detail_screen.dart';
 
 class GamingScreen extends StatefulWidget {
   const GamingScreen({Key? key}) : super(key: key);
@@ -17,8 +11,14 @@ class GamingScreen extends StatefulWidget {
 }
 
 class _GamingScreenState extends State<GamingScreen> {
-  SharedPreferences? _prefs;
-  bool _isYtLinked = false;
+  String _searchQuery = '';
+  
+  void performSearch(String query) {
+    if (!mounted) return;
+    setState(() {
+      _searchQuery = query.toLowerCase();
+    });
+  }
 
   final List<Map<String, String>> _games = [
     {
@@ -28,154 +28,17 @@ class _GamingScreenState extends State<GamingScreen> {
     }
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    _initPrefs();
-  }
-
-  Future<void> _initPrefs() async {
-    _prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _isYtLinked = _prefs?.getBool('is_yt_linked') ?? false;
-    });
-  }
-
-  Future<void> _openYoutubeLogin(String gameUrl, String gameTitle) async {
-    final _controller = WebviewController();
-    Timer? checkTimer;
-    
-    final appDataDir = await getApplicationSupportDirectory();
-    final profileDir = p.join(appDataDir.path, 'youtube_webview_profile');
-    
-    try {
-      try {
-        await WebviewController.initializeEnvironment(userDataPath: profileDir);
-      } catch (e) {}
-      await _controller.initialize();
-      await _controller.setBackgroundColor(Colors.transparent);
-      await _controller.setPopupWindowPolicy(WebviewPopupWindowPolicy.deny);
-      await _controller.loadUrl('https://accounts.google.com/ServiceLogin?service=youtube&continue=https://www.youtube.com');
-      
-      if (!mounted) return;
-      
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (context) {
-          if (checkTimer == null) {
-            checkTimer = Timer.periodic(const Duration(seconds: 2), (t) async {
-              try {
-                if (_controller.value.isInitialized) {
-                  final html = await _controller.executeScript("document.documentElement.innerHTML") as String?;
-                  if (html != null && (html.contains('id="avatar-btn"') || html.contains('data-testid="account-menu-button"'))) {
-                    t.cancel();
-                    await _prefs!.setBool('is_yt_linked', true);
-                    setState(() { _isYtLinked = true; });
-                    if (Navigator.canPop(context)) Navigator.pop(context);
-                    // Launch game after successful login
-                    _launchGame(gameUrl, gameTitle);
-                  }
-                }
-              } catch (e) {}
-            });
-          }
-          
-          return Dialog(
-            backgroundColor: const Color(0xFF1E1E1E),
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Container(
-              width: 800,
-              height: 600,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Row(
-                        children: [
-                          Icon(Icons.security, color: Colors.green, size: 24),
-                          SizedBox(width: 8),
-                          Text('Đăng nhập YouTube (Bắt buộc để lưu Game)', style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                        ],
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.close, color: Colors.white),
-                        onPressed: () {
-                          checkTimer?.cancel();
-                          _controller.dispose();
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Expanded(
-                    child: Webview(_controller),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    } catch (e) {
-      debugPrint('WebView Error: $e');
-    }
-  }
-
-  void _launchGame(String url, String title) {
+  void _onGameTap(String url, String title, String image) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PlayerScreen(
-          movieName: title,
-          episodes: [
-            Episode(
-              name: title,
-              slug: 'game',
-              m3u8Url: '',
-              embedUrl: url,
-            )
-          ],
-          currentEpisodeIndex: 0,
-          isLive: true,
+        builder: (context) => GameDetailScreen(
+          gameUrl: url,
+          gameTitle: title,
+          initialThumb: image,
         ),
       ),
     );
-  }
-
-  void _onGameTap(String url, String title) {
-    if (_isYtLinked) {
-      _launchGame(url, title);
-    } else {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          backgroundColor: const Color(0xFF1E1E1E),
-          title: const Text('Yêu cầu Đăng nhập', style: TextStyle(color: Colors.white)),
-          content: const Text(
-            'Để lưu tiến trình chơi game trên đám mây, bạn cần đăng nhập tài khoản Google (dùng chung cho YouTube).\n\nBạn có muốn đăng nhập ngay không?',
-            style: TextStyle(color: Colors.white70),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Hủy', style: TextStyle(color: Colors.white54)),
-            ),
-            ElevatedButton(
-              style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-              onPressed: () {
-                Navigator.pop(context);
-                _openYoutubeLogin(url, title);
-              },
-              child: const Text('Đăng nhập', style: TextStyle(color: Colors.white)),
-            ),
-          ],
-        ),
-      );
-    }
   }
 
   @override
@@ -202,43 +65,87 @@ class _GamingScreenState extends State<GamingScreen> {
                 mainAxisSpacing: 16,
                 childAspectRatio: 1.0,
               ),
-              itemCount: _games.length,
+              itemCount: _games.where((g) => g['title']!.toLowerCase().contains(_searchQuery)).length,
               itemBuilder: (context, index) {
-                final game = _games[index];
-                return GestureDetector(
-                  onTap: () => _onGameTap(game['url']!, game['title']!),
-                  child: GlassContainer(
-                    borderRadius: 16,
-                    padding: const EdgeInsets.all(0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Expanded(
-                          child: ClipRRect(
-                            borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-                            child: Image.network(
-                              game['image']!,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(12),
-                          color: Colors.black45,
-                          child: Text(
-                            game['title']!,
-                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                final filteredGames = _games.where((g) => g['title']!.toLowerCase().contains(_searchQuery)).toList();
+                final game = filteredGames[index];
+                return _GameCard(
+                  game: game,
+                  onTap: () => _onGameTap(game['url']!, game['title']!, game['image']!),
                 );
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _GameCard extends StatefulWidget {
+  final Map<String, String> game;
+  final VoidCallback onTap;
+  
+  const _GameCard({Key? key, required this.game, required this.onTap}) : super(key: key);
+
+  @override
+  State<_GameCard> createState() => _GameCardState();
+}
+
+class _GameCardState extends State<_GameCard> {
+  bool _isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        onTap: widget.onTap,
+        child: AnimatedScale(
+          scale: _isHovered ? 1.05 : 1.0,
+          duration: const Duration(milliseconds: 200),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: _isHovered
+                  ? [BoxShadow(color: Colors.blueAccent.withOpacity(0.5), blurRadius: 15, spreadRadius: 2)]
+                  : [],
+            ),
+            child: GlassContainer(
+              borderRadius: 16,
+              padding: const EdgeInsets.all(0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Expanded(
+                    child: ClipRRect(
+                      borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                      child: Hero(
+                        tag: widget.game['url']!,
+                        child: Image.network(
+                          widget.game['image']!,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(12),
+                    color: _isHovered ? Colors.blueAccent.withOpacity(0.8) : Colors.black45,
+                    child: Text(
+                      widget.game['title']!,
+                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

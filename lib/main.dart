@@ -105,7 +105,12 @@ class MyTV4UApp extends StatelessWidget {
           primary: Color(0xFF3B82F6),
           secondary: Color(0xFF8B5CF6),
         ),
-        useMaterial3: true,
+                  useMaterial3: true,
+          pageTransitionsTheme: const PageTransitionsTheme(
+            builders: {
+              TargetPlatform.windows: ZoomPageTransitionsBuilder(allowSnapshotting: false),
+            },
+          ),
       ),
       builder: (context, child) {
         return CallbackShortcuts(

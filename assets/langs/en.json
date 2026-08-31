@@ -731,5 +731,8 @@
   "timer_off": "Off",
   "player_settings": "Video Player",
   "nav_gaming": "Gaming",
-  "game_webview_player": "Game WebView Player"
+  "game_webview_player": "Game WebView Player",
+  "air_schedule": "Air Schedule",
+  "no_schedule_found": "No TMDB schedule info found.",
+  "air_date": "Air Date"
 }

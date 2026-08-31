@@ -1,16 +1,20 @@
-﻿import json
-import codecs
+﻿import sys
 
-def update_json(filepath, key, value):
-    with codecs.open(filepath, 'r', 'utf-8') as f:
-        data = json.load(f)
-    data[key] = value
-    with codecs.open(filepath, 'w', 'utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+with open("lib/utils/l10n.dart", "r", encoding="utf-8") as f:
+    c = f.read()
 
-update_json('assets/langs/vi.json', 'opt_apply_audio', 'Tắt hiệu ứng Trình phát Nhạc (Tiết kiệm pin)')
-update_json('assets/langs/vi.json', 'opt_apply_audio_sub', 'Tắt Sóng âm và Đĩa than xoay giúp giảm tải CPU/GPU, kéo dài thời lượng sử dụng pin.')
+en_target = "'episodes': 'Episodes',"
+en_new = "'episodes': 'Episodes',\n      'air_schedule': 'Air Schedule',\n      'no_schedule_found': 'No TMDB schedule info found.',\n      'air_date': 'Air Date',"
 
-update_json('assets/langs/en.json', 'opt_apply_audio', 'Disable Audio Player Effects (Battery Saver)')
-update_json('assets/langs/en.json', 'opt_apply_audio_sub', 'Disables Visualizer and spinning Vinyl to reduce CPU/GPU load and extend battery life.')
+vi_target = "'episodes': 'Tập',"
+vi_new = "'episodes': 'Tập',\n      'air_schedule': 'Lịch phát sóng',\n      'no_schedule_found': 'Chưa có thông tin lịch chiếu từ TMDB.',\n      'air_date': 'Ngày chiếu',"
 
+if en_target in c:
+    c = c.replace(en_target, en_new)
+if vi_target in c:
+    c = c.replace(vi_target, vi_new)
+
+with open("lib/utils/l10n.dart", "w", encoding="utf-8") as f:
+    f.write(c)
+
+print("Updated l10n.dart")

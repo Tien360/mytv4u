@@ -1,27 +1,21 @@
 ﻿import json
 
-paths = ['assets/langs/vi.json', 'assets/langs/en.json']
+def update_json(filepath, updates):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    data.update(updates)
+    with open(filepath, 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
-vi_add = {
-  "resume_watching": "Tiếp tục xem?",
-  "resume_watching_desc": "Bạn đã xem đến {time}. Bạn muốn xem tiếp hay xem lại từ đầu?",
-  "from_start": "Từ đầu",
-  "resume_btn": "Tiếp tục",
-  "next_ep_in": "Tập tiếp theo sẽ phát sau {time} giây",
-  "close_in": "Phim sẽ đóng sau {time} giây"
-}
+update_json("assets/langs/en.json", {
+    "air_schedule": "Air Schedule",
+    "no_schedule_found": "No TMDB schedule info found.",
+    "air_date": "Air Date"
+})
 
-en_add = {
-  "resume_watching": "Resume playback?",
-  "resume_watching_desc": "You left off at {time}. Would you like to resume or start over?",
-  "from_start": "Start Over",
-  "resume_btn": "Resume",
-  "next_ep_in": "Next episode playing in {time}s",
-  "close_in": "Closing in {time}s"
-}
-
-for p, add in zip(paths, [vi_add, en_add]):
-    d = json.load(open(p, 'r', encoding='utf-8'))
-    d.update(add)
-    json.dump(d, open(p, 'w', encoding='utf-8'), ensure_ascii=False, indent=2)
-
+update_json("assets/langs/vi.json", {
+    "air_schedule": "Lịch phát sóng",
+    "no_schedule_found": "Chưa có thông tin lịch chiếu từ TMDB.",
+    "air_date": "Ngày chiếu"
+})
+print("Updated JSON files")

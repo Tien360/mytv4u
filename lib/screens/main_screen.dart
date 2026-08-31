@@ -15,6 +15,7 @@ import '../widgets/glass_container.dart';
 import '../widgets/ambient_background.dart';
 import '../widgets/spider_easter_egg.dart';
 import '../widgets/custom_title_bar.dart';
+import '../widgets/fade_indexed_stack.dart';
 import 'package:window_manager/window_manager.dart';
 import '../api/stremio_server.dart';
 
@@ -34,6 +35,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
       GlobalKey<SearchScreenState>();
   final GlobalKey<TvScreenState> _tvKey = GlobalKey<TvScreenState>();
   final GlobalKey<SportScreenState> _sportKey = GlobalKey<SportScreenState>();
+  final GlobalKey<dynamic> _gamingKey = GlobalKey();
   final TextEditingController _searchController = TextEditingController();
   late List<Widget> _screens;
   bool _isSidebarCollapsed = false;
@@ -58,7 +60,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
       SearchScreen(key: _searchKey),
       TvScreen(key: _tvKey),
       SportScreen(key: _sportKey),
-      const GamingScreen(key: PageStorageKey('GamingScreen')),
+      GamingScreen(key: _gamingKey),
       const LibraryScreen(key: PageStorageKey('LibraryScreen')),
     ];
     windowManager.addListener(this);
@@ -214,10 +216,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                 // Spacer for title bar and search bar
                 const SizedBox(height: 56),
                 Expanded(
-                  child: IndexedStack(
-                    index: _selectedIndex,
-                    children: _screens,
-                  ),
+                  child: FadeIndexedStack(index: _selectedIndex, children: _screens, duration: const Duration(milliseconds: 300),),
                 ),
               ],
             ),
@@ -417,12 +416,7 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                             fontSize: 14,
                           ),
                           decoration: InputDecoration(
-                            hintText: _selectedIndex == 3
-                                ? L10n.t('search_tv') ?? 'Tìm kiếm kênh TV...'
-                                : _selectedIndex == 4
-                                ? L10n.t('search_sports') ??
-                                      'Tìm kiếm sự kiện thể thao...'
-                                : L10n.t('search_movies') ?? 'Tìm kiếm phim...',
+                            hintText: _selectedIndex == 3 ? L10n.t('search_tv') ?? 'Tìm kiếm kênh TV...' : _selectedIndex == 4 ? L10n.t('search_sports') ?? 'Tìm kiếm sự kiện thể thao...' : _selectedIndex == 5 ? 'Tìm kiếm trò chơi...' : L10n.t('search_movies') ?? 'Tìm kiếm phim...',
                             hintStyle: const TextStyle(
                               color: Colors.white38,
                               fontSize: 14,
@@ -438,7 +432,9 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                               _tvKey.currentState?.performSearch(query);
                             } else if (_selectedIndex == 4) {
                               _sportKey.currentState?.performSearch(query);
-                            } else {
+                            } else if (_selectedIndex == 5) {
+                                _gamingKey.currentState?.performSearch(query);
+                              } else {
                               if (_selectedIndex != 2) {
                                 setState(() => _selectedIndex = 2);
                               }
@@ -450,7 +446,9 @@ class _MainScreenState extends State<MainScreen> with WindowListener {
                               _tvKey.currentState?.performSearch(value);
                             } else if (_selectedIndex == 4) {
                               _sportKey.currentState?.performSearch(value);
-                            } else {
+                            } else if (_selectedIndex == 5) {
+                                _gamingKey.currentState?.performSearch(value);
+                              } else {
                               if (_selectedIndex != 2) {
                                 setState(() => _selectedIndex = 2);
                               }
