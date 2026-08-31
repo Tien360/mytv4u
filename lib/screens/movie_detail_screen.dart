@@ -248,6 +248,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         await _webviewController.executeScript(
           "window.dartShouldPause = true; if(typeof player !== 'undefined' && player && player.pauseVideo) { player.pauseVideo(); }",
         );
+        // Load blank page to fully stop audio playback
+        await _webviewController.loadUrl('about:blank');
       } catch (e) {}
     }
     if (mounted) {
