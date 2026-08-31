@@ -245,11 +245,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     _userPausedTrailer = true;
     if (_isWebviewInitialized) {
       try {
-        await _webviewController.executeScript(
-          "window.dartShouldPause = true; if(typeof player !== 'undefined' && player && player.pauseVideo) { player.pauseVideo(); }",
-        );
-        // Load blank page to fully stop audio playback
-        
+        await _webviewController.loadUrl('about:blank');
       } catch (e) {}
     }
     if (mounted) {
@@ -261,35 +257,33 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     }
   }
 
-  void _playTrailer() {
+  void _playTrailer() async {
     _userPausedTrailer = false;
     if (_isWebviewInitialized) {
-      _webviewController.executeScript(
-        "if(player && player.playVideo) { player.seekTo(0); player.playVideo(); }",
-      );
-      setState(() {
-        _showInlineTrailer = true;
-        _isTrailerPaused = false;
-        _trailerEnded = false;
-        _isTrailerExpanded = false;
-      });
+      await _webviewController.loadUrl('http://127.0.0.1:$_trailerPort/trailer.html?autoplay=1');
+      if (mounted) {
+        setState(() {
+          _showInlineTrailer = true;
+          _isTrailerPaused = false;
+          _trailerEnded = false;
+          _isTrailerExpanded = false;
+        });
+      }
     } else {
       _startInlineTrailer();
     }
   }
 
-  void _resumeTrailer() {
+  void _resumeTrailer() async {
     _userPausedTrailer = false;
     if (_isWebviewInitialized) {
-      _webviewController.executeScript(
-        "if(player && player.playVideo) { player.playVideo(); }",
-      );
-      setState(() {
-        _showInlineTrailer = true;
-        _isTrailerPaused = false;
-        _trailerEnded = false;
-        _isTrailerExpanded = false;
-      });
+      await _webviewController.loadUrl('http://127.0.0.1:$_trailerPort/trailer.html?autoplay=1');
+      if (mounted) {
+        setState(() {
+          _showInlineTrailer = true;
+          _isTrailerPaused = false;
+        });
+      }
     }
   }
 
@@ -694,6 +688,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
     _trailerServer!.listen((HttpRequest request) {
       if (request.uri.path == '/trailer.html') {
+        final forceAutoplay = request.uri.queryParameters['autoplay'] == '1';
+        final shouldAutoplay = forceAutoplay || _autoPlayTrailerSetting;
         final html =
             '''
 <!DOCTYPE html>
@@ -727,7 +723,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
           width: '100%',
           videoId: '$videoId',
           playerVars: {
-            'autoplay': ${_autoPlayTrailerSetting ? 1 : 0},
+            'autoplay': ${shouldAutoplay ? 1 : 0},
             'rel': 0,
             'modestbranding': 1,
             'fs': 0,
@@ -741,7 +737,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             'onReady': function(event) {
               event.target.setVolume(35);
               event.target.unMute();
-              ${_autoPlayTrailerSetting ? 'event.target.playVideo();' : ''}
+              ${shouldAutoplay ? 'event.target.playVideo();' : ''}
             },
             'onStateChange': function(event) {
               if (window.chrome && window.chrome.webview) {
