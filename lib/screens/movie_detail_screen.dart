@@ -654,6 +654,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         _movie!.currentEpisode.toLowerCase().contains('tập');
     final ytKey = await PhimApi.getTrailerStreamUrl(_movie!, isTv);
 
+    if (_userPausedTrailer) return; // FIX: Abort if user paused while loading
     if (ytKey != null && mounted) {
       await _initWebview(ytKey);
       if (mounted) {
@@ -786,6 +787,11 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         setState(() {
           _isWebviewInitialized = true;
         });
+        if (_userPausedTrailer) {
+          _webviewController.executeScript(
+            "window.dartShouldPause = true; if(typeof player !== 'undefined' && player && player.pauseVideo) { player.pauseVideo(); }"
+          );
+        }
       }
     } catch (e) {
       print('Inline Webview Error: $e');
