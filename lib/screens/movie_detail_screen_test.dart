@@ -74,6 +74,7 @@ class _MovieDetailScreenTestState extends State<MovieDetailScreenTest> {
   // Inline Trailer
   final _webviewController = WebviewController();
   bool _isWebviewInitialized = false;
+  bool _isInitializingWebview = false;
   HttpServer? _trailerServer;
   int _trailerPort = 0;
   bool _showInlineTrailer = false;
@@ -245,7 +246,7 @@ class _MovieDetailScreenTestState extends State<MovieDetailScreenTest> {
     _userPausedTrailer = true;
     if (_isWebviewInitialized) {
       try {
-        await _webviewController.loadUrl('about:blank');
+        await _webviewController.executeScript("window.dartShouldPause = true; if(typeof player !== 'undefined' && player && player.pauseVideo) { player.pauseVideo(); }");
       } catch (e) {}
     }
     if (mounted) {
@@ -260,7 +261,9 @@ class _MovieDetailScreenTestState extends State<MovieDetailScreenTest> {
   void _playTrailer() async {
     _userPausedTrailer = false;
     if (_isWebviewInitialized) {
-      await _webviewController.loadUrl('http://127.0.0.1:$_trailerPort/trailer.html?autoplay=1');
+      try {
+        await _webviewController.executeScript("if(typeof player !== 'undefined' && player && player.playVideo) { player.seekTo(0); player.playVideo(); }");
+      } catch (e) {}
       if (mounted) {
         setState(() {
           _showInlineTrailer = true;
@@ -277,7 +280,9 @@ class _MovieDetailScreenTestState extends State<MovieDetailScreenTest> {
   void _resumeTrailer() async {
     _userPausedTrailer = false;
     if (_isWebviewInitialized) {
-      await _webviewController.loadUrl('http://127.0.0.1:$_trailerPort/trailer.html?autoplay=1');
+      try {
+        await _webviewController.executeScript("if(typeof player !== 'undefined' && player && player.playVideo) { player.playVideo(); }");
+      } catch (e) {}
       if (mounted) {
         setState(() {
           _showInlineTrailer = true;
