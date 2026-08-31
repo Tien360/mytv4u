@@ -126,6 +126,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   void initState() {
     super.initState();
+    if (useTestDetailUi.value) return;
+    
     _loadSettings();
     _fetchDetail();
     
@@ -231,6 +233,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
   @override
   void dispose() {
+    if (useTestDetailUi.value) {
+      super.dispose();
+      return;
+    }
     _movieSubscription?.cancel();
     _autoPlayTimer?.cancel();
     _trailerServer?.close(force: true);
