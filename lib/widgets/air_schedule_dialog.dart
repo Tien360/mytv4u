@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import '../api/tmdb_api.dart';
 import '../utils/l10n.dart';
 import 'glass_container.dart';
@@ -44,7 +44,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
 
       if (seasons == null || seasons.isEmpty) {
         setState(() {
-          _error = 'Không có thông tin cÃ¡c phÃ¢Ì€n (Seasons).';
+          _error = 'Không có thông tin các Phần (Seasons).';
           _isLoading = false;
         });
         return;
@@ -53,7 +53,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
       _validSeasons = seasons.where((s) => s['season_number'] > 0).toList();
       if (_validSeasons.isEmpty) {
         setState(() {
-          _error = 'Phim chÆ°a cÃ³ phÃ¢Ì€n naÌ€o hÆ¡Ì£p lÃªÌ£.';
+          _error = 'Phim chưa có phần nào hợp lệ.';
           _isLoading = false;
         });
         return;
@@ -64,7 +64,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
       await _fetchEpisodesForSeason(_selectedSeasonNumber!);
     } catch (e) {
       setState(() {
-        _error = 'LÃ´Ìƒi: $e';
+        _error = 'Lỗi: $e';
         _isLoading = false;
       });
     }
@@ -84,7 +84,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
       });
     } catch (e) {
       setState(() {
-        _error = 'LÃ´Ìƒi tÃ¢Ì‰i tÃ¢Ì£p phim: $e';
+        _error = 'Lỗi tải tập phim: $e';
         _isLoading = false;
       });
     }
@@ -126,7 +126,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                         const Icon(Icons.calendar_month_outlined, color: Color(0xFFF59E0B), size: 28),
                         const SizedBox(width: 14),
                         Text(
-                          L10n.t('air_schedule') ?? 'LiÌ£ch phaÌt soÌng',
+                          L10n.t('air_schedule') ?? 'Lịch phát sóng',
                           style: const TextStyle(
                               color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                         ),
@@ -152,7 +152,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                 items: _validSeasons.map((s) {
                                   return DropdownMenuItem<int>(
                                     value: s['season_number'],
-                                    child: Text(s['name'] ?? 'PhÃ¢Ì€n '),
+                                    child: Text(s['name'] ?? 'Phần ${s['season_number']}'),
                                   );
                                 }).toList(),
                                 onChanged: (val) {
@@ -193,7 +193,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                         : (_episodes == null || _episodes!.isEmpty)
                             ? Center(
                                 child: Text(
-                                  L10n.t('no_schedule_found') ?? 'ChÆ°a coÌ thÃ´ng tin liÌ£ch chiÃªÌu tÆ°Ì€ TMDB.',
+                                  L10n.t('no_schedule_found') ?? 'Chưa có thông tin lịch chiếu từ TMDB.',
                                   style: const TextStyle(color: Colors.white54, fontSize: 16),
                                 ),
                               )
@@ -202,7 +202,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                 itemCount: _episodes!.length,
                                 itemBuilder: (context, index) {
                                   final ep = _episodes![index];
-                                  final name = ep['name'] ?? 'TÃ¢Ì£p ';
+                                  final name = ep['name'] ?? 'Tập ${ep['episode_number']}';
                                   final overview = ep['overview'] ?? '';
                                   final airDateStr = ep['air_date'] ?? '';
                                   String formattedDate = airDateStr;
@@ -257,7 +257,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                                   children: [
                                                     Expanded(
                                                       child: Text(
-                                                        'TÃ¢Ì£p : ',
+                                                        'Tập ${ep['episode_number']}: $name',
                                                         style: const TextStyle(
                                                             color: Colors.white,
                                                             fontWeight: FontWeight.bold,
@@ -266,6 +266,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                                         overflow: TextOverflow.ellipsis,
                                                       ),
                                                     ),
+                                                    const SizedBox(width: 12),
                                                     Container(
                                                       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                                                       decoration: BoxDecoration(
@@ -279,7 +280,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                                                 : Colors.white.withOpacity(0.1)),
                                                       ),
                                                       child: Text(
-                                                        hasPassed ? 'ÄaÌƒ chiÃªÌu' : 'SÄƒÌp chiÃªÌu',
+                                                        hasPassed ? 'Đã chiếu' : 'Sắp chiếu',
                                                         style: TextStyle(
                                                             color: hasPassed ? const Color(0xFFF59E0B) : Colors.white70,
                                                             fontSize: 12,
@@ -296,7 +297,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                                         color: Colors.white54, size: 15),
                                                     const SizedBox(width: 6),
                                                     Text(
-                                                      ': ',
+                                                      '${L10n.t('air_date') ?? 'Ngày chiếu'}: $formattedDate',
                                                       style: const TextStyle(color: Colors.white70, fontSize: 13),
                                                     ),
                                                     const SizedBox(width: 16),
@@ -304,7 +305,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                                       const Icon(Icons.timer_outlined, color: Colors.white54, size: 15),
                                                       const SizedBox(width: 6),
                                                       Text(
-                                                        ' phuÌt',
+                                                        '${ep['runtime']} phút',
                                                         style: const TextStyle(color: Colors.white70, fontSize: 13),
                                                       ),
                                                     ]
@@ -316,7 +317,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                                     overview,
                                                     style: const TextStyle(
                                                         color: Colors.white60, fontSize: 13, height: 1.5),
-                                                    maxLines: 2,
+                                                    maxLines: 3,
                                                     overflow: TextOverflow.ellipsis,
                                                   ),
                                                 ],
