@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../api/tmdb_api.dart';
+import '../api/translate_api.dart';
 import '../utils/l10n.dart';
 import 'glass_container.dart';
 
@@ -219,6 +220,8 @@ class ExpandableEpisodeCard extends StatefulWidget {
 
 class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
   bool _isExpanded = false;
+  bool _isTranslating = false;
+  String? _translatedOverview;
 
   Widget _buildFallbackThumb() {
     return Container(
@@ -288,10 +291,20 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
     }
     
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         setState(() {
           _isExpanded = !_isExpanded;
         });
+        if (_isExpanded && widget.ep['_needs_translation'] == true && _translatedOverview == null && !_isTranslating) {
+          setState(() { _isTranslating = true; });
+          final res = await TranslateApi.translateEnToVi(widget.ep['overview'] ?? '');
+          if (mounted) {
+            setState(() {
+              _translatedOverview = res;
+              _isTranslating = false;
+            });
+          }
+        }
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 300),
@@ -458,9 +471,36 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                             ),
                           
                           if (overview.isNotEmpty)
-                            Text(
-                              overview,
-                              style: const TextStyle(color: Colors.white70, fontSize: 14, height: 1.6),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  _translatedOverview ?? overview,
+                                  style: const TextStyle(color: Colors.white70, fontSize: 14, height: 1.6),
+                                ),
+                                if (_isTranslating)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Row(
+                                      children: [
+                                        const SizedBox(width: 12, height: 12, child: CircularProgressIndicator(strokeWidth: 2, color: Color(0xFFF59E0B))),
+                                        const SizedBox(width: 8),
+                                        Text(L10n.t('translating'), style: TextStyle(color: Colors.white54, fontSize: 12, fontStyle: FontStyle.italic)),
+                                      ],
+                                    ),
+                                  ),
+                                if (_translatedOverview != null && widget.ep['_needs_translation'] == true)
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: Row(
+                                      children: [
+                                        const Icon(Icons.g_translate, color: Colors.white30, size: 14),
+                                        const SizedBox(width: 6),
+                                        Text(L10n.t('translated_by_google'), style: const TextStyle(color: Colors.white30, fontSize: 12, fontStyle: FontStyle.italic)),
+                                      ],
+                                    ),
+                                  ),
+                              ],
                             ),
                             
                           const SizedBox(height: 16),

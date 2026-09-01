@@ -747,5 +747,7 @@
   "minutes": "mins",
   "votes": "votes",
   "writer": "Writer",
-  "guest_stars": "Guest Stars"
+  "guest_stars": "Guest Stars",
+  "translated_by_google": "Translated by Google Translate",
+  "translating": "Translating..."
 }
