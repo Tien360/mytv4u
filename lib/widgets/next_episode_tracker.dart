@@ -149,6 +149,7 @@ class _NextEpisodeTrackerState extends State<NextEpisodeTracker> with SingleTick
   bool _easterEggsEnabled = true;
   String _msg = '';
   String _progressKey = 'chill';
+  bool _isCompletedMode = false;
   int _spamCount = 0;
   Timer? _spamTimer;
   List<SupportedGenre> _matchedGenres = [];
@@ -212,6 +213,7 @@ class _NextEpisodeTrackerState extends State<NextEpisodeTracker> with SingleTick
     final airStr = nep['air_date']?.toString() ?? '';
     final epNum = nep['episode_number'] ?? 1;
     final season = nep['season_number'] ?? 1;
+    _isCompletedMode = false;
     final total = tmdb['number_of_episodes'] ?? 0;
     final displayX = season > 1 ? '$epNum (Mùa $season)' : epNum.toString();
     try {
@@ -309,6 +311,7 @@ class _NextEpisodeTrackerState extends State<NextEpisodeTracker> with SingleTick
   }
 
 void _completedState(Map<String, dynamic> tmdb) {
+    _isCompletedMode = true;
     final total = tmdb['number_of_episodes'] ?? int.tryParse(widget.movie!.totalEpisodes) ?? 0;
     final isShort = ['single','movie'].contains(widget.movie!.type.toLowerCase()) || total <= 10;
     final lep = tmdb['last_episode_to_air'] as Map<String, dynamic>?;
@@ -378,7 +381,8 @@ void _completedState(Map<String, dynamic> tmdb) {
 
   Future<void> _spamFx(Random rnd) async {
     final movieName = widget.movie?.name ?? L10n.t('this_movie');
-    final rawJokes = L10n.tList('easter_spam_jokes');
+    final l10nKey = _isCompletedMode ? 'easter_spam_jokes_completed' : 'easter_spam_jokes';
+    final rawJokes = L10n.tList(l10nKey);
     final jokes = rawJokes.isEmpty 
         ? ["Spam!"] 
         : rawJokes.map((j) => j.replaceAll('{MOVIE}', movieName)).toList();

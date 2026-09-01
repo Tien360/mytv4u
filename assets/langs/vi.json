@@ -810,5 +810,13 @@
     "Nhấp chuột 10 lần 1 giây... bạn chơi game MOBA chắc pro lắm nhỉ?",
     "Đã bảo là không có gì đâu mà cứ bấm! Ngoan, đi xem phim khác đi."
   ],
-  "this_movie": "Bộ phim này"
+  "this_movie": "Bộ phim này",
+  "easter_spam_jokes_completed": [
+    "Phim đã ra hết rồi, bạn định ép đạo diễn đẻ thêm tập à?",
+    "Thơ tặng bạn:\n{MOVIE} kết thúc viên mãn\nXin đừng spam nữa, cho ngón tay nhàn!",
+    "Bộ phim đã an nghỉ, xin đừng quấy rầy nó nữa!",
+    "Bấm gì bấm nhiều thế? Tính đào mộ phim lên xem lại à?",
+    "Người ta chiếu hết từ kiếp nào rồi mà còn đứng đây hóng tập mới!",
+    "Thôi đừng bấm nữa, rụng nút bây giờ! Ra xem phim khác đi."
+  ]
 }

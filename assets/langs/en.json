@@ -808,5 +808,13 @@
     "10 clicks per second... you must be a pro gamer.",
     "Stop clicking! Be a good viewer and watch something else."
   ],
-  "this_movie": "This movie"
+  "this_movie": "This movie",
+  "easter_spam_jokes_completed": [
+    "The movie is already finished. Do you want the director to spawn a new episode?",
+    "A poem for you:\n{MOVIE} is done and gone\nStop spamming clicks and just move on!",
+    "The series has rested in peace. Please don't disturb it!",
+    "Why are you clicking? Trying to resurrect the movie?",
+    "It finished airing ages ago, go watch something else!",
+    "Stop clicking! You're gonna break the button!"
+  ]
 }
