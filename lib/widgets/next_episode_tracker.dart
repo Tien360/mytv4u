@@ -377,25 +377,15 @@ void _completedState(Map<String, dynamic> tmdb) {
 
 
   Future<void> _spamFx(Random rnd) async {
-    final movieName = widget.movie?.name ?? 'Phim này';
-    final spamJokes = [
-      "Bấm gì bấm nhiều thế? Bộ tính làm hacker hở?",
-      "Bạn có spam cháy cả chuột thì phim cũng chưa ra tập mới đâu!",
-      "Thơ tặng bạn:\n$movieName hay thật là hay\nNhưng mà chưa chiếu, bấm hoài đứt tay!",
-      "Tôi là hộp báo lịch, không phải máy đẻ tập phim mới nha!",
-      "Đã bảo là chưa có mà! Lì xì admin 50k đi rồi tôi giục đạo diễn cho.",
-      "Hết văn để trêu bạn rồi! Mỏi tay chưa? Tắt máy đi ngủ đi!",
-      "Bạn bấm nát cái nút rồi kìa. Lạy chúa tôi!",
-      "Nếu bạn bấm thêm 100 lần nữa, tập mới sẽ... vẫn không xuất hiện =))",
-      "Thơ về phim:\n$movieName kịch tính bất ngờ\nSpam hoài đau ngón, thẫn thờ chờ mong!",
-      "Nghịch hoài không chán hả bạn gì ơi?",
-      "Nhấp chuột 10 lần 1 giây... bạn chơi game MOBA chắc pro lắm nhỉ?",
-      "Đã bảo là không có gì đâu mà cứ bấm! Ngoan, đi xem phim khác đi."
-    ];
+    final movieName = widget.movie?.name ?? L10n.t('this_movie');
+    final rawJokes = L10n.tList('easter_spam_jokes');
+    final jokes = rawJokes.isEmpty 
+        ? ["Spam!"] 
+        : rawJokes.map((j) => j.replaceAll('{MOVIE}', movieName)).toList();
     
     _progressKey = 'rage';
-    _showToast([spamJokes[rnd.nextInt(spamJokes.length)]], rnd);
-    // Vibrate text
+    _showToast([jokes[rnd.nextInt(jokes.length)]], rnd);
+    
     if (mounted) setState(() {});
   }
 

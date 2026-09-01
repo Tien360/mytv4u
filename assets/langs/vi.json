@@ -795,5 +795,20 @@
   "ep_msg_tomorrow": [
     "Ngày mai là có tập {X} rồi! Ngủ sớm lấy sức thôi.",
     "Chỉ còn 1 lần chớp mắt nữa là tới tập {X}!"
-  ]
+  ],
+  "easter_spam_jokes": [
+    "Bấm gì bấm nhiều thế? Bộ tính làm hacker hở?",
+    "Bạn có spam cháy cả chuột thì phim cũng chưa ra tập mới đâu!",
+    "Thơ tặng bạn:\n{MOVIE} hay thật là hay\nNhưng mà chưa chiếu, bấm hoài đứt tay!",
+    "Tôi là hộp báo lịch, không phải máy đẻ tập phim mới nha!",
+    "Đã bảo là chưa có mà! Lì xì admin 50k đi rồi tôi giục đạo diễn cho.",
+    "Hết văn để trêu bạn rồi! Mỏi tay chưa? Tắt máy đi ngủ đi!",
+    "Bạn bấm nát cái nút rồi kìa. Lạy chúa tôi!",
+    "Nếu bạn bấm thêm 100 lần nữa, tập mới sẽ... vẫn không xuất hiện =))",
+    "Thơ về phim:\n{MOVIE} kịch tính bất ngờ\nSpam hoài đau ngón, thẫn thờ chờ mong!",
+    "Nghịch hoài không chán hả bạn gì ơi?",
+    "Nhấp chuột 10 lần 1 giây... bạn chơi game MOBA chắc pro lắm nhỉ?",
+    "Đã bảo là không có gì đâu mà cứ bấm! Ngoan, đi xem phim khác đi."
+  ],
+  "this_movie": "Bộ phim này"
 }
