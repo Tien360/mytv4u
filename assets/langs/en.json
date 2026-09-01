@@ -749,5 +749,7 @@
   "writer": "Writer",
   "guest_stars": "Guest Stars",
   "translated_by_google": "Translated by Google Translate",
-  "translating": "Translating..."
+  "translating": "Translating...",
+  "show_original": "Show original",
+  "show_translation": "Show translation"
 }

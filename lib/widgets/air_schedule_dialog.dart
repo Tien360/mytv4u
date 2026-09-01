@@ -221,6 +221,7 @@ class ExpandableEpisodeCard extends StatefulWidget {
 class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
   bool _isExpanded = false;
   bool _isTranslating = false;
+  bool _showOriginal = false;
   String? _translatedOverview;
 
   Widget _buildFallbackThumb() {
@@ -475,7 +476,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  _translatedOverview ?? overview,
+                                  (_translatedOverview != null && !_showOriginal) ? _translatedOverview! : overview,
                                   style: const TextStyle(color: Colors.white70, fontSize: 14, height: 1.6),
                                 ),
                                 if (_isTranslating)
@@ -497,6 +498,16 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                                         const Icon(Icons.g_translate, color: Colors.white30, size: 14),
                                         const SizedBox(width: 6),
                                         Text(L10n.t('translated_by_google'), style: const TextStyle(color: Colors.white30, fontSize: 12, fontStyle: FontStyle.italic)),
+                                        const Spacer(),
+                                        GestureDetector(
+                                          onTap: () {
+                                            setState(() { _showOriginal = !_showOriginal; });
+                                          },
+                                          child: Text(
+                                            _showOriginal ? L10n.t('show_translation') : L10n.t('show_original'),
+                                            style: const TextStyle(color: Color(0xFFF59E0B), fontSize: 12, fontWeight: FontWeight.w500),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),

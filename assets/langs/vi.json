@@ -751,5 +751,7 @@
   "writer": "Biên kịch",
   "guest_stars": "Diễn viên khách mời",
   "translated_by_google": "Dịch tự động bởi Google Translate",
-  "translating": "Đang dịch..."
+  "translating": "Đang dịch...",
+  "show_original": "Xem bản gốc",
+  "show_translation": "Xem bản dịch"
 }
