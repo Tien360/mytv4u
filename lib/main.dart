@@ -63,6 +63,8 @@ void main(List<String> args) async {
   await DeepLinkService.instance.initialize(args);
   
   await windowManager.ensureInitialized();
+  await windowManager.setPreventClose(true);
+  windowManager.addListener(AppWindowListener());
   
   WindowOptions windowOptions = const WindowOptions(
     size: Size(1280, 720),
@@ -88,6 +90,18 @@ void main(List<String> args) async {
       child: const MyTV4UApp(),
     ),
   );
+}
+
+
+class AppWindowListener extends WindowListener {
+  @override
+  void onWindowClose() async {
+    // Kill stremio server and backend processes
+    StremioServer.stop();
+    // Destroy window and force exit to instantly kill Webview and Audio
+    await windowManager.destroy();
+    exit(0);
+  }
 }
 
 class MyTV4UApp extends StatelessWidget {
