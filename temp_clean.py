@@ -1,12 +1,24 @@
-﻿with open("lib/screens/movie_detail_screen_test.dart", "r", encoding="utf-8") as f:
+﻿import re
+with open("lib/widgets/air_schedule_dialog.dart", "r", encoding="utf-8") as f:
     c = f.read()
 
-c = c.replace("class MovieDetailScreen extends", "class MovieDetailScreenTest extends")
-c = c.replace("class _MovieDetailScreenState extends State<MovieDetailScreen>", "class _MovieDetailScreenTestState extends State<MovieDetailScreenTest>")
-c = c.replace("State<MovieDetailScreen> createState() => _MovieDetailScreenState();", "State<MovieDetailScreenTest> createState() => _MovieDetailScreenTestState();")
-c = c.replace("=> MovieDetailScreen(", "=> MovieDetailScreenTest(")
-c = c.replace("const MovieDetailScreen({", "const MovieDetailScreenTest({")
+c = re.sub(r"L10n\.t\('error_tmdb_id_not_found'\) \?\? '[^']*'", "L10n.t('error_tmdb_id_not_found')", c)
+c = re.sub(r"L10n\.t\('error_no_seasons'\) \?\? '[^']*'", "L10n.t('error_no_seasons')", c)
+c = re.sub(r"L10n\.t\('error_no_valid_seasons'\) \?\? '[^']*'", "L10n.t('error_no_valid_seasons')", c)
 
-with open("lib/screens/movie_detail_screen_test.dart", "w", encoding="utf-8") as f:
+c = re.sub(r"L10n\.t\('error_prefix'\) != null \? '\$\{L10n\.t\('error_prefix'\)\}: \$e' : '[^']*'", "'${L10n.t('error_prefix')}: $e'", c)
+c = re.sub(r"L10n\.t\('error_loading_episodes'\) != null \? '\$\{L10n\.t\('error_loading_episodes'\)\}: \$e' : '[^']*'", "'${L10n.t('error_loading_episodes')}: $e'", c)
+
+c = re.sub(r"L10n\.t\('season'\) \?\? '[^']*'", "L10n.t('season')", c)
+c = re.sub(r"L10n\.t\('episode'\) \?\? '[^']*'", "L10n.t('episode')", c)
+c = re.sub(r"L10n\.t\('released'\) \?\? '[^']*'", "L10n.t('released')", c)
+c = re.sub(r"L10n\.t\('upcoming'\) \?\? '[^']*'", "L10n.t('upcoming')", c)
+c = re.sub(r"L10n\.t\('minutes'\) \?\? '[^']*'", "L10n.t('minutes')", c)
+c = re.sub(r"L10n\.t\('votes'\) \?\? '[^']*'", "L10n.t('votes')", c)
+c = re.sub(r"L10n\.t\('air_schedule'\) \?\? '[^']*'", "L10n.t('air_schedule')", c)
+c = re.sub(r"L10n\.t\('no_schedule_found'\) \?\? '[^']*'", "L10n.t('no_schedule_found')", c)
+c = re.sub(r"L10n\.t\('air_date'\) \?\? '[^']*'", "L10n.t('air_date')", c)
+
+with open("lib/widgets/air_schedule_dialog.dart", "w", encoding="utf-8") as f:
     f.write(c)
-print("Clean copy done")
+print("Cleaned up dart file!")

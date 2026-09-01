@@ -1,8 +1,11 @@
-﻿import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'lib/api/film4knet_api.dart';
+﻿import 'package:http/http.dart' as http;
 
 void main() async {
-    final res = await Film4kNetApi.search('minions và quái vật');
-    print(res.map((e) => e.name).toList());
+  final url = Uri.parse('https://film4k.net/api');
+  try {
+    final response = await http.get(url, headers: {'User-Agent': 'Mozilla/5.0'});
+    print(response.statusCode);
+  } catch (e) {
+    print(e);
+  }
 }

@@ -1,11 +1,13 @@
-﻿import sys
-with open('lib/screens/main_screen.dart', 'r', encoding='utf-8') as f:
+﻿with open("lib/main.dart", "r", encoding="utf-8") as f:
     c = f.read()
 
-import re
-c = re.sub(r'IndexedStack\(\s*index:\s*_selectedIndex,\s*children:\s*_screens,\s*\)',
-           r'FadeIndexedStack(index: _selectedIndex, children: _screens, duration: const Duration(milliseconds: 300),)', c)
+import_line = "import 'utils/l10n.dart';"
+c = c.replace(import_line, import_line + "\nimport 'utils/location_helper.dart';")
 
-with open('lib/screens/main_screen.dart', 'w', encoding='utf-8') as f:
+init_line = "await initAmbientSettings();"
+c = c.replace(init_line, init_line + "\n  LocationHelper.initUserCountry(); // Start fetching IP location in background")
+
+with open("lib/main.dart", "w", encoding="utf-8") as f:
     f.write(c)
-print("Regex replace done")
+
+print("Updated main.dart!")
