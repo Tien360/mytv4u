@@ -257,12 +257,32 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
     final directors = crew.where((c) => c['job'] == 'Director').toList();
     final writers = crew.where((c) => c['job'] == 'Writer').toList();
     
-    // Check if director is the same as main created_by
     final createdBy = widget.mainSeriesDetails['created_by'] as List<dynamic>? ?? [];
     final createdByNames = createdBy.map((c) => c['name']).toSet();
-    
     final validDirectors = directors.where((d) => !createdByNames.contains(d['name'])).toList();
-
+    
+    List<Map<String, dynamic>> crewAndGuests = [];
+    for (var d in validDirectors) {
+      crewAndGuests.add({
+        'name': d['name'] ?? '',
+        'role': L10n.t('director'),
+        'profile_path': d['profile_path'] ?? '',
+      });
+    }
+    for (var w in writers) {
+      crewAndGuests.add({
+        'name': w['name'] ?? '',
+        'role': L10n.t('writer'),
+        'profile_path': w['profile_path'] ?? '',
+      });
+    }
+    for (var g in guestStars) {
+      crewAndGuests.add({
+        'name': g['name'] ?? '',
+        'role': g['character'] ?? '',
+        'profile_path': g['profile_path'] ?? '',
+      });
+    }
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -441,65 +461,17 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                             
                           const SizedBox(height: 16),
                           
-                          // Crew
-                          if (validDirectors.isNotEmpty || writers.isNotEmpty)
-                            Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(0.03),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (validDirectors.isNotEmpty)
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(L10n.t('director'), style: TextStyle(color: Colors.white54, fontSize: 12)),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            validDirectors.map((d) => d['name']).join(', '),
-                                            style: const TextStyle(color: Colors.white, fontSize: 13),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  if (writers.isNotEmpty)
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text(L10n.t('writer'), style: TextStyle(color: Colors.white54, fontSize: 12)),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            writers.map((w) => w['name']).join(', '),
-                                            style: const TextStyle(color: Colors.white, fontSize: 13),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                ],
-                              ),
-                            ),
-                            
-                          // Guest Stars
-                          if (guestStars.isNotEmpty) ...[
-                            const SizedBox(height: 20),
-                            Text(
-                              L10n.t('guest_stars'),
-                              style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
-                            ),
-                            const SizedBox(height: 12),
+                          // Crew & Guests
+                          if (crewAndGuests.isNotEmpty) ...[
+                            const SizedBox(height: 16),
                             SizedBox(
                               height: 140,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
-                                itemCount: guestStars.length,
+                                itemCount: crewAndGuests.length,
                                 itemBuilder: (context, idx) {
-                                  final actor = guestStars[idx];
-                                  final profilePath = actor['profile_path'];
+                                  final person = crewAndGuests[idx];
+                                  final profilePath = person['profile_path'];
                                   final profileUrl = TmdbApi.getImageUrl(profilePath);
                                   return Container(
                                     width: 90,
@@ -514,7 +486,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                                         ),
                                         const SizedBox(height: 8),
                                         Text(
-                                          actor['name'] ?? '',
+                                          person['name'] ?? '',
                                           textAlign: TextAlign.center,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
@@ -522,7 +494,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                                         ),
                                         const SizedBox(height: 2),
                                         Text(
-                                          actor['character'] ?? '',
+                                          person['role'] ?? '',
                                           textAlign: TextAlign.center,
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
