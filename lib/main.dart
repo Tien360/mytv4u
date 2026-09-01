@@ -14,6 +14,7 @@ import 'package:webview_windows/webview_windows.dart';
 import 'api/stremio_server.dart';
 import 'api/film4k_proxy.dart';
 import 'utils/l10n.dart';
+import 'utils/location_helper.dart';
 import 'utils/system_utils.dart';
 import 'addons/addon_manager.dart';
 import 'globals.dart';
@@ -28,6 +29,7 @@ void main(List<String> args) async {
   isMinimalistUi.value = prefs.getBool('minimalist_ui') ?? false;
   
   await initAmbientSettings();
+  LocationHelper.initUserCountry(); // Start fetching IP location in background
 
   // Khởi tạo Addon Manager
   await AddonManager.init();

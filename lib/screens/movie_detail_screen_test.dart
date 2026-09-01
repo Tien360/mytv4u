@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'movie_detail_screen_test.dart';
 
 import '../utils/l10n.dart';
+import '../utils/location_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -2697,35 +2698,69 @@ if (_easterEggsEnabled && _tmdbDetails!['budget'] != null && _tmdbDetails!['budg
   String? _getAgeRating() {
     if (_tmdbDetails == null) return null;
     
-    // TV Shows
-    if (_tmdbDetails!['content_ratings'] != null && _tmdbDetails!['content_ratings']['results'] != null) {
-      final results = _tmdbDetails!['content_ratings']['results'] as List;
-      var usRating = results.firstWhere((r) => r['iso_3166_1'] == 'US', orElse: () => null);
-      if (usRating != null && usRating['rating'] != null && usRating['rating'].toString().isNotEmpty) {
-        return usRating['rating'].toString();
-      }
-      for (var r in results) {
-        if (r['rating'] != null && r['rating'].toString().isNotEmpty) return r['rating'].toString();
-      }
+    String userCountry = LocationHelper.userCountry;
+    String? originCountry;
+    if (_tmdbDetails!['origin_country'] != null && (_tmdbDetails!['origin_country'] as List).isNotEmpty) {
+      originCountry = _tmdbDetails!['origin_country'][0].toString();
     }
-    
-    // Movies
-    if (_tmdbDetails!['release_dates'] != null && _tmdbDetails!['release_dates']['results'] != null) {
-      final results = _tmdbDetails!['release_dates']['results'] as List;
-      var usRating = results.firstWhere((r) => r['iso_3166_1'] == 'US', orElse: () => null);
-      if (usRating != null && usRating['release_dates'] != null) {
-        for (var d in usRating['release_dates']) {
-          if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+
+    String? findRating(String countryCode) {
+      // TV Shows
+      if (_tmdbDetails!['content_ratings'] != null && _tmdbDetails!['content_ratings']['results'] != null) {
+        final results = _tmdbDetails!['content_ratings']['results'] as List;
+        var rMatch = results.firstWhere((r) => r['iso_3166_1'] == countryCode, orElse: () => null);
+        if (rMatch != null && rMatch['rating'] != null && rMatch['rating'].toString().isNotEmpty) {
+          return rMatch['rating'].toString();
         }
       }
-      for (var r in results) {
-        if (r['release_dates'] != null) {
-          for (var d in r['release_dates']) {
-             if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+      
+      // Movies
+      if (_tmdbDetails!['release_dates'] != null && _tmdbDetails!['release_dates']['results'] != null) {
+        final results = _tmdbDetails!['release_dates']['results'] as List;
+        var rMatch = results.firstWhere((r) => r['iso_3166_1'] == countryCode, orElse: () => null);
+        if (rMatch != null && rMatch['release_dates'] != null) {
+          for (var d in rMatch['release_dates']) {
+            if (d['certification'] != null && d['certification'].toString().isNotEmpty) {
+              return d['certification'].toString();
+            }
           }
         }
       }
+      return null;
     }
+
+    // Ưu tiên 1: Quốc gia của người xem (theo IP)
+    String? rating = findRating(userCountry);
+    if (rating != null) return rating;
+
+    // Ưu tiên 2: Quốc gia gốc của phim (Hàn Quốc, Nhật Bản...)
+    if (originCountry != null) {
+      rating = findRating(originCountry);
+      if (rating != null) return rating;
+    }
+
+    // Ưu tiên 3: Fallback về Mỹ
+    rating = findRating('US');
+    if (rating != null) return rating;
+
+    // Ưu tiên 4: Lấy bừa nhãn đầu tiên có thể tìm thấy nếu tất cả đều thất bại
+    if (_tmdbDetails!['content_ratings'] != null && _tmdbDetails!['content_ratings']['results'] != null) {
+        final results = _tmdbDetails!['content_ratings']['results'] as List;
+        for (var r in results) {
+          if (r['rating'] != null && r['rating'].toString().isNotEmpty) return r['rating'].toString();
+        }
+    }
+    if (_tmdbDetails!['release_dates'] != null && _tmdbDetails!['release_dates']['results'] != null) {
+        final results = _tmdbDetails!['release_dates']['results'] as List;
+        for (var r in results) {
+          if (r['release_dates'] != null) {
+            for (var d in r['release_dates']) {
+               if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+            }
+          }
+        }
+    }
+    
     return null;
   }
 
