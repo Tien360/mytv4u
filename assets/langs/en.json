@@ -734,5 +734,18 @@
   "game_webview_player": "Game WebView Player",
   "air_schedule": "Air Schedule",
   "no_schedule_found": "No TMDB schedule info found.",
-  "air_date": "Air Date"
+  "air_date": "Air Date",
+  "error_tmdb_id_not_found": "TMDB ID not found",
+  "error_no_seasons": "No seasons information available.",
+  "error_no_valid_seasons": "No valid seasons available.",
+  "error_prefix": "Error",
+  "error_loading_episodes": "Error loading episodes",
+  "season": "Season",
+  "episode": "Episode",
+  "released": "Released",
+  "upcoming": "Upcoming",
+  "minutes": "mins",
+  "votes": "votes",
+  "writer": "Writer",
+  "guest_stars": "Guest Stars"
 }

@@ -30,7 +30,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
       final tmdbId = int.tryParse(widget.tmdbDetails['id']?.toString() ?? '');
       if (tmdbId == null) {
         setState(() {
-          _error = 'Không tìm thấy ID TMDB';
+          _error = L10n.t('error_tmdb_id_not_found');
           _isLoading = false;
         });
         return;
@@ -44,7 +44,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
 
       if (seasons == null || seasons.isEmpty) {
         setState(() {
-          _error = 'Không có thông tin các Phần (Seasons).';
+          _error = L10n.t('error_no_seasons');
           _isLoading = false;
         });
         return;
@@ -53,7 +53,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
       _validSeasons = seasons.where((s) => s['season_number'] > 0).toList();
       if (_validSeasons.isEmpty) {
         setState(() {
-          _error = 'Phim chưa có phần nào hợp lệ.';
+          _error = L10n.t('error_no_valid_seasons');
           _isLoading = false;
         });
         return;
@@ -63,7 +63,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
       await _fetchEpisodesForSeason(_selectedSeasonNumber!);
     } catch (e) {
       setState(() {
-        _error = 'Lỗi: $e';
+        _error = '${L10n.t('error_prefix')}: $e';
         _isLoading = false;
       });
     }
@@ -83,7 +83,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
       });
     } catch (e) {
       setState(() {
-        _error = 'Lỗi tải tập phim: $e';
+        _error = '${L10n.t('error_loading_episodes')}: $e';
         _isLoading = false;
       });
     }
@@ -116,7 +116,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                         const Icon(Icons.menu_book_rounded, color: Color(0xFFF59E0B), size: 28),
                         const SizedBox(width: 14),
                         Text(
-                          L10n.t('air_schedule') ?? 'Cẩm nang Tập phim',
+                          L10n.t('air_schedule'),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                         ),
@@ -142,7 +142,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                                 items: _validSeasons.map((s) {
                                   return DropdownMenuItem<int>(
                                     value: s['season_number'],
-                                    child: Text(s['name'] ?? 'Phần ${s['season_number']}'),
+                                    child: Text(s['name'] ?? '${L10n.t('season')} ${s['season_number']}'),
                                   );
                                 }).toList(),
                                 onChanged: (val) {
@@ -183,7 +183,7 @@ class _AirScheduleDialogState extends State<AirScheduleDialog> {
                         : (_episodes == null || _episodes!.isEmpty)
                             ? Center(
                                 child: Text(
-                                  L10n.t('no_schedule_found') ?? 'Chưa có thông tin lịch chiếu từ TMDB.',
+                                  L10n.t('no_schedule_found'),
                                   style: const TextStyle(color: Colors.white54, fontSize: 16),
                                 ),
                               )
@@ -232,7 +232,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
   @override
   Widget build(BuildContext context) {
     final ep = widget.ep;
-    final name = ep['name'] ?? 'Tập ${ep['episode_number']}';
+    final name = ep['name'] ?? '${L10n.t('episode')} ${ep['episode_number']}';
     final overview = ep['overview'] ?? '';
     final airDateStr = ep['air_date'] ?? '';
     String formattedDate = airDateStr;
@@ -321,7 +321,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                           children: [
                             Expanded(
                               child: Text(
-                                'Tập ${ep['episode_number']}: $name',
+                                '${L10n.t('episode')} ${ep['episode_number']}: $name',
                                 style: TextStyle(
                                     color: _isExpanded ? const Color(0xFFF59E0B) : Colors.white,
                                     fontWeight: FontWeight.bold,
@@ -344,7 +344,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                                         : Colors.white.withOpacity(0.1)),
                               ),
                               child: Text(
-                                hasPassed ? 'Đã chiếu' : 'Sắp chiếu',
+                                hasPassed ? L10n.t('released') : L10n.t('upcoming'),
                                 style: TextStyle(
                                     color: hasPassed ? const Color(0xFFF59E0B) : Colors.white70,
                                     fontSize: 12,
@@ -360,7 +360,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                             const Icon(Icons.access_time_rounded, color: Colors.white54, size: 15),
                             const SizedBox(width: 6),
                             Text(
-                              '${L10n.t('air_date') ?? 'Ngày chiếu'}: $formattedDate',
+                              '${L10n.t('air_date')}: $formattedDate',
                               style: const TextStyle(color: Colors.white70, fontSize: 13),
                             ),
                             const SizedBox(width: 16),
@@ -368,7 +368,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                               const Icon(Icons.timer_outlined, color: Colors.white54, size: 15),
                               const SizedBox(width: 6),
                               Text(
-                                '${ep['runtime']} phút',
+                                '${ep['runtime']} ${L10n.t('minutes')}',
                                 style: const TextStyle(color: Colors.white70, fontSize: 13),
                               ),
                             ],
@@ -426,7 +426,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                                   ),
                                   const SizedBox(width: 4),
                                   Text(
-                                    '(${ep['vote_count'] ?? 0} votes)',
+                                    '(${ep['vote_count'] ?? 0} ${L10n.t('votes')})',
                                     style: const TextStyle(color: Colors.white54, fontSize: 12),
                                   ),
                                 ],
@@ -457,7 +457,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const Text('Đạo diễn', style: TextStyle(color: Colors.white54, fontSize: 12)),
+                                          Text(L10n.t('director'), style: TextStyle(color: Colors.white54, fontSize: 12)),
                                           const SizedBox(height: 4),
                                           Text(
                                             validDirectors.map((d) => d['name']).join(', '),
@@ -471,7 +471,7 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                                       child: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          const Text('Biên kịch', style: TextStyle(color: Colors.white54, fontSize: 12)),
+                                          Text(L10n.t('writer'), style: TextStyle(color: Colors.white54, fontSize: 12)),
                                           const SizedBox(height: 4),
                                           Text(
                                             writers.map((w) => w['name']).join(', '),
@@ -487,8 +487,8 @@ class _ExpandableEpisodeCardState extends State<ExpandableEpisodeCard> {
                           // Guest Stars
                           if (guestStars.isNotEmpty) ...[
                             const SizedBox(height: 20),
-                            const Text(
-                              'Diễn viên khách mời',
+                            Text(
+                              L10n.t('guest_stars'),
                               style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
                             ),
                             const SizedBox(height: 12),

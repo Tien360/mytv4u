@@ -736,5 +736,18 @@
   "game_webview_player": "Trình phát Game WebView",
   "air_schedule": "Lịch phát sóng",
   "no_schedule_found": "Chưa có thông tin lịch chiếu từ TMDB.",
-  "air_date": "Ngày chiếu"
+  "air_date": "Ngày chiếu",
+  "error_tmdb_id_not_found": "Không tìm thấy ID TMDB",
+  "error_no_seasons": "Không có thông tin các Phần (Seasons).",
+  "error_no_valid_seasons": "Phim chưa có phần nào hợp lệ.",
+  "error_prefix": "Lỗi",
+  "error_loading_episodes": "Lỗi tải tập phim",
+  "season": "Phần",
+  "episode": "Tập",
+  "released": "Đã chiếu",
+  "upcoming": "Sắp chiếu",
+  "minutes": "phút",
+  "votes": "đánh giá",
+  "writer": "Biên kịch",
+  "guest_stars": "Diễn viên khách mời"
 }
