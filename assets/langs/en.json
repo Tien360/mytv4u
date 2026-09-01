@@ -769,5 +769,29 @@
   "rating_tv_14": "Parents strongly cautioned. May be unsuitable for children under 14.",
   "rating_tv_ma": "Mature audiences only. May contain strong violence, sexual content, or coarse language.",
   "rating_age_plus": "Restricted to viewers {age} years and older.",
-  "rating_default": "Age Rating: {rating}"
+  "rating_default": "Age Rating: {rating}",
+  "ep_msg_previous_missing": [
+    "Episode {LAST_EP} is missing from the source! Grrr!",
+    "Source skipped episode {LAST_EP}. Waiting for an update."
+  ],
+  "ep_msg_vip_ahead": [
+    "Episode {X} is out for VIPs, waiting for free release.",
+    "Hunting down episode {X} from VIP sources..."
+  ],
+  "ep_msg_today_finale_available": [
+    "IT'S HERE! The Finale (Ep {X}) is available!",
+    "The final boss (Ep {X}) has arrived! Watch it now!"
+  ],
+  "ep_msg_today_finale_unavailable": [
+    "Finale (Ep {X}) airs today! Source is still preparing it.",
+    "The end is near! Waiting for the source to upload Ep {X}."
+  ],
+  "ep_msg_today_unavailable": [
+    "Episode {X} airs today, but the source hasn't uploaded it yet!",
+    "Awaiting Ep {X} upload... refresh soon!"
+  ],
+  "ep_msg_tomorrow": [
+    "Episode {X} drops tomorrow! Get some sleep.",
+    "Just one more sleep until episode {X}!"
+  ]
 }

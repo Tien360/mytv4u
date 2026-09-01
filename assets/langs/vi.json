@@ -771,5 +771,29 @@
   "rating_tv_14": "Dành cho người từ 14 tuổi trở lên.",
   "rating_tv_ma": "Chỉ dành cho khán giả trưởng thành (Chứa bạo lực, tình dục hoặc ngôn từ thô tục).",
   "rating_age_plus": "Dành cho khán giả từ {age} tuổi trở lên.",
-  "rating_default": "Ký hiệu độ tuổi: {rating}"
+  "rating_default": "Ký hiệu độ tuổi: {rating}",
+  "ep_msg_previous_missing": [
+    "App bị hổng mất tập {LAST_EP} rồi. Tức á!",
+    "Nguồn phim ăn bớt tập {LAST_EP} rồi! Đang chờ admin cập nhật."
+  ],
+  "ep_msg_vip_ahead": [
+    "Tập {X} đã chiếu bên VIP nhưng nguồn free chưa tuồn ra kịp.",
+    "Đang đợi nguồn mót tập {X} từ bản VIP của nhà đài."
+  ],
+  "ep_msg_today_finale_available": [
+    "ĐẠI TỰU! Tập {X} (Cuối) ĐÃ LÊN SÓNG!",
+    "Trùm cuối {X} đây rồi! Luyện ngay cho nóng!"
+  ],
+  "ep_msg_today_finale_unavailable": [
+    "Tập Cuối {X} ra lò hôm nay rồi, nguồn phim đang xào nấu, hóng quá!",
+    "Ngày tàn của bộ phim tới rồi (Tập {X}), F5 liên tục nào!"
+  ],
+  "ep_msg_today_unavailable": [
+    "Tập {X} chiếu hôm nay mà nguồn phim chưa có hàng!",
+    "Nhà đài vừa chiếu tập {X}, nguồn lậu đang hì hục reup, ráng đợi nghen!"
+  ],
+  "ep_msg_tomorrow": [
+    "Ngày mai là có tập {X} rồi! Ngủ sớm lấy sức thôi.",
+    "Chỉ còn 1 lần chớp mắt nữa là tới tập {X}!"
+  ]
 }
