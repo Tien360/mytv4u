@@ -1,7 +1,10 @@
-﻿import sys, json
-sys.stdout.reconfigure(encoding='utf-8')
-with open("assets/langs/vi.json", "r", encoding="utf-8") as f:
-    d = json.load(f)
-for k, v in d.items():
-    if "webview" in k.lower() or "webview" in str(v).lower():
-        print(f"{k}: {v}")
+﻿import sys
+import codecs
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout.detach())
+with open("lib/screens/movie_detail_screen.dart", "r", encoding="utf-8") as f:
+    c = f.readlines()
+for i, l in enumerate(c):
+    if "dispName =" in l:
+        for x in range(max(0, i-5), min(i+10, len(c))):
+            print(f"{x+1}: {c[x]}", end="")
+        break

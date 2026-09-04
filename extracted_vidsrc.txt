@@ -1,0 +1,16 @@
+=======
+$py = @"
+import json
+with open(r'C:\Users\Asus\.gemini\antigravity\brain\d8a141a0-75a6-456a-81c4-4b145d433946\.system_generated\logs\transcript_full.jsonl', 'r', encoding='utf-8') as f:
+    for line in f:
+        if 'isVidSrc' in line and 'tool_calls' in line:
+            data = json.loads(line)
+            if 'tool_calls' in data:
+                for tc in data['tool_calls']:
+                    if 'CommandLine' in tc['args']:
+                        cmd = tc['args']['CommandLine']
+                        if 'isVidSrc' in cmd:
+                            with open('extracted_vidsrc.txt', 'a', encoding='utf-8') as out:
+                                out.write("=======\n" + cmd + "\n")
+"@
+$py | python

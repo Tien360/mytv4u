@@ -1,0 +1,105 @@
+$code = @'
+using System;
+using System.IO;
+
+class Program {
+    static void Main() {
+        string path = @"T:\Project\Phim\tv_web_player\MainForm.cs";
+        string content = File.ReadAllText(path);
+        
+        string adBlockerJs = @"
+            string jsAdBlocker = @""
+                (function() {
+                    window.open = function() { return null; };
+                    var style = document.createElement('style');
+                    style.innerHTML = `
+                        .jw-ad, .jw-ad-controls, iframe[src*='ads'], .ad-container, .popunder, [id*='popad'], .ads-banner, [class*='-ad-'] {
+                            display: none !important;
+                            opacity: 0 !important;
+                            pointer-events: none !important;
+                            width: 0 !important;
+                            height: 0 !important;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    var observer = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            mutation.addedNodes.forEach(function(node) {
+                                if (node.tagName === 'IFRAME') {
+                                    if (node.src && (node.src.includes('ads') || node.src.includes('pop') || node.src.includes('bet') || node.src.includes('casino'))) {
+                                        node.remove();
+                                    }
+                                }
+                                if (node.tagName === 'DIV' && node.style && node.style.zIndex > 10000 && node.id !== 'custom-tv-overlay') {
+                                    if (node.innerHTML.includes('Quảng cáo') || node.innerHTML.includes('ads')) {
+                                        node.remove();
+                                    }
+                                }
+                            });
+                        });
+                    });
+                    observer.observe(document.body, { childList: true, subtree: true });
+                })();
+            "";
+            await webView.CoreWebView2.ExecuteScriptAsync(jsAdBlocker);
+";
+
+        if (!content.Contains("var observer = new MutationObserver")) {
+            content = content.Replace("await webView.CoreWebView2.ExecuteScriptAsync(jsAutoSelect4K);", "await webView.CoreWebView2.ExecuteScriptAsync(jsAutoSelect4K);\n" + adBlockerJs);
+            File.WriteAllText(path, content);
+            Console.WriteLine("Injected AdBlocker JS into MainForm.cs");
+        } else {
+            Console.WriteLine("Already injected.");
+        }
+    }
+}
+'@
+Set-Content -Path patch_adblock.cs -Value $code -Encoding UTF8
+
+$content = Get-Content -Path "T:\Project\Phim\tv_web_player\MainForm.cs" -Raw
+$adBlockerJs = @"
+            string jsAdBlocker = @"
+                (function() {
+                    window.open = function() { return null; };
+                    var style = document.createElement('style');
+                    style.innerHTML = `
+                        .jw-ad, .jw-ad-controls, iframe[src*='ads'], .ad-container, .popunder, [id*='popad'], .ads-banner, [class*='-ad-'] {
+                            display: none !important;
+                            opacity: 0 !important;
+                            pointer-events: none !important;
+                            width: 0 !important;
+                            height: 0 !important;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    var observer = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                            mutation.addedNodes.forEach(function(node) {
+                                if (node.tagName === 'IFRAME') {
+                                    if (node.src && (node.src.includes('ads') || node.src.includes('pop') || node.src.includes('bet') || node.src.includes('casino'))) {
+                                        node.remove();
+                                    }
+                                }
+                                if (node.tagName === 'DIV' && node.style && node.style.zIndex > 10000 && node.id !== 'custom-tv-overlay') {
+                                    if (node.innerHTML.includes('Quảng cáo') || node.innerHTML.includes('ads') || node.innerHTML.includes('Sponsor')) {
+                                        node.remove();
+                                    }
+                                }
+                            });
+                        });
+                    });
+                    if (document.body) observer.observe(document.body, { childList: true, subtree: true });
+                })();
+            ";
+            await webView.CoreWebView2.ExecuteScriptAsync(jsAdBlocker);
+"@
+if (-not $content.Contains("var observer = new MutationObserver")) {
+    $content = $content.Replace("await webView.CoreWebView2.ExecuteScriptAsync(jsAutoSelect4K);", "await webView.CoreWebView2.ExecuteScriptAsync(jsAutoSelect4K);`r`n$adBlockerJs")
+    Set-Content -Path "T:\Project\Phim\tv_web_player\MainForm.cs" -Value $content -Encoding UTF8
+    Write-Host "Injected AdBlocker JS into MainForm.cs"
+} else {
+    Write-Host "Already injected."
+}
+

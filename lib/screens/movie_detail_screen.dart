@@ -7,9 +7,13 @@ import 'dart:convert';
 import 'dart:math';
 import '../globals.dart';
 import 'package:flutter/material.dart';
-import 'movie_detail_screen_test.dart';
+import 'package:palette_generator/palette_generator.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 import '../utils/l10n.dart';
+import '../utils/location_helper.dart';
 import 'package:flutter/services.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -27,6 +31,7 @@ import 'player_screen.dart';
 import '../widgets/glass_search_bar.dart';
 import '../utils/ui_utils.dart';
 import '../widgets/glass_container.dart';
+import '../widgets/air_schedule_dialog.dart';
 import '../widgets/custom_title_bar.dart';
 import '../widgets/next_episode_tracker.dart';
 import 'actor_detail_screen.dart';
@@ -60,6 +65,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   bool _isFetchingPremiumMeta = false;
   Movie? _movie;
   bool _isLoading = true;
+  Color _dominantColor = Colors.redAccent;
+  final Map<String, double> _episodeProgressMap = {};
   StreamSubscription<Movie>? _movieSubscription;
 
   // Trailer state
@@ -126,8 +133,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   @override
   void initState() {
     super.initState();
-    if (useTestDetailUi.value) return;
-    
     _loadSettings();
     _fetchDetail();
     
@@ -233,10 +238,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
 
   @override
   void dispose() {
-    if (useTestDetailUi.value) {
-      super.dispose();
-      return;
-    }
     _movieSubscription?.cancel();
     _autoPlayTimer?.cancel();
     _trailerServer?.close(force: true);
@@ -433,6 +434,10 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     if (audio.isNotEmpty && audio != 'Unknown') parts.add(audio);
     
     return parts.join(' ');
+  }
+  Future<void> _loadEpisodeProgressAndColor() async {
+    // No longer using PaletteGenerator to extract color.
+    // Default color is already Colors.redAccent.
   }
 
   void _fetchDetail() {
@@ -962,9 +967,9 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           if (maxChunks > 1) ...[
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
+            Wrap(
+                spacing: 8.0,
+                runSpacing: 8.0,
                 children: List.generate(maxChunks, (chunkIdx) {
                   final s = chunkIdx * chunkSize + 1;
                   final e = (chunkIdx * chunkSize + chunkSize > items.length) ? items.length : chunkIdx * chunkSize + chunkSize;
@@ -989,9 +994,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       ),
                     ),
                   );
-                }),
+                  }),
               ),
-            ),
           ],
           Wrap(
             spacing: 12,
@@ -1013,11 +1017,15 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               }
 
               return HoverEpisodeButton(
-                text: dispName,
+                  text: dispName,
+                  progress: _episodeProgressMap[ep.name] ?? 0.0,
+                  episodeKey: 'continue_${_movie!.name}_${ep.name}',
+                  durationKey: 'continue_duration_${_movie!.name}_${ep.name}',
+                  progressColor: _dominantColor,
                 onTap: () async {
                   _pauseTrailer();
                   FirebaseApi.saveContinueWatching(_movie!, ep.name);
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (_) => PlayerScreen(
@@ -1028,6 +1036,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                       ),
                     ),
                   );
+                  _loadEpisodeProgressAndColor();
+                    if (mounted) setState(() {});
                 },
               );
             }).toList(),
@@ -1121,7 +1131,7 @@ const SizedBox(height: 24),
                     FirebaseApi.saveContinueWatching(_movie!, ep.name);
                     final index = _currentServer!.items.indexOf(ep);
                     final seasonEpMatch = RegExp(r'S(\d+)E(\d+)').firstMatch(ep.slug);
-                    Navigator.push(
+                    await Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (_) => PlayerScreen(
@@ -1134,24 +1144,37 @@ const SizedBox(height: 24),
                         ),
                       ),
                     );
+                    _loadEpisodeProgressAndColor();
+                    if (mounted) setState(() {});
                   }
                 },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    color: isActive
-                        ? Colors.blueAccent
-                        : Colors.white.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    ep.name,
-                    style: TextStyle(
-                      color: isActive ? Colors.white : Colors.white70,
-                    ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8),
+                  child: Stack(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: isActive ? Colors.blueAccent : Colors.white.withOpacity(0.1),
+                        ),
+                        child: Text(
+                          ep.name,
+                          style: TextStyle(color: isActive ? Colors.white : Colors.white70),
+                        ),
+                      ),
+                      if ((_episodeProgressMap[ep.name] ?? 0.0) > 0)
+                        Positioned(
+                          bottom: 0, left: 0, right: 0,
+                          child: Container(
+                            height: 3,
+                            alignment: Alignment.centerLeft,
+                            child: FractionallySizedBox(
+                              widthFactor: (_episodeProgressMap[ep.name] ?? 0.0).clamp(0.0, 1.0),
+                              child: Container(color: _dominantColor),
+                            ),
+                          ),
+                        ),
+                    ],
                   ),
                 ),
               );
@@ -1184,8 +1207,10 @@ const SizedBox(height: 24),
                 final idx = entry.key;
                 final stream = entry.value;
                 return HoverEpisodeButton(
-                  text: stream.name,
-                  onTap: () async {
+                text: stream.name,
+                progress: _episodeProgressMap['${_selectedP2pEpisode!.slug} - ${stream.name}'] ?? 0.0,
+                progressColor: _dominantColor,
+                onTap: () async {
                     _pauseTrailer();
                     FirebaseApi.saveContinueWatching(
                       _movie!,
@@ -1299,252 +1324,19 @@ const SizedBox(height: 24),
     );
   }
 
-    void _showAirScheduleModal() {
+      void _showAirScheduleModal() {
     showDialog(
       context: context,
       builder: (context) {
-        return Dialog(
-          backgroundColor: Colors.transparent,
-          insetPadding: const EdgeInsets.all(24),
-          child: ConstrainedBox(
-            constraints: const BoxConstraints(maxHeight: 650),
-            child: GlassContainer(
-              width: 800,
-              borderRadius: 20,
-              color: const Color(0xFF141414).withOpacity(0.8),
-              borderColor: Colors.white.withOpacity(0.1),
-              blur: 40.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Header
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(30, 24, 24, 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(Icons.calendar_month_outlined, color: Color(0xFFF59E0B), size: 28),
-                            const SizedBox(width: 14),
-                            Text(
-                              L10n.t('air_schedule') ?? 'Lịch phát sóng',
-                              style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold, letterSpacing: 0.5),
-                            ),
-                          ],
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.close, color: Colors.white70),
-                          onPressed: () => Navigator.pop(context),
-                          hoverColor: Colors.white10,
-                          splashRadius: 24,
-                        ),
-                      ],
-                    ),
-                  ),
-                  const Divider(color: Colors.white10, height: 1, indent: 30, endIndent: 30),
-                  
-                  // Content
-                  Expanded(
-                    child: FutureBuilder<List<dynamic>>(
-                      future: _fetchAirSchedule(),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return const Center(child: CircularProgressIndicator(color: Color(0xFFF59E0B)));
-                        }
-                        if (snapshot.hasError || !snapshot.hasData || snapshot.data!.isEmpty) {
-                          return Center(
-                            child: Text(
-                              L10n.t('no_schedule_found') ?? 'Chưa có thông tin lịch chiếu từ TMDB.',
-                              style: const TextStyle(color: Colors.white54, fontSize: 16),
-                            ),
-                          );
-                        }
-  
-                        final firstItem = snapshot.data!.first;
-                        if (firstItem is Map && firstItem.containsKey('error')) {
-                          return Center(
-                            child: Text(
-                              firstItem['error'],
-                              style: const TextStyle(color: Colors.redAccent, fontSize: 16),
-                            ),
-                          );
-                        }
-                        
-                        return ListView.builder(
-                          padding: const EdgeInsets.all(30),
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (context, index) {
-                            final ep = snapshot.data![index];
-                            final name = ep['name'] ?? 'Tập ${ep['episode_number']}';
-                            final overview = ep['overview'] ?? '';
-                            final airDateStr = ep['air_date'] ?? '';
-                            String formattedDate = airDateStr;
-                            try {
-                              if (airDateStr.isNotEmpty) {
-                                final date = DateTime.parse(airDateStr);
-                                formattedDate = '${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}';
-                              }
-                            } catch (_) {}
-                            
-                            final stillPath = ep['still_path'];
-                            final thumbUrl = TmdbApi.getImageUrl(stillPath);
-                            final bool hasPassed = airDateStr.isNotEmpty && DateTime.parse(airDateStr).isBefore(DateTime.now());
-  
-                            return Container(
-                              margin: const EdgeInsets.only(bottom: 20),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withOpacity(0.3),
-                                borderRadius: BorderRadius.circular(16),
-                                border: Border.all(color: Colors.white.withOpacity(0.03)),
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Thumbnail
-                                  ClipRRect(
-                                    borderRadius: const BorderRadius.horizontal(left: Radius.circular(16)),
-                                    child: SizedBox(
-                                      width: 200,
-                                      height: 120,
-                                      child: thumbUrl.isNotEmpty
-                                          ? Image.network(
-                                              thumbUrl,
-                                              fit: BoxFit.cover,
-                                              errorBuilder: (_, __, ___) => _buildFallbackThumb(),
-                                            )
-                                          : _buildFallbackThumb(),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 24),
-                                  // Info
-                                  Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.fromLTRB(0, 20, 20, 20),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  'Tập ${ep['episode_number']}: $name',
-                                                  style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 17),
-                                                  maxLines: 1, overflow: TextOverflow.ellipsis,
-                                                ),
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                                                decoration: BoxDecoration(
-                                                  color: hasPassed ? const Color(0xFFF59E0B).withOpacity(0.15) : Colors.white.withOpacity(0.1),
-                                                  borderRadius: BorderRadius.circular(6),
-                                                  border: Border.all(color: hasPassed ? const Color(0xFFF59E0B).withOpacity(0.3) : Colors.white.withOpacity(0.1)),
-                                                ),
-                                                child: Text(
-                                                  hasPassed ? 'Đã chiếu' : 'Sắp chiếu',
-                                                  style: TextStyle(
-                                                    color: hasPassed ? const Color(0xFFF59E0B) : Colors.white70, 
-                                                    fontSize: 12, fontWeight: FontWeight.w600, letterSpacing: 0.3
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Row(
-                                            children: [
-                                              const Icon(Icons.access_time_rounded, color: Colors.white54, size: 15),
-                                              const SizedBox(width: 6),
-                                              Text(
-                                                '${L10n.t('air_date') ?? 'Ngày chiếu'}: $formattedDate',
-                                                style: const TextStyle(color: Colors.white70, fontSize: 13),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 12),
-                                          if (overview.isNotEmpty)
-                                            Text(
-                                              overview,
-                                              style: const TextStyle(color: Colors.white54, fontSize: 13, height: 1.5),
-                                              maxLines: 2, overflow: TextOverflow.ellipsis,
-                                            ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        );
-      }
+        return AirScheduleDialog(tmdbDetails: _tmdbDetails!);
+      },
     );
-  }
-
-  Widget _buildFallbackThumb() {
-    return Container(
-      color: Colors.black26,
-      child: const Center(
-        child: Icon(Icons.movie, color: Colors.white24, size: 32),
-      ),
-    );
-  }
-
-      Future<List<dynamic>> _fetchAirSchedule() async {
-    try {
-      final tmdbId = _tmdbDetails != null ? int.tryParse(_tmdbDetails!['id']?.toString() ?? '') : null;
-      if (tmdbId == null) return [{'error': 'Không tìm thấy ID TMDB của phim.'}];
-      
-      List? seasons = _tmdbDetails!['seasons'] as List?;
-      if (seasons == null || seasons.isEmpty) {
-        final seriesDetails = await TmdbApi.getTvDetails(tmdbId, L10n.currentLang);
-        if (seriesDetails != null) {
-          seasons = seriesDetails['seasons'] as List?;
-        }
-      }
-
-      if (seasons == null || seasons.isEmpty) return [{'error': 'Phim không có thông tin các phần (Seasons).'}];
-
-      dynamic currentSeason;
-      for (var s in seasons.reversed) {
-        if (s['season_number'] > 0) {
-          currentSeason = s;
-          break;
-        }
-      }
-      
-      if (currentSeason == null) return [{'error': 'Phim chưa có phần nào hợp lệ.'}];
-
-      final eps = await TmdbApi.getSeasonEpisodes(tmdbId, currentSeason['season_number'], L10n.currentLang);
-      if (eps.isEmpty) {
-        return [{'error': 'Phần ${currentSeason['season_number']} chưa có thông tin tập phim.'}];
-      }
-      return eps;
-    } catch (e) {
-      return [{'error': 'Lỗi xử lý: $e'}];
-    }
   }
 
 
 
   @override
   Widget build(BuildContext context) {
-    if (useTestDetailUi.value) {
-      return MovieDetailScreenTest(
-        slug: widget.slug,
-        heroTag: widget.heroTag,
-        initialMovie: widget.initialMovie,
-      );
-    }
 
     if (_isLoading) {
       return Scaffold(
@@ -1617,13 +1409,7 @@ const SizedBox(height: 24),
           ),
 
           // 1. Background Media (Banner / Trailer)
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeInOut,
-            top: 0,
-            left: 0,
-            right: 0,
-            height: currentBannerHeight,
+          Positioned.fill(
             child: Stack(
               children: [
                 Positioned.fill(
@@ -1655,6 +1441,31 @@ const SizedBox(height: 24),
                     ],
                   ),
                 ),
+                if (!(_showInlineTrailer && _isWebviewInitialized) && hasBackdrop)
+                  Positioned.fill(
+                    child: ShaderMask(
+                      shaderCallback: (bounds) {
+                        return const LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Colors.transparent,
+                            Colors.white,
+                          ],
+                          stops: [0.35, 0.7], // Smooth transition
+                        ).createShader(bounds);
+                      },
+                      blendMode: BlendMode.dstIn,
+                      child: ImageFiltered(
+                        imageFilter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0), // Very light blur
+                        child: CachedNetworkImage(
+                          imageUrl: heroImage,
+                          fit: BoxFit.cover,
+                          alignment: Alignment.topCenter,
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -1844,11 +1655,23 @@ const SizedBox(height: 24),
                                                   _movie!.quality,
                                                   Colors.greenAccent,
                                                 ),
-                                              if (_getAgeRating() != null)
-                                                _buildBadge(
-                                                  _getAgeRating()!,
-                                                  ['R', 'NC-17', 'TV-MA', '18+'].contains(_getAgeRating()) ? Colors.redAccent : Colors.orangeAccent,
-                                                ),
+                                                                                              if (_getAgeRating() != null)
+                                                  Tooltip(
+                                                    message: _getAgeRatingExplanation(_getAgeRating()!) ?? '',
+                                                    textStyle: const TextStyle(color: Colors.white, fontSize: 13, height: 1.4),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black.withValues(alpha: 0.85),
+                                                      borderRadius: BorderRadius.circular(8),
+                                                      border: Border.all(color: Colors.white24),
+                                                    ),
+                                                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                                                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                                                    triggerMode: TooltipTriggerMode.tap,
+                                                    child: _buildBadge(
+                                                      _getAgeRating()!,
+                                                      ['R', 'NC-17', 'TV-MA', '18+', 'T18', 'C18'].contains(_getAgeRating()) ? Colors.redAccent : Colors.orangeAccent,
+                                                    ),
+                                                  ),
                                             _buildBadgeIcon(
                                               Icons.layers,
                                               episodeText,
@@ -2651,6 +2474,7 @@ if (_easterEggsEnabled && _tmdbDetails!['budget'] != null && _tmdbDetails!['budg
                 ),
               ),
             ),
+
           ),
 
           // Custom Window Controls (Title Bar)
@@ -2682,44 +2506,115 @@ if (_easterEggsEnabled && _tmdbDetails!['budget'] != null && _tmdbDetails!['budg
                 ),
               ),
             ),
+
         ],
       ),
     );
   }
 
   
+  String? _getAgeRatingExplanation(String rating) {
+    final r = rating.toUpperCase().trim();
+    
+    // VN
+    if (r == 'P') return L10n.t('rating_p') ?? 'Phim phổ biến đến mọi độ tuổi.';
+    if (r == 'K') return L10n.t('rating_k') ?? 'Trẻ dưới 13 tuổi cần xem cùng người giám hộ.';
+    if (r == 'C13' || r == 'T13') return L10n.t('rating_t13') ?? 'Chỉ dành cho khán giả từ đủ 13 tuổi trở lên.';
+    if (r == 'C16' || r == 'T16') return L10n.t('rating_t16') ?? 'Chỉ dành cho khán giả từ đủ 16 tuổi trở lên.';
+    if (r == 'C18' || r == 'T18') return L10n.t('rating_t18') ?? 'Chỉ dành cho khán giả từ đủ 18 tuổi trở lên (Chứa nội dung nhạy cảm/bạo lực).';
+    if (r == 'C') return 'Phim cấm phổ biến.';
+
+    // US Movies
+    if (r == 'G') return L10n.t('rating_g') ?? 'Mọi lứa tuổi (Không chứa yếu tố nhạy cảm).';
+    if (r == 'PG') return L10n.t('rating_pg') ?? 'Trẻ em cần sự hướng dẫn của cha mẹ.';
+    if (r == 'PG-13') return L10n.t('rating_pg13') ?? 'Cảnh báo trẻ dưới 13 tuổi (Có bạo lực hoặc yếu tố nhạy cảm nhẹ).';
+    if (r == 'R') return L10n.t('rating_r') ?? 'Dành cho người trưởng thành. Trẻ dưới 17 tuổi cần cha mẹ đi cùng.';
+    if (r == 'NC-17') return L10n.t('rating_nc17') ?? 'Nghiêm cấm trẻ em dưới 17 tuổi.';
+
+    // US TV
+    if (r == 'TV-Y') return L10n.t('rating_tv_y') ?? 'Mọi trẻ em.';
+    if (r == 'TV-Y7') return L10n.t('rating_tv_y7') ?? 'Trẻ em từ 7 tuổi trở lên.';
+    if (r == 'TV-G') return L10n.t('rating_tv_g') ?? 'Mọi lứa tuổi.';
+    if (r == 'TV-PG') return L10n.t('rating_tv_pg') ?? 'Cần sự hướng dẫn của phụ huynh.';
+    if (r == 'TV-14') return L10n.t('rating_tv_14') ?? 'Dành cho người từ 14 tuổi trở lên.';
+    if (r == 'TV-MA') return L10n.t('rating_tv_ma') ?? 'Chỉ dành cho khán giả trưởng thành (Chứa bạo lực mạnh, tình dục hoặc ngôn từ thô tục).';
+
+    // Generic Numbers like 12, 15, 18, 18+
+    final match = RegExp(r'^(\d+)\+?$').firstMatch(r);
+    if (match != null) {
+      return (L10n.t('rating_age_plus') ?? 'Dành cho khán giả từ {age} tuổi trở lên.').replaceAll('{age}', match.group(1)!);
+    }
+    
+    // Default
+    return (L10n.t('rating_default') ?? 'Ký hiệu độ tuổi: {rating}').replaceAll('{rating}', rating);
+  }
+
   String? _getAgeRating() {
     if (_tmdbDetails == null) return null;
     
-    // TV Shows
-    if (_tmdbDetails!['content_ratings'] != null && _tmdbDetails!['content_ratings']['results'] != null) {
-      final results = _tmdbDetails!['content_ratings']['results'] as List;
-      var usRating = results.firstWhere((r) => r['iso_3166_1'] == 'US', orElse: () => null);
-      if (usRating != null && usRating['rating'] != null && usRating['rating'].toString().isNotEmpty) {
-        return usRating['rating'].toString();
-      }
-      for (var r in results) {
-        if (r['rating'] != null && r['rating'].toString().isNotEmpty) return r['rating'].toString();
-      }
+    String userCountry = LocationHelper.userCountry;
+    String? originCountry;
+    if (_tmdbDetails!['origin_country'] != null && (_tmdbDetails!['origin_country'] as List).isNotEmpty) {
+      originCountry = _tmdbDetails!['origin_country'][0].toString();
     }
-    
-    // Movies
-    if (_tmdbDetails!['release_dates'] != null && _tmdbDetails!['release_dates']['results'] != null) {
-      final results = _tmdbDetails!['release_dates']['results'] as List;
-      var usRating = results.firstWhere((r) => r['iso_3166_1'] == 'US', orElse: () => null);
-      if (usRating != null && usRating['release_dates'] != null) {
-        for (var d in usRating['release_dates']) {
-          if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+
+    String? findRating(String countryCode) {
+      // TV Shows
+      if (_tmdbDetails!['content_ratings'] != null && _tmdbDetails!['content_ratings']['results'] != null) {
+        final results = _tmdbDetails!['content_ratings']['results'] as List;
+        var rMatch = results.firstWhere((r) => r['iso_3166_1'] == countryCode, orElse: () => null);
+        if (rMatch != null && rMatch['rating'] != null && rMatch['rating'].toString().isNotEmpty) {
+          return rMatch['rating'].toString();
         }
       }
-      for (var r in results) {
-        if (r['release_dates'] != null) {
-          for (var d in r['release_dates']) {
-             if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+      
+      // Movies
+      if (_tmdbDetails!['release_dates'] != null && _tmdbDetails!['release_dates']['results'] != null) {
+        final results = _tmdbDetails!['release_dates']['results'] as List;
+        var rMatch = results.firstWhere((r) => r['iso_3166_1'] == countryCode, orElse: () => null);
+        if (rMatch != null && rMatch['release_dates'] != null) {
+          for (var d in rMatch['release_dates']) {
+            if (d['certification'] != null && d['certification'].toString().isNotEmpty) {
+              return d['certification'].toString();
+            }
           }
         }
       }
+      return null;
     }
+
+    // Ưu tiên 1: Quốc gia của người xem (theo IP)
+    String? rating = findRating(userCountry);
+    if (rating != null) return rating;
+
+    // Ưu tiên 2: Quốc gia gốc của phim (Hàn Quốc, Nhật Bản...)
+    if (originCountry != null) {
+      rating = findRating(originCountry);
+      if (rating != null) return rating;
+    }
+
+    // Ưu tiên 3: Fallback về Mỹ
+    rating = findRating('US');
+    if (rating != null) return rating;
+
+    // Ưu tiên 4: Lấy bừa nhãn đầu tiên có thể tìm thấy nếu tất cả đều thất bại
+    if (_tmdbDetails!['content_ratings'] != null && _tmdbDetails!['content_ratings']['results'] != null) {
+        final results = _tmdbDetails!['content_ratings']['results'] as List;
+        for (var r in results) {
+          if (r['rating'] != null && r['rating'].toString().isNotEmpty) return r['rating'].toString();
+        }
+    }
+    if (_tmdbDetails!['release_dates'] != null && _tmdbDetails!['release_dates']['results'] != null) {
+        final results = _tmdbDetails!['release_dates']['results'] as List;
+        for (var r in results) {
+          if (r['release_dates'] != null) {
+            for (var d in r['release_dates']) {
+               if (d['certification'] != null && d['certification'].toString().isNotEmpty) return d['certification'].toString();
+            }
+          }
+        }
+    }
+    
     return null;
   }
 
@@ -3715,11 +3610,19 @@ class _HoverPosterState extends State<HoverPoster> {
 class HoverEpisodeButton extends StatefulWidget {
   final String text;
   final VoidCallback onTap;
+  final double progress;
+  final Color progressColor;
+  final String? episodeKey;
+  final String? durationKey;
 
   const HoverEpisodeButton({
     super.key,
     required this.text,
     required this.onTap,
+    this.progress = 0.0,
+    this.progressColor = Colors.redAccent,
+    this.episodeKey,
+    this.durationKey,
   });
 
   @override
@@ -3728,6 +3631,47 @@ class HoverEpisodeButton extends StatefulWidget {
 
 class _HoverEpisodeButtonState extends State<HoverEpisodeButton> {
   bool _isHovered = false;
+  double _localProgress = 0.0;
+
+  @override
+  void initState() {
+    super.initState();
+    _localProgress = widget.progress;
+    _loadDirectProgress();
+  }
+
+  @override
+  void didUpdateWidget(covariant HoverEpisodeButton oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Always reload because the parent might have called setState after returning from PlayerScreen
+    // where the underlying SharedPreferences data changed but the widget properties (keys) didn't.
+    _localProgress = widget.progress;
+    _loadDirectProgress();
+  }
+
+  Future<void> _loadDirectProgress() async {
+    if (widget.episodeKey == null) return;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final posMs = prefs.getInt(widget.episodeKey!) ?? 0;
+      if (posMs > 0) {
+        int durMs = 0;
+        if (widget.durationKey != null) {
+          durMs = prefs.getInt(widget.durationKey!) ?? 0;
+        }
+        double fraction = 0.05;
+        if (durMs > 0) {
+          fraction = (posMs / durMs).clamp(0.0, 1.0);
+        }
+        if (fraction > 0 && fraction < 0.05) fraction = 0.05;
+        if (mounted) {
+          setState(() {
+            _localProgress = fraction;
+          });
+        }
+      }
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -3739,63 +3683,58 @@ class _HoverEpisodeButtonState extends State<HoverEpisodeButton> {
         onTap: widget.onTap,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: isMinimalistUi.value 
-            ? AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                decoration: BoxDecoration(
-                  color: _isHovered
-                      ? const Color(0xFF2A2A2A)
-                      : const Color(0xFF1E1E1E),
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
+          child: Stack(
+            children: [
+              isMinimalistUi.value 
+                ? AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    decoration: BoxDecoration(
+                      color: _isHovered
+                          ? const Color(0xFF2A2A2A)
+                          : const Color(0xFF1E1E1E),
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: _isHovered
+                            ? Colors.white.withOpacity(0.5)
+                            : Colors.white.withOpacity(0.1),
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Text(
+                      widget.text,
+                      style: TextStyle(
+                        color: _isHovered ? Colors.white : Colors.white70,
+                        fontWeight: _isHovered ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  )
+                : AnimatedContainer(
+                    duration: const Duration(milliseconds: 200),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     color: _isHovered
-                        ? Colors.white.withOpacity(0.5)
-                        : Colors.white.withOpacity(0.1),
+                        ? Colors.white.withOpacity(0.1)
+                        : Colors.white.withOpacity(0.05),
+                    child: Text(
+                      widget.text,
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+              if (_localProgress > 0)
+                Positioned(
+                  bottom: 0, left: 0, right: 0,
+                  child: Container(
+                    height: 3,
+                    alignment: Alignment.centerLeft,
+                    child: FractionallySizedBox(
+                      widthFactor: _localProgress.clamp(0.0, 1.0),
+                      child: Container(color: widget.progressColor),
+                    ),
                   ),
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                child: Text(
-                  widget.text,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 14,
-                  ),
-                ),
-              )
-            : BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              decoration: BoxDecoration(
-                color: _isHovered
-                    ? Colors.white.withOpacity(0.2)
-                    : Colors.white.withOpacity(0.08),
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  color: _isHovered
-                      ? Colors.white.withOpacity(0.5)
-                      : Colors.white.withOpacity(0.15),
-                  width: 1,
-                ),
-              ),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 12,
-                ),
-                child: Text(
-                  widget.text,
-                  style: TextStyle(
-                    color: _isHovered ? Colors.white : Colors.white70,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            ),
+            ],
           ),
         ),
+      ),
     );
   }
 }
@@ -3890,6 +3829,7 @@ class _HoverServerTabState extends State<HoverServerTab> {
                 ),
               ),
             ),
+
           ),
         ),
       ),
@@ -4290,7 +4230,7 @@ class _TmdbHorizontalListState extends State<TmdbHorizontalList> {
         children: [
           const SizedBox(height: 32),
           Text(
-            widget.title,
+                                '${widget.title}',
             style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -4400,4 +4340,6 @@ class _TmdbHorizontalListState extends State<TmdbHorizontalList> {
     );
   }
 }
+
+
 

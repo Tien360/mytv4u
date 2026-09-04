@@ -1,0 +1,611 @@
+=======
+curl -s "https://vidsrc.sbs/embed/movie/533535" | findstr "iframe src"
+=======
+python -c "import urllib.request; print(urllib.request.urlopen('https://vidsrc.sbs/embed/movie/533535').read().decode('utf-8'))" > vidsrc.html
+=======
+curl -sI "https://vidsrc.sbs/embed/movie/tt5311514"
+=======
+curl.exe -sI "https://vidsrc.sbs/embed/movie/tt5311514"
+=======
+curl.exe -sI "https://vidsrc.sbs/embed/movie/tt0111161" ; curl.exe -sI "https://vidsrc.sbs/embed/movie/278"
+=======
+curl.exe -sI "https://vidsrc.net/embed/movie?imdb=tt0111161" ; curl.exe -sI "https://vidsrc.to/embed/movie/tt0111161" ; curl.exe -sI "https://vidsrc.xyz/embed/movie/tt0111161" ; curl.exe -sI "https://vidsrc.in/embed/movie/tt0111161"
+=======
+curl.exe -sI "https://vidsrc.sbs/embed/movie?imdb=tt0111161"
+=======
+curl.exe -sI "https://vidsrc.xyz/embed/tv?imdb=tt0944947"
+=======
+curl.exe -sI "https://vidsrc.sbs/embed/tv/1399/1/1"
+=======
+Get-Content lib/api/phim_api.dart | Select-String "vidsrc.net" -Context 15,15
+=======
+curl -I -s "https://vidsrc.sbs/embed/movie/tt10872600?sub=vi"
+=======
+curl.exe -I -s "https://vidsrc.sbs/embed/movie/tt10872600?sub=vi"
+=======
+curl.exe -I -s "https://vidsrc.sbs/embed/movie/tt10872600"
+=======
+Get-Content lib/api/phim_api.dart | Select-String "vidsrc.sbs" -Context 2,2
+=======
+curl.exe -I -s "https://vidsrc.sbs/embed/movie/634649?sub=vi"
+=======
+curl.exe -I -s "https://vidsrc.sbs/embed/movie/634649/?sub=vi"
+=======
+curl.exe -s "https://vidsrc.sbs/embed/movie/634649"
+=======
+curl.exe -s -L "https://vidsrc.sbs/embed/movie/634649/"
+=======
+cat lib/screens/player_screen.dart | grep vidsrc
+=======
+findstr /I "vidsrc" lib/api/phim_api.dart lib/screens/player_screen.dart
+=======
+Select-String -Path lib/api/phim_api.dart -Pattern "vidsrc"
+=======
+curl -s "https://vidsrc.sbs/movie/634649" -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36" | Select-String "iframe"
+=======
+curl.exe -s "https://vidsrc.sbs/movie/634649" -H "User-Agent: Mozilla/5.0" | findstr "iframe"
+=======
+Select-String -Path "T:\Project\Phim\mytv4u_flutter\lib\api\phim_api.dart" -Pattern "fetchVidSrc" -Context 0,20
+=======
+Select-String -Path "T:\Project\Phim\mytv4u_flutter\lib\api\phim_api.dart" -Pattern "vidsrc" -Context 0,2
+=======
+dart run tools/release.dart 26.08.12.c.beta "- Tự động tắt Trailer khi chọn tập phim.`n- Phân chia mùa (Season) thông minh cho các nguồn phim như VidSrc, VidAPI."
+=======
+gh release create 26.08.12.c.beta Releases\v26.08.12.c.beta\MyTV4U_Setup_26.08.12.c.beta.exe --title "Phiên bản 26.08.12.c.beta" --notes "- Tự động tắt Trailer khi chọn tập phim.`n- Phân chia mùa (Season) thông minh cho các nguồn phim như VidSrc, VidAPI." --prerelease
+=======
+Get-Content "T:\Project\Phim\mytv4u_flutter\lib\api\phim_api.dart" | Select-String "vidsrc" -Context 2,2
+=======
+dotnet run -c Release -- "https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720" "tt0137523"
+=======
+dotnet build -c Release; .\bin\Release\net8.0-windows\tv_web_player.exe "https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720" "tt0137523"
+=======
+Remove-Item -Path "T:\Project\Phim\tv_web_player\debug_init.txt" -ErrorAction SilentlyContinue; .\bin\Release\net8.0-windows\tv_web_player.exe "https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720" "tt0137523"
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720" "tt0137523"' -PassThru; Start-Sleep -Seconds 2; $p.HasExited
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720" "tt0137523"' -PassThru; Start-Sleep -Seconds 3; Get-Content "T:\Project\Phim\tv_web_player\debug_init.txt"; Stop-Process -Id $p.Id -Force
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720" "tt0137523"' -PassThru; Start-Sleep -Seconds 3; Stop-Process -Id $p.Id -Force
+=======
+dart run tools/release.dart 26.08.12.d.beta "- Bỏ chặn popup trong tv_web_player để hỗ trợ autoplay các web player như VidSrc.`n- Thêm auto-click để tự động kích hoạt web player video ngay khi load trang.`n- Đặt Custom User-Agent chuẩn cho tv_web_player để tránh bị block.`n- Sửa lỗi văng app (crash) khi bấm vào tập phim do xung đột của webview trailer."
+=======
+& "C:\Program Files\GitHub CLI\gh.exe" release create 26.08.12.d.beta "T:\Project\Phim\mytv4u_flutter\Releases\v26.08.12.d.beta\MyTV4U_Setup_26.08.12.d.beta.exe" --title "Phiên bản 26.08.12.d.beta" --notes "- Bỏ chặn popup trong tv_web_player để hỗ trợ autoplay các web player như VidSrc.`n- Thêm auto-click để tự động kích hoạt web player video ngay khi load trang.`n- Đặt Custom User-Agent chuẩn cho tv_web_player để tránh bị block.`n- Sửa lỗi văng app (crash) khi bấm vào tập phim do xung đột của webview trailer." --prerelease
+=======
+$body = @{
+    fields = @{
+        latest_version = @{ stringValue = "26.08.12.d.beta" }
+        download_url = @{ stringValue = "https://github.com/Tien360/mytv4u/releases/download/26.08.12.d.beta/MyTV4U_Setup_26.08.12.d.beta.exe" }
+        release_notes = @{ stringValue = "- Bỏ chặn popup trong tv_web_player để hỗ trợ autoplay các web player như VidSrc.`n- Thêm auto-click để tự động kích hoạt web player video ngay khi load trang.`n- Đặt Custom User-Agent chuẩn cho tv_web_player để tránh bị block.`n- Sửa lỗi văng app (crash) khi bấm vào tập phim do xung đột của webview trailer." }
+        is_force_update = @{ booleanValue = $true }
+    }
+} | ConvertTo-Json -Depth 5
+Invoke-RestMethod -Uri "https://firestore.googleapis.com/v1/projects/tv4u-ec4ae/databases/(default)/documents/updates/beta" -Method Patch -Body $body -ContentType "application/json; charset=UTF-8"
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/tv/tt11198330/3/8" "Gia Tộc Rồng - Mùa 3 - Tập 8" "-1" "-1" "1280" "720"' -PassThru; Start-Sleep -Seconds 4; Stop-Process -Id $p.Id -Force; Get-Content "T:\Project\Phim\tv_web_player\dump.html"
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720"' -PassThru; Start-Sleep -Seconds 15; Stop-Process -Id $p.Id -Force; Get-Content "T:\Project\Phim\tv_web_player\dump.html"
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720"' -PassThru; Start-Sleep -Seconds 6; Stop-Process -Id $p.Id -Force; Get-Content "T:\Project\Phim\tv_web_player\dump.html"
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/tv/tt11198330/3/8" "Gia Tộc Rồng - Mùa 3 - Tập 8" "-1" "-1" "1280" "720"' -PassThru; Start-Sleep -Seconds 6; Stop-Process -Id $p.Id -Force; Get-Content "T:\Project\Phim\tv_web_player\dump.html"
+=======
+Get-Content "T:\Project\Phim\mytv4u_flutter\lib\api\phim_api.dart" | Select-String "vidsrc" -Context 3,15
+=======
+curl -I "https://vidsrc.sbs/embed/tv/94997/3/8"
+=======
+$p = Start-Process -FilePath "T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe" -ArgumentList '"https://vidsrc.sbs/embed/movie/550" "Fight Club" "-1" "-1" "1280" "720"' -PassThru; Start-Sleep -Seconds 6; Stop-Process -Id $p.Id -Force; Get-Content "T:\Project\Phim\tv_web_player\dump.html" -Tail 20
+=======
+curl -I "https://vidsrc.sbs/embed/tv/1399/8/3"
+=======
+curl -I https://vidsrc.net/embed/tv/94997/2/8
+=======
+curl -I https://vidsrc.me/embed/tv/94997/2/8
+=======
+dart run tools/release.dart 26.08.12.a.beta "Khắc phục lỗi màn hình đen trên trình phát VidSrc."
+=======
+dart run tools/release.dart 26.08.12.e.beta "Khắc phục lỗi màn hình đen VidSrc (Cloudflare block)"
+=======
+gh release create 26.08.12.e.beta "Releases\v26.08.12.e.beta\MyTV4U_Setup_26.08.12.e.beta.exe" -t "26.08.12.e.beta" -n "Khắc phục lỗi màn hình đen VidSrc (Cloudflare block)" --prerelease
+=======
+Select-String -Pattern "vidsrc|embedUrl|_initEpisode|_currentUrl|webview|isUsingWebview" -Path "lib\screens\player_screen.dart" | Select-Object LineNumber, Line | Format-Table -AutoSize | Out-String -Width 300
+=======
+Invoke-WebRequest -Uri "https://vidsrc.sbs/embed/movie/tt0468569" -Method Head -UseBasicParsing 2>&1 | Select-Object -First 5
+=======
+Select-String -Pattern "vidsrc.sbs|vidsrc\.sbs" -Path "lib\api\phim_api.dart" | Select-Object LineNumber, Line | Format-Table -AutoSize | Out-String -Width 300
+=======
+dart run tools/release.dart 26.08.12.g.beta "Sua loi VidSrc man hinh xam (doi domain vidsrc.sbs sang vidsrcme.ru)"
+=======
+Invoke-WebRequest -Uri "https://vidsrc.sbs/embed/movie/533535" -Method Head -UseBasicParsing 2>&1 | Select-Object StatusCode, StatusDescription
+=======
+gh release create 26.08.12.g.beta "Releases\v26.08.12.g.beta\MyTV4U_Setup_26.08.12.g.beta.exe" -t "26.08.12.g.beta" -n "- Sua loi VidSrc man hinh xam (fix WebView2 user-agent spoof bypass anti-detection)" --prerelease
+=======
+dart run tools/release.dart 26.08.12.h.beta "Sua loi khong tai duoc cap nhat (fix Dio timeout, redirect). Fix VidSrc man hinh xam"
+=======
+gh release create 26.08.12.h.beta "Releases\v26.08.12.h.beta\MyTV4U_Setup_26.08.12.h.beta.exe" -t "26.08.12.h.beta" -n "- Sua loi khong tai duoc cap nhat (fix Dio timeout + redirect)\n- Fix VidSrc man hinh xam" --prerelease
+=======
+$urls = @(
+    "https://vidsrc.cc/v2/embed/movie/533535",
+    "https://vidsrc.me/embed/movie/tt0468569",
+    "https://vidsrc2.ru/embed/movie/533535",
+    "https://vidsrc.su/embed/movie/533535"
+)
+foreach ($u in $urls) {
+    try {
+        $r = Invoke-WebRequest -Uri $u -Method Head -UseBasicParsing -TimeoutSec 10 -ErrorAction Stop
+        Write-Host "$u -> $($r.StatusCode)"
+    } catch {
+        Write-Host "$u -> FAIL: $($_.Exception.Message)" 
+    }
+}
+=======
+Select-String -Pattern "vidsrc\.sbs" -Path "lib\api\phim_api.dart" -AllMatches | Select-Object LineNumber, Line | Format-Table -AutoSize | Out-String -Width 300
+=======
+dart run tools/release.dart 26.08.12.i.beta "Fix VidSrc man hinh xam - doi sang vidsrc2.ru (khong Cloudflare block)"
+=======
+gh release create 26.08.12.i.beta "Releases\v26.08.12.i.beta\MyTV4U_Setup_26.08.12.i.beta.exe" -t "26.08.12.i.beta" -n "Fix VidSrc man hinh xam - doi sang vidsrc2.ru (khong Cloudflare block)" --prerelease
+=======
+dart run tools/release.dart 26.08.12.j.beta "Quay lai VidSrc 4K (vidsrc.sbs) + fix Cloudflare bypass WebView2"
+=======
+gh release create 26.08.12.j.beta "Releases\v26.08.12.j.beta\MyTV4U_Setup_26.08.12.j.beta.exe" -t "26.08.12.j.beta" -n "Quay lai VidSrc 4K (vidsrc.sbs) + fix Cloudflare bypass WebView2" --prerelease
+=======
+dart run tools/release.dart 26.08.14.a.beta "Fix phu de khong hien thi tren nguon VidSrc (inject vao iframe con)"
+=======
+gh release create 26.08.14.a.beta "Releases\v26.08.14.a.beta\MyTV4U_Setup_26.08.14.a.beta.exe" -t "26.08.14.a.beta" -n "Fix phu de khong hien thi tren nguon VidSrc (inject vao iframe con)" --prerelease
+=======
+Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\api\phim_api.dart" -Pattern "vidsrc" -Context 2,2
+=======
+curl -I https://vidsrc.sbs/embed/movie/533535
+=======
+curl -sL https://vidsrc.sbs/embed/movie/533535 -o NUL -w "%{http_code}"
+=======
+curl.exe -I https://vidsrc.sbs/embed/movie/533535
+=======
+git log -p -1 -S "vidsrc.sbs" lib/api/phim_api.dart
+=======
+Resolve-DnsName vidsrc.sbs
+=======
+curl.exe -I https://vidsrc.me/embed/movie/533535; curl.exe -I https://vidsrc.net/embed/movie/533535; curl.exe -I https://vidsrc.cc/embed/movie/533535; curl.exe -I https://vidsrc.pro/embed/movie/533535
+=======
+curl.exe -I -sL https://vidsrcme.ru/embed/movie/533535
+=======
+Select-String -Path "t:\Project\Phim\mytv4u_flutter\lib\api\phim_api.dart" -Pattern "vidsrc.sbs"
+=======
+dart run tools/release.dart 26.08.14.e.beta "Fix vidsrc (doi ten mien tu .sbs sang .me)"
+=======
+gh release create 26.08.14.e.beta "Releases\v26.08.14.e.beta\MyTV4U_Setup_26.08.14.e.beta.exe" -t "26.08.14.e.beta" -n "Fix loi hien thi man hinh xam tren nguon vidsrc" --prerelease
+=======
+dart run tools/release.dart 26.08.14.f.beta "Khoi phuc lai nguon vidsrc.sbs nhu cu"
+=======
+gh release create 26.08.14.f.beta "Releases\v26.08.14.f.beta\MyTV4U_Setup_26.08.14.f.beta.exe" -t "26.08.14.f.beta" -n "Khoi phuc lai nguon vidsrc.sbs nhu cu" --prerelease
+=======
+dart run tools/release.dart 26.08.14.g.beta "Tich hop sub vao vidsrc bang cach ho tro cross-origin iframes"
+=======
+gh release create 26.08.14.g.beta "Releases\v26.08.14.g.beta\MyTV4U_Setup_26.08.14.g.beta.exe" -t "26.08.14.g.beta" -n "Ho tro chon sub thong minh tren VidSrc" --prerelease
+=======
+curl.exe -sL https://vidsrcme.ru/embed/movie/533535 | Select-String -Pattern "tracks" -Context 5,5
+=======
+curl.exe -sL https://vidsrcme.ru/embed/movie/533535 | Select-Object -First 30
+=======
+Set-Content C:\Users\Asus\.gemini\antigravity\brain\d8a141a0-75a6-456a-81c4-4b145d433946\implementation_plan_refactor.md -Value @"
+# Kế hoạch Tái cấu trúc Menu & Đồng bộ Firebase
+
+Dựa trên yêu cầu chi tiết của bạn, đây là bản kế hoạch tổng thể:
+
+## 1. Trình phát Video (PlayerScreen)
+- **Thiết kế lại Panel:** Xóa Tab "Bộ lọc & Đồng bộ" khỏi Menu Cài đặt hiện tại. Thay vào đó, thêm các nút chức năng vào bên trong các Tab tương ứng:
+  - Tab **Chung**: Thêm nút "Chỉnh màu Video".
+  - Tab **Âm thanh**: Thêm nút "Đồng bộ Âm thanh".
+  - Tab **Phụ đề chính / phụ**: Thêm nút "Đồng bộ Phụ đề".
+- **Hành vi:** Khi ấn vào các nút này, Menu Cài đặt sẽ tự động đóng lại và một Trình đơn trượt (Side Panel) nhỏ gọn sẽ trượt ra từ bên phải màn hình. Panel này chỉ chứa đúng chức năng được gọi (Chỉnh màu HOẶC Đồng bộ) để bạn dễ dàng nhìn thấy hiệu ứng trực tiếp trên nền phim.
+- **Phạm vi áp dụng:** Các chỉnh sửa màu sắc và đồng bộ ngay trong lúc xem phim sẽ **chỉ áp dụng tạm thời cho phim đang xem**.
+
+## 2. Cài đặt Chung (SettingsScreen - Màn hình chính)
+- **Thêm mục Cài đặt Màu sắc Toàn cầu:** Tạo một khu vực mới để cài đặt màu sắc mặc định cho TẤT CẢ các phim sử dụng trình phát gốc.
+- **Video chạy mẫu (Preview):** Sẽ nhúng một trình phát video nhỏ gọn lặp đi lặp lại một đoạn phim ngắn trực tuyến (như clip demo hoặc trailer) để bạn kéo thanh màu và thấy ngay sự thay đổi.
+- **Thêm Bộ lọc mới:** 
+  - Mặc định, Sống động, Rạp phim, Sáng rực, Đen trắng.
+  - Bổ sung: **Ấm áp (Warm)**, **Lạnh (Cool)**.
+  - Bổ sung: **Tùy chỉnh (Custom)** - Tự động kích hoạt khi bạn kéo thanh trượt thủ công.
+
+## 3. Đồng bộ Firebase
+- Mọi thay đổi trong Cài đặt chung (từ Cỡ chữ phụ đề, Tốc độ phát, đến Bộ lọc màu mặc định, và Cài đặt Nguồn phim) sẽ được tự động đồng bộ hóa lên Firebase gắn với tài khoản của bạn.
+- Đảm bảo cơ chế tải/lưu không bị trùng lặp dữ liệu với Local Storage (SharedPreferences).
+
+## 4. Quản lý Nguồn Video (VidSrc & VidAPI)
+- Thêm 2 công tắc gạt (Toggle) cho **VidSrc (Embed)** và **VidAPI (Embed)** vào danh sách "Bật/tắt nguồn phim" trong Cài đặt Chung.
+- API sẽ kiểm tra trạng thái này trước khi chèn các server nhúng vào danh sách tập phim.
+
+## Câu hỏi & Chờ Phê Duyệt
+- Đối với video chạy mẫu trong phần Cài đặt Chung, tôi sẽ sử dụng một đường dẫn video công khai (VD: video test hls hoặc trailer mã nguồn mở).
+- Bạn có đồng ý với thiết kế trượt Side Panel từ bên phải thay vì che khuất bằng Menu ở giữa màn hình không?
+- Xin hãy bấm **Proceed** hoặc phản hồi nếu bạn đồng ý với kế hoạch này!
+"@ -Encoding UTF8
+=======
+Get-Content lib\api\phim_api.dart | Select-String -Pattern "vidsrcServer|vidApiServer|VidSrc|VidAPI" -Context 3,3
+=======
+Get-Content lib\api\phim_api.dart | Select-String -Pattern "VidSrc \(Embed\)" -Context 3,10
+=======
+Set-Content patch_phim_api.py -Value @"
+import re
+
+with open('lib/api/phim_api.dart', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# Replace the condition `if (enabledSources.contains('torrentio') && initialMovie != null) {`
+# with a broader condition
+old_cond = "if (enabledSources.contains('torrentio') && initialMovie != null) {"
+new_cond = "if ((enabledSources.contains('torrentio') || enabledSources.contains('vidsrc') || enabledSources.contains('vidapi')) && initialMovie != null) {"
+content = content.replace(old_cond, new_cond)
+
+# Down inside the block where serversMap[9] is assigned:
+# if (vidsrcItems.isNotEmpty) EpisodeServer(serverName: 'VidSrc (Embed)', items: vidsrcItems),
+# We must check `enabledSources.contains('vidsrc')`
+old_vidsrc_item = "if (vidsrcItems.isNotEmpty)"
+new_vidsrc_item = "if (vidsrcItems.isNotEmpty && enabledSources.contains('vidsrc'))"
+content = content.replace(old_vidsrc_item, new_vidsrc_item)
+
+old_vidapi_item = "EpisodeServer(serverName: 'VidAPI (Embed)', items: vidApiItems),"
+new_vidapi_item = "if (enabledSources.contains('vidapi')) EpisodeServer(serverName: 'VidAPI (Embed)', items: vidApiItems),"
+content = content.replace(old_vidapi_item, new_vidapi_item)
+
+# For movie
+old_vidsrc_server = "final vidsrcServer = tmdbId != null ? EpisodeServer("
+new_vidsrc_server = "final vidsrcServer = (tmdbId != null && enabledSources.contains('vidsrc')) ? EpisodeServer("
+content = content.replace(old_vidsrc_server, new_vidsrc_server)
+
+old_vidapi_server = "final vidApiServer = EpisodeServer("
+new_vidapi_server = "final vidApiServer = enabledSources.contains('vidapi') ? EpisodeServer("
+content = content.replace(old_vidapi_server, new_vidapi_server)
+
+# Wait, `servers.add(vidApiServer)` -> `if (vidApiServer != null) servers.add(vidApiServer)`
+old_servers_add_vidapi = "servers.add(vidApiServer);"
+new_servers_add_vidapi = "if (vidApiServer != null) servers.add(vidApiServer as EpisodeServer);"
+content = content.replace(old_servers_add_vidapi, new_servers_add_vidapi)
+
+old_array_vidapi = "vidApiServer\n                    ];"
+new_array_vidapi = "if (vidApiServer != null) vidApiServer as EpisodeServer\n                    ];"
+content = content.replace(old_array_vidapi, new_array_vidapi)
+
+# Also check `if (enabledSources.contains('torrentio')) { final servers = await TorrentioApi.fetchStreams(imdbId); ... }`
+# because we don't want to fetch Torrentio if it's disabled.
+# Let's write a python regex to handle it correctly.
+"@ -Encoding UTF8
+
+=======
+Set-Content patch_phim_api.py -Value @"
+import re
+
+with open('lib/api/phim_api.dart', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# Replace the condition `if (enabledSources.contains('torrentio') && initialMovie != null) {`
+old_cond = "if (enabledSources.contains('torrentio') && initialMovie != null) {"
+new_cond = "if ((enabledSources.contains('torrentio') || enabledSources.contains('vidsrc') || enabledSources.contains('vidapi')) && initialMovie != null) {"
+content = content.replace(old_cond, new_cond)
+
+# Patch EpisodeServer array for TV Shows
+old_tv_servers = '''                    serversMap[9] = [
+                      EpisodeServer(serverName: 'P2P (Torrent)', items: p2pItems),
+                      if (vidsrcItems.isNotEmpty)
+                        EpisodeServer(serverName: 'VidSrc (Embed)', items: vidsrcItems),
+                      EpisodeServer(serverName: 'VidAPI (Embed)', items: vidApiItems),
+                    ];'''
+new_tv_servers = '''                    serversMap[9] = [
+                      if (enabledSources.contains('torrentio')) EpisodeServer(serverName: 'P2P (Torrent)', items: p2pItems),
+                      if (vidsrcItems.isNotEmpty && enabledSources.contains('vidsrc'))
+                        EpisodeServer(serverName: 'VidSrc (Embed)', items: vidsrcItems),
+                      if (enabledSources.contains('vidapi'))
+                        EpisodeServer(serverName: 'VidAPI (Embed)', items: vidApiItems),
+                    ];'''
+content = content.replace(old_tv_servers, new_tv_servers)
+
+# Patch TorrentioApi.fetchStreams
+old_fetch = "final servers = await TorrentioApi.fetchStreams(imdbId);"
+new_fetch = "final servers = enabledSources.contains('torrentio') ? await TorrentioApi.fetchStreams(imdbId) : <EpisodeServer>[];"
+content = content.replace(old_fetch, new_fetch)
+
+# Patch vidsrcServer
+old_vidsrc_server = "final vidsrcServer = tmdbId != null ? EpisodeServer("
+new_vidsrc_server = "final vidsrcServer = (tmdbId != null && enabledSources.contains('vidsrc')) ? EpisodeServer("
+content = content.replace(old_vidsrc_server, new_vidsrc_server)
+
+# Patch vidApiServer
+old_vidapi_server = "final vidApiServer = EpisodeServer("
+new_vidapi_server = "final vidApiServer = enabledSources.contains('vidapi') ? EpisodeServer("
+content = content.replace(old_vidapi_server, new_vidapi_server)
+
+# Patch servers.add(vidApiServer);
+old_servers_add = "servers.add(vidApiServer);"
+new_servers_add = "if (vidApiServer != null) servers.add(vidApiServer as EpisodeServer);"
+content = content.replace(old_servers_add, new_servers_add)
+
+# Patch fallback serversMap[9] array for movies
+old_fallback = '''                  } else {
+                    serversMap[9] = [
+                      if (vidsrcServer != null) vidsrcServer,
+                      vidApiServer
+                    ];
+                    processAndEmit();
+                  }'''
+new_fallback = '''                  } else {
+                    serversMap[9] = [
+                      if (vidsrcServer != null) vidsrcServer as EpisodeServer,
+                      if (vidApiServer != null) vidApiServer as EpisodeServer,
+                    ];
+                    processAndEmit();
+                  }'''
+content = content.replace(old_fallback, new_fallback)
+
+with open('lib/api/phim_api.dart', 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print('Patched phim_api.dart')
+"@ -Encoding UTF8; python patch_phim_api.py
+=======
+Set-Content patch_settings_sources.py -Value @"
+import re
+
+with open('lib/screens/settings_screen.dart', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# Add vidsrc and vidapi to _sources map
+old_sources = '''    'motchill': true,
+    'torrentio': false, // Torrent is experimental, default to off
+  };'''
+new_sources = '''    'motchill': true,
+    'torrentio': false,
+    'vidsrc': true,
+    'vidapi': true,
+  };'''
+content = content.replace(old_sources, new_sources)
+
+# Add them to the UI
+# There's a list of source titles:
+# 'free1': 'Free1', 'motchill': 'Motchill', 'torrentio': 'Torrent (P2P)'
+old_titles = '''            'motchill': 'Motchill (Tuá»³ chá» n)',
+            'torrentio': 'Torrent (Thá»­ nghiá»‡m)',
+          };'''
+new_titles = '''            'motchill': 'Motchill (Tuá»³ chá» n)',
+            'torrentio': 'Torrent (Thá»­ nghiá»‡m)',
+            'vidsrc': 'VidSrc (Server nhúng)',
+            'vidapi': 'VidAPI (Server nhúng)',
+          };'''
+content = content.replace(old_titles, new_titles)
+
+with open('lib/screens/settings_screen.dart', 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print('Patched settings_screen.dart for sources')
+"@ -Encoding UTF8; python patch_settings_sources.py
+=======
+git add . ; git commit -m "feat: massive ui refactoring for settings and global colors, side control panel, vidsrc toggles, firebase sync"; git push origin master; dart run tools/release.dart 26.08.18.f.beta "- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.\n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.\n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.\n- Tích hợp Đồng bộ mọi cài đặt với Firebase.\n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI."
+=======
+dart run tools/release.dart 26.08.18.f.beta "- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.\n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.\n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.\n- Tích hợp Đồng bộ mọi cài đặt với Firebase.\n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI."
+=======
+git add lib\api\phim_api.dart ; git commit -m "fix: resolve syntax error in phim_api.dart" ; git push origin master ; dart run tools/release.dart 26.08.18.f.beta "- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.\n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.\n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.\n- Tích hợp Đồng bộ mọi cài đặt với Firebase.\n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI."
+=======
+dart run tools/release.dart 26.08.18.f.beta "- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.\n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.\n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.\n- Tích hợp Đồng bộ mọi cài đặt với Firebase.\n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI."
+=======
+Set-Content patch_fix.py -Value @"
+import re
+
+with open('lib/api/phim_api.dart', 'r', encoding='utf-8') as f:
+    content = f.read()
+
+content = content.replace('''                } else {
+                  serversMap[9] = [
+                    if (vidsrcServer != null) vidsrcServer,
+                    vidApiServer
+                  ];''', '''                } else {
+                  serversMap[9] = [
+                    if (vidsrcServer != null) vidsrcServer,
+                    if (vidApiServer != null) vidApiServer
+                  ];''')
+
+with open('lib/api/phim_api.dart', 'w', encoding='utf-8') as f:
+    f.write(content)
+print('Fixed list nullability')
+"@ -Encoding UTF8; python patch_fix.py
+=======
+git add lib\api\phim_api.dart ; git commit -m "fix: resolve list nullability issue in phim_api.dart" ; git push origin master ; dart run tools/release.dart 26.08.18.f.beta "- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.\n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.\n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.\n- Tích hợp Đồng bộ mọi cài đặt với Firebase.\n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI."
+=======
+gh release create 26.08.18.f.beta Releases\v26.08.18.f.beta\MyTV4U_Setup_26.08.18.f.beta.exe --title "26.08.18.f.beta" --notes "- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.`n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.`n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.`n- Tích hợp Đồng bộ mọi cài đặt với Firebase.`n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI."
+=======
+Set-Content push_fb.dart -Value @"
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+void main() async {
+  String version = '26.08.18.f.beta';
+  String notes = '- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.\n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.\n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.\n- Tích hợp Đồng bộ mọi cài đặt với Firebase.\n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI.';
+  String channel = 'beta';
+  
+  final url = Uri.parse('https://firestore.googleapis.com/v1/projects/tv4u-ec4ae/databases/(default)/documents/updates/\$channel');
+  final body = {
+    "fields": {
+      "latest_version": {"stringValue": version},
+      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/\$version/MyTV4U_Setup_\$version.exe"},
+      "release_notes": {"stringValue": notes},
+      "force_update": {"booleanValue": false},
+    }
+  };
+  
+  try {
+    final res = await http.patch(
+      url, 
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: json.encode(body)
+    );
+    if (res.statusCode == 200) {
+      print('Firebase updated successfully!');
+    } else {
+      print('Firebase error: \${res.statusCode} \${res.body}');
+    }
+  } catch(e) {
+    print('Firebase connect error: \$e');
+  }
+}
+"@ -Encoding UTF8; dart run push_fb.dart
+=======
+Set-Content push_fb.dart -Value @'
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
+void main() async {
+  String version = '26.08.18.f.beta';
+  String notes = '- Tái cấu trúc Menu, đưa Bộ lọc màu & Đồng bộ thành Side Panel trượt tiện lợi.\n- Thêm Cài đặt màu Toàn cục (Có Video chạy mẫu) ở Menu chính.\n- Thêm Bộ lọc màu Ấm áp, Lạnh & Tùy chỉnh.\n- Tích hợp Đồng bộ mọi cài đặt với Firebase.\n- Thêm công tắc bật/tắt nguồn nhúng VidSrc và VidAPI.';
+  String channel = 'beta';
+  
+  final url = Uri.parse('https://firestore.googleapis.com/v1/projects/tv4u-ec4ae/databases/(default)/documents/updates/$channel');
+  final body = {
+    "fields": {
+      "latest_version": {"stringValue": version},
+      "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/$version/MyTV4U_Setup_$version.exe"},
+      "release_notes": {"stringValue": notes},
+      "force_update": {"booleanValue": false},
+    }
+  };
+  
+  try {
+    final res = await http.patch(
+      url, 
+      headers: {'Content-Type': 'application/json; charset=UTF-8'},
+      body: json.encode(body)
+    );
+    if (res.statusCode == 200) {
+      print('Firebase updated successfully!');
+    } else {
+      print('Firebase error: ${res.statusCode} ${res.body}');
+    }
+  } catch(e) {
+    print('Firebase connect error: $e');
+  }
+}
+'@ -Encoding UTF8; dart run push_fb.dart
+=======
+$code = @'
+import json
+
+with open('lib/widgets/next_episode_tracker.dart', 'r', encoding='utf-8') as f:
+    text = f.read()
+
+start_idx = text.find("void _airingState(")
+end_idx = text.find("void _completedState(", start_idx)
+
+new_method = r"""  void _airingState(Map<String, dynamic> nep, Map<String, dynamic>? lep, Map<String, dynamic> tmdb) {
+    final airStr = nep['air_date']?.toString() ?? '';
+    final epNum = nep['episode_number'] ?? 1;
+    final season = nep['season_number'] ?? 1;
+    final total = tmdb['number_of_episodes'] ?? 0;
+    final displayX = season > 1 ? '$epNum (Mùa $season)' : epNum.toString();
+    try {
+      final now = DateTime.now();
+      final today = DateTime(now.year, now.month, now.day);
+      final airDateStr = airStr.split('T').first;
+      final airDate = DateTime.parse(airDateStr);
+      final diff = airDate.difference(today).inDays;
+      final fDate = _fmtDate(airDate);
+      
+      bool hasSource = false;
+      bool isMissingPrevious = false;
+      bool isVipAhead = false;
+      int maxEpInApp = 0;
+      String missingEp = '';
+      
+      if (widget.movie != null) {
+        // Filter out auto-generated metadata sources that don't guarantee stream existence
+        final reliableServers = widget.movie!.episodes.where((s) {
+          final n = s.serverName.toLowerCase();
+          return !n.contains('vidsrc') && !n.contains('vidapi') && !n.contains('p2p');
+        }).toList();
+
+        // Determine the maximum episode number in our reliable sources
+        for (var server in reliableServers) {
+          for (var ep in server.items) {
+            final match = RegExp(r'\d+').firstMatch(ep.name);
+            if (match != null) {
+              final num = int.tryParse(match.group(0)!);
+              if (num != null && num > maxEpInApp) maxEpInApp = num;
+            }
+          }
+        }
+        
+        if (maxEpInApp > epNum) {
+          isVipAhead = true;
+        }
+
+        final epPattern = RegExp('\\b' + epNum.toString() + '\\b');
+        for (var server in reliableServers) {
+          if (server.items.any((ep) => epPattern.hasMatch(ep.name) || ep.name.toLowerCase() == 'full')) {
+            hasSource = true;
+            break;
+          }
+        }
+        
+        if (lep != null) {
+          final lepNum = lep['episode_number'] ?? 0;
+          if (lepNum > 0 && !hasSource && !isVipAhead) {
+            bool hasLep = false;
+            final lepPattern = RegExp('\\b' + lepNum.toString() + '\\b');
+            for (var server in reliableServers) {
+              if (server.items.any((ep) => lepPattern.hasMatch(ep.name) || ep.name.toLowerCase() == 'full')) {
+                hasLep = true;
+                break;
+              }
+            }
+            if (!hasLep) {
+              isMissingPrevious = true;
+              missingEp = (season > 1 ? '$lepNum (Mùa $season)' : lepNum.toString());
+            }
+          }
+        }
+      }
+
+      final isFinale = total > 0 && epNum == total;
+      final isToday = diff == 0;
+
+      String key;
+      if (isVipAhead)                              { key = 'ep_msg_vip_ahead'; _progressKey = 'party'; }
+      else if (isMissingPrevious)                  { key = 'ep_msg_previous_missing'; _progressKey = 'rage'; }
+      else if (isToday && hasSource && isFinale)   { key = 'ep_msg_today_finale_available'; _progressKey = 'party'; }
+      else if (isToday && !hasSource && isFinale)  { key = 'ep_msg_today_finale_unavailable'; _progressKey = 'rage'; }
+      else if (isToday && hasSource)               { key = 'ep_msg_today_available'; _progressKey = 'party'; }
+      else if (isToday && !hasSource)              { key = 'ep_msg_today_unavailable'; _progressKey = 'rage'; }
+      else if (diff < 0)                           { key = 'ep_msg_past_missed'; _progressKey = 'chill'; }
+      else if (diff == 1)                          { key = 'ep_msg_tomorrow'; _progressKey = 'tense'; }
+      else {
+        final ratio = total > 0 ? epNum / total : 0.5;
+        if (ratio < 0.45)      { key = 'ep_msg_future_first_half'; _progressKey = 'chill'; }
+        else if (ratio < 0.82) { key = 'ep_msg_future_second_half'; _progressKey = 'tense'; }
+        else                   { key = 'ep_msg_future_penultimate'; _progressKey = 'tense'; }
+      }
+
+      final phrases = L10n.tList(key);
+      final idx = widget.phraseSeed % (phrases.isEmpty ? 1 : phrases.length);
+      _msg = (phrases.isEmpty ? 'Tập $displayX: $airStr' : phrases[idx])
+          .replaceAll('{X}', displayX)
+          .replaceAll('{DATE}', fDate)
+          .replaceAll('{DIFF}', diff.abs().toString())
+          .replaceAll('{LAST_EP}', missingEp)
+          .replaceAll('{MAX_EP}', maxEpInApp.toString())
+          .replaceAll('{NEXT_INFO}', '');
+    } catch (_) { _msg = 'Tập $epNum: $airStr'; }
+  }
+
+"""
+
+new_text = text[:start_idx] + new_method + text[end_idx:]
+
+with open('lib/widgets/next_episode_tracker.dart', 'w', encoding='utf-8') as f:
+    f.write(new_text)
+
+print("Patched _airingState with reliable servers filter")
+'@
+Set-Content patch_tracker_4.py -Value $code -Encoding UTF8
+python patch_tracker_4.py
+=======
+Stop-Process -Name MyTV4U -Force -ErrorAction SilentlyContinue; Stop-Process -Name mytv4u_flutter -Force -ErrorAction SilentlyContinue; dart run tools/release.dart 26.08.27.31.beta "Loại bỏ các nguồn P2P, VidSrc, VidAPI ra khỏi thuật toán đếm số tập thực tế của App"
+=======
+Get-Content lib/api/phim_api.dart | Select-String "vidsrc|vidApi|TorrentioApi" -Context 3,10
+=======
+Get-Content ..\tv_web_player\MainForm.cs.bak | Select-String "isVidSrc" -Context 3,10
