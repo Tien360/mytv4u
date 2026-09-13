@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
 import 'package:http/http.dart' as http;
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
@@ -121,6 +122,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   bool _introDismissed = false;
   bool _outroDismissed = false;
   bool _wasPlayingBeforeMinimize = false;
+  Map<String, dynamic>? _currentPremiumMeta;
   int _lastNextEpisodeTime = 0;
   bool _isPiPMode = false;
   Rect? _prePiPBounds;
@@ -742,6 +744,26 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         ? ep.name
         : 'Tập ${ep.name}';
     _currentTitle = '${widget.movieName} - $epName';
+
+    if (widget.movieName.toLowerCase().contains('premium') && ep.m3u8Url.isNotEmpty) {
+      final uri = Uri.tryParse(ep.m3u8Url);
+      if (uri != null && uri.pathSegments.isNotEmpty) {
+        final id = uri.pathSegments.last;
+        http.get(
+          Uri.parse('https://medata.phim4k.workers.dev/?id=' + id),
+          headers: {'User-Agent': 'Mozilla/5.0'}
+        ).then((res) {
+          if (res.statusCode == 200 && mounted) {
+            setState(() {
+              _currentPremiumMeta = json.decode(res.body);
+              _currentPremiumMeta!['fallback_filename'] = ep.filename ?? '';
+            });
+          }
+        }).catchError((_) {});
+      }
+    } else {
+      _currentPremiumMeta = null;
+    }
 
     // Fetch OpenSubtitles if this is a P2P stream (indicated by having imdbId)
     if (widget.imdbId != null && widget.imdbId!.isNotEmpty) {
@@ -1432,6 +1454,105 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     );
   }
 
+
+  Widget _buildInfoBadgesRow(String label, List<Widget> badges) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 2,
+            child: Text(
+              label,
+              style: const TextStyle(color: Colors.white54, fontSize: 14),
+            ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: badges,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPremiumBadges() {
+    if (_currentPremiumMeta == null) return const SizedBox();
+
+    String res = (_currentPremiumMeta!['resolution'] ?? '').toString().split(' ')[0];
+    String hdr = (_currentPremiumMeta!['hdr'] ?? '').toString();
+    if (hdr == 'SDR' || hdr == 'Unknown' || hdr.isEmpty) {
+      String fn = (_currentPremiumMeta!['fallback_filename'] ?? '').toString().toUpperCase();
+      if (fn.contains('.DV.') || fn.contains('DOLBY VISION') || fn.contains('DOLBY.VISION')) hdr = 'Dolby Vision';
+      else if (fn.contains('HDR10+') || fn.contains('HDR10PLUS')) hdr = 'HDR10+';
+      else if (fn.contains('HDR10')) hdr = 'HDR10';
+      else if (fn.contains('.HDR.') || fn.contains(' HDR ')) hdr = 'HDR';
+      else hdr = 'SDR';
+    }
+
+    String audio = '';
+    if (_currentPremiumMeta!['audioTracks'] != null && (_currentPremiumMeta!['audioTracks'] as List).isNotEmpty) {
+      String codec = (_currentPremiumMeta!['audioTracks'] as List).first['codec'] ?? '';
+      String codecUpper = codec.toUpperCase();
+      if (codecUpper.contains('ATMOS')) audio = 'Atmos';
+      else if (codecUpper.contains('TRUEHD')) audio = 'TrueHD';
+      else if (codecUpper.contains('DOLBY DIGITAL PLUS') || codecUpper.contains('EAC3') || codecUpper.contains('DD+')) audio = 'DD+';
+      else if (codecUpper.contains('DOLBY DIGITAL') || codecUpper.contains('AC3')) audio = 'DD';
+      else if (codecUpper.contains('DTS-HD MA') || codecUpper.contains('DTS-HD') || codecUpper.contains('DTS')) audio = 'DTS';
+      else if (codecUpper.contains('AAC')) audio = 'AAC';
+    }
+
+    List<Widget> badges = [];
+    
+    Widget buildTextBadge(String text) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(border: Border.all(color: Colors.white70), borderRadius: BorderRadius.circular(4)),
+        child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+      );
+    }
+
+    if (res == '4K' || res == '2160p' || res == '4k') {
+      badges.add(buildTextBadge('4K UHD'));
+    } else if (res == '1080p' || res == '1080') {
+      badges.add(buildTextBadge('1080p FHD'));
+    } else if (res == '720p' || res == '720') {
+      badges.add(buildTextBadge('720p HD'));
+    }
+
+    const colorFilter = ColorFilter.mode(Colors.white, BlendMode.srcIn);
+
+    if (hdr == 'Dolby Vision') {
+      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_vision.svg', height: 20, colorFilter: colorFilter));
+    } else if (hdr == 'HDR10+') {
+      badges.add(buildTextBadge('HDR10+'));
+    } else if (hdr.contains('HDR')) {
+      badges.add(SvgPicture.asset('assets/images/media_badges/hdr.svg', height: 16, colorFilter: colorFilter));
+    } else if (hdr == 'SDR') {
+      badges.add(buildTextBadge('SDR'));
+    }
+
+    if (audio == 'Atmos') {
+      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_atmos.svg', height: 20, colorFilter: colorFilter));
+    } else if (audio == 'DD+') {
+      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital_plus.svg', height: 16, colorFilter: colorFilter));
+    } else if (audio == 'DD') {
+      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital.svg', height: 16, colorFilter: colorFilter));
+    } else if (audio == 'DTS') {
+      badges.add(SvgPicture.asset('assets/images/media_badges/dts.svg', height: 16, colorFilter: colorFilter));
+    }
+
+    if (badges.isEmpty) return const SizedBox();
+
+    return _buildInfoBadgesRow(L10n.t('source_quality') ?? 'Ch?t l??ng', badges);
+  }
+
   void _showSettingsDialog() {
     showDialog(
       context: context,
@@ -1587,8 +1708,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                       },
                                     ),
                                   ),
+                                  ],
                                   const Divider(color: Colors.white24),
-                                ],
 
                                 ListTile(
                                   leading: const Icon(
@@ -1867,6 +1988,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                   L10n.t('resolution') ?? 'Độ phân giải',
                                   '${player.state.width ?? "Đang tải"} x ${player.state.height ?? "Đang tải"}',
                                 ),
+                              if (_currentPremiumMeta != null) _buildPremiumBadges(),
                               _buildInfoRow(
                                 L10n.t('streaming_source') ?? 'Nguồn phát',
                                 _isUsingWebview
