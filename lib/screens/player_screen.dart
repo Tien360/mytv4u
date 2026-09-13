@@ -1550,7 +1550,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
     if (badges.isEmpty) return const SizedBox();
 
-    return _buildInfoBadgesRow(L10n.t('source_quality') ?? 'Ch?t l??ng', badges);
+    return _buildInfoBadgesRow('', badges);
   }
 
   void _showSettingsDialog() {
