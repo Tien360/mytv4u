@@ -551,6 +551,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         }),
       );
 
+      _playerSubs.add(
+        player.stream.buffer.listen((buf) {
+          if (mounted) setState(() => _buffer = buf);
+        }),
+      );
+
 
     _playerSubs.add(
       player.stream.duration.listen((dur) {
@@ -2344,6 +2350,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                                         const Color(0xFFFF0000),
                                                     inactiveTrackColor:
                                                         Colors.white24,
+                                                    secondaryActiveTrackColor: Colors.white54,
                                                     thumbColor: const Color(
                                                       0xFFFF0000,
                                                     ),

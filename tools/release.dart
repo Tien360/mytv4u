@@ -12,6 +12,7 @@ void main(List<String> args) async {
 
   final version = args[0];
   final notes = args[1];
+  final isForceUpdate = args.contains('--force');
   final bool isDev = version.contains('.dev');
   final setupExePath = 'Releases\\v$version\\MyTV4U_Setup_$version.exe';
 
