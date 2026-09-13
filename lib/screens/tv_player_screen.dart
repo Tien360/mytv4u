@@ -67,6 +67,10 @@ class _TvPlayerScreenState extends State<TvPlayerScreen> with WindowListener {
   
   
   bool _isDisposed = false;
+  List<String> _premiumStreams = [];
+  int _currentPremiumStreamIndex = 0;
+  int _premiumRetryCount = 0;
+  String? _premiumRawId;
   final List<StreamSubscription> _playerSubs = [];
 
   // webview_windows
@@ -654,12 +658,26 @@ class _TvPlayerScreenState extends State<TvPlayerScreen> with WindowListener {
       _currentUrl = targetUrl;
     }
 
-    // Proactively switch to the first working premium server config
-    if (_fallbackDomains.isNotEmpty &&
-        (_currentUrl.contains('dpdns.org') ||
-            _currentUrl.contains('workers.dev'))) {
-      final rawId = _currentUrl.split('/').last;
-      _currentUrl = 'https://${_fallbackDomains.first}/$rawId';
+    _premiumRawId = null;
+    _premiumStreams = [];
+    _currentPremiumStreamIndex = 0;
+    _premiumRetryCount = 0;
+
+    if (_currentUrl.contains('workers.dev') || _currentUrl.contains('dpdns.org')) {
+        final uri = Uri.tryParse(_currentUrl);
+        if (uri != null) {
+            final rawId = uri.pathSegments.last;
+            _premiumRawId = rawId;
+            try {
+                final streams = await PremiumResolver.getVideoStream(rawId);
+                if (streams.isNotEmpty) {
+                    _premiumStreams = streams;
+                    _currentUrl = streams.first;
+                }
+            } catch (e) {
+                print("Premium resolver error: $e");
+            }
+        }
     }
 
     await _playCurrentUrl(ep);
