@@ -856,36 +856,7 @@ ListTile(
                                             _syncToFirebase();
                                           },
                                         ),
-                                        if (_prefs?.getBool('enable_skip_intro') ?? false) ...[
-                                          ListTile(
-                                            contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                                            title: Text(L10n.t('skip_intro_duration') ?? 'Thời lượng bỏ qua', style: const TextStyle(color: Colors.white70)),
-                                            trailing: SizedBox(
-                                              width: 150,
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.end,
-                                                children: [
-                                                  Text('${_prefs?.getInt('skip_intro_duration') ?? 85} s', style: const TextStyle(color: Colors.white70)),
-                                                  const SizedBox(width: 8),
-                                                  Expanded(
-                                                    child: Slider(
-                                                      value: (_prefs?.getInt('skip_intro_duration') ?? 85).toDouble(),
-                                                      min: 30,
-                                                      max: 180,
-                                                      divisions: 30,
-                                                      onChanged: (val) async {
-                                                        final prefs = await SharedPreferences.getInstance();
-                                                        await prefs.setInt('skip_intro_duration', val.toInt());
-                                                        setState(() {});
-                                                        _syncToFirebase();
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
+                                        
                                         const Divider(color: Colors.white12, height: 1),
                                         SwitchListTile(
                                           title: Text(L10n.t('background_playback') ?? 'Phát dưới nền', style: const TextStyle(color: Colors.white, fontSize: 16)),

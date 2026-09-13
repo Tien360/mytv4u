@@ -118,7 +118,6 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   bool _backgroundPlayback = false;
   SkipSegments? _currentSegments;
   bool _enableSkipIntro = true;
-  int _skipIntroDuration = 85;
   bool _wasPlayingBeforeMinimize = false;
   bool _isPiPMode = false;
   Rect? _prePiPBounds;
@@ -273,7 +272,6 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
           _playbackSpeed = prefs.getDouble('default_speed') ?? 1.0;
           _backgroundPlayback = prefs.getBool('background_playback') ?? false;
           _enableSkipIntro = prefs.getBool('enable_skip_intro') ?? true;
-          _skipIntroDuration = prefs.getInt('skip_intro_duration') ?? 85;
       });
     }
     _initMediaKit();
@@ -2139,9 +2137,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                         onPressed: () {
                           if (_currentSegments?.intro != null) {
                             player.seek(Duration(seconds: _currentSegments!.intro!.end.toInt()));
-                          } else {
-                            player.seek(Duration(seconds: _skipIntroDuration));
-                          }
+                          } 
                         },
                       ),
                     ),
