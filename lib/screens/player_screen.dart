@@ -118,6 +118,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   bool _backgroundPlayback = false;
   SkipSegments? _currentSegments;
   bool _enableSkipIntro = true;
+  bool _introDismissed = false;
+  bool _outroDismissed = false;
   bool _wasPlayingBeforeMinimize = false;
   bool _isPiPMode = false;
   Rect? _prePiPBounds;
@@ -721,6 +723,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     if (index < 0 || index >= _episodes.length) return;
     setState(() {
       _currentIndex = index;
+      _introDismissed = false;
+      _outroDismissed = false;
       errorMsg = null;
       _currentFallbackDomainIndex = 0; // Reset fallback domain
       _isLoadingServers = false;
@@ -1407,8 +1411,17 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 Navigator.pop(context);
               }
             },
-            child: Text(hasNext ? L10n.t('next_ep_now') : L10n.t('close')),
-          ),
+            child: Text(hasNext ? (L10n.t('next_ep_now') ?? 'Chuy?n T?p Ngay') : (L10n.t('close') ?? '??ng')),
+            ),
+            const SizedBox(width: 12),
+            IconButton(
+              icon: const Icon(Icons.close, color: Colors.white60),
+              onPressed: () {
+                setState(() {
+                  _outroDismissed = true;
+                });
+              },
+            ),
         ],
       ),
     );
@@ -2123,32 +2136,50 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 
                 // Skip Intro / Outro Buttons
                 if (!widget.isLive && _enableSkipIntro && !_isUsingWebview) ...[
-                  if (_currentSegments?.intro != null && _position.inSeconds >= _currentSegments!.intro!.start && _position.inSeconds < _currentSegments!.intro!.end)
+                  if (!_introDismissed && _currentSegments?.intro != null && _position.inSeconds >= _currentSegments!.intro!.start && _position.inSeconds < _currentSegments!.intro!.end)
                     Positioned(
                       bottom: 100,
                       right: 32,
-                      child: ElevatedButton.icon(
-                        icon: const Icon(Icons.fast_forward, color: Colors.white),
-                        label: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro/Outro', style: const TextStyle(color: Colors.white)),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black.withOpacity(0.8),
-                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      child: Row(
+                      children: [
+                        ElevatedButton.icon(
+                          icon: const Icon(Icons.fast_forward, color: Colors.white),
+                          label: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro/Outro', style: const TextStyle(color: Colors.white)),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black.withOpacity(0.8),
+                            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                          ),
+                          onPressed: () {
+                            if (_currentSegments?.intro != null) {
+                              player.seek(Duration(seconds: _currentSegments!.intro!.end.toInt()));
+                            }
+                          },
                         ),
-                        onPressed: () {
-                          if (_currentSegments?.intro != null) {
-                            player.seek(Duration(seconds: _currentSegments!.intro!.end.toInt()));
-                          } 
-                        },
-                      ),
+                        const SizedBox(width: 8),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black.withOpacity(0.8),
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.close, color: Colors.white, size: 20),
+                            onPressed: () {
+                              setState(() {
+                                _introDismissed = true;
+                              });
+                            },
+                          ),
+                        ),
+                      ],
                     ),
-                  
-                  
+                  ),
                 ],
 
                 // Next Episode Overlay (Near End)
                 if (!widget.isLive &&
                     _duration.inSeconds > 0 &&
                     !_isUsingWebview &&
+                    !_outroDismissed && 
                     ((_currentSegments?.outro != null && _position.inSeconds >= _currentSegments!.outro!.start) ||
                      (_currentSegments?.outro == null && (_duration.inSeconds - _position.inSeconds) <= 120)))
                   Positioned(
@@ -3151,4 +3182,5 @@ class _PlayerEpisodeButtonState extends State<PlayerEpisodeButton> {
     );
   }
 }
+
 
