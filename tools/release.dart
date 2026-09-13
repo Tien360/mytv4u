@@ -175,7 +175,7 @@ void main(List<String> args) async {
       "latest_version": {"stringValue": version},
       "download_url": {"stringValue": "https://github.com/Tien360/mytv4u/releases/download/$version/MyTV4U_Setup_$version.exe"},
       "release_notes": {"stringValue": notes},
-      "is_force_update": {"booleanValue": true}
+      "is_force_update": {"booleanValue": isForceUpdate}
     }
   };
   

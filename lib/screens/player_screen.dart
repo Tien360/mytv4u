@@ -547,13 +547,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         player.stream.position.listen((pos) {
           if (mounted) setState(() => _position = pos);
           
-          if (_currentSegments?.outro != null && 
-              pos.inSeconds >= _currentSegments!.outro!.start && 
-              _autoNext && 
-              _currentIndex < _episodes.length - 1 &&
-              !_isUsingWebview) {
-             _playNextEpisode();
-          }
+          
         }),
       );
 
@@ -2125,8 +2119,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 
                 // Skip Intro / Outro Buttons
                 if (!widget.isLive && _enableSkipIntro && !_isUsingWebview) ...[
-                  if ((_currentSegments?.intro != null && _position.inSeconds >= _currentSegments!.intro!.start && _position.inSeconds < _currentSegments!.intro!.end) || 
-                      (_currentSegments?.intro == null && _duration.inSeconds > _skipIntroDuration && _position.inSeconds > 0 && _position.inSeconds < _skipIntroDuration))
+                  if (_currentSegments?.intro != null && _position.inSeconds >= _currentSegments!.intro!.start && _position.inSeconds < _currentSegments!.intro!.end)
                     Positioned(
                       bottom: 100,
                       right: 32,
@@ -2153,8 +2146,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                 // Next Episode Overlay (Near End)
                 if (!widget.isLive &&
                     _duration.inSeconds > 0 &&
-                    (_duration.inSeconds - _position.inSeconds) <= 180 &&
-                    !_isUsingWebview)
+                    !_isUsingWebview &&
+                    ((_currentSegments?.outro != null && _position.inSeconds >= _currentSegments!.outro!.start) ||
+                     (_currentSegments?.outro == null && (_duration.inSeconds - _position.inSeconds) <= 120)))
                   Positioned(
                     bottom: 100,
                     right: 32,
