@@ -131,6 +131,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   // Fallback Domain State
   List<String> _fallbackDomains = ['sv.gboiz7.workers.dev'];
   int _currentFallbackDomainIndex = 0;
+  List<String> _premiumStreams = [];
+  int _currentPremiumStreamIndex = 0;
+  int _premiumRetryCount = 0;
+  String? _premiumRawId;
 
   // Motchill Servers
   List<Map<String, String>> _motchillServers = [];
@@ -820,11 +824,18 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     }
 
     
+    _premiumRawId = null;
+    _premiumStreams = [];
+    _currentPremiumStreamIndex = 0;
+    _premiumRetryCount = 0;
+
     if (_currentUrl.contains('workers.dev') || _currentUrl.contains('dpdns.org')) {
         final uri = Uri.tryParse(_currentUrl); if (uri == null) return; final rawId = uri.pathSegments.last;
+        _premiumRawId = rawId;
         try {
             final streams = await PremiumResolver.getVideoStream(rawId);
             if (streams.isNotEmpty) {
+                _premiumStreams = streams;
                 _currentUrl = streams.first; // Use the first working premium proxy
             }
         } catch (e) {
