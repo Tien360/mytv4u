@@ -484,7 +484,7 @@ class PhimApi {
       return 'https://${workers.first}/$rawId';
       */
 
-      final activeServers = ['sv.gboiz7.workers.dev', 'sv1.p4k.dpdns.org'];
+      final activeServers = ['sv1.p4k.dpdns.org', 'sv2.p4k.dpdns.org'];
       activeServers.shuffle();
       return 'https://${activeServers.first}/$rawId';
     }

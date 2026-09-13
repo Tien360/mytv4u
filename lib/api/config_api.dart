@@ -26,13 +26,8 @@ class ConfigApi {
     
     // Fallback mặc định nếu GitHub lỗi
     return [
-      'sv.gboiz7.workers.dev',
-      'sv.gboiz15.workers.dev',
-      'sv.gboiz21.workers.dev',
-      'sv.gboiz24.workers.dev',
-      'sv.gboiz27.workers.dev',
-      'sv.gboiz30.workers.dev',
-      'sv.gboiz19.workers.dev',
+      'sv1.p4k.dpdns.org',
+      'sv2.p4k.dpdns.org',
     ];
   }
 }

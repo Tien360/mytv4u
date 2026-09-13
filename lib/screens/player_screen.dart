@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:ui';
@@ -290,8 +290,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
   bool _tryFallbackDomain() {
     if (_currentUrl.contains('dpdns.org') ||
-        _currentUrl.contains('workers.dev')) {
-      final rawId = _currentUrl.split('/').last;
+        _currentUrl.contains('workers.dev') ||
+        _currentUrl.contains('railway.app')) {
+      final uri = Uri.tryParse(_currentUrl); if (uri == null) return false; final rawId = uri.pathSegments.last;
       _currentFallbackDomainIndex++;
 
       if (_currentFallbackDomainIndex < _fallbackDomains.length) {
@@ -820,7 +821,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
     
     if (_currentUrl.contains('workers.dev') || _currentUrl.contains('dpdns.org')) {
-        final rawId = _currentUrl.split('/').last;
+        final uri = Uri.tryParse(_currentUrl); if (uri == null) return; final rawId = uri.pathSegments.last;
         try {
             final streams = await PremiumResolver.getVideoStream(rawId);
             if (streams.isNotEmpty) {
@@ -1496,17 +1497,24 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       else hdr = 'SDR';
     }
 
-    String audio = '';
-    if (_currentPremiumMeta!['audioTracks'] != null && (_currentPremiumMeta!['audioTracks'] as List).isNotEmpty) {
-      String codec = (_currentPremiumMeta!['audioTracks'] as List).first['codec'] ?? '';
-      String codecUpper = codec.toUpperCase();
-      if (codecUpper.contains('ATMOS')) audio = 'Atmos';
-      else if (codecUpper.contains('TRUEHD')) audio = 'TrueHD';
-      else if (codecUpper.contains('DOLBY DIGITAL PLUS') || codecUpper.contains('EAC3') || codecUpper.contains('DD+')) audio = 'DD+';
-      else if (codecUpper.contains('DOLBY DIGITAL') || codecUpper.contains('AC3')) audio = 'DD';
-      else if (codecUpper.contains('DTS-HD MA') || codecUpper.contains('DTS-HD') || codecUpper.contains('DTS')) audio = 'DTS';
-      else if (codecUpper.contains('AAC')) audio = 'AAC';
-    }
+          List<String> audioTypes = [];
+      if (_currentPremiumMeta!['audioTracks'] != null && (_currentPremiumMeta!['audioTracks'] as List).isNotEmpty) {
+        for (var track in (_currentPremiumMeta!['audioTracks'] as List)) {
+          String codec = track['codec'] ?? '';
+          String codecUpper = codec.toUpperCase();
+          String type = '';
+          if (codecUpper.contains('ATMOS')) type = 'Atmos';
+          else if (codecUpper.contains('TRUEHD')) type = 'TrueHD';
+          else if (codecUpper.contains('DOLBY DIGITAL PLUS') || codecUpper.contains('EAC3') || codecUpper.contains('DD+')) type = 'DD+';
+          else if (codecUpper.contains('DOLBY DIGITAL') || codecUpper.contains('AC3')) type = 'DD';
+          else if (codecUpper.contains('DTS-HD MA') || codecUpper.contains('DTS-HD') || codecUpper.contains('DTS')) type = 'DTS';
+          else if (codecUpper.contains('AAC')) type = 'AAC';
+          
+          if (type.isNotEmpty && !audioTypes.contains(type)) {
+            audioTypes.add(type);
+          }
+        }
+      }
 
     List<Widget> badges = [];
     
@@ -1538,15 +1546,19 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       badges.add(buildTextBadge('SDR'));
     }
 
-    if (audio == 'Atmos') {
-      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_atmos.svg', height: 20, colorFilter: colorFilter));
-    } else if (audio == 'DD+') {
-      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital_plus.svg', height: 16, colorFilter: colorFilter));
-    } else if (audio == 'DD') {
-      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital.svg', height: 16, colorFilter: colorFilter));
-    } else if (audio == 'DTS') {
-      badges.add(SvgPicture.asset('assets/images/media_badges/dts.svg', height: 16, colorFilter: colorFilter));
-    }
+          for (String type in audioTypes) {
+        if (type == 'Atmos') {
+          badges.add(SvgPicture.asset('assets/images/media_badges/dolby_atmos.svg', height: 20, colorFilter: colorFilter));
+        } else if (type == 'DD+') {
+          badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital_plus.svg', height: 16, colorFilter: colorFilter));
+        } else if (type == 'DD') {
+          badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital.svg', height: 16, colorFilter: colorFilter));
+        } else if (type == 'DTS') {
+          badges.add(SvgPicture.asset('assets/images/media_badges/dts.svg', height: 16, colorFilter: colorFilter));
+        } else if (type == 'AAC') {
+          badges.add(buildTextBadge('AAC'));
+        }
+      }
 
     if (badges.isEmpty) return const SizedBox();
 
@@ -1898,17 +1910,23 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              ...[..._subtitleTracks, ..._openSubtitles].map((
-                                track,
-                              ) {
-                                final isSelected =
-                                    track.id == _selectedSubtitleTrack?.id;
-                                return HoverableTrackItem(
-                                  title: _getTrackFullName(track),
-                                  isSelected: isSelected,
-                                  onTap: () => _selectSubtitleTrack(track),
-                                );
-                              }),
+                              ...(() {
+                                  var combined = [..._subtitleTracks, ..._openSubtitles];
+                                  var sorted = combined.where((t) => t.id != 'auto').toList();
+                                  sorted.sort((a, b) {
+                                    if (a.id == _selectedSubtitleTrack?.id) return -1;
+                                    if (b.id == _selectedSubtitleTrack?.id) return 1;
+                                    return 0;
+                                  });
+                                  return sorted.map((track) {
+                                    final isSelected = track.id == _selectedSubtitleTrack?.id;
+                                    return HoverableTrackItem(
+                                      title: _getTrackFullName(track),
+                                      isSelected: isSelected,
+                                      onTap: () => _selectSubtitleTrack(track),
+                                    );
+                                  });
+                                })(),
                             ],
                           ),
                           // Tab Phụ đề phụ
@@ -1949,19 +1967,23 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                                 ),
                               ),
                               const SizedBox(height: 16),
-                              ...[..._subtitleTracks, ..._openSubtitles].map((
-                                track,
-                              ) {
-                                final isSelected =
-                                    track.id ==
-                                    _selectedSecondarySubtitleTrack?.id;
-                                return HoverableTrackItem(
-                                  title: _getTrackFullName(track),
-                                  isSelected: isSelected,
-                                  onTap: () =>
-                                      _selectSecondarySubtitleTrack(track),
-                                );
-                              }),
+                              ...(() {
+                                  var combined = [..._subtitleTracks, ..._openSubtitles];
+                                  var sorted = combined.where((t) => t.id != 'auto').toList();
+                                  sorted.sort((a, b) {
+                                    if (a.id == _selectedSecondarySubtitleTrack?.id) return -1;
+                                    if (b.id == _selectedSecondarySubtitleTrack?.id) return 1;
+                                    return 0;
+                                  });
+                                  return sorted.map((track) {
+                                    final isSelected = track.id == _selectedSecondarySubtitleTrack?.id;
+                                    return HoverableTrackItem(
+                                      title: _getTrackFullName(track),
+                                      isSelected: isSelected,
+                                      onTap: () => _selectSecondarySubtitleTrack(track),
+                                    );
+                                  });
+                                })(),
                             ],
                           ),
                           // Tab Thông tin
@@ -1977,7 +1999,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               ),
                               _buildInfoRow(
                                 L10n.t('current_ep') ?? 'Tập đang phát',
-                                _episodes[_currentIndex].name,
+                                '${_episodes[_currentIndex].name} - ${(() { final u = Uri.tryParse(_episodes[_currentIndex].m3u8Url); return (u != null && u.pathSegments.isNotEmpty) ? u.pathSegments.last : _episodes[_currentIndex].slug; })()}',
                               ),
                               _buildInfoRow(
                                 L10n.t('duration') ?? 'Thời lượng',
