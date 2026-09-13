@@ -121,6 +121,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   bool _introDismissed = false;
   bool _outroDismissed = false;
   bool _wasPlayingBeforeMinimize = false;
+  int _lastNextEpisodeTime = 0;
   bool _isPiPMode = false;
   Rect? _prePiPBounds;
   late String _currentTitle;
@@ -1194,6 +1195,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   void _playNextEpisode() {
+    final now = DateTime.now().millisecondsSinceEpoch;
+    if (now - _lastNextEpisodeTime < 2000) return; // Tr?nh l?i double-trigger khi stream.completed nh?y li?n t?c
+    _lastNextEpisodeTime = now;
+
     if (_currentIndex + 1 < _episodes.length) {
       _initEpisode(_currentIndex + 1);
     }
