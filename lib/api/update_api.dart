@@ -23,7 +23,7 @@ class UpdateApi {
   );
 
   // BẠN SẼ ĐỔI SỐ NÀY MỖI KHI RA MẮT BẢN CẬP NHẬT MỚI:
-  static const String currentAppVersion = '26.09.13.19.public';
+  static const String currentAppVersion = '26.09.14.1.dev';
 
   /// Kiểm tra có bản cập nhật mới không
   static Future<UpdateInfo?> checkForUpdate() async {

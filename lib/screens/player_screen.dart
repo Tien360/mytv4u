@@ -483,7 +483,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
       player = Player(
         configuration: PlayerConfiguration(
-          bufferSize: 32 * 1024 * 1024,
+          bufferSize: bufferSize,
           title: 'MyTV4U',
         ),
       );
