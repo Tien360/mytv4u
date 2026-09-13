@@ -1,14 +1,14 @@
-﻿lines = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read().splitlines()
+﻿import io
 
-# The messed up part starts at line 794. Let's find exactly what to remove!
-# Line 781 is ListTile(
-# Line 793 is ),  (the end of Switch)
-# Lines 794 to 899 are the mistakenly inserted settings.
-# Line 900 is const Divider(color: Colors.white12, height: 32),
+def fix_file(path):
+    with io.open(path, 'r', encoding='utf-8') as f:
+        text = f.read()
 
-del lines[793:899]
+    text = text.replace("title.contains('l?ng ti?ng')", "title.contains('lồng tiếng')")
+    text = text.replace("title.contains('thuy?t minh')", "title.contains('thuyết minh')")
 
-# Wait, if we delete lines 793 to 898 (inclusive), 
-# Actually, the original code at line 793 was `                                          ),` which closed the Switch.
-# Then we should close the ListTile with `                                        ),`
-# Let's just fix it properly using Python.
+    with io.open(path, 'w', encoding='utf-8') as f:
+        f.write(text)
+
+fix_file(r'lib\screens\player_screen.dart')
+fix_file(r'lib\screens\tv_player_screen.dart')

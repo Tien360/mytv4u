@@ -727,6 +727,38 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     }
   }
 
+  bool _hasAutoSelectedTracks = false;
+
+  void _autoSelectVietnameseTracks(Tracks tracks) {
+    if (_hasAutoSelectedTracks) return;
+    
+    // Auto-select Vietnamese Audio
+    if (_selectedAudioTrack?.id == 'auto' || _selectedAudioTrack == null) {
+      for (var track in tracks.audio) {
+        final title = track.title?.toLowerCase() ?? '';
+        final lang = track.language?.toLowerCase() ?? '';
+        if (title.contains('vi') || title.contains('lồng tiếng') || title.contains('thuyết minh') || title.contains('vietnamese') || lang.contains('vi')) {
+          player.setAudioTrack(track);
+          break;
+        }
+      }
+    }
+
+    // Auto-select Vietnamese Subtitle
+    if (_selectedSubtitleTrack?.id == 'auto' || _selectedSubtitleTrack == null) {
+      for (var track in tracks.subtitle) {
+        final title = track.title?.toLowerCase() ?? '';
+        final lang = track.language?.toLowerCase() ?? '';
+        if (title.contains('vi') || title.contains('vietnamese') || lang.contains('vi')) {
+          player.setSubtitleTrack(track);
+          break;
+        }
+      }
+    }
+    
+    _hasAutoSelectedTracks = true;
+  }
+
   Future<void> _initEpisode(int index) async {
     if (index < 0 || index >= _episodes.length) return;
     setState(() {
@@ -828,6 +860,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     _premiumStreams = [];
     _currentPremiumStreamIndex = 0;
     _premiumRetryCount = 0;
+    _hasAutoSelectedTracks = false;
 
     if (_currentUrl.contains('workers.dev') || _currentUrl.contains('dpdns.org')) {
         final uri = Uri.tryParse(_currentUrl); if (uri == null) return; final rawId = uri.pathSegments.last;
@@ -1923,7 +1956,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               const SizedBox(height: 16),
                               ...(() {
                                   var combined = [..._subtitleTracks, ..._openSubtitles];
-                                  var sorted = combined.where((t) => t.id != 'auto').toList();
+                                  var sorted = combined.toList();
                                   sorted.sort((a, b) {
                                     if (a.id == _selectedSubtitleTrack?.id) return -1;
                                     if (b.id == _selectedSubtitleTrack?.id) return 1;
@@ -1980,7 +2013,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                               const SizedBox(height: 16),
                               ...(() {
                                   var combined = [..._subtitleTracks, ..._openSubtitles];
-                                  var sorted = combined.where((t) => t.id != 'auto').toList();
+                                  var sorted = combined.toList();
                                   sorted.sort((a, b) {
                                     if (a.id == _selectedSecondarySubtitleTrack?.id) return -1;
                                     if (b.id == _selectedSecondarySubtitleTrack?.id) return 1;
