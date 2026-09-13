@@ -1,9 +1,18 @@
-﻿import 'dart:convert';
-import 'package:http/http.dart' as http;
+
+import 'package:flutter/material.dart';
+import 'lib/api/phim_api.dart';
+import 'lib/models/movie.dart';
 
 void main() async {
-  final res = await http.get(Uri.parse('https://phimapi.com/phim/cuu-long-thanh-trai-vay-thanh'));
-  final data = json.decode(res.body);
-  print(data['movie']['episode_current']);
-  print(data['movie']['episode_total']);
+  Movie movie = Movie(
+    id: 'silo',
+    name: 'Silo Phần 1',
+    originName: 'Silo',
+    thumbUrl: '',
+    posterUrl: '',
+    year: 2023,
+    type: 'series',
+  );
+  final ytKey = await PhimApi.getTrailerStreamUrl(movie, true);
+  print('YTKEY: $ytKey');
 }

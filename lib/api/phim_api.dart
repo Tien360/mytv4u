@@ -1,4 +1,4 @@
-﻿import 'dart:async';
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -30,10 +30,10 @@ class PhimApi {
   static const String ophimUrl = 'https://ophim1.com/v1/api';
   static const String vsmovUrl = 'https://vsmov.com/api';
   static const String phim4kUrl = 'https://free2.phim4k.lol/api';
-  static const String free1Url = 'https://free1.phim4k.lol/v1/api';
+  static const String free1Url = 'https://free1.p4k.dpdns.org';
   static const String premiumUrl =
       'https://dogtail.oxaliplatin.workers.dev/api/premium';
-  static const String free1List = 'https://free1.phim4k.lol/danh-sach';
+  static const String free1List = 'https://free1.p4k.dpdns.org/danh-sach';
 
   // --- Normalization functions ---
   static Movie _normalizeNguonC(Map<String, dynamic> item) {
@@ -535,10 +535,12 @@ class PhimApi {
         return false;
       }
     }
-    if (initial.year.isNotEmpty &&
-        fetched.year.isNotEmpty &&
-        initial.year != fetched.year) {
-      return false;
+    if (initial.year.isNotEmpty && fetched.year.isNotEmpty) {
+      String y1 = RegExp(r'\d{4}').firstMatch(initial.year)?.group(0) ?? initial.year;
+      String y2 = RegExp(r'\d{4}').firstMatch(fetched.year)?.group(0) ?? fetched.year;
+      if (y1 != y2) {
+        return false;
+      }
     }
     return true;
   }
@@ -576,8 +578,10 @@ class PhimApi {
       if (orderedMovies.isEmpty) return;
 
       Movie merged = orderedMovies.first;
+      Map<String, String> aggregatedSlugs = Map<String, String>.from(merged.sourceSlugs);
       for (int i = 1; i < orderedMovies.length; i++) {
         var item = orderedMovies[i];
+        aggregatedSlugs.addAll(item.sourceSlugs);
 
         bool mergedHasBackdrop =
             merged.posterUrl.isNotEmpty && merged.posterUrl != merged.thumbUrl;
@@ -610,6 +614,7 @@ class PhimApi {
           time: (merged.time.isNotEmpty && merged.time != 'N/A')
               ? merged.time
               : item.time,
+          imdbId: (merged.imdbId != null && merged.imdbId!.isNotEmpty) ? merged.imdbId : item.imdbId,
           language: (merged.language.isNotEmpty && merged.language != 'N/A')
               ? merged.language
               : item.language,
@@ -629,7 +634,16 @@ class PhimApi {
         );
       }
 
+      Map<String, String> combinedSlugs = {};
+      if (initialMovie != null) {
+        combinedSlugs.addAll(initialMovie.sourceSlugs);
+      }
+      for (var m in orderedMovies) {
+        combinedSlugs.addAll(m.sourceSlugs);
+      }
+
       merged = merged.copyWith(
+        sourceSlugs: combinedSlugs,
         episodes: allServers
             .where(
               (server) => server.items.any(
@@ -642,7 +656,7 @@ class PhimApi {
       controller.add(merged);
     }
 
-    SharedPreferences.getInstance().then((prefs) {
+    SharedPreferences.getInstance().then((prefs) async {
       final enabledSources =
           prefs.getStringList('enabled_sources') ??
           [
@@ -658,6 +672,31 @@ class PhimApi {
           ];
       final timeout = const Duration(seconds: 5);
       final List<Future> futures = [];
+
+      String baseGuessedSlug = slug;
+      if (slug.startsWith('premium-') && initialMovie != null) {
+          String temp = initialMovie.originalName.isNotEmpty ? initialMovie.originalName : initialMovie.name;
+          baseGuessedSlug = _slugify(temp.replaceAll(RegExp(r'\s+-\s+.*'), ''));
+          
+          // Fallback search to find true slug if we only have premium
+          if (!initialMovie.sourceSlugs.containsKey('nguonc') && !initialMovie.sourceSlugs.containsKey('kkphim')) {
+             try {
+                final enc = Uri.encodeComponent(temp.replaceAll(RegExp(r'\s+-\s+.*'), ''));
+                final res = await http.get(Uri.parse('https://phim.nguonc.com/api/films/search?keyword=$enc')).timeout(const Duration(seconds: 4));
+                if (res.statusCode == 200) {
+                   final data = json.decode(res.body);
+                   final items = data['items'] ?? [];
+                   for (var item in items) {
+                       final fetchedMovie = _normalizeNguonC(item);
+                       if (_isSimilarMovieGlobal(initialMovie, fetchedMovie)) {
+                           baseGuessedSlug = fetchedMovie.slug;
+                           break;
+                       }
+                   }
+                }
+             } catch (_) {}
+          }
+      }
 
       if (enabledSources.contains('film4knet')) {
         final querySlug = initialMovie?.sourceSlugs['film4knet'] ?? slug;
@@ -700,7 +739,7 @@ class PhimApi {
       }
 
       if (enabledSources.contains('nguonc')) {
-        final querySlug = initialMovie?.sourceSlugs['nguonc'] ?? slug;
+        final querySlug = initialMovie?.sourceSlugs['nguonc'] ?? baseGuessedSlug;
         futures.add(
           http
               .get(Uri.parse('$nguoncUrl/film/$querySlug'))
@@ -737,7 +776,7 @@ class PhimApi {
       }
 
       if (enabledSources.contains('kkphim')) {
-        final querySlug = initialMovie?.sourceSlugs['kkphim'] ?? slug;
+        final querySlug = initialMovie?.sourceSlugs['kkphim'] ?? baseGuessedSlug;
         futures.add(
           http
               .get(Uri.parse('$kkphimUrl/phim/$querySlug'))
@@ -776,7 +815,7 @@ class PhimApi {
       }
 
       if (enabledSources.contains('ophim')) {
-        final querySlug = initialMovie?.sourceSlugs['ophim'] ?? slug;
+        final querySlug = initialMovie?.sourceSlugs['ophim'] ?? baseGuessedSlug;
         futures.add(
           http
               .get(Uri.parse('$ophimUrl/phim/$querySlug'))
@@ -815,7 +854,7 @@ class PhimApi {
       }
 
       if (enabledSources.contains('phim4k')) {
-        final querySlug = initialMovie?.sourceSlugs['phim4k'] ?? slug;
+        final querySlug = initialMovie?.sourceSlugs['phim4k'] ?? baseGuessedSlug;
         futures.add(
           http
               .get(Uri.parse('$phim4kUrl/film/$querySlug'))
@@ -852,7 +891,7 @@ class PhimApi {
       }
 
       if (enabledSources.contains('vsmov')) {
-        final querySlug = initialMovie?.sourceSlugs['vsmov'] ?? slug;
+        final querySlug = initialMovie?.sourceSlugs['vsmov'] ?? baseGuessedSlug;
         futures.add(
           http
               .get(Uri.parse('$vsmovUrl/phim/$querySlug'))
@@ -889,7 +928,7 @@ class PhimApi {
       }
 
       if (enabledSources.contains('free1')) {
-        final querySlug = initialMovie?.sourceSlugs['free1'] ?? slug;
+        final querySlug = initialMovie?.sourceSlugs['free1'] ?? baseGuessedSlug;
         futures.add(
           http
               .get(Uri.parse('$free1Url/phim/$querySlug'))
@@ -1115,6 +1154,8 @@ class PhimApi {
           if (movieData == null && !querySlug.startsWith('premium-')) {
             final words = slug.split('-');
             final keywords = [
+              if (initialMovie != null && initialMovie.originalName.isNotEmpty) initialMovie.originalName,
+              if (initialMovie != null && initialMovie.name.isNotEmpty) initialMovie.name.replaceAll(RegExp(r'\s+-\s+.*'), ''), // B? phần " - Ph?n 1"
               slug.replaceAll('-', ' '),
               words.isNotEmpty ? words[0] : '',
               words.length > 1 ? words.skip(1).join(' ') : '',
@@ -1268,7 +1309,7 @@ class PhimApi {
       }
 
       if (enabledSources.contains('motchill')) {
-        final querySlug = initialMovie?.sourceSlugs['motchill'] ?? slug;
+        final querySlug = initialMovie?.sourceSlugs['motchill'] ?? baseGuessedSlug;
         futures.add(
           MotchillScraper.getDetail(querySlug)
               .timeout(timeout)
@@ -1506,10 +1547,14 @@ class PhimApi {
   static const String _tmdbApiKey = 'e9e9d8da18ae29fc430845952232787c';
 
   
-  static String _cleanForTmdb(String t) {
+    static String _cleanForTmdb(String t) {
+    t = t.replaceAll(RegExp(r'\(\s*(?:season|phần|part)\s*\d+\s*\)', caseSensitive: false), '');
+    t = t.replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|phần|part)\s*\d+', caseSensitive: false), '');
+    t = t.replaceAll(RegExp(r'\(\s*\)'), '');
+    t = t.replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '');
     t = t.replaceAll(RegExp(r'\(.*?\)'), '');
     t = t.replaceAll(RegExp(r'\[.*?\]'), '');
-    t = t.replaceAll(RegExp(r'(vietsub|thuyết minh|lồng tiếng|bản đẹp|hd|fhd|4k|cam|ts|bluray|web-dl|tập \d+)', caseSensitive: false), '');
+    t = t.replaceAll(RegExp(r'(vietsub|thuy?t minh|l?ng ti?ng|b?n ??p|hd|fhd|4k|cam|ts|bluray|web-dl|t?p \d+)', caseSensitive: false), '');
     return t.trim();
   }
 
@@ -1751,7 +1796,7 @@ class PhimApi {
         final type = match['type'];
 
         final url =
-            'https://api.themoviedb.org/3/$type/$tmdbId?api_key=$_tmdbApiKey&append_to_response=recommendations,similar,credits,release_dates,content_ratings&language=$lang';
+            'https://api.themoviedb.org/3/$type/$tmdbId?api_key=$_tmdbApiKey&append_to_response=external_ids,recommendations,similar,credits,release_dates,content_ratings&language=$lang';
         final res = await http.get(Uri.parse(url));
         if (res.statusCode == 200) {
           final data = json.decode(res.body);

@@ -19,10 +19,18 @@ class TorrentioApi {
   ) async {
     try {
       // Clean up titles (remove 'Season X', 'Phần X', etc.) for better TMDB search
-      String cleanTitle(String t) {
-        final regex = RegExp(r'(?:\s*-\s*)?(?:season|phần|part)\s*\d+', caseSensitive: false);
-        return t.replaceAll(regex, '').trim();
-      }
+              // Clean up titles (remove 'Season X', 'Ph?n X', etc.) for better TMDB search
+        String cleanTitle(String t) {
+          // Remove season inside parentheses
+          t = t.replaceAll(RegExp(r'\(\s*(?:season|phần|part)\s*\d+\s*\)', caseSensitive: false), '');
+          // Remove season outside parentheses
+          t = t.replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|phần|part)\s*\d+', caseSensitive: false), '');
+          // Remove empty parentheses left behind
+          t = t.replaceAll(RegExp(r'\(\s*\)'), '');
+          // Remove premium tag
+          t = t.replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '');
+          return t.trim();
+        }
       
       final cTitle = cleanTitle(title);
       final cOriginal = cleanTitle(originalTitle);

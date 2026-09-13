@@ -1,29 +1,10 @@
-﻿void main() {
-  List<String> names = [
-    'Mikael: Thợ Săn Hai Thế Giới (2026) Mikael: Pemburu Dua Alam',
-    'Batman (2022)',
-    'Spider Man 3 Vietsub Thuyết Minh HD'
-  ];
-  
-  for (String name in names) {
-    String parsedName = name;
-    String parsedOriginalName = 'Original';
-    String parsedYear = '';
-    
-    final regex = RegExp(r'^(.*?)\s*\((\d{4})\)\s*(.*)$');
-    final match = regex.firstMatch(parsedName);
-    if (match != null) {
-      parsedName = match.group(1)?.trim() ?? parsedName;
-      String extractedYear = match.group(2) ?? '';
-      if (parsedYear.isEmpty && extractedYear.isNotEmpty) {
-        parsedYear = extractedYear;
-      }
-      String extractedOriginalName = match.group(3)?.trim() ?? '';
-      if (extractedOriginalName.isNotEmpty) {
-        parsedOriginalName = extractedOriginalName;
-      }
-    }
-    
-    print('Name: $name => parsedName: $parsedName, parsedOriginalName: $parsedOriginalName, year: $parsedYear');
-  }
+﻿
+void main() {
+  String t = 'Hầm SILO - Phần 1';
+  t = t.replaceAll(RegExp(r'\(\s*(?:season|phần|part)\s*\d+\s*\)', caseSensitive: false), '');
+  t = t.replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|phần|part)\s*\d+', caseSensitive: false), '');
+  t = t.replaceAll(RegExp(r'\(\s*\)'), '');
+  t = t.replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '');
+  print('Cleaned: \'' + t.trim() + '\'');
 }
+

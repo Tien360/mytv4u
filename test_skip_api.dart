@@ -35,6 +35,11 @@ class SkipSegments {
           final e = mapData['end_ms'] != null ? (mapData['end_ms'] as num) / 1000.0 : s + 180.0;
           return Segment(start: s, end: e);
         }
+        if (mapData.containsKey('start_sec') && mapData['start_sec'] != null) {
+          final s = (mapData['start_sec'] as num).toDouble();
+          final e = mapData['end_sec'] != null ? (mapData['end_sec'] as num).toDouble() : s + 180.0;
+          return Segment(start: s, end: e);
+        }
       }
       return null;
     }
@@ -54,20 +59,32 @@ void main() async {
 
   final endpoints = [
     'https://api.theintrodb.org/v3/media?imdb_id=$imdbId&season=$season&episode=$episode',
+    'https://api.skipdb.tv/api/segments?imdb_id=$imdbId&season=$season&episode=$episode',
+    'https://api.introdb.app/segments?imdb_id=$imdbId&season=$season&episode=$episode',
   ];
 
   for (String url in endpoints) {
-    final res = await http.get(
-      Uri.parse(url),
-      headers: {
-        'User-Agent': 'Mozilla/5.0',
-        'X-API-Key': 'a9fb57dba1eea9bc3e660a909d838d726e3bf623d52620282013481d1f6e5377',
+    try {
+      final res = await http.get(
+        Uri.parse(url),
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)',
+          'X-API-Key': 'a9fb57dba1eea9bc3e660a909d838d726e3bf623d52620282013481d1f6e5377',
+        }
+      ).timeout(const Duration(seconds: 4));
+      
+      print('URL: $url');
+      print('Status: ${res.statusCode}');
+      
+      if (res.statusCode == 200) {
+        final data = json.decode(res.body);
+        final segments = SkipSegments.fromJson(data);
+        print('Parsed Intro: ${segments.intro}');
+        print('Parsed Outro: ${segments.outro}');
+        break;
       }
-    );
-    if (res.statusCode == 200) {
-      final segs = SkipSegments.fromJson(json.decode(res.body));
-      print('Intro: ${segs.intro}');
-      print('Outro: ${segs.outro}');
+    } catch (e) {
+      print('Error on $url: $e');
     }
   }
 }

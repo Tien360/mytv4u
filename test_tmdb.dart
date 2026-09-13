@@ -1,15 +1,8 @@
-﻿import 'dart:convert';
-import 'package:http/http.dart' as http;
-
+﻿import 'package:http/http.dart' as http;
+import 'dart:convert';
 void main() async {
-  final apiKey = 'e9e9d8da18ae29fc430845952232787c';
-  final url = 'https://api.themoviedb.org/3/tv/312573/season/1?api_key=$apiKey&language=vi-VN';
-  final res = await http.get(Uri.parse(url));
-  print(res.statusCode);
-  try {
-    final data = json.decode(utf8.decode(res.bodyBytes));
-    print('Decode success, length: ${data['episodes'].length}');
-  } catch (e) {
-    print('DECODE ERROR: $e');
-  }
+  final query = Uri.encodeComponent('Silo ( )');
+  final searchUrl = 'https://api.themoviedb.org/3/search/tv?query=$query&api_key=e9e9d8da18ae29fc430845952232787c&language=en-US';
+  final res = await http.get(Uri.parse(searchUrl));
+  print(res.body);
 }

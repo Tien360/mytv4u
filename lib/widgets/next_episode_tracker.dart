@@ -248,9 +248,9 @@ class _NextEpisodeTrackerState extends State<NextEpisodeTracker> with SingleTick
           }
         }
         
-        if (maxEpInApp > epNum) {
-          isVipAhead = true;
-        }
+        if (maxEpInApp > epNum && epNum > 1 && diff <= 30) {
+            isVipAhead = true;
+          }
 
         final epPattern = RegExp('\\b' + epNum.toString() + '\\b');
         for (var server in reliableServers) {
@@ -283,14 +283,24 @@ class _NextEpisodeTrackerState extends State<NextEpisodeTracker> with SingleTick
       final isToday = diff == 0;
 
       String key;
-      if (isVipAhead)                              { key = 'ep_msg_vip_ahead'; _progressKey = 'party'; }
-      else if (isMissingPrevious)                  { key = 'ep_msg_previous_missing'; _progressKey = 'rage'; }
-      else if (isToday && hasSource && isFinale)   { key = 'ep_msg_today_finale_available'; _progressKey = 'party'; }
-      else if (isToday && !hasSource && isFinale)  { key = 'ep_msg_today_finale_unavailable'; _progressKey = 'rage'; }
-      else if (isToday && hasSource)               { key = 'ep_msg_today_available'; _progressKey = 'party'; }
-      else if (isToday && !hasSource)              { key = 'ep_msg_today_unavailable'; _progressKey = 'rage'; }
-      else if (diff < 0)                           { key = 'ep_msg_past_missed'; _progressKey = 'chill'; }
-      else if (diff == 1)                          { key = 'ep_msg_tomorrow'; _progressKey = 'tense'; }
+      final isAired = diff <= 0;
+      
+      if (diff > 30) {
+        final ratio = total > 0 ? epNum / total : 0.5;
+        if (ratio < 0.45)      { key = 'ep_msg_future_first_half'; _progressKey = 'chill'; }
+        else if (ratio < 0.82) { key = 'ep_msg_future_second_half'; _progressKey = 'tense'; }
+        else                   { key = 'ep_msg_future_penultimate'; _progressKey = 'tense'; }
+      }
+      else if (isVipAhead)                                { key = 'ep_msg_vip_ahead'; _progressKey = 'party'; }
+      else if (isMissingPrevious)                    { key = 'ep_msg_previous_missing'; _progressKey = 'rage'; }
+      else if (isAired && hasSource && isFinale)     { key = 'ep_msg_today_finale_available'; _progressKey = 'party'; }
+      else if (isAired && !hasSource && isFinale)    { key = 'ep_msg_today_finale_unavailable'; _progressKey = 'rage'; }
+      else if (isAired && hasSource)                 { key = 'ep_msg_today_available'; _progressKey = 'party'; }
+      else if (isAired && !hasSource) { 
+          if (diff < 0) { key = 'ep_msg_past_missed'; _progressKey = 'chill'; }
+          else { key = 'ep_msg_today_unavailable'; _progressKey = 'rage'; }
+      }
+      else if (diff == 1)                            { key = 'ep_msg_tomorrow'; _progressKey = 'tense'; }
       else {
         final ratio = total > 0 ? epNum / total : 0.5;
         if (ratio < 0.45)      { key = 'ep_msg_future_first_half'; _progressKey = 'chill'; }

@@ -20,6 +20,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_windows/webview_windows.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../api/phim_api.dart';
+import '../utils/premium_parser.dart';
 import '../api/firebase_api.dart';
 import '../api/auth_api.dart';
 import '../api/comment_api.dart';
@@ -436,8 +437,29 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     return parts.join(' ');
   }
   Future<void> _loadEpisodeProgressAndColor() async {
-    // No longer using PaletteGenerator to extract color.
-    // Default color is already Colors.redAccent.
+    _episodeProgressMap.clear();
+    SharedPreferences.getInstance().then((prefs) {
+      if (!mounted) return;
+      setState(() {
+        final servers = _movie?.episodes ?? [];
+        for (var server in servers) {
+          final isPremium = server.serverName.toLowerCase().contains('premium');
+          final effectiveMovieName = isPremium ? '${_movie!.name} - ${server.serverName}' : _movie!.name;
+          for (var ep in server.items) {
+            final effectiveEpName = isPremium ? '${server.serverName} - ${ep.name}' : ep.name;
+            final key = 'continue_${effectiveMovieName}_${ep.name}';
+            final durKey = 'continue_duration_${effectiveMovieName}_${ep.name}';
+            final pos = prefs.getInt(key) ?? 0;
+            final dur = prefs.getInt(durKey) ?? 0;
+            if (pos > 0 && dur > 0) {
+              _episodeProgressMap[effectiveEpName] = (pos / dur).clamp(0.0, 1.0);
+              // Also map exact ep.name for fallback in P2P UI
+              _episodeProgressMap[ep.name] = (pos / dur).clamp(0.0, 1.0);
+            }
+          }
+        }
+      });
+    });
   }
 
   void _fetchDetail() {
@@ -1016,26 +1038,49 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                 }
               }
 
+              final isPremium = _currentServer!.serverName.toLowerCase().contains('premium');
+              final effectiveMovieName = isPremium ? '${_movie!.name} - ${_currentServer!.serverName}' : _movie!.name;
+              final effectiveEpName = isPremium ? '${_currentServer!.serverName} - ${ep.name}' : ep.name;
+
               return HoverEpisodeButton(
                   text: dispName,
-                  progress: _episodeProgressMap[ep.name] ?? 0.0,
-                  episodeKey: 'continue_${_movie!.name}_${ep.name}',
-                  durationKey: 'continue_duration_${_movie!.name}_${ep.name}',
+                  progress: _episodeProgressMap[effectiveEpName] ?? 0.0,
+                  episodeKey: 'continue_${effectiveMovieName}_${ep.name}',
+                  durationKey: 'continue_duration_${effectiveMovieName}_${ep.name}',
                   progressColor: _dominantColor,
                 onTap: () async {
                   _pauseTrailer();
-                  FirebaseApi.saveContinueWatching(_movie!, ep.name);
-                  await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => PlayerScreen(
-                        episodes: items,
-                        currentEpisodeIndex: index,
-                        movieName: _movie!.name,
-                        imdbId: _movie!.imdbId,
+                    FirebaseApi.saveContinueWatching(_movie!, effectiveEpName);
+                    
+                    int? inferredSeason;
+                    int? inferredEpisode;
+                    
+                    final epParse = PremiumParser.parseSeasonEpisode('${ep.name} ${ep.filename ?? ''} ${ep.slug}');
+                    inferredEpisode = epParse['episode'];
+                    inferredSeason = epParse['season'];
+                    
+                    if (inferredSeason == null) {
+                       final serverParse = PremiumParser.parseSeasonEpisode('${_currentServer!.serverName} ${_movie!.name} ${_movie!.originalName}');
+                       inferredSeason = serverParse['season'] ?? 1;
+                    }
+                    if (inferredEpisode == null) {
+                       inferredEpisode = index + 1;
+                    }
+
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => PlayerScreen(
+                          episodes: items,
+                          currentEpisodeIndex: index,
+                          movieName: effectiveMovieName,
+                            originalMovieName: _movie?.originalName ?? '',
+                          imdbId: _movie!.imdbId,
+                          season: inferredSeason,
+                          episode: inferredEpisode,
+                        ),
                       ),
-                    ),
-                  );
+                    );
                   _loadEpisodeProgressAndColor();
                     if (mounted) setState(() {});
                 },
@@ -1128,8 +1173,11 @@ const SizedBox(height: 24),
                     // Embed servers (VidSrc, VidAPI) và các server thường
                     // đều mở thẳng PlayerScreen với index đúng trong danh sách
                     _pauseTrailer();
-                    FirebaseApi.saveContinueWatching(_movie!, ep.name);
-                    final index = _currentServer!.items.indexOf(ep);
+                      final isPremium = _currentServer!.serverName.toLowerCase().contains('premium');
+                      final effectiveMovieName = isPremium ? '${_movie!.name} - ${_currentServer!.serverName}' : _movie!.name;
+                      final effectiveEpName = isPremium ? '${_currentServer!.serverName} - ${ep.name}' : ep.name;
+                      FirebaseApi.saveContinueWatching(_movie!, effectiveEpName);
+                      final index = _currentServer!.items.indexOf(ep);
                     final seasonEpMatch = RegExp(r'S(\d+)E(\d+)').firstMatch(ep.slug);
                     await Navigator.push(
                       context,
@@ -1137,7 +1185,8 @@ const SizedBox(height: 24),
                         builder: (_) => PlayerScreen(
                           episodes: _currentServer!.items,
                           currentEpisodeIndex: index,
-                          movieName: _movie!.name,
+                          movieName: effectiveMovieName,
+                            originalMovieName: _movie?.originalName ?? '',
                           imdbId: _movie!.imdbId,
                           season: seasonEpMatch != null ? int.tryParse(seasonEpMatch.group(1)!) : null,
                           episode: seasonEpMatch != null ? int.tryParse(seasonEpMatch.group(2)!) : null,
@@ -1224,6 +1273,7 @@ const SizedBox(height: 24),
                           currentEpisodeIndex: idx,
                           movieName:
                               '${_movie!.displayName} - ${_selectedP2pEpisode!.slug}',
+                            originalMovieName: _movie?.originalName ?? '',
                         ),
                       ),
                     );

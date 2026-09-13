@@ -118,7 +118,7 @@ class FirebaseApi {
   static Future<Map<String, dynamic>?> getAppSettings() async {
     final url = Uri.parse('$baseUrl/app_settings/info');
     try {
-      final response = await http.get(url);
+      final response = await http.get(url).timeout(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['fields'] != null) {
@@ -197,7 +197,7 @@ class FirebaseApi {
   static Future<Map<String, dynamic>> checkAppStatus() async {
     final url = Uri.parse('$baseUrl/app_settings/status');
     try {
-      final response = await http.get(url);
+      final response = await http.get(url).timeout(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['fields'] != null) {
@@ -271,7 +271,7 @@ class FirebaseApi {
     final uid = await _getUserId();
     final url = Uri.parse('$baseUrl/ratings/${uid}_$movieSlug');
     try {
-      final response = await http.get(url);
+      final response = await http.get(url).timeout(const Duration(seconds: 5));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
         if (data['fields'] != null && data['fields']['score'] != null) {
@@ -363,7 +363,7 @@ class FirebaseApi {
     final docId = '${uid}_$movieSlug'.replaceAll(RegExp(r'[^a-zA-Z0-9_]'), '_');
     final url = Uri.parse('$baseUrl/watchlist/$docId');
     try {
-      final response = await http.get(url);
+      final response = await http.get(url).timeout(const Duration(seconds: 5));
       return response.statusCode == 200;
     } catch (e) {
       return false;

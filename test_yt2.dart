@@ -1,15 +1,15 @@
+
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
 void main() async {
   var yt = YoutubeExplode();
-  // Venom The Last Dance trailer
-  var manifest = await yt.videos.streamsClient.getManifest('__2ABJjxzNo');
-  
-  var muxedStreams = manifest.muxed.sortByVideoQuality();
-  print('Muxed:');
-  for (var s in muxedStreams) {
-    print('${s.videoResolution} - ${s.url}');
+  try {
+    var manifest = await yt.videos.streamsClient.getManifest('8ZYhuvIv1pA');
+    var streamInfo = manifest.muxed.withHighestBitrate();
+    print("URL: ${streamInfo.url}");
+  } catch (e) {
+    print("Error: $e");
+  } finally {
+    yt.close();
   }
-  
-  yt.close();
 }

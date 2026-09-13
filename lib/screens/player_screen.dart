@@ -6,7 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart' as p;
 import 'package:mytv4u_flutter/widgets/advanced_controls_panel.dart';
+import 'package:mytv4u_flutter/api/premium_resolver.dart';
+import 'package:mytv4u_flutter/api/skip_segments_api.dart';
 import 'package:media_kit/media_kit.dart';
 import 'package:media_kit_video/media_kit_video.dart';
 import 'package:webview_windows/webview_windows.dart';
@@ -31,6 +34,7 @@ class PlayerScreen extends StatefulWidget {
   final List<Episode> episodes;
   final int currentEpisodeIndex;
   final String movieName;
+  final String? originalMovieName;
   final String? imdbId;
   final int? season;
   final int? episode;
@@ -42,6 +46,7 @@ class PlayerScreen extends StatefulWidget {
     required this.episodes,
     required this.currentEpisodeIndex,
     required this.movieName,
+    this.originalMovieName,
     this.imdbId,
     this.season,
     this.episode,
@@ -111,6 +116,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   late int _currentIndex;
   late String _currentUrl;
   bool _backgroundPlayback = false;
+  SkipSegments? _currentSegments;
   bool _enableSkipIntro = true;
   int _skipIntroDuration = 85;
   bool _wasPlayingBeforeMinimize = false;
@@ -238,7 +244,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       final prefs = await SharedPreferences.getInstance();
       final ep = _episodes[_currentIndex];
       final key = 'continue_${widget.movieName}_${ep.name}';
+      final durKey = 'continue_duration_${widget.movieName}_${ep.name}';
       await prefs.setInt(key, _position.inMilliseconds);
+      await prefs.setInt(durKey, _duration.inMilliseconds);
     }
   }
 
@@ -534,11 +542,21 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         }
       }),
     );
-    _playerSubs.add(
-      player.stream.position.listen((pos) {
-        if (mounted) setState(() => _position = pos);
-      }),
-    );
+    
+      _playerSubs.add(
+        player.stream.position.listen((pos) {
+          if (mounted) setState(() => _position = pos);
+          
+          if (_currentSegments?.outro != null && 
+              pos.inSeconds >= _currentSegments!.outro!.start && 
+              _autoNext && 
+              _currentIndex < _episodes.length - 1 &&
+              !_isUsingWebview) {
+             _playNextEpisode();
+          }
+        }),
+      );
+
 
     _playerSubs.add(
       player.stream.duration.listen((dur) {
@@ -775,18 +793,94 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       _currentUrl = targetUrl;
     }
 
-    // Proactively switch to the first working premium server config
-    if (_fallbackDomains.isNotEmpty &&
-        (_currentUrl.contains('dpdns.org') ||
-            _currentUrl.contains('workers.dev'))) {
-      final rawId = _currentUrl.split('/').last;
-      _currentUrl = 'https://${_fallbackDomains.first}/$rawId';
+    
+    if (_currentUrl.contains('workers.dev') || _currentUrl.contains('dpdns.org')) {
+        final rawId = _currentUrl.split('/').last;
+        try {
+            final streams = await PremiumResolver.getVideoStream(rawId);
+            if (streams.isNotEmpty) {
+                _currentUrl = streams.first; // Use the first working premium proxy
+            }
+        } catch (e) {
+            print("Premium resolver error: $e");
+        }
     }
+
 
     await _playCurrentUrl(ep);
   }
 
   Future<void> _playCurrentUrl(Episode ep) async {
+    _currentSegments = null;
+    String? actualImdbId = widget.imdbId;
+    
+    // Fetch IMDB ID dynamically if it is missing
+    if (actualImdbId == null || actualImdbId.isEmpty) {
+      try {
+        final isTv = widget.season != null || widget.movieName.toLowerCase().contains('ph?n') || widget.movieName.toLowerCase().contains('season') || RegExp(r'(?:T?p|Ep)\s*\d+', caseSensitive: false).hasMatch(ep.name);
+        // Clean title for search
+        String cTitle = widget.movieName.replaceAll(RegExp(r'\(\s*(?:season|ph?n|part)\s*\d+\s*\)', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|ph?n|part)\s*\d+', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'\(\s*\)'), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '')
+                                            .trim();
+                                            
+        String cOriginal = (widget.originalMovieName ?? '').replaceAll(RegExp(r'\(\s*(?:season|ph?n|part)\s*\d+\s*\)', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|ph?n|part)\s*\d+', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'\(\s*\)'), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '')
+                                            .trim();
+                                            
+        String searchStr = cOriginal.isNotEmpty ? cOriginal : cTitle;
+        final query = Uri.encodeComponent(searchStr);
+        final searchUrl = 'https://api.themoviedb.org/3/search/${isTv ? 'tv' : 'movie'}?query=$query&api_key=e9e9d8da18ae29fc430845952232787c&language=en-US';
+        final res = await http.get(Uri.parse(searchUrl)).timeout(const Duration(seconds: 5));
+        if (res.statusCode == 200) {
+          final data = json.decode(res.body);
+          final results = data['results'] as List?;
+          if (results != null && results.isNotEmpty) {
+            final tmdbId = results[0]['id'].toString();
+            final externalUrl = 'https://api.themoviedb.org/3/${isTv ? 'tv' : 'movie'}/$tmdbId/external_ids?api_key=e9e9d8da18ae29fc430845952232787c';
+            final externalRes = await http.get(Uri.parse(externalUrl)).timeout(const Duration(seconds: 5));
+            if (externalRes.statusCode == 200) {
+              final externalData = json.decode(externalRes.body);
+              actualImdbId = externalData['imdb_id'];
+              print('Dynamically fetched IMDB ID inside player: $actualImdbId');
+            }
+          }
+        }
+      } catch (e) {
+        print('Error fetching IMDB ID in PlayerScreen: $e');
+      }
+    }
+
+    if (actualImdbId != null && actualImdbId.isNotEmpty) {
+      int season = widget.season ?? 1;
+      if (widget.season == null) {
+        final seasonMatches = RegExp(r'(?:ph[?a]n|season|sesion|ss)\s*(\d+)', caseSensitive: false).allMatches(widget.movieName);
+        if (seasonMatches.isNotEmpty) {
+          season = int.tryParse(seasonMatches.last.group(1) ?? '1') ?? 1;
+        } else {
+          final epSeasonMatch = RegExp(r'S(\d+)E\d+', caseSensitive: false).firstMatch(ep.name);
+          if (epSeasonMatch != null) {
+            season = int.tryParse(epSeasonMatch.group(1) ?? '1') ?? 1;
+          }
+        }
+      }
+      int epNum = widget.episode ?? 1;
+      if (widget.episode == null) {
+        final match = RegExp(r'(?:T?p|Ep)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'^\d+$').firstMatch(ep.name);
+        if (match != null) {
+          epNum = int.tryParse(match.group(1) ?? match.group(0)!) ?? 1;
+        }
+      }
+      try {
+        _currentSegments = await SkipSegmentsApi.fetchSegments(actualImdbId, season, epNum);
+        print('Fetched skip segments: intro=${_currentSegments?.intro?.start}-${_currentSegments?.intro?.end}, outro=${_currentSegments?.outro?.start}-${_currentSegments?.outro?.end}');
+      } catch (e) {
+        print('Error fetching skip segments: $e');
+      }
+    }
     bool isVideoFile =
         _currentUrl.contains('.m3u8') || 
         _currentUrl.contains('.mp4') || 
@@ -2028,27 +2122,34 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
                   ),
 
                 
-                // Skip Intro Button
-                if (!widget.isLive && _enableSkipIntro && _duration.inSeconds > _skipIntroDuration && _position.inSeconds > 0 && _position.inSeconds < _skipIntroDuration && !_isUsingWebview)
-                  Positioned(
-                    bottom: 100,
-                    right: 32,
-                    child: ElevatedButton.icon(
-                      icon: const Icon(Icons.fast_forward, color: Colors.white),
-                      label: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro', style: const TextStyle(color: Colors.white)),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black.withOpacity(0.8),
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          side: const BorderSide(color: Colors.white24, width: 1),
+                
+                // Skip Intro / Outro Buttons
+                if (!widget.isLive && _enableSkipIntro && !_isUsingWebview) ...[
+                  if ((_currentSegments?.intro != null && _position.inSeconds >= _currentSegments!.intro!.start && _position.inSeconds < _currentSegments!.intro!.end) || 
+                      (_currentSegments?.intro == null && _duration.inSeconds > _skipIntroDuration && _position.inSeconds > 0 && _position.inSeconds < _skipIntroDuration))
+                    Positioned(
+                      bottom: 100,
+                      right: 32,
+                      child: ElevatedButton.icon(
+                        icon: const Icon(Icons.fast_forward, color: Colors.white),
+                        label: Text(L10n.t('skip_intro') ?? 'B? qua Intro', style: const TextStyle(color: Colors.white)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.black.withOpacity(0.8),
+                          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                         ),
+                        onPressed: () {
+                          if (_currentSegments?.intro != null) {
+                            player.seek(Duration(seconds: _currentSegments!.intro!.end.toInt()));
+                          } else {
+                            player.seek(Duration(seconds: _skipIntroDuration));
+                          }
+                        },
                       ),
-                      onPressed: () {
-                        player.seek(Duration(seconds: _skipIntroDuration));
-                      },
                     ),
-                  ),
+                  
+                  
+                ],
+
                 // Next Episode Overlay (Near End)
                 if (!widget.isLive &&
                     _duration.inSeconds > 0 &&

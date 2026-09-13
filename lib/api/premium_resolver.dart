@@ -1,0 +1,101 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
+import 'dart:typed_data';
+import 'package:http/http.dart' as http;
+
+class PremiumResolver {
+  static final List<Map<String, String>> _servers = [
+    {
+      "name": "Server 1",
+      "cdn": "https://sv1.p4k.dpdns.org",
+      "secret": "5e8d1b4f9c2a6e730b1f8d4a92c5e3d1",
+      "ua": "okhttp/4.12.0"
+    },
+    {
+      "name": "Server 2",
+      "cdn": "https://sv2.p4k.dpdns.org",
+      "secret": "f7a2c8e1b5d493f0a6b2d9e8c1f3a5b4",
+      "ua": "Dart/3.12 (dart:io)"
+    }
+  ];
+
+  
+  static Future<DateTime> _getUtcTime() async {
+    try {
+      final res = await http.get(Uri.parse('https://worldtimeapi.org/api/timezone/Etc/UTC')).timeout(const Duration(seconds: 3));
+      if (res.statusCode == 200) {
+        final data = json.decode(res.body);
+        return DateTime.parse(data['utc_datetime']).toUtc();
+      }
+    } catch (_) {}
+    return DateTime.now().toUtc();
+  }
+
+  static Future<List<String>> getVideoStream(String fileId) async {
+    final utcDt = await _getUtcTime();
+    final int nowSec = (utcDt.millisecondsSinceEpoch / 1000).floor();
+
+    final String dateStr = "${utcDt.year}${utcDt.month.toString().padLeft(2, '0')}${utcDt.day.toString().padLeft(2, '0')}";
+    
+    List<String> streams = [];
+    for (var server in _servers) {
+      try {
+        final secret = server['secret']!;
+        final cdn = server['cdn']!;
+        final ua = server['ua']!;
+        
+        final keyBytes = sha256.convert(utf8.encode(secret)).bytes;
+        final ivFull = sha256.convert(utf8.encode('iv:' + secret)).bytes;
+        final ivBytes = Uint8List.fromList(ivFull.sublist(0, 12));
+        
+        final plaintext = utf8.encode("$secret:$dateStr");
+        final key = encrypt.Key(Uint8List.fromList(keyBytes));
+        final iv = encrypt.IV(ivBytes);
+        final encrypter = encrypt.Encrypter(encrypt.AES(key, mode: encrypt.AESMode.gcm));
+        
+        final encrypted = encrypter.encryptBytes(plaintext, iv: iv);
+        final ciphertextHex = encrypted.bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join('');
+        final signingSecret = "$secret:$ciphertextHex";
+        
+        final hmacMask = Hmac(sha256, utf8.encode(signingSecret));
+        final mask = hmacMask.convert(utf8.encode("otp-ts-mask")).bytes.sublist(0, 4);
+        
+        final tsBytes = Uint8List(4)..buffer.asByteData().setUint32(0, nowSec & 0xFFFFFFFF, Endian.big);
+        final tsHexBytes = Uint8List(4);
+        for (int i = 0; i < 4; i++) {
+          tsHexBytes[i] = tsBytes[i] ^ mask[i];
+        }
+        final tsHex = tsHexBytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join('');
+        
+        final hmacToken = Hmac(sha256, utf8.encode(signingSecret));
+        final token = hmacToken.convert(utf8.encode("$fileId:$nowSec")).toString();
+        
+        final apiUrl = "$cdn/$fileId?token=$token&ts=$tsHex";
+        
+        final response = await http.get(
+          Uri.parse(apiUrl), 
+          headers: {'User-Agent': ua, 'Accept': '*/*'}
+        ).timeout(const Duration(seconds: 10));
+        
+        if (response.statusCode == 200) {
+          final data = json.decode(response.body);
+          final streamUrl = data['url']?.toString();
+          
+          if (streamUrl != null && streamUrl.isNotEmpty) {
+            if (streamUrl.contains('dmm_vo_cc')) {
+              print('[PremiumResolver] Honeypot detected on ${server['name']}');
+              continue;
+            }
+            if (!streams.contains(streamUrl)) {
+              streams.add(streamUrl);
+            }
+          }
+        }
+      } catch (e) {
+        print("[PremiumResolver] Error on ${server['name']}: $e");
+      }
+    }
+    return streams;
+  }
+}

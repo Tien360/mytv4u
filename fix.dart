@@ -1,17 +1,19 @@
 ﻿import 'dart:io';
 
 void main() {
-  var file = File('lib/screens/player_screen.dart');
-  var content = file.readAsStringSync();
-  content = content.replaceAll(
-    'exePath = r"T:\\Project\\Phim\tv_web_player\bin\\Release\net8.0-windows\tv_web_player.exe";',
-    'exePath = "T:\\\\Project\\\\Phim\\\\tv_web_player\\\\bin\\\\Release\\\\net8.0-windows\\\\tv_web_player.exe";'
+  final file = File('lib/screens/movie_detail_screen.dart');
+  String text = file.readAsStringSync();
+  
+  text = text.replaceAll(
+    "cleanMovieName = cleanMovieName.replaceAll(RegExp(r'(?i)(\\s*-\\s*)?(ph?n|season|part)\\s*\\d+'), '').trim();",
+    "cleanMovieName = cleanMovieName.replaceAll(RegExp(r'(\\s*-\\s*)?(phần|season|part)\\s*\\d+', caseSensitive: false), '').trim();"
   );
-  // Also fix the weird ones with tabs and newlines if they are there
-  // Actually, I'll just regex replace the whole if statement
-  var pattern = RegExp(r'if \(!File\(exePath\)\.existsSync\(\)\) \{[\s\S]*?\}');
-  content = content.replaceFirst(pattern, '''if (!File(exePath).existsSync()) {
-        exePath = "T:\\\\Project\\\\Phim\\\\tv_web_player\\\\bin\\\\Release\\\\net8.0-windows\\\\tv_web_player.exe";
-      }''');
-  file.writeAsStringSync(content);
+  
+  text = text.replaceAll(
+    "cleanServerName = cleanServerName.replaceAll(RegExp(r'(?i)premium\\s*-\\s*'), '').trim();",
+    "cleanServerName = cleanServerName.replaceAll(RegExp(r'premium\\s*-\\s*', caseSensitive: false), '').trim();"
+  );
+
+  file.writeAsStringSync(text);
+  print("Fixed RegExp in movie_detail_screen.dart");
 }
