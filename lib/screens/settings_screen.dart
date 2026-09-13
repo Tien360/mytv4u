@@ -1,4 +1,4 @@
-import 'dart:ui';
+﻿import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../globals.dart';
 import 'package:webview_windows/webview_windows.dart';
@@ -846,7 +846,7 @@ ListTile(
                                         ),
                                         const Divider(color: Colors.white12, height: 1),
                                         SwitchListTile(
-                                          title: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro tự động', style: const TextStyle(color: Colors.white, fontSize: 16)),
+                                          title: Text(L10n.t('skip_intro') ?? 'Bỏ qua Intro/Outro', style: const TextStyle(color: Colors.white, fontSize: 16)),
                                           value: _prefs?.getBool('enable_skip_intro') ?? false,
                                           activeColor: Colors.amber,
                                           onChanged: (val) async {
@@ -2521,3 +2521,4 @@ SwitchListTile(
     );
   }
 }
+
