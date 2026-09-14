@@ -646,8 +646,8 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         if (mounted)
           setState(() {
             _videoTracks = tracks.video;
-            _audioTracks = tracks.audio;
-            _subtitleTracks = tracks.subtitle;
+            _audioTracks = tracks.audio.where((t) => t.id != 'auto').toList();
+            _subtitleTracks = tracks.subtitle.where((t) => t.id != 'auto').toList();
           });
       }),
     );
@@ -744,24 +744,40 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     
     // Auto-select Vietnamese Audio
     if (_selectedAudioTrack?.id == 'auto' || _selectedAudioTrack == null) {
+      bool audioSelected = false;
       for (var track in tracks.audio) {
         final title = track.title?.toLowerCase() ?? '';
         final lang = track.language?.toLowerCase() ?? '';
         if (title.contains('vi') || title.contains('lồng tiếng') || title.contains('thuyết minh') || title.contains('vietnamese') || lang.contains('vi')) {
           player.setAudioTrack(track);
+          audioSelected = true;
           break;
+        }
+      }
+      if (!audioSelected) {
+        final validTracks = tracks.audio.where((t) => t.id != 'auto' && t.id != 'no').toList();
+        if (validTracks.isNotEmpty) {
+          player.setAudioTrack(validTracks.first);
         }
       }
     }
 
     // Auto-select Vietnamese Subtitle
     if (_selectedSubtitleTrack?.id == 'auto' || _selectedSubtitleTrack == null) {
+      bool subSelected = false;
       for (var track in tracks.subtitle) {
         final title = track.title?.toLowerCase() ?? '';
         final lang = track.language?.toLowerCase() ?? '';
         if (title.contains('vi') || title.contains('vietnamese') || lang.contains('vi')) {
           player.setSubtitleTrack(track);
+          subSelected = true;
           break;
+        }
+      }
+      if (!subSelected) {
+        final validTracks = tracks.subtitle.where((t) => t.id != 'auto' && t.id != 'no').toList();
+        if (validTracks.isNotEmpty) {
+          player.setSubtitleTrack(validTracks.first);
         }
       }
     }
