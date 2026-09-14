@@ -749,6 +749,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         final title = track.title?.toLowerCase() ?? '';
         final lang = track.language?.toLowerCase() ?? '';
         if (title.contains('vi') || title.contains('lồng tiếng') || title.contains('thuyết minh') || title.contains('vietnamese') || lang.contains('vi')) {
+          _selectedAudioTrack = track;
           player.setAudioTrack(track);
           audioSelected = true;
           break;
@@ -757,6 +758,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       if (!audioSelected) {
         final validTracks = tracks.audio.where((t) => t.id != 'auto' && t.id != 'no').toList();
         if (validTracks.isNotEmpty) {
+          _selectedAudioTrack = validTracks.first;
           player.setAudioTrack(validTracks.first);
         }
       }
@@ -769,6 +771,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         final title = track.title?.toLowerCase() ?? '';
         final lang = track.language?.toLowerCase() ?? '';
         if (title.contains('vi') || title.contains('vietnamese') || lang.contains('vi')) {
+          _selectedSubtitleTrack = track;
           player.setSubtitleTrack(track);
           subSelected = true;
           break;
@@ -777,6 +780,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       if (!subSelected) {
         final validTracks = tracks.subtitle.where((t) => t.id != 'auto' && t.id != 'no').toList();
         if (validTracks.isNotEmpty) {
+          _selectedSubtitleTrack = validTracks.first;
           player.setSubtitleTrack(validTracks.first);
         }
       }
