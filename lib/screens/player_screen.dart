@@ -802,30 +802,6 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       _currentPremiumMeta = null;
     }
 
-    // Fetch OpenSubtitles if this is a P2P stream (indicated by having imdbId)
-    if (widget.imdbId != null && widget.imdbId!.isNotEmpty) {
-      int? currentEpNum = widget.episode;
-      // If no specific episode passed, try to parse it from the episode name if it's a TV show
-      if (currentEpNum == null && epName.toLowerCase().contains('tập')) {
-        final match = RegExp(r'tập\s*(\d+)').firstMatch(epName.toLowerCase());
-        if (match != null) {
-          currentEpNum = int.tryParse(match.group(1)!);
-        }
-      }
-
-      OpenSubtitlesApi.fetchSubtitles(
-        widget.imdbId!,
-        season: widget.season,
-        episode: currentEpNum,
-      ).then((subs) {
-        if (mounted && subs.isNotEmpty) {
-          setState(() {
-            _openSubtitles = subs;
-          });
-        }
-      });
-    }
-
     if (targetUrl.startsWith('motchill://')) {
       setState(() {
         _isLoadingServers = true;
@@ -925,25 +901,38 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     }
 
     if (actualImdbId != null && actualImdbId.isNotEmpty) {
-      int season = widget.season ?? 1;
-      if (widget.season == null) {
-        final seasonMatches = RegExp(r'(?:ph[?a]n|season|sesion|ss)\s*(\d+)', caseSensitive: false).allMatches(widget.movieName);
-        if (seasonMatches.isNotEmpty) {
-          season = int.tryParse(seasonMatches.last.group(1) ?? '1') ?? 1;
-        } else {
-          final epSeasonMatch = RegExp(r'S(\d+)E\d+', caseSensitive: false).firstMatch(ep.name);
-          if (epSeasonMatch != null) {
-            season = int.tryParse(epSeasonMatch.group(1) ?? '1') ?? 1;
-          }
-        }
-      }
-      int epNum = widget.episode ?? 1;
-      if (widget.episode == null) {
-        final match = RegExp(r'(?:T?p|Ep)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'^\d+$').firstMatch(ep.name);
+      int? inferredSeason;
+      int? currentEpNum;
+
+      final slugMatch = RegExp(r'^S(\d+)E(\d+)$', caseSensitive: false).firstMatch(ep.slug);
+      if (slugMatch != null) {
+        inferredSeason = int.tryParse(slugMatch.group(1)!);
+        currentEpNum = int.tryParse(slugMatch.group(2)!);
+      } else {
+        final match = RegExp(r'(?:T[ạaâ]p|Ep)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'^\d+$').firstMatch(ep.name);
         if (match != null) {
-          epNum = int.tryParse(match.group(1) ?? match.group(0)!) ?? 1;
+          currentEpNum = int.tryParse(match.group(1) ?? match.group(0)!);
+        }
+
+        final seasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss)\s*(\d+)', caseSensitive: false).firstMatch(widget.movieName) ?? RegExp(r'S(\d+)E\d+', caseSensitive: false).firstMatch(ep.name);
+        if (seasonMatch != null) {
+          inferredSeason = int.tryParse(seasonMatch.group(1)!);
         }
       }
+
+      int season = inferredSeason ?? widget.season ?? 1;
+      int epNum = currentEpNum ?? widget.episode ?? 1;
+      OpenSubtitlesApi.fetchSubtitles(
+        actualImdbId,
+        season: season,
+        episode: epNum,
+      ).then((subs) {
+        if (mounted && subs.isNotEmpty) {
+          setState(() {
+            _openSubtitles = subs;
+          });
+        }
+      });
       try {
         _currentSegments = await SkipSegmentsApi.fetchSegments(actualImdbId, season, epNum);
         print('Fetched skip segments: intro=${_currentSegments?.intro?.start}-${_currentSegments?.intro?.end}, outro=${_currentSegments?.outro?.start}-${_currentSegments?.outro?.end}');
