@@ -924,10 +924,15 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
           currentEpNum = int.tryParse(match.group(1) ?? match.group(0)!);
         }
 
-        final seasonMatch = RegExp(r'(?:ph[\u1EA7a]n|m[\u00F9u]a|season|sesion|ss|S)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'(?:ph[\u1EA7a]n|m[\u00F9u]a|season|sesion|ss)\s*(\d+)', caseSensitive: false).firstMatch(widget.movieName);
-        if (seasonMatch != null) {
-          inferredSeason = int.tryParse(seasonMatch.group(1)!);
-        }
+        final epSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss|S)\s*0*(\d+)', caseSensitive: false).allMatches(ep.name);
+          if (epSeasonMatch.isNotEmpty) {
+            inferredSeason = int.tryParse(epSeasonMatch.last.group(1)!);
+          } else {
+            final movieSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss)\s*0*(\d+)', caseSensitive: false).allMatches(widget.movieName);
+            if (movieSeasonMatch.isNotEmpty) {
+              inferredSeason = int.tryParse(movieSeasonMatch.last.group(1)!);
+            }
+          }
       }
 
       int season = inferredSeason ?? widget.season ?? 1;
@@ -1015,15 +1020,17 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
                 // 3. Fallback: Parse season from movie title (e.g. "Game of Thrones (Phần 2)")
                 if (currentEpNum != null && inferredSeason == null) {
-                  final seasonMatch = RegExp(
-                    r'(?:phần|mùa|season)\s*(\d+)',
-                    caseSensitive: false,
-                  ).firstMatch(widget.movieName);
-                  if (seasonMatch != null) {
-                    inferredSeason = int.tryParse(seasonMatch.group(1)!);
-                  } else {
-                    inferredSeason = 1;
-                  }
+                  final epSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss|S)\s*0*(\d+)', caseSensitive: false).allMatches(ep.name);
+          if (epSeasonMatch.isNotEmpty) {
+            inferredSeason = int.tryParse(epSeasonMatch.last.group(1)!);
+          } else {
+            final movieSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss)\s*0*(\d+)', caseSensitive: false).allMatches(widget.movieName);
+            if (movieSeasonMatch.isNotEmpty) {
+              inferredSeason = int.tryParse(movieSeasonMatch.last.group(1)!);
+            } else {
+              inferredSeason = 1;
+            }
+          }
                 }
               }
               if (inferredSeason != null && currentEpNum != null) {
