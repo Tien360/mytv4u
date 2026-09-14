@@ -919,12 +919,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
         inferredSeason = int.tryParse(slugMatch.group(1)!);
         currentEpNum = int.tryParse(slugMatch.group(2)!);
       } else {
-        final match = RegExp(r'(?:T[\u1EA1a\u1EAD\u00E2]p|Ep)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'^\d+$').firstMatch(ep.name);
+        final match = RegExp(r'(?:T[\u1EA1a\u1EAD\u00E2]p|Ep|E)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'^\d+$').firstMatch(ep.name);
         if (match != null) {
           currentEpNum = int.tryParse(match.group(1) ?? match.group(0)!);
         }
 
-        final seasonMatch = RegExp(r'(?:ph[\u1EA7a]n|m[\u00F9u]a|season|sesion|ss)\s*(\d+)', caseSensitive: false).firstMatch(widget.movieName) ?? RegExp(r'S(\d+)E\d+', caseSensitive: false).firstMatch(ep.name);
+        final seasonMatch = RegExp(r'(?:ph[\u1EA7a]n|m[\u00F9u]a|season|sesion|ss|S)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'(?:ph[\u1EA7a]n|m[\u00F9u]a|season|sesion|ss)\s*(\d+)', caseSensitive: false).firstMatch(widget.movieName);
         if (seasonMatch != null) {
           inferredSeason = int.tryParse(seasonMatch.group(1)!);
         }
