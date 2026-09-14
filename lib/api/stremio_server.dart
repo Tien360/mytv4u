@@ -46,21 +46,23 @@ class StremioServer {
       await _killExisting();
 
       // [Dynamic RAM Rule] DO NOT REMOVE
-      // Dynamically allocate Node.js RAM limit based on system RAM
-      int totalRamMb = await _getSystemMemoryMB();
-      int nodeRamLimit = 128; // <= 4GB
-      
-      if (totalRamMb > 16384) {
-        nodeRamLimit = 2048; // > 16GB (e.g. 32GB) -> 2GB
-      } else if (totalRamMb > 8192) {
-        nodeRamLimit = 1024; // > 8GB (e.g. 16GB) -> 1GB
-      } else if (totalRamMb > 4096) {
-        nodeRamLimit = 256; // > 4GB (e.g. 8GB) -> 256MB
-      }
-      
-      // Start the server process
-      print('StremioServer: Starting server from $serverDir with ${nodeRamLimit}MB RAM (System RAM: ${totalRamMb}MB)');
-      _process = await Process.start(
+        // Dynamically allocate Node.js RAM limit based on FREE system RAM
+        int freeRamMb = await _getFreeSystemMemoryMB();
+        int nodeRamLimit = 128; // <= 2GB free
+        
+        if (freeRamMb > 8192) {
+          nodeRamLimit = 4096; // > 8GB free -> 4GB
+        } else if (freeRamMb > 4096) {
+          nodeRamLimit = 2048; // > 4GB free -> 2GB
+        } else if (freeRamMb > 2048) {
+          nodeRamLimit = 1024; // > 2GB free -> 1GB
+        } else if (freeRamMb > 1024) {
+          nodeRamLimit = 256; // > 1GB free -> 256MB
+        }
+        
+        // Start the server process
+        print('StremioServer: Starting server from $serverDir with ${nodeRamLimit}MB RAM (Free RAM: ${freeRamMb}MB)');
+        _process = await Process.start(
         runtimeExe,
         [serverScript],
         workingDirectory: serverDir,
@@ -149,17 +151,18 @@ class StremioServer {
   }
 
   /// Get total system physical memory in MB
-  static Future<int> _getSystemMemoryMB() async {
+  static Future<int> _getFreeSystemMemoryMB() async {
     try {
       if (Platform.isWindows) {
-        final res = await Process.run('wmic', ['computersystem', 'get', 'totalphysicalmemory']);
-        final output = res.stdout.toString().replaceAll('\r', '').split('\n');
-        if (output.length > 1) {
-          final bytes = int.tryParse(output[1].trim()) ?? 0;
-          return bytes ~/ (1024 * 1024);
+        final res = await Process.run('wmic', ['OS', 'get', 'FreePhysicalMemory', '/Value']);
+        final output = res.stdout.toString();
+        final match = RegExp(r'FreePhysicalMemory=(\d+)').firstMatch(output);
+        if (match != null) {
+          final ramKB = int.parse(match.group(1)!);
+          return ramKB ~/ 1024;
         }
       }
     } catch (_) {}
-    return 8192; // Default to 8GB if failed
+    return 2048; // Default to 2GB if failed
   }
 }

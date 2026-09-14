@@ -68,6 +68,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   double _subOpacity = 0.3;
   bool _isPlayerInit = false;
   int _systemRamMB = 4096;
+  int _freeRamMB = 2048;
   
   bool _isPlayerInitialized = false;
 
@@ -272,6 +273,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
 
     final prefs = await SharedPreferences.getInstance();
     _systemRamMB = await HardwareInfo.getSystemRamMB();
+    _freeRamMB = await HardwareInfo.getFreeSystemRamMB();
     if (mounted) {
       setState(() {
         _hwAccel = prefs.getBool('enable_hw_accel') ?? true;
@@ -479,12 +481,20 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     String demuxerMaxBytes = '64M';
     String demuxerMaxBackBytes = '32M';
     
-    if (_systemRamMB > 8192) {
+    if (_freeRamMB > 12288) { // > 12GB free
+      bufferSize = 1024 * 1024 * 1024; // 1GB internal buffer
+      demuxerMaxBytes = '4096M'; // 4GB forward cache
+      demuxerMaxBackBytes = '2048M'; // 2GB backward cache
+    } else if (_freeRamMB > 8192) { // > 8GB free
       bufferSize = 512 * 1024 * 1024; // 512MB
-      demuxerMaxBytes = '1024M'; // 1GB Cache
-      demuxerMaxBackBytes = '512M';
-    } else if (_systemRamMB > 4096) {
-      bufferSize = 64 * 1024 * 1024;
+      demuxerMaxBytes = '2048M'; // 2GB forward
+      demuxerMaxBackBytes = '1024M'; // 1GB backward
+    } else if (_freeRamMB > 4096) { // > 4GB free
+      bufferSize = 128 * 1024 * 1024; // 128MB
+      demuxerMaxBytes = '512M';
+      demuxerMaxBackBytes = '256M';
+    } else if (_freeRamMB > 2048) { // > 2GB free
+      bufferSize = 64 * 1024 * 1024; // 64MB
       demuxerMaxBytes = '128M';
       demuxerMaxBackBytes = '64M';
     }
