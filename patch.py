@@ -1,67 +1,66 @@
-﻿import re
+﻿import io
+import re
 
-path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\player_screen.dart"
-with open(path, 'r', encoding='utf-8') as f:
-    content = f.read()
+with io.open(r'lib\screens\player_screen.dart', 'r', encoding='utf-8') as f:
+    text = f.read()
 
-func = """  void _openInWebPlayer() async {
-    player.pause();
-    if (mounted) {
-      setState(() {
-        _isExternalPlayerActive = true;
-      });
-    }
-    try {
-      final bounds = await windowManager.getBounds();
-      final title = "${widget.movieName} - YouTube";
-      final exeDir = File(Platform.resolvedExecutable).parent.path;
-      var exePath = '$exeDir\\\\tv_web_player.exe';
-      if (!File(exePath).existsSync()) {
-        exePath = r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
+target = '''        if (title.contains('vi') || title.contains('lồng tiếng') || title.contains('thuyết minh') || title.contains('vietnamese') || lang.contains('vi')) {
+          player.setAudioTrack(track);
+          audioSelected = true;
+          break;
+        }
       }
+      if (!audioSelected) {
+        final validTracks = tracks.audio.where((t) => t.id != 'auto' && t.id != 'no').toList();
+        if (validTracks.isNotEmpty) {
+          player.setAudioTrack(validTracks.first);
+        }
+      }'''
 
-      String targetUrl = widget.lazyPlaylistUrl ?? _currentUrl;
-
-      List<String> args = [
-        targetUrl,
-        title,
-        bounds.left.toInt().toString(),
-        bounds.top.toInt().toString(),
-        bounds.width.toInt().toString(),
-        bounds.height.toInt().toString(),
-      ];
-
-      final process = await Process.start(exePath, args);
-      await process.exitCode;
-
-      if (mounted) {
-        setState(() => _isExternalPlayerActive = false);
+replacement = '''        if (title.contains('vi') || title.contains('lồng tiếng') || title.contains('thuyết minh') || title.contains('vietnamese') || lang.contains('vi')) {
+          _selectedAudioTrack = track;
+          player.setAudioTrack(track);
+          audioSelected = true;
+          break;
+        }
       }
-    } catch (e) {
-      debugPrint('Error launching web player: $e');
-    }
-  }
+      if (!audioSelected) {
+        final validTracks = tracks.audio.where((t) => t.id != 'auto' && t.id != 'no').toList();
+        if (validTracks.isNotEmpty) {
+          _selectedAudioTrack = validTracks.first;
+          player.setAudioTrack(validTracks.first);
+        }
+      }'''
+text = text.replace(target, replacement)
 
-  Future<void> _playCurrentUrl(Episode ep) async {"""
-content = content.replace("  Future<void> _playCurrentUrl(Episode ep) async {", func)
+target2 = '''        if (title.contains('vi') || title.contains('vietnamese') || lang.contains('vi')) {
+          player.setSubtitleTrack(track);
+          subSelected = true;
+          break;
+        }
+      }
+      if (!subSelected) {
+        final validTracks = tracks.subtitle.where((t) => t.id != 'auto' && t.id != 'no').toList();
+        if (validTracks.isNotEmpty) {
+          player.setSubtitleTrack(validTracks.first);
+        }
+      }'''
+replacement2 = '''        if (title.contains('vi') || title.contains('vietnamese') || lang.contains('vi')) {
+          _selectedSubtitleTrack = track;
+          player.setSubtitleTrack(track);
+          subSelected = true;
+          break;
+        }
+      }
+      if (!subSelected) {
+        final validTracks = tracks.subtitle.where((t) => t.id != 'auto' && t.id != 'no').toList();
+        if (validTracks.isNotEmpty) {
+          _selectedSubtitleTrack = validTracks.first;
+          player.setSubtitleTrack(validTracks.first);
+        }
+      }'''
+text = text.replace(target2, replacement2)
 
-button_code = """                                                if (_isYoutube) ...[
-                                                  IconButton(
-                                                    icon: const Icon(
-                                                      Icons.open_in_browser,
-                                                      color: Colors.white,
-                                                      size: 20,
-                                                    ),
-                                                    onPressed: _openInWebPlayer,
-                                                    tooltip: 'Mở bằng Web Player (Tối ưu 8K/4K)',
-                                                    padding: const EdgeInsets.all(4),
-                                                    constraints: const BoxConstraints(),
-                                                  ),
-                                                  const SizedBox(width: 10),
-                                                ],
-                                                // Settings Gear Button"""
-content = content.replace("                                                // Settings Gear Button", button_code)
-
-with open(path, 'w', encoding='utf-8') as f:
-    f.write(content)
+with io.open(r'lib\screens\player_screen.dart', 'w', encoding='utf-8') as f:
+    f.write(text)
 print("Updated player_screen.dart")

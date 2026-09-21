@@ -1,4 +1,5 @@
 import 'player_screen.dart';
+import 'yt_player_screen.dart';
 import 'audio_player_screen.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -366,27 +367,22 @@ class LibraryScreenState extends State<LibraryScreen> {
                     ElevatedButton(
                       onPressed: () {
                         final url = _urlController.text.trim();
-                        if (url.isNotEmpty) {
-                          Navigator.pop(context);
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (_) => PlayerScreen(
-                                episodes: [
-                                  Episode(
-                                    name: 'Stream',
-                                    slug: 'stream',
-                                    m3u8Url: url,
-                                    embedUrl: '',
-                                  ),
-                                ],
-                                currentEpisodeIndex: 0,
-                                movieName: 'Luồng Mạng',
-                                isLive: _isLive,
-                              ),
-                            ),
-                          );
-                        }
+                          if (url.isNotEmpty) {
+                            Navigator.pop(context);
+                            final isYt = url.contains('youtube.com') || url.contains('youtu.be');
+                            if (isYt) {
+                                Navigator.push(context, MaterialPageRoute(builder: (_) => YtPlayerScreen(
+                                  episodes: [Episode(name: 'YouTube', slug: 'yt', m3u8Url: url, embedUrl: '')],
+                                  currentEpisodeIndex: 0, movieName: 'YouTube Video', isLive: _isLive,
+                                  lazyPlaylistUrl: url.contains('list=') ? url : null,
+                                )));
+                            } else {
+                                Navigator.push(context, MaterialPageRoute(builder: (_) => PlayerScreen(
+                                  episodes: [Episode(name: 'Stream', slug: 'stream', m3u8Url: url, embedUrl: '')],
+                                  currentEpisodeIndex: 0, movieName: 'Luồng Mạng', isLive: _isLive,
+                                )));
+                            }
+                          }
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent,

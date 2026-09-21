@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import '../api/tv_api.dart';
 import '../models/movie.dart';
-import 'tv_player_screen.dart';
+// import 'tv_player_screen.dart';
 import 'tv_webview_screen.dart';
 import 'player_screen.dart';
 import '../widgets/glass_container.dart';

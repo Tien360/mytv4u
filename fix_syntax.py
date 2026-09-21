@@ -1,35 +1,26 @@
 ﻿import re
 
-content = open('lib/screens/settings_screen.dart', 'r', encoding='utf-8').read()
+with open("lib/api/phim_api.dart", "r", encoding="utf-8") as f:
+    content = f.read()
 
-# Fix the audio block: delete everything between "ListTile( ... vinyl_effect" and "ListTile( ... sleep_timer" 
-# and replace it with the correct closing.
-start_str = "                                          title: Text(L10n.t('vinyl_effect')"
-start_idx = content.find(start_str)
-end_str = "                                        const Divider(color: Colors.white12, height: 32);\n                                        ListTile("
-# actually just find the next sleep_timer
-end_idx = content.find("                                        const Divider(color: Colors.white12, height: 32);\n                                        ListTile(", start_idx)
-if end_idx == -1:
-    end_idx = content.find("                                        const Divider(color: Colors.white12, height: 32);\r\n                                        ListTile(", start_idx)
-if end_idx == -1:
-    end_idx = content.find("                                        const Divider(color: Colors.white12, height: 32);\n                                         ListTile(", start_idx) # try something else
-if end_idx == -1:
-    # Just find `const Divider(color: Colors.white12, height: 32)` followed by sleep_timer
-    end_idx = content.find("                                        const Divider(color: Colors.white12, height: 32)", start_idx)
+# Remove the incorrectly placed await ensureInit();
+content = content.replace("    await ensureInit();\n    int page = 1,", "    int page = 1,")
 
-good_audio_part = """                                          title: Text(L10n.t('vinyl_effect') ?? 'Hiệu ứng Đĩa than', style: const TextStyle(color: Colors.white)),
-                                          trailing: Switch(
-                                            value: _prefs?.getBool('audio_vinyl') ?? true,
-                                            activeColor: Colors.blueAccent,
-                                            onChanged: (val) {
-                                              _prefs?.setBool('audio_vinyl', val);
-                                              setState(() {});
-                                              _syncToFirebase();
-                                            },
-                                          ),
-                                        ),
-"""
-content = content[:start_idx] + good_audio_part + content[end_idx:]
+# Put it correctly inside the function bodies!
+old_body1 = """  }) async {
+    String vsmovType = slug;"""
+new_body1 = """  }) async {
+    await ensureInit();
+    String vsmovType = slug;"""
+content = content.replace(old_body1, new_body1)
 
-open('lib/screens/settings_screen.dart', 'w', encoding='utf-8').write(content)
-print("Fixed audio block syntax!")
+old_body2 = """  }) async {
+    return _fetchAndMerge("""
+new_body2 = """  }) async {
+    await ensureInit();
+    return _fetchAndMerge("""
+content = content.replace(old_body2, new_body2)
+
+with open("lib/api/phim_api.dart", "w", encoding="utf-8") as f:
+    f.write(content)
+print("Fixed syntax")

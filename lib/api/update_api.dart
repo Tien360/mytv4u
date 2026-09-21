@@ -23,7 +23,7 @@ class UpdateApi {
   );
 
   // BẠN SẼ ĐỔI SỐ NÀY MỖI KHI RA MẮT BẢN CẬP NHẬT MỚI:
-  static const String currentAppVersion = 'YY.MM.DD.24.dev';
+  static const String currentAppVersion = '-bump';
 
   /// Kiểm tra có bản cập nhật mới không
   static Future<UpdateInfo?> checkForUpdate() async {

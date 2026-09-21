@@ -1,3 +1,4 @@
+import 'package:mytv4u_flutter/api/premium_api.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
@@ -295,14 +296,14 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   bool _tryFallbackDomain() {
-    if (_currentUrl.contains('dpdns.org') ||
-        _currentUrl.contains('workers.dev') ||
-        _currentUrl.contains('railway.app')) {
+    if ((_currentUrl.contains('dpdns.org') && !_currentUrl.contains('stream/hls')) ||
+        (_currentUrl.contains('workers.dev') && !_currentUrl.contains('stream/hls')) ||
+        _currentUrl.contains('railway.app') ||
+        _currentUrl.startsWith('premium://')) {
       final uri = Uri.tryParse(_currentUrl); if (uri == null) return false; final rawId = uri.pathSegments.last;
-      _currentFallbackDomainIndex++;
-
       if (_currentFallbackDomainIndex < _fallbackDomains.length) {
         final newDomain = _fallbackDomains[_currentFallbackDomainIndex];
+        _currentFallbackDomainIndex++;
         final newUrl = 'https://$newDomain/$rawId';
         setState(() {
           _currentUrl = newUrl;
@@ -817,7 +818,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
       if (uri != null && uri.pathSegments.isNotEmpty) {
         final id = uri.pathSegments.last;
         http.get(
-          Uri.parse('https://medata.phim4k.workers.dev/?id=' + id),
+          Uri.parse('${PremiumApi.medataDomain ?? 'https://medata.phim4k.workers.dev'}/?id=' + id),
           headers: {'User-Agent': 'Mozilla/5.0'}
         ).then((res) {
           if (res.statusCode == 200 && mounted) {
@@ -868,8 +869,9 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
     _premiumRetryCount = 0;
     _hasAutoSelectedTracks = false;
 
-    if (_currentUrl.contains('workers.dev') || _currentUrl.contains('dpdns.org')) {
-        final uri = Uri.tryParse(_currentUrl); if (uri == null) return; final rawId = uri.pathSegments.last;
+    if (_currentUrl.startsWith('premium://')) {
+        String rawId = '';
+        final uri = Uri.tryParse(_currentUrl); if (uri == null) return; rawId = uri.pathSegments.last;
         _premiumRawId = rawId;
         try {
             final streams = await PremiumResolver.getVideoStream(rawId);
@@ -988,6 +990,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
             _currentUrl.contains('player') ||
             _currentUrl.contains('iframe') ||
             (ep.m3u8Url.isEmpty && ep.embedUrl.isNotEmpty));
+            
+    if (_currentUrl.contains('nguonc') || _currentUrl.contains('streamc.xyz') || _currentUrl.contains('vsmov')) {
+      _isUsingWebview = true;
+    }
 
     if (_isUsingWebview) {
       player.pause();

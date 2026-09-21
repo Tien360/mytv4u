@@ -21,6 +21,38 @@ class PremiumResolver {
   ];
 
   
+
+  static String? _dynamicBaseDomain;
+
+  static Future<String?> _getDynamicBaseDomain() async {
+    if (_dynamicBaseDomain != null) return _dynamicBaseDomain;
+    try {
+      final client = http.Client();
+      final request = http.Request('GET', Uri.parse('https://rip.cryboiz.workers.dev/go/cdn'))
+        ..followRedirects = false;
+      final response = await client.send(request).timeout(const Duration(seconds: 5));
+      
+      String? location;
+      if (response.statusCode == 301 || response.statusCode == 302 || response.statusCode == 307 || response.statusCode == 308) {
+         location = response.headers['location'];
+      }
+      
+      if (location != null && location.isNotEmpty) {
+        final uri = Uri.parse(location);
+        final host = uri.host;
+        final parts = host.split('.');
+        if (parts.length > 2) {
+          _dynamicBaseDomain = parts.sublist(1).join('.');
+          print('[PremiumResolver] Dynamic CDN Base Domain: $_dynamicBaseDomain');
+          return _dynamicBaseDomain;
+        }
+      }
+    } catch (e) {
+      print('[PremiumResolver] Error fetching dynamic CDN: $e');
+    }
+    return null;
+  }
+
   static Future<DateTime> _getUtcTime() async {
     try {
       final res = await http.get(Uri.parse('https://worldtimeapi.org/api/timezone/Etc/UTC')).timeout(const Duration(seconds: 3));
@@ -38,11 +70,18 @@ class PremiumResolver {
 
     final String dateStr = "${utcDt.year}${utcDt.month.toString().padLeft(2, '0')}${utcDt.day.toString().padLeft(2, '0')}";
     
+    final dynamicBase = await _getDynamicBaseDomain();
+    
     List<String> streams = [];
     for (var server in _servers) {
       try {
         final secret = server['secret']!;
-        final cdn = server['cdn']!;
+        String cdn = server['cdn']!;
+        if (dynamicBase != null) {
+          final uri = Uri.parse(cdn);
+          final svPrefix = uri.host.split('.').first;
+          cdn = "${uri.scheme}://$svPrefix.$dynamicBase";
+        }
         final ua = server['ua']!;
         
         final keyBytes = sha256.convert(utf8.encode(secret)).bytes;

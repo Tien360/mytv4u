@@ -1,26 +1,59 @@
-﻿path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\library_screen.dart"
-with open(path, 'r', encoding='utf-8') as f:
+﻿import re
+
+with open("lib/screens/library_screen.dart", "r", encoding="utf-8") as f:
     content = f.read()
 
-replacements = {
-    "'Thư viện & Yêu thích'": "L10n.t('library_title')",
-    "'Mở Link'": "L10n.t('open_link')",
-    "'Mở File'": "L10n.t('open_file')",
-    "'Mở đường dẫn mạng (URL)'": "L10n.t('open_url_title')",
-    "'Nhập link video/audio (mp4, m3u8, mp3...)'": "L10n.t('open_url_hint')",
-    "'Đánh dấu là luồng trực tiếp (Live)'": "L10n.t('mark_as_live')",
-    "Text('Hủy'": "Text(L10n.t('cancel')",
-    "'Luồng Mạng'": "L10n.t('network_stream')",
-    "'Đang tải danh sách Mix/Playlist...'": "L10n.t('loading_mix_playlist')",
-    "Text('Mở'": "Text(L10n.t('open')"
-}
+# Add import if not present
+if "yt_player_screen.dart" not in content:
+    content = content.replace("import 'player_screen.dart';", "import 'player_screen.dart';\nimport 'yt_player_screen.dart';")
 
-for k, v in replacements.items():
-    content = content.replace(k, v)
+replacement = """
+                        if (url.isNotEmpty) {
+                          Navigator.pop(context);
+                          final isYt = url.contains('youtube.com') || url.contains('youtu.be');
+                          if (isYt) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => YtPlayerScreen(
+                                  episodes: [
+                                    Episode(
+                                      name: 'YouTube',
+                                      slug: 'yt',
+                                      m3u8Url: url,
+                                      embedUrl: '',
+                                    ),
+                                  ],
+                                  currentEpisodeIndex: 0,
+                                  movieName: 'YouTube Video',
+                                  isLive: _isLive,
+                                ),
+                              ),
+                            );
+                          } else {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => PlayerScreen(
+                                  episodes: [
+                                    Episode(
+                                      name: 'Stream',
+                                      slug: 'stream',
+                                      m3u8Url: url,
+                                      embedUrl: '',
+                                    ),
+                                  ],
+                                  currentEpisodeIndex: 0,
+                                  movieName: 'Lu?ng M?ng',
+                                  isLive: _isLive,
+                                ),
+                              ),
+                            );
+                          }
+                        }
+"""
 
-# Also remove const if there are any Text(L10n.t)
-content = content.replace("const Text(L10n.t", "Text(L10n.t")
+content = re.sub(r"if \(url\.isNotEmpty\) \{.*?Navigator\.pop\(context\);.*?Navigator\.push\(.*?builder: \(\_\) => PlayerScreen\(.*?isLive: _isLive,.*?\},.*?\},", replacement.strip(), content, flags=re.DOTALL)
 
-with open(path, 'w', encoding='utf-8') as f:
+with open("lib/screens/library_screen.dart", "w", encoding="utf-8") as f:
     f.write(content)
-print("Updated library_screen strings")

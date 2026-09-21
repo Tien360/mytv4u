@@ -1,43 +1,23 @@
-﻿import codecs
+﻿import re
+with open('lib/screens/player_screen.dart', 'r', encoding='utf-8') as f:
+    text = f.read()
 
-with codecs.open('lib/screens/player_screen.dart', 'r', encoding='utf-8') as f:
-    code = f.read()
+pattern = r"_isUsingWebview =\s*!isVideoFile &&\s*_currentUrl\.startsWith\('http'\) &&\s*\(_currentUrl\.contains\('embed'\) \|\|\s*_currentUrl\.contains\('player'\) \|\|\s*_currentUrl\.contains\('iframe'\) \|\|\s*\(ep\.m3u8Url\.isEmpty && ep\.embedUrl\.isNotEmpty\)\);"
 
-# Update _webController.loadUrl
-old_loadUrl = """        _webController.containsFullScreenElementChanged.listen((flag) async {
-          if (mounted) {
-            setState(() {
-              _isFullscreen = flag;
-            });
-            await windowManager.setFullScreen(flag);
-          }
-        });
+new_webview = '''_isUsingWebview =
+        !isVideoFile &&
+        _currentUrl.startsWith('http') &&
+        (_currentUrl.contains('embed') ||
+            _currentUrl.contains('player') ||
+            _currentUrl.contains('iframe') ||
+            (ep.m3u8Url.isEmpty && ep.embedUrl.isNotEmpty));
+            
+    if (_currentUrl.contains('nguonc') || _currentUrl.contains('streamc.xyz') || _currentUrl.contains('vsmov')) {
+      _isUsingWebview = true;
+    }'''
 
-        _isWebviewInitialized = true;
-      }
-      await _webController.loadUrl(_currentUrl);
-      if (mounted) setState(() {});
-    } else {"""
+text, count = re.subn(pattern, new_webview, text)
+print(f'Replaced {count} times')
 
-new_loadUrl = """        _webController.containsFullScreenElementChanged.listen((flag) async {
-          if (mounted) {
-            setState(() {
-              _isFullscreen = flag;
-            });
-            await windowManager.setFullScreen(flag);
-          }
-        });
-
-        _isWebviewInitialized = true;
-      }
-      String targetUrl = requiresDrm ? 'http://127.0.0.1:$_localPort/play.html?t=${DateTime.now().millisecondsSinceEpoch}' : _currentActualUrl;
-      await _webController.loadUrl(targetUrl);
-      if (mounted) setState(() {});
-    } else {"""
-
-code = code.replace(old_loadUrl, new_loadUrl)
-
-with codecs.open('lib/screens/player_screen.dart', 'w', encoding='utf-8') as f:
-    f.write(code)
-
-print("Patched webController.loadUrl")
+with open('lib/screens/player_screen.dart', 'w', encoding='utf-8') as f:
+    f.write(text)

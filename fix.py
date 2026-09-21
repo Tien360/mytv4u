@@ -1,14 +1,27 @@
 ﻿import io
 
-def fix_file(path):
-    with io.open(path, 'r', encoding='utf-8') as f:
-        text = f.read()
+with io.open(r'lib\screens\player_screen.dart', 'r', encoding='utf-8') as f:
+    text = f.read()
 
-    text = text.replace("title.contains('l?ng ti?ng')", "title.contains('lồng tiếng')")
-    text = text.replace("title.contains('thuy?t minh')", "title.contains('thuyết minh')")
+target = '''            if (movieSeasonMatch.isNotEmpty) {
+              inferredSeason = int.tryParse(movieSeasonMatch.last.group(1)!);
+            } else {
+                    inferredSeason = 1;
+                  }
+                }'''
 
-    with io.open(path, 'w', encoding='utf-8') as f:
+replacement = '''            if (movieSeasonMatch.isNotEmpty) {
+              inferredSeason = int.tryParse(movieSeasonMatch.last.group(1)!);
+            } else {
+              inferredSeason = 1;
+            }
+          }
+                }'''
+
+if target in text:
+    text = text.replace(target, replacement)
+    with io.open(r'lib\screens\player_screen.dart', 'w', encoding='utf-8') as f:
         f.write(text)
-
-fix_file(r'lib\screens\player_screen.dart')
-fix_file(r'lib\screens\tv_player_screen.dart')
+    print("Replaced!")
+else:
+    print("Not found")

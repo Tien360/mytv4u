@@ -179,7 +179,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     'kkphim': true,
     'vsmov': true,
     'film4knet': true,
-    'phim4k': true,
+    'free2': true,
     'free1': true,
     'motchill': true,
     'torrentio': false,
@@ -1912,7 +1912,7 @@ SwitchListTile(
     if (sourceKey == 'kkphim') sourceName = 'KKPhim';
     if (sourceKey == 'vsmov') sourceName = 'VSMov';
     if (sourceKey == 'film4knet') sourceName = 'Film4k.net';
-    if (sourceKey == 'phim4k') sourceName = 'Phim4K';
+    if (sourceKey == 'free2') sourceName = 'Free2';
     if (sourceKey == 'free1') sourceName = 'Free1';
     if (sourceKey == 'motchill') sourceName = 'Motchill';
     if (sourceKey == 'torrentio') sourceName = 'Torrent (P2P)';

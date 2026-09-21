@@ -468,25 +468,7 @@ class PhimApi {
     if (url.contains('workers.dev') ||
         (url.contains('dpdns.org') && !url.contains('stream/hls'))) {
       final rawId = url.split('/').last;
-
-      // TODO: Các server cũ đa phần bị 404 (Cloudflare xoá). Giữ lại ở đây để fix sau.
-      /*
-      final workers = [
-        'demo.cryboiz.workers.dev',
-        'sv1.gboiz.workers.dev',
-        'sv1.gboiz2.workers.dev',
-        'sv.phim4k.dpdns.org',
-      ];
-      for (int i = 3; i <= 35; i++) {
-        workers.add('sv.gboiz$i.workers.dev');
-      }
-      workers.shuffle();
-      return 'https://${workers.first}/$rawId';
-      */
-
-      final activeServers = ['sv1.p4k.dpdns.org', 'sv2.p4k.dpdns.org'];
-      activeServers.shuffle();
-      return 'https://${activeServers.first}/$rawId';
+      return 'premium://play/$rawId';
     }
     return url;
   }

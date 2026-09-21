@@ -1,3 +1,7 @@
-﻿content = open('lib/screens/audio_player_screen.dart', 'r', encoding='utf-8').read()
-content = content.replace("    );\n    }\n  }\n}", "      ),\n    );\n  }\n}")
-open('lib/screens/audio_player_screen.dart', 'w', encoding='utf-8').write(content)
+﻿with open("lib/screens/library_screen.dart", "r", encoding="utf-8") as f:
+    content = f.read()
+
+content = content.replace("                          }\n                      style: ElevatedButton.styleFrom(", "                          }\n                      },\n                      style: ElevatedButton.styleFrom(")
+
+with open("lib/screens/library_screen.dart", "w", encoding="utf-8") as f:
+    f.write(content)

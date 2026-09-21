@@ -1,9 +1,26 @@
-﻿path = r"T:\Project\Phim\mytv4u_flutter\lib\screens\settings_screen.dart"
-with open(path, 'r', encoding='utf-8') as f:
+﻿import re
+
+with open("lib/api/premium_api.dart", "r", encoding="utf-8") as f:
     content = f.read()
 
-content = content.replace("bool _isLoggingIn = false;", "bool _isLoggingIn = false;\n  bool _isYtLinked = false;")
+# Fix the getter in premium_api.dart
+if "static String? get medataDomain => _medataDomain;" not in content:
+    # Just append it to the top of the class
+    class_start = content.find("class PremiumApi {")
+    if class_start != -1:
+        insert_pos = content.find("\n", class_start) + 1
+        content = content[:insert_pos] + "  static String? get medataDomain => _medataDomain;\n" + content[insert_pos:]
 
-with open(path, 'w', encoding='utf-8') as f:
+with open("lib/api/premium_api.dart", "w", encoding="utf-8") as f:
     f.write(content)
-print("Added _isYtLinked state")
+
+
+for file in ["lib/screens/player_screen.dart", "lib/screens/yt_player_screen.dart"]:
+    with open(file, "r", encoding="utf-8") as f:
+        c = f.read()
+    if "import 'package:mytv4u_flutter/api/premium_api.dart';" not in c:
+        c = "import 'package:mytv4u_flutter/api/premium_api.dart';\n" + c
+    with open(file, "w", encoding="utf-8") as f:
+        f.write(c)
+
+print("Fixed imports and getter")

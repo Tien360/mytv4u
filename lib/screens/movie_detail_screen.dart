@@ -20,6 +20,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_windows/webview_windows.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../api/phim_api.dart';
+import '../api/premium_api.dart';
 import '../utils/premium_parser.dart';
 import '../api/firebase_api.dart';
 import '../api/auth_api.dart';
@@ -328,14 +329,19 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
   }
 
   Future<void> _fetchPremiumMetadata() async {
-    if (_movie == null || _isFetchingPremiumMeta) return;
+    print('[_fetchPremiumMetadata] Called!');
+    if (_movie == null || _isFetchingPremiumMeta) {
+      print('[_fetchPremiumMetadata] Early return: movie == null || isFetching');
+      return;
+    }
     
     List<Map<String, dynamic>> premiumEps = [];
     for (var server in _movie!.episodes) {
       if (server.serverName.toLowerCase().contains('premium')) {
         for (var ep in server.items) {
           final uri = Uri.tryParse(ep.m3u8Url);
-          if (uri != null && uri.pathSegments.isNotEmpty) {
+          String rawId = uri != null && uri.pathSegments.isNotEmpty ? uri.pathSegments.last : '';
+            if (rawId.isNotEmpty) {
             // Đánh giá chất lượng từ tên file/server (vd: 2160p, 1080p, 4K)
             String textToSearch = (server.serverName + " " + ep.name).toUpperCase();
             int score = 1;
@@ -344,7 +350,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
             else if (textToSearch.contains('720')) score = 2;
             
             premiumEps.add({
-               'id': uri.pathSegments.last,
+               'id': rawId,
                'score': score,
                'filename': ep.filename ?? ''
             });
@@ -365,16 +371,20 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
     
     // Lấy TẤT CẢ các file có điểm cao nhất (tối đa 3 file) để check API tìm HDR/Audio xịn nhất
     final checkIds = premiumEps.where((e) => e['score'] == maxScore).map((e) => e['id'].toString()).take(3).toList();
+    print('[_fetchPremiumMetadata] checkIds: $checkIds, medataDomain: ${PremiumApi.medataDomain}');
     Map<String, dynamic>? bestMeta;
     int bestScore = -1;
     
     for (var ep in premiumEps.where((e) => e['score'] == maxScore).take(3)) {
       var id = ep['id'].toString();
       try {
+        final url = '${PremiumApi.medataDomain ?? 'https://medata.phim4k.workers.dev'}/?id=$id';
+        print('[_fetchPremiumMetadata] Fetching: $url');
         final res = await http.get(
-          Uri.parse('https://medata.phim4k.workers.dev/?id=$id'),
+          Uri.parse(url),
           headers: {'User-Agent': 'Mozilla/5.0'}
         ).timeout(const Duration(seconds: 4));
+        print('[_fetchPremiumMetadata] Response: ${res.statusCode}');
         if (res.statusCode == 200) {
           final data = json.decode(res.body);
           final resStr = (data['resolution'] ?? '').toString().toUpperCase();
@@ -392,6 +402,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
       } catch (e) {}
     }
     
+    print('[_fetchPremiumMetadata] bestMeta: $bestMeta');
     if (mounted && bestMeta != null) {
       setState(() {
         _premiumMetadata = bestMeta;
