@@ -1,4 +1,4 @@
-﻿import 'dart:io';
+import 'dart:io';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'auto_translate.dart';
@@ -99,18 +99,25 @@ void main(List<String> args) async {
   if (torrentDir.existsSync()) {
     await Process.run('xcopy', ['stremio_server', 'build\\windows\\x64\\runner\\Release\\stremio_server', '/E', '/I', '/Y']);
     print('  -> ÄÃ£ sao chÃ©p LÃµi Torrent thÃ nh cÃ´ng!');
+    print('  -> Ä Ã£ sao chÃ©p LÃµi Torrent thÃ nh cÃ´ng!');
   }
 
-  print('  -> Äang sao chÃ©p tv_web_player...');
+  print('  -> Ä ang sao chÃ©p tv_web_player...');
   final tvWebPlayerDir = Directory(r'..\tv_web_player\bin\Release\net8.0-windows\win-x64\publish');
   if (tvWebPlayerDir.existsSync()) {
     await Process.run('xcopy', [r'..\tv_web_player\bin\Release\net8.0-windows\win-x64\publish\*', r'build\windows\x64\runner\Release\', '/E', '/I', '/Y']);
-    print('  -> ÄÃ£ sao chÃ©p tv_web_player thÃ nh cÃ´ng!');
+    print('  -> Ä Ã£ sao chÃ©p tv_web_player thÃ nh cÃ´ng!');
+  }
+
+  final tvWebPlayerNguonCDir = Directory(r'..\tv_web_player_nguonc\bin\Release\net8.0-windows\win-x64\publish');
+  if (tvWebPlayerNguonCDir.existsSync()) {
+    await Process.run('xcopy', [r'..\tv_web_player_nguonc\bin\Release\net8.0-windows\win-x64\publish\*', r'build\windows\x64\runner\Release\', '/E', '/I', '/Y']);
+    print('  -> Đã sao chép tv_web_player_nguonc thành công!');
   }
 
   if (!isDev) {
-  // 4. ÄÃ³ng gÃ³i Inno Setup
-  print('[4/6] Äang Ä‘Ã³ng gÃ³i file Setup.exe báº±ng Inno Setup...');
+  // 4. Ä Ã³ng gÃ³i Inno Setup
+  print('[4/6] Ä ang Ä‘Ã³ng gÃ³i file Setup.exe báº±ng Inno Setup...');
   final userProfile = Platform.environment['USERPROFILE'];
   final isccPath = '$userProfile\\AppData\\Local\\Programs\\Inno Setup 6\\ISCC.exe';
   

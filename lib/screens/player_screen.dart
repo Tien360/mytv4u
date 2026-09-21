@@ -1012,11 +1012,11 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
           final title = "${widget.movieName} - ${ep.name}";
           final exeDir = File(Platform.resolvedExecutable).parent.path;
           String playerExe = (_currentUrl.contains('nguonc') || _currentUrl.contains('streamc.xyz')) ? 'tv_web_player_nguonc.exe' : 'tv_web_player.exe';
-          var exePath = '$exeDir\\' + playerExe;
+          var exePath = '$exeDir\\$playerExe';
           if (!File(exePath).existsSync()) {
             exePath = (_currentUrl.contains('nguonc') || _currentUrl.contains('streamc.xyz'))
-              ? r"T:\Project\Phim\tv_web_player_nguonc\bin\Release\net8.0-windows\tv_web_player_nguonc.exe"
-              : r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
+              ? r"T:\Project\Phim\tv_web_player_nguonc\bin\Release\net8.0-windows\win-x64\publish\tv_web_player_nguonc.exe"
+              : r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\win-x64\publish\tv_web_player.exe";
           }
 
           String? subtitlePath;

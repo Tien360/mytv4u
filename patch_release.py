@@ -1,12 +1,14 @@
-﻿import re
+﻿
+with open("tools/release.dart", "r", encoding="utf-8") as f:
+    text = f.read()
 
-path = r"T:\Project\Phim\mytv4u_flutter\tools\release.dart"
-with open(path, 'r', encoding='utf-8') as f:
-    content = f.read()
+target = "print('  -> Đã sao chép tv_web_player thành công!');\n  }"
+if target in text:
+    replacement = target + """\n\n  final tvWebPlayerNguonCDir = Directory(r\"..\\tv_web_player_nguonc\\bin\\Release\\net8.0-windows\\win-x64\\publish\");\n  if (tvWebPlayerNguonCDir.existsSync()) {\n    await Process.run(\"xcopy\", [r\"..\\tv_web_player_nguonc\\bin\\Release\\net8.0-windows\\win-x64\\publish\\*\", r\"build\\windows\\x64\\runner\\Release\\\", \"/E\", \"/I\", \"/Y\"]);\n    print('  -> Đã sao chép tv_web_player_nguonc thành công!');\n  }"""
+    text = text.replace(target, replacement)
+    print("Replaced successfully")
+else:
+    print("Not found.")
 
-# Let's see where flutter build is called.
-if "dart run tools/download_ytdlp.dart" not in content:
-    content = content.replace("await autoTranslate();", "await autoTranslate();\n\n  print('[0/6] Tải công cụ lõi yt-dlp...');\n  final ytRes = await Process.run('dart', ['run', 'tools/download_ytdlp.dart']);\n  print(ytRes.stdout);")
-    with open(path, 'w', encoding='utf-8') as f:
-        f.write(content)
-    print("Patched release.dart")
+with open("tools/release.dart", "w", encoding="utf-8") as f:
+    f.write(text)
