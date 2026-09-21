@@ -133,7 +133,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   late String _currentTitle;
 
   // Fallback Domain State
-  List<String> _fallbackDomains = ['sv.gboiz7.workers.dev'];
+  List<String> _fallbackDomains = [];
   int _currentFallbackDomainIndex = 0;
   List<String> _premiumStreams = [];
   int _currentPremiumStreamIndex = 0;
@@ -298,6 +298,28 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   bool _tryFallbackDomain() {
+    if (_premiumStreams.isNotEmpty && _currentPremiumStreamIndex < _premiumStreams.length - 1) {
+      _currentPremiumStreamIndex++;
+      final newUrl = _premiumStreams[_currentPremiumStreamIndex];
+      setState(() {
+        _currentUrl = newUrl;
+        errorMsg = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Máy chủ quá tải. Đang chuyển sang server phụ (${_currentPremiumStreamIndex + 1})...'),
+          backgroundColor: Colors.orange,
+          duration: const Duration(seconds: 3),
+        ),
+      );
+      player.open(Media(newUrl));
+      return true;
+    }
+
+    if (widget.movieName.toLowerCase().contains('premium') || widget.serverName?.toLowerCase().contains('premium') == true || _premiumStreams.isNotEmpty) {
+      return false; // Do not use old fallback logic for Premium
+    }
+
     if ((_currentUrl.contains('dpdns.org') && !_currentUrl.contains('stream/hls')) ||
         (_currentUrl.contains('workers.dev') && !_currentUrl.contains('stream/hls')) ||
         _currentUrl.contains('railway.app') ) {
