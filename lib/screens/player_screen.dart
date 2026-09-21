@@ -41,6 +41,7 @@ class PlayerScreen extends StatefulWidget {
   final int? season;
   final int? episode;
   final bool isLive;
+  final String? serverName;
   final String? lazyPlaylistUrl;
 
   const PlayerScreen({
@@ -53,6 +54,7 @@ class PlayerScreen extends StatefulWidget {
     this.season,
     this.episode,
     this.isLive = false,
+    this.serverName,
     this.lazyPlaylistUrl,
   });
 
@@ -995,9 +997,12 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
             _currentUrl.contains('iframe') ||
             (ep.m3u8Url.isEmpty && ep.embedUrl.isNotEmpty));
             
-    if (_currentUrl.contains('nguonc') || _currentUrl.contains('streamc.xyz') || _currentUrl.contains('vsmov')) {
-      _isUsingWebview = true;
-    }
+      if (_currentUrl.toLowerCase().contains('nguonc') || 
+          _currentUrl.toLowerCase().contains('streamc.xyz') || 
+          _currentUrl.toLowerCase().contains('vsmov') ||
+          (widget.serverName != null && widget.serverName!.toLowerCase().contains('vsmov'))) {
+        _isUsingWebview = true;
+      }
 
     if (_isUsingWebview) {
       player.pause();
