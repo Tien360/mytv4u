@@ -1090,7 +1090,6 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                           imdbId: _movie!.imdbId,
                           season: inferredSeason,
                           episode: inferredEpisode,
-                            serverName: _currentServer!.serverName,
                         ),
                       ),
                     );
@@ -1204,7 +1203,6 @@ const SizedBox(height: 24),
                           imdbId: _movie!.imdbId,
                           season: seasonEpMatch != null ? int.tryParse(seasonEpMatch.group(1)!) : null,
                           episode: seasonEpMatch != null ? int.tryParse(seasonEpMatch.group(2)!) : null,
-                            serverName: _currentServer!.serverName,
                         ),
                       ),
                     );
