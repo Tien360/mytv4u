@@ -298,8 +298,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   bool _tryFallbackDomain() {
     if ((_currentUrl.contains('dpdns.org') && !_currentUrl.contains('stream/hls')) ||
         (_currentUrl.contains('workers.dev') && !_currentUrl.contains('stream/hls')) ||
-        _currentUrl.contains('railway.app') ||
-        _currentUrl.startsWith('premium://')) {
+        _currentUrl.contains('railway.app') ) {
       final uri = Uri.tryParse(_currentUrl); if (uri == null) return false; final rawId = uri.pathSegments.last;
       if (_currentFallbackDomainIndex < _fallbackDomains.length) {
         final newDomain = _fallbackDomains[_currentFallbackDomainIndex];
@@ -877,10 +876,15 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
             final streams = await PremiumResolver.getVideoStream(rawId);
             if (streams.isNotEmpty) {
                 _premiumStreams = streams;
-                _currentUrl = streams.first; // Use the first working premium proxy
+                _currentUrl = streams.first;
+            } else {
+                if (mounted) setState(() => errorMsg = "Không tìm thấy luồng Premium/Free2 khả dụng.");
+                return;
             }
         } catch (e) {
             print("Premium resolver error: $e");
+            if (mounted) setState(() => errorMsg = "Máy chủ Premium/Free2 bị quá tải hoặc từ chối kết nối.");
+            return;
         }
     }
 
