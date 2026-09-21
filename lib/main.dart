@@ -17,6 +17,8 @@ import 'utils/l10n.dart';
 import 'utils/location_helper.dart';
 import 'utils/system_utils.dart';
 import 'addons/addon_manager.dart';
+import 'api/premium_resolver.dart';
+import 'api/premium_api.dart';
 import 'globals.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

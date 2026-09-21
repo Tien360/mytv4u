@@ -22,6 +22,27 @@ class PremiumResolver {
 
   
 
+  static Duration? _utcOffset;
+
+  static Future<void> preload() async {
+    await Future.wait([
+      _getDynamicBaseDomain(),
+      _preloadUtcOffset(),
+    ]);
+  }
+
+  static Future<void> _preloadUtcOffset() async {
+    try {
+      final res = await http.get(Uri.parse('https://worldtimeapi.org/api/timezone/Etc/UTC')).timeout(const Duration(seconds: 3));
+      if (res.statusCode == 200) {
+        final data = json.decode(res.body);
+        final serverUtc = DateTime.parse(data['utc_datetime']).toUtc();
+        final localUtc = DateTime.now().toUtc();
+        _utcOffset = serverUtc.difference(localUtc);
+      }
+    } catch (_) {}
+  }
+
   static String? _dynamicBaseDomain;
 
   static Future<String?> _getDynamicBaseDomain() async {
@@ -53,19 +74,16 @@ class PremiumResolver {
     return null;
   }
 
-  static Future<DateTime> _getUtcTime() async {
-    try {
-      final res = await http.get(Uri.parse('https://worldtimeapi.org/api/timezone/Etc/UTC')).timeout(const Duration(seconds: 3));
-      if (res.statusCode == 200) {
-        final data = json.decode(res.body);
-        return DateTime.parse(data['utc_datetime']).toUtc();
-      }
-    } catch (_) {}
-    return DateTime.now().toUtc();
+  static DateTime _getUtcTime() {
+    final now = DateTime.now().toUtc();
+    if (_utcOffset != null) {
+      return now.add(_utcOffset!);
+    }
+    return now;
   }
 
   static Future<List<String>> getVideoStream(String fileId) async {
-    final utcDt = await _getUtcTime();
+    final utcDt = _getUtcTime();
     final int nowSec = (utcDt.millisecondsSinceEpoch / 1000).floor();
 
     final String dateStr = "${utcDt.year}${utcDt.month.toString().padLeft(2, '0')}${utcDt.day.toString().padLeft(2, '0')}";
