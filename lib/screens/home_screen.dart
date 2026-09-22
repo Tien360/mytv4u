@@ -130,20 +130,9 @@ class _HomeScreenState extends State<HomeScreen> {
           final m = selected[i];
           final isTvSeries =
               m.episodes.isNotEmpty && m.episodes.first.items.length > 1;
-          final backdrop = await PhimApi.getMovieTmdbBackdrop(
-            m.name,
-            m.originalName,
-            m.year,
-            isTvSeries,
-          );
-            
-            final logoInfo = await PhimApi.getMovieTmdbLogo(
-              m.name,
-              m.originalName,
-              m.year,
-              isTvSeries,
-              L10n.currentLang,
-            );
+          final backdrop = await PhimApi.getMovieTmdbBackdrop(m);
+          
+          final logoInfo = await PhimApi.getMovieTmdbLogo(m, L10n.currentLang);
             
             if (mounted) {
               setState(() {

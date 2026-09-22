@@ -1,3 +1,4 @@
+import 'phim_api.dart';
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
@@ -24,11 +25,34 @@ class PremiumResolver {
 
   static Duration? _utcOffset;
 
-  static Future<void> preload() async {
+    static Future<void> preload() async {
     await Future.wait([
       _getDynamicBaseDomain(),
       _preloadUtcOffset(),
+      _preloadFree1Domain(),
     ]);
+  }
+
+  static Future<void> _preloadFree1Domain() async {
+    try {
+      final client = http.Client();
+      final request = http.Request('GET', Uri.parse('https://rip.cryboiz.workers.dev/go/free1'))
+        ..followRedirects = false;
+      final response = await client.send(request).timeout(const Duration(seconds: 5));
+      
+      String? location;
+      if (response.statusCode == 301 || response.statusCode == 302 || response.statusCode == 307 || response.statusCode == 308) {
+         location = response.headers['location'];
+      }
+      if (location != null && location.isNotEmpty) {
+         if (location.endsWith('/')) {
+             location = location.substring(0, location.length - 1);
+         }
+         
+         PhimApi.free1Url = location;
+         PhimApi.free1List = location + '/danh-sach';
+      }
+    } catch (_) {}
   }
 
   static Future<void> _preloadUtcOffset() async {

@@ -84,6 +84,10 @@ void main(List<String> args) async {
   // Start local torrent streaming server
   StremioServer.start();
 
+  // Preload dynamic CDN domains (Premium, Free1) and API keys in background
+  PremiumResolver.preload();
+  PremiumApi.preload();
+
   runApp(
     MultiProvider(
       providers: [

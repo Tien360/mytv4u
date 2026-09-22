@@ -6,6 +6,7 @@ class Movie {
   final String slug;
   final String type;
   final String? imdbId; // Added for OpenSubtitles and Torrentio TV Series
+  final String? tmdbId; // Added to optimize TMDB API calls
   final Map<String, String> sourceSlugs;
   final String thumbUrl;
   final String posterUrl;
@@ -31,6 +32,7 @@ class Movie {
     required this.slug,
     this.type = '',
     this.imdbId,
+    this.tmdbId,
     this.sourceSlugs = const {},
     required this.thumbUrl,
     required this.posterUrl,
@@ -100,12 +102,23 @@ class Movie {
       }
     }
 
+    String? parsedTmdbId;
+    if (json['tmdb'] != null && json['tmdb']['id'] != null && json['tmdb']['id'].toString().isNotEmpty) {
+      parsedTmdbId = json['tmdb']['id'].toString();
+    }
+
+    String? parsedImdbId;
+    if (json['imdb'] != null && json['imdb']['id'] != null && json['imdb']['id'].toString().isNotEmpty) {
+      parsedImdbId = json['imdb']['id'].toString();
+    }
+
     return Movie(
       name: parsedName,
       originalName: parsedOriginalName,
       slug: json['slug'] ?? '',
       type: json['type'] ?? '',
-      imdbId: null,
+      imdbId: parsedImdbId,
+      tmdbId: parsedTmdbId,
       sourceSlugs: {defaultSource: json['slug'] ?? ''},
       thumbUrl: json['thumb_url'] ?? '',
       posterUrl: json['poster_url'] ?? '',
@@ -134,6 +147,7 @@ class Movie {
     String? slug,
     String? type,
     String? imdbId,
+    String? tmdbId,
     Map<String, String>? sourceSlugs,
     String? thumbUrl,
     String? posterUrl,
@@ -157,6 +171,7 @@ class Movie {
       slug: slug ?? this.slug,
       type: type ?? this.type,
       imdbId: imdbId ?? this.imdbId,
+      tmdbId: tmdbId ?? this.tmdbId,
       sourceSlugs: sourceSlugs ?? this.sourceSlugs,
       thumbUrl: thumbUrl ?? this.thumbUrl,
       posterUrl: posterUrl ?? this.posterUrl,

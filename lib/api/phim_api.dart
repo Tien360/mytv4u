@@ -30,10 +30,10 @@ class PhimApi {
   static const String ophimUrl = 'https://ophim1.com/v1/api';
   static const String vsmovUrl = 'https://vsmov.com/api';
   static const String phim4kUrl = 'https://free2.phim4k.lol/api';
-  static const String free1Url = 'https://free1.p4k.dpdns.org';
+  static String free1Url = 'https://free.cryboiz.workers.dev';
   static const String premiumUrl =
       'https://dogtail.oxaliplatin.workers.dev/api/premium';
-  static const String free1List = 'https://free1.p4k.dpdns.org/danh-sach';
+  static String free1List = 'https://free.cryboiz.workers.dev/danh-sach';
 
   // --- Normalization functions ---
   static Movie _normalizeNguonC(Map<String, dynamic> item) {
@@ -597,6 +597,7 @@ class PhimApi {
               ? merged.time
               : item.time,
           imdbId: (merged.imdbId != null && merged.imdbId!.isNotEmpty) ? merged.imdbId : item.imdbId,
+          tmdbId: (merged.tmdbId != null && merged.tmdbId!.isNotEmpty) ? merged.tmdbId : item.tmdbId,
           language: (merged.language.isNotEmpty && merged.language != 'N/A')
               ? merged.language
               : item.language,
@@ -1596,50 +1597,12 @@ class PhimApi {
 
   static Future<List<String>> getMovieImages(Movie movie) async {
     try {
-      String? tmdbId;
-      String type = (movie.type == 'series' || movie.type == 'hoathinh')
-          ? 'tv'
-          : 'movie';
+      final isTvSeries = (movie.type == 'series' || movie.type == 'hoathinh');
+      final match = await _resolveTmdbId(movie, isTvSeries);
 
-      // 1. Cố gắng tìm bằng IMDB ID trước nếu có (chính xác nhất)
-      if (movie.imdbId != null &&
-          movie.imdbId!.isNotEmpty &&
-          movie.imdbId != 'N/A') {
-        final findUrl =
-            'https://api.themoviedb.org/3/find/${movie.imdbId}?external_source=imdb_id&api_key=$_tmdbApiKey';
-        final findRes = await http
-            .get(Uri.parse(findUrl))
-            .timeout(const Duration(seconds: 10));
-        if (findRes.statusCode == 200) {
-          final findData = json.decode(findRes.body);
-          if (findData['movie_results'] != null &&
-              findData['movie_results'].isNotEmpty) {
-            tmdbId = findData['movie_results'][0]['id'].toString();
-            type = 'movie';
-          } else if (findData['tv_results'] != null &&
-              findData['tv_results'].isNotEmpty) {
-            tmdbId = findData['tv_results'][0]['id'].toString();
-            type = 'tv';
-          }
-        }
-      }
-
-      // 2. Nếu không có hoặc không tìm thấy, dùng searchTmdb
-      if (tmdbId == null) {
-        final match = await _searchTmdb(
-          movie.name,
-          movie.originalName,
-          movie.year,
-          movie.type == 'series' || movie.type == 'hoathinh',
-        );
-        if (match != null && match['id'] != null) {
-          tmdbId = match['id'].toString();
-          type = match['type'] ?? type;
-        }
-      }
-
-      // 3. Lấy ảnh từ TMDB
-      if (tmdbId != null) {
+      if (match != null && match['id'] != null) {
+        final tmdbId = match['id'].toString();
+        final type = match['type'] ?? (isTvSeries ? 'tv' : 'movie');
         final imgUrl =
             'https://api.themoviedb.org/3/$type/$tmdbId/images?api_key=$_tmdbApiKey';
         final imgRes = await http
@@ -1681,28 +1644,15 @@ class PhimApi {
     return [];
   }
 
-  static Future<TmdbLogoInfo?> getMovieTmdbLogo(
-    String title,
-    String originalTitle,
-    String year,
-    bool isTvSeries,
-    String appLang,
-  ) async {
+  static Future<TmdbLogoInfo?> getMovieTmdbLogo(Movie movie, String appLang) async {
     try {
-      final match = await _searchTmdb(
-        title,
-        originalTitle,
-        year,
-        isTvSeries,
-        language: 'en-US',
-      );
+      final isTvSeries = movie.type == 'series' || movie.type == 'hoathinh' || (movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1);
+      final match = await _resolveTmdbId(movie, isTvSeries);
       if (match != null && match['id'] != null) {
-        String tmdbEnName = match['title'] ?? match['name'] ?? originalTitle;
-        String tmdbOriginalName =
-            match['original_title'] ?? match['original_name'] ?? originalTitle;
+        String tmdbEnName = match['title'] ?? match['name'] ?? movie.originalName;
+        String tmdbOriginalName = match['original_title'] ?? match['original_name'] ?? movie.originalName;
 
-        final imgUrl =
-            'https://api.themoviedb.org/3/${match['type']}/${match['id']}/images?api_key=$_tmdbApiKey';
+        final imgUrl = 'https://api.themoviedb.org/3/${match['type']}/${match['id']}/images?api_key=$_tmdbApiKey';
         final res = await http.get(Uri.parse(imgUrl));
         if (res.statusCode == 200) {
           final data = json.decode(res.body);
@@ -1747,47 +1697,61 @@ class PhimApi {
     return null;
   }
 
-  static Future<String?> getMovieTmdbBackdrop(
-    String title,
-    String originalTitle,
-    String year,
-    bool isTvSeries,
-  ) async {
-    final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
+  static Future<String?> getMovieTmdbBackdrop(Movie movie) async {
+    final isTvSeries = movie.type == 'series' || movie.type == 'hoathinh' || (movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1);
+    final match = await _resolveTmdbId(movie, isTvSeries);
     if (match != null && match['backdrop_path'] != null) {
       return 'https://image.tmdb.org/t/p/w1280${match['backdrop_path']}';
     }
     return null;
   }
 
-  static Future<String?> getMovieTmdbRating(
-    String title,
-    String originalTitle,
-    String year,
-    bool isTvSeries,
-  ) async {
-    final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
-    return match?['tmdbRating'];
+  static Future<Map<String, dynamic>?> _resolveTmdbId(Movie movie, bool isTvSeries) async {
+    String type = isTvSeries ? 'tv' : 'movie';
+    if (movie.tmdbId != null && movie.tmdbId!.isNotEmpty) {
+      return {'id': movie.tmdbId, 'type': type};
+    }
+    
+    if (movie.imdbId != null && movie.imdbId!.isNotEmpty && movie.imdbId != 'N/A') {
+      try {
+        final findUrl = 'https://api.themoviedb.org/3/find/${movie.imdbId}?external_source=imdb_id&api_key=$_tmdbApiKey';
+        final findRes = await http.get(Uri.parse(findUrl)).timeout(const Duration(seconds: 10));
+        if (findRes.statusCode == 200) {
+          final findData = json.decode(findRes.body);
+          if (findData['movie_results'] != null && findData['movie_results'].isNotEmpty) {
+            return {'id': findData['movie_results'][0]['id'].toString(), 'type': 'movie'};
+          } else if (findData['tv_results'] != null && findData['tv_results'].isNotEmpty) {
+            return {'id': findData['tv_results'][0]['id'].toString(), 'type': 'tv'};
+          }
+        }
+      } catch (_) {}
+    }
+
+    final match = await _searchTmdb(movie.name, movie.originalName, movie.year, isTvSeries);
+    if (match != null && match['id'] != null) {
+      return {'id': match['id'].toString(), 'type': match['type'] ?? type};
+    }
+    return null;
   }
-  static Future<Map<String, dynamic>?> getTmdbFullDetails(
-      String title, String originalTitle, String year, bool isTvSeries, String lang) async {
+
+  static Future<Map<String, dynamic>?> getTmdbFullDetails(Movie movie, String lang) async {
     try {
-      final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
+      final isTvSeries = movie.type == 'series' || movie.type == 'hoathinh' || (movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1);
+      final match = await _resolveTmdbId(movie, isTvSeries);
       if (match != null && match['id'] != null) {
         final tmdbId = match['id'];
         final type = match['type'];
 
-        final url =
-            'https://api.themoviedb.org/3/$type/$tmdbId?api_key=$_tmdbApiKey&append_to_response=external_ids,recommendations,similar,credits,release_dates,content_ratings&language=$lang';
-        final res = await http.get(Uri.parse(url));
+        final url = 'https://api.themoviedb.org/3/$type/$tmdbId?api_key=$_tmdbApiKey&append_to_response=images,videos,external_ids,recommendations,similar,credits,release_dates,content_ratings&language=$lang&include_image_language=en,vi,null&include_video_language=vi,en,ko,zh,ja,th,es,fr,de,ru,pt,it,hi,tl,id,ms,ar,tr,null';
+        final res = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 15));
         if (res.statusCode == 200) {
           final data = json.decode(res.body);
+          data['resolved_tmdb_id'] = tmdbId.toString();
 
           if (type == 'movie' && data['belongs_to_collection'] != null) {
             final collectionId = data['belongs_to_collection']['id'];
-            final collectionUrl =
-                'https://api.themoviedb.org/3/collection/$collectionId?api_key=$_tmdbApiKey&language=$lang';
-            final collectionRes = await http.get(Uri.parse(collectionUrl));
+            final collectionUrl = 'https://api.themoviedb.org/3/collection/$collectionId?api_key=$_tmdbApiKey&language=$lang';
+            final collectionRes = await http.get(Uri.parse(collectionUrl)).timeout(const Duration(seconds: 10));
             if (collectionRes.statusCode == 200) {
               data['collection_details'] = json.decode(collectionRes.body);
             }
@@ -1801,73 +1765,15 @@ class PhimApi {
     return null;
   }
 
-
-  static Future<List<Map<String, String>>> getMovieActors(
-    String title,
-    String originalTitle,
-    String year,
-    bool isTvSeries,
-  ) async {
-    try {
-      final match = await _searchTmdb(title, originalTitle, year, isTvSeries);
-      if (match != null && match['id'] != null) {
-        final creditsUrl =
-            'https://api.themoviedb.org/3/${match['type']}/${match['id']}/credits?api_key=$_tmdbApiKey&language=vi-VN';
-        final res = await http.get(Uri.parse(creditsUrl));
-        if (res.statusCode == 200) {
-          final data = json.decode(res.body);
-          final casts = data['cast'] as List?;
-          if (casts != null) {
-            return casts.take(15).map((c) {
-              return {
-                'id': c['id']?.toString() ?? '',
-                'name': c['name']?.toString() ?? '',
-                'character': c['character']?.toString() ?? '',
-                'profile': c['profile_path'] != null
-                    ? 'https://image.tmdb.org/t/p/w200${c['profile_path']}'
-                    : '',
-              };
-            }).toList();
-          }
-        }
-      }
-    } catch (e) {
-      print('PhimApi getMovieActors error: $e');
-    }
-    return [];
-  }
-
   static Future<String?> getTrailerStreamUrl(Movie movie, bool isTvSeries) async {
     try {
-      String? tmdbId;
-      String type = isTvSeries ? 'tv' : 'movie';
+      final match = await _resolveTmdbId(movie, isTvSeries);
+      if (match != null && match['id'] != null) {
+        final tmdbId = match['id'];
+        final type = match['type'];
 
-      if (movie.imdbId != null && movie.imdbId != '' && movie.imdbId != 'N/A') {
-        final findUrl = 'https://api.themoviedb.org/3/find/${movie.imdbId}?external_source=imdb_id&api_key=$_tmdbApiKey';
-        final findRes = await http.get(Uri.parse(findUrl)).timeout(const Duration(seconds: 10));
-        if (findRes.statusCode == 200) {
-          final findData = json.decode(findRes.body);
-          if (findData['movie_results'] != null && findData['movie_results'].isNotEmpty) {
-            tmdbId = findData['movie_results'][0]['id'].toString();
-            type = 'movie';
-          } else if (findData['tv_results'] != null && findData['tv_results'].isNotEmpty) {
-            tmdbId = findData['tv_results'][0]['id'].toString();
-            type = 'tv';
-          }
-        }
-      }
-
-      if (tmdbId == null) {
-        final match = await _searchTmdb(movie.name, movie.originalName, movie.year, isTvSeries);
-        if (match != null && match['id'] != null) {
-          tmdbId = match['id'].toString();
-          type = match['type'] ?? type;
-        }
-      }
-
-      if (tmdbId != null) {
         final videoUrl = 'https://api.themoviedb.org/3/$type/$tmdbId/videos?api_key=$_tmdbApiKey&language=vi-VN&include_video_language=vi,en,ko,zh,ja,th,es,fr,de,ru,pt,it,hi,tl,id,ms,ar,tr,null';
-        final videoRes = await http.get(Uri.parse(videoUrl));
+        final videoRes = await http.get(Uri.parse(videoUrl)).timeout(const Duration(seconds: 10));
         if (videoRes.statusCode == 200) {
           final videoData = json.decode(videoRes.body);
           if (videoData['results'] != null && videoData['results'].isNotEmpty) {

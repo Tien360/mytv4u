@@ -495,9 +495,7 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
                   _fetchTmdbDetails(movie);
                 }
 
-              _fetchTmdbRating(movie);
               _fetchPremiumMetadata();
-                _fetchTmdbLogo(movie);
 
               // Bắt đầu timer phát trailer sau khi có dữ liệu đầu tiên
               if (_autoPlayTimer == null &&
@@ -521,73 +519,21 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
         );
   }
 
-      Future<void> _fetchTmdbLogo(Movie movie) async {
-    try {
-      final isTvSeries =
-          movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1;
-      final info = await PhimApi.getMovieTmdbLogo(
-        movie.name,
-        movie.originalName,
-        movie.year,
-        isTvSeries,
-        L10n.currentLang,
-      );
-      if (mounted && info != null) {
-        setState(() {
-          _tmdbLogoInfo = info;
-        });
-      }
-    } catch (e) {
-      print('Error fetching tmdb logo: $e');
-    }
-  }
-
-  Future<void> _fetchTmdbRating(Movie movie) async {
-    try {
-      final isTvSeries = movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1;
-      final rating = await PhimApi.getMovieTmdbRating(
-        movie.name,
-        movie.originalName,
-        movie.year,
-        isTvSeries,
-      );
-      if (mounted && rating != null && rating != '0.0') {
-        setState(() {
-          _tmdbRating = rating;
-        });
-      }
-
-      // Luôn cố gắng lấy backdrop chất lượng cao từ TMDB để làm poster ngang
-      final backdrop = await PhimApi.getMovieTmdbBackdrop(
-        movie.name,
-        movie.originalName,
-        movie.year,
-        isTvSeries,
-      );
-      if (mounted && backdrop != null && backdrop.isNotEmpty) {
-        setState(() {
-          _movie = movie.copyWith(posterUrl: backdrop);
-        });
-      }
-    } catch (e) {
-      print('Fetch TMDB rating/backdrop error: $e');
-    }
-  }
-
-  
   Future<void> _fetchTmdbDetails(Movie movie) async {
-    final isTvSeries = movie.episodes.isNotEmpty && movie.episodes.first.items.length > 1;
     final details = await PhimApi.getTmdbFullDetails(
-      movie.name,
-      movie.originalName,
-      movie.year,
-      isTvSeries,
+      movie,
       L10n.currentLang == 'vi' ? 'vi-VN' : 'en-US',
     );
 
     if (mounted && details != null) {
       setState(() {
         _tmdbDetails = details;
+
+        // Cập nhật tmdbId cho movie nếu chưa có (để truyền cho getTrailerStreamUrl)
+        if (details['resolved_tmdb_id'] != null && movie.tmdbId == null) {
+          _movie = _movie?.copyWith(tmdbId: details['resolved_tmdb_id'].toString()) ?? movie.copyWith(tmdbId: details['resolved_tmdb_id'].toString());
+        }
+
         if (details['credits'] != null && details['credits']['cast'] != null) {
            final casts = details['credits']['cast'] as List;
            _actors = casts.take(15).map((c) => {
@@ -596,6 +542,8 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
               'character': c['character']?.toString() ?? '',
               'profile': c['profile_path'] != null ? 'https://image.tmdb.org/t/p/w200${c['profile_path']}' : '',
            }).toList();
+        }
+        
         if (details['credits'] != null && details['credits']['crew'] != null) {
            final crew = details['credits']['crew'] as List;
            _directorsTmdb = crew.where((c) => c['job'] == 'Director').map((c) => {
@@ -605,27 +553,41 @@ class _MovieDetailScreenState extends State<MovieDetailScreen> {
            }).toList();
         }
 
-        }
         if (details['vote_average'] != null && details['vote_average'] > 0) {
            _tmdbRating = (details['vote_average'] as num).toStringAsFixed(1);
         }
-      });
-    } else if (mounted) {
-       _fetchActors(movie);
-       _fetchTmdbRating(movie);
-    }
-  }
 
-  Future<void> _fetchActors(Movie m) async {
-    final actors = await PhimApi.getMovieActors(
-      m.name,
-      m.originalName,
-      m.year,
-      m.slug.contains('phim-bo'),
-    );
-    if (mounted && actors.isNotEmpty) {
-      setState(() {
-        _actors = actors;
+        if (details['images'] != null && details['images']['backdrops'] != null) {
+          final backdrops = details['images']['backdrops'] as List;
+          if (backdrops.isNotEmpty) {
+            final backdrop = 'https://image.tmdb.org/t/p/w1280${backdrops[0]['file_path']}';
+            _movie = _movie?.copyWith(posterUrl: backdrop) ?? movie.copyWith(posterUrl: backdrop);
+          }
+        }
+
+        if (details['images'] != null && details['images']['logos'] != null) {
+          final logos = details['images']['logos'] as List;
+          if (logos.isNotEmpty) {
+            final appLang = L10n.currentLang;
+            List<String?> priorities = appLang == 'vi' ? ['vi', 'en', 'xx', null, ''] : ['en', 'xx', null, ''];
+            
+            for (String? lang in priorities) {
+              var targetLogo = logos.firstWhere(
+                (l) => l['iso_639_1'] == lang,
+                orElse: () => null,
+              );
+              if (targetLogo != null) {
+                _tmdbLogoInfo = TmdbLogoInfo(
+                  url: 'https://image.tmdb.org/t/p/w500${targetLogo['file_path']}',
+                  lang: targetLogo['iso_639_1'] ?? 'en',
+                  tmdbEnName: movie.name,
+                  tmdbOriginalName: movie.originalName,
+                );
+                break;
+              }
+            }
+          }
+        }
       });
     }
   }

@@ -32,7 +32,7 @@ import '../widgets/custom_title_bar.dart';
 
 import '../utils/l10n.dart';
 
-class PlayerScreen extends StatefulWidget {
+class YtPlayerScreen extends StatefulWidget {
   final List<Episode> episodes;
   final int currentEpisodeIndex;
   final String movieName;
@@ -41,10 +41,9 @@ class PlayerScreen extends StatefulWidget {
   final int? season;
   final int? episode;
   final bool isLive;
-  final String? serverName;
   final String? lazyPlaylistUrl;
 
-  const PlayerScreen({
+  const YtPlayerScreen({
     super.key,
     required this.episodes,
     required this.currentEpisodeIndex,
@@ -54,15 +53,14 @@ class PlayerScreen extends StatefulWidget {
     this.season,
     this.episode,
     this.isLive = false,
-    this.serverName,
     this.lazyPlaylistUrl,
   });
 
   @override
-  State<PlayerScreen> createState() => _PlayerScreenState();
+  State<YtPlayerScreen> createState() => _YtPlayerScreenState();
 }
 
-class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
+class _YtPlayerScreenState extends State<YtPlayerScreen> with WindowListener {
   // media_kit
   late Player player;
   late VideoController controller;
@@ -133,7 +131,7 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   late String _currentTitle;
 
   // Fallback Domain State
-  List<String> _fallbackDomains = [];
+  List<String> _fallbackDomains = ['sv.gboiz7.workers.dev'];
   int _currentFallbackDomainIndex = 0;
   List<String> _premiumStreams = [];
   int _currentPremiumStreamIndex = 0;
@@ -298,35 +296,15 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   bool _tryFallbackDomain() {
-    if (_premiumStreams.isNotEmpty && _currentPremiumStreamIndex < _premiumStreams.length - 1) {
-      _currentPremiumStreamIndex++;
-      final newUrl = _premiumStreams[_currentPremiumStreamIndex];
-      setState(() {
-        _currentUrl = newUrl;
-        errorMsg = null;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Máy chủ quá tải. Đang chuyển sang server phụ (${_currentPremiumStreamIndex + 1})...'),
-          backgroundColor: Colors.orange,
-          duration: const Duration(seconds: 3),
-        ),
-      );
-      player.open(Media(newUrl));
-      return true;
-    }
-
-    if (widget.movieName.toLowerCase().contains('premium') || widget.serverName?.toLowerCase().contains('premium') == true || _premiumStreams.isNotEmpty) {
-      return false; // Do not use old fallback logic for Premium
-    }
-
     if ((_currentUrl.contains('dpdns.org') && !_currentUrl.contains('stream/hls')) ||
         (_currentUrl.contains('workers.dev') && !_currentUrl.contains('stream/hls')) ||
-        _currentUrl.contains('railway.app') ) {
+        _currentUrl.contains('railway.app') ||
+        _currentUrl.startsWith('premium://')) {
       final uri = Uri.tryParse(_currentUrl); if (uri == null) return false; final rawId = uri.pathSegments.last;
+      _currentFallbackDomainIndex++;
+
       if (_currentFallbackDomainIndex < _fallbackDomains.length) {
         final newDomain = _fallbackDomains[_currentFallbackDomainIndex];
-        _currentFallbackDomainIndex++;
         final newUrl = 'https://$newDomain/$rawId';
         setState(() {
           _currentUrl = newUrl;
@@ -900,15 +878,10 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
             final streams = await PremiumResolver.getVideoStream(rawId);
             if (streams.isNotEmpty) {
                 _premiumStreams = streams;
-                _currentUrl = streams.first;
-            } else {
-                if (mounted) setState(() => errorMsg = "Không tìm thấy luồng Premium/Free2 khả dụng.");
-                return;
+                _currentUrl = streams.first; // Use the first working premium proxy
             }
         } catch (e) {
             print("Premium resolver error: $e");
-            if (mounted) setState(() => errorMsg = "Máy chủ Premium/Free2 bị quá tải hoặc từ chối kết nối.");
-            return;
         }
     }
 
@@ -917,7 +890,95 @@ class _PlayerScreenState extends State<PlayerScreen> with WindowListener {
   }
 
   Future<void> _playCurrentUrl(Episode ep) async {
-bool isVideoFile =
+    _currentSegments = null;
+    String? actualImdbId = widget.imdbId;
+    
+    // Fetch IMDB ID dynamically if it is missing
+    if (actualImdbId == null || actualImdbId.isEmpty) {
+      try {
+        final isTv = widget.season != null || widget.movieName.toLowerCase().contains('ph?n') || widget.movieName.toLowerCase().contains('season') || RegExp(r'(?:T?p|Ep)\s*\d+', caseSensitive: false).hasMatch(ep.name);
+        // Clean title for search
+        String cTitle = widget.movieName.replaceAll(RegExp(r'\(\s*(?:season|ph?n|part)\s*\d+\s*\)', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|ph?n|part)\s*\d+', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'\(\s*\)'), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '')
+                                            .trim();
+                                            
+        String cOriginal = (widget.originalMovieName ?? '').replaceAll(RegExp(r'\(\s*(?:season|ph?n|part)\s*\d+\s*\)', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|ph?n|part)\s*\d+', caseSensitive: false), '')
+                                            .replaceAll(RegExp(r'\(\s*\)'), '')
+                                            .replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '')
+                                            .trim();
+                                            
+        String searchStr = cOriginal.isNotEmpty ? cOriginal : cTitle;
+        final query = Uri.encodeComponent(searchStr);
+        final searchUrl = 'https://api.themoviedb.org/3/search/${isTv ? 'tv' : 'movie'}?query=$query&api_key=e9e9d8da18ae29fc430845952232787c&language=en-US';
+        final res = await http.get(Uri.parse(searchUrl)).timeout(const Duration(seconds: 5));
+        if (res.statusCode == 200) {
+          final data = json.decode(res.body);
+          final results = data['results'] as List?;
+          if (results != null && results.isNotEmpty) {
+            final tmdbId = results[0]['id'].toString();
+            final externalUrl = 'https://api.themoviedb.org/3/${isTv ? 'tv' : 'movie'}/$tmdbId/external_ids?api_key=e9e9d8da18ae29fc430845952232787c';
+            final externalRes = await http.get(Uri.parse(externalUrl)).timeout(const Duration(seconds: 5));
+            if (externalRes.statusCode == 200) {
+              final externalData = json.decode(externalRes.body);
+              actualImdbId = externalData['imdb_id'];
+              print('Dynamically fetched IMDB ID inside player: $actualImdbId');
+            }
+          }
+        }
+      } catch (e) {
+        print('Error fetching IMDB ID in YtPlayerScreen: $e');
+      }
+    }
+
+    if (actualImdbId != null && actualImdbId.isNotEmpty) {
+      int? inferredSeason;
+      int? currentEpNum;
+
+      final slugMatch = RegExp(r'^S(\d+)E(\d+)$', caseSensitive: false).firstMatch(ep.slug);
+      if (slugMatch != null) {
+        inferredSeason = int.tryParse(slugMatch.group(1)!);
+        currentEpNum = int.tryParse(slugMatch.group(2)!);
+      } else {
+        final match = RegExp(r'(?:T[\u1EA1a\u1EAD\u00E2]p|Ep|E)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'^\d+$').firstMatch(ep.name);
+        if (match != null) {
+          currentEpNum = int.tryParse(match.group(1) ?? match.group(0)!);
+        }
+
+        final epSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss|S)\s*0*(\d+)', caseSensitive: false).allMatches(ep.name);
+          if (epSeasonMatch.isNotEmpty) {
+            inferredSeason = int.tryParse(epSeasonMatch.last.group(1)!);
+          } else {
+            final movieSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss)\s*0*(\d+)', caseSensitive: false).allMatches(widget.movieName);
+            if (movieSeasonMatch.isNotEmpty) {
+              inferredSeason = int.tryParse(movieSeasonMatch.last.group(1)!);
+            }
+          }
+      }
+
+      int season = inferredSeason ?? widget.season ?? 1;
+      int epNum = currentEpNum ?? widget.episode ?? 1;
+      OpenSubtitlesApi.fetchSubtitles(
+        actualImdbId,
+        season: season,
+        episode: epNum,
+      ).then((subs) {
+        if (mounted && subs.isNotEmpty) {
+          setState(() {
+            _openSubtitles = subs;
+          });
+        }
+      });
+      try {
+        _currentSegments = await SkipSegmentsApi.fetchSegments(actualImdbId, season, epNum);
+        print('Fetched skip segments: intro=${_currentSegments?.intro?.start}-${_currentSegments?.intro?.end}, outro=${_currentSegments?.outro?.start}-${_currentSegments?.outro?.end}');
+      } catch (e) {
+        print('Error fetching skip segments: $e');
+      }
+    }
+    bool isVideoFile =
         _currentUrl.contains('.m3u8') || 
         _currentUrl.contains('.mp4') || 
         _currentUrl.contains('.flv') || 
@@ -930,113 +991,7 @@ bool isVideoFile =
             _currentUrl.contains('player') ||
             _currentUrl.contains('iframe') ||
             (ep.m3u8Url.isEmpty && ep.embedUrl.isNotEmpty));
-            
-      if (_currentUrl.toLowerCase().contains('nguonc') || 
-          _currentUrl.toLowerCase().contains('streamc.xyz') || 
-          _currentUrl.toLowerCase().contains('vsmov') ||
-          (widget.serverName != null && widget.serverName!.toLowerCase().contains('vsmov')) ||
-          (widget.serverName != null && widget.serverName!.toLowerCase().contains('nguonc'))) {
-        _isUsingWebview = true;
-      }
-      
-      if (_currentUrl.isEmpty) {
-        _isUsingWebview = false;
-      }
 
-
-    
-    _currentSegments = null;
-    String? actualImdbId = widget.imdbId;
-    if (!_isUsingWebview) {
-      
-          
-          // Fetch IMDB ID dynamically if it is missing
-          if (actualImdbId == null || actualImdbId.isEmpty) {
-            try {
-              final isTv = widget.season != null || widget.movieName.toLowerCase().contains('ph?n') || widget.movieName.toLowerCase().contains('season') || RegExp(r'(?:T?p|Ep)\s*\d+', caseSensitive: false).hasMatch(ep.name);
-              // Clean title for search
-              String cTitle = widget.movieName.replaceAll(RegExp(r'\(\s*(?:season|ph?n|part)\s*\d+\s*\)', caseSensitive: false), '')
-                                                  .replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|ph?n|part)\s*\d+', caseSensitive: false), '')
-                                                  .replaceAll(RegExp(r'\(\s*\)'), '')
-                                                  .replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '')
-                                                  .trim();
-                                                  
-              String cOriginal = (widget.originalMovieName ?? '').replaceAll(RegExp(r'\(\s*(?:season|ph?n|part)\s*\d+\s*\)', caseSensitive: false), '')
-                                                  .replaceAll(RegExp(r'(?:\s*-\s*)?(?:season|ph?n|part)\s*\d+', caseSensitive: false), '')
-                                                  .replaceAll(RegExp(r'\(\s*\)'), '')
-                                                  .replaceAll(RegExp(r'(?:\s*-\s*)?premium', caseSensitive: false), '')
-                                                  .trim();
-                                                  
-              String searchStr = cOriginal.isNotEmpty ? cOriginal : cTitle;
-              final query = Uri.encodeComponent(searchStr);
-              final searchUrl = 'https://api.themoviedb.org/3/search/${isTv ? 'tv' : 'movie'}?query=$query&api_key=e9e9d8da18ae29fc430845952232787c&language=en-US';
-              final res = await http.get(Uri.parse(searchUrl)).timeout(const Duration(seconds: 5));
-              if (res.statusCode == 200) {
-                final data = json.decode(res.body);
-                final results = data['results'] as List?;
-                if (results != null && results.isNotEmpty) {
-                  final tmdbId = results[0]['id'].toString();
-                  final externalUrl = 'https://api.themoviedb.org/3/${isTv ? 'tv' : 'movie'}/$tmdbId/external_ids?api_key=e9e9d8da18ae29fc430845952232787c';
-                  final externalRes = await http.get(Uri.parse(externalUrl)).timeout(const Duration(seconds: 5));
-                  if (externalRes.statusCode == 200) {
-                    final externalData = json.decode(externalRes.body);
-                    actualImdbId = externalData['imdb_id'];
-                    print('Dynamically fetched IMDB ID inside player: $actualImdbId');
-                  }
-                }
-              }
-            } catch (e) {
-              print('Error fetching IMDB ID in PlayerScreen: $e');
-            }
-          }
-      
-          if (actualImdbId != null && actualImdbId.isNotEmpty) {
-            int? inferredSeason;
-            int? currentEpNum;
-      
-            final slugMatch = RegExp(r'^S(\d+)E(\d+)$', caseSensitive: false).firstMatch(ep.slug);
-            if (slugMatch != null) {
-              inferredSeason = int.tryParse(slugMatch.group(1)!);
-              currentEpNum = int.tryParse(slugMatch.group(2)!);
-            } else {
-              final match = RegExp(r'(?:T[\u1EA1a\u1EAD\u00E2]p|Ep|E)\s*0*(\d+)', caseSensitive: false).firstMatch(ep.name) ?? RegExp(r'^\d+$').firstMatch(ep.name);
-              if (match != null) {
-                currentEpNum = int.tryParse(match.group(1) ?? match.group(0)!);
-              }
-      
-              final epSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss|S)\s*0*(\d+)', caseSensitive: false).allMatches(ep.name);
-                if (epSeasonMatch.isNotEmpty) {
-                  inferredSeason = int.tryParse(epSeasonMatch.last.group(1)!);
-                } else {
-                  final movieSeasonMatch = RegExp(r'(?:ph[ầa]n|m[ùu]a|season|sesion|ss)\s*0*(\d+)', caseSensitive: false).allMatches(widget.movieName);
-                  if (movieSeasonMatch.isNotEmpty) {
-                    inferredSeason = int.tryParse(movieSeasonMatch.last.group(1)!);
-                  }
-                }
-            }
-      
-            int season = inferredSeason ?? widget.season ?? 1;
-            int epNum = currentEpNum ?? widget.episode ?? 1;
-            OpenSubtitlesApi.fetchSubtitles(
-              actualImdbId,
-              season: season,
-              episode: epNum,
-            ).then((subs) {
-              if (mounted && subs.isNotEmpty) {
-                setState(() {
-                  _openSubtitles = subs;
-                });
-              }
-            });
-            try {
-              _currentSegments = await SkipSegmentsApi.fetchSegments(actualImdbId, season, epNum);
-              print('Fetched skip segments: intro=${_currentSegments?.intro?.start}-${_currentSegments?.intro?.end}, outro=${_currentSegments?.outro?.start}-${_currentSegments?.outro?.end}');
-            } catch (e) {
-              print('Error fetching skip segments: $e');
-            }
-          }
-          
-    }
     if (_isUsingWebview) {
       player.pause();
 
@@ -1050,11 +1005,11 @@ bool isVideoFile =
           final title = "${widget.movieName} - ${ep.name}";
           final exeDir = File(Platform.resolvedExecutable).parent.path;
           String playerExe = (_currentUrl.contains('nguonc') || _currentUrl.contains('streamc.xyz')) ? 'tv_web_player_nguonc.exe' : 'tv_web_player.exe';
-          var exePath = '$exeDir\\$playerExe';
+          var exePath = '$exeDir\\' + playerExe;
           if (!File(exePath).existsSync()) {
             exePath = (_currentUrl.contains('nguonc') || _currentUrl.contains('streamc.xyz'))
-              ? r"T:\Project\Phim\tv_web_player_nguonc\bin\Release\net8.0-windows\win-x64\publish\tv_web_player_nguonc.exe"
-              : r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\win-x64\publish\tv_web_player.exe";
+              ? r"T:\Project\Phim\tv_web_player_nguonc\bin\Release\net8.0-windows\tv_web_player_nguonc.exe"
+              : r"T:\Project\Phim\tv_web_player\bin\Release\net8.0-windows\tv_web_player.exe";
           }
 
           String? subtitlePath;
