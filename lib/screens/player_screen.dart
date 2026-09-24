@@ -1602,20 +1602,31 @@ bool isVideoFile =
   }
 
   Widget _buildPremiumBadges() {
-    if (_currentPremiumMeta == null) return const SizedBox();
-
-    String res = (_currentPremiumMeta!['resolution'] ?? '').toString().split(' ')[0];
-    String hdr = (_currentPremiumMeta!['hdr'] ?? '').toString();
-    if (hdr == 'SDR' || hdr == 'Unknown' || hdr.isEmpty) {
-      String fn = (_currentPremiumMeta!['fallback_filename'] ?? '').toString().toUpperCase();
-      if (fn.contains('.DV.') || fn.contains('DOLBY VISION') || fn.contains('DOLBY.VISION')) hdr = 'Dolby Vision';
-      else if (fn.contains('HDR10+') || fn.contains('HDR10PLUS')) hdr = 'HDR10+';
-      else if (fn.contains('HDR10')) hdr = 'HDR10';
-      else if (fn.contains('.HDR.') || fn.contains(' HDR ')) hdr = 'HDR';
-      else hdr = 'SDR';
+    List<Widget> badges = [];
+    
+    Widget buildTextBadge(String text) {
+      return Container(
+        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+        decoration: BoxDecoration(border: Border.all(color: Colors.white70), borderRadius: BorderRadius.circular(4)),
+        child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
+      );
     }
 
-          List<String> audioTypes = [];
+    const colorFilter = ColorFilter.mode(Colors.white, BlendMode.srcIn);
+
+    if (_currentPremiumMeta != null) {
+      String res = (_currentPremiumMeta!['resolution'] ?? '').toString().split(' ')[0];
+      String hdr = (_currentPremiumMeta!['hdr'] ?? '').toString();
+      if (hdr == 'SDR' || hdr == 'Unknown' || hdr.isEmpty) {
+        String fn = (_currentPremiumMeta!['fallback_filename'] ?? '').toString().toUpperCase();
+        if (fn.contains('.DV.') || fn.contains('DOLBY VISION') || fn.contains('DOLBY.VISION')) hdr = 'Dolby Vision';
+        else if (fn.contains('HDR10+') || fn.contains('HDR10PLUS')) hdr = 'HDR10+';
+        else if (fn.contains('HDR10')) hdr = 'HDR10';
+        else if (fn.contains('.HDR.') || fn.contains(' HDR ')) hdr = 'HDR';
+        else hdr = 'SDR';
+      }
+
+      List<String> audioTypes = [];
       if (_currentPremiumMeta!['audioTracks'] != null && (_currentPremiumMeta!['audioTracks'] as List).isNotEmpty) {
         for (var track in (_currentPremiumMeta!['audioTracks'] as List)) {
           String codec = track['codec'] ?? '';
@@ -1634,37 +1645,25 @@ bool isVideoFile =
         }
       }
 
-    List<Widget> badges = [];
-    
-    Widget buildTextBadge(String text) {
-      return Container(
-        padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-        decoration: BoxDecoration(border: Border.all(color: Colors.white70), borderRadius: BorderRadius.circular(4)),
-        child: Text(text, style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold)),
-      );
-    }
+      if (res == '4K' || res == '2160p' || res == '4k') {
+        badges.add(buildTextBadge('4K UHD'));
+      } else if (res == '1080p' || res == '1080') {
+        badges.add(buildTextBadge('1080p FHD'));
+      } else if (res == '720p' || res == '720') {
+        badges.add(buildTextBadge('720p HD'));
+      }
 
-    if (res == '4K' || res == '2160p' || res == '4k') {
-      badges.add(buildTextBadge('4K UHD'));
-    } else if (res == '1080p' || res == '1080') {
-      badges.add(buildTextBadge('1080p FHD'));
-    } else if (res == '720p' || res == '720') {
-      badges.add(buildTextBadge('720p HD'));
-    }
+      if (hdr == 'Dolby Vision') {
+        badges.add(SvgPicture.asset('assets/images/media_badges/dolby_vision.svg', height: 20, colorFilter: colorFilter));
+      } else if (hdr == 'HDR10+') {
+        badges.add(buildTextBadge('HDR10+'));
+      } else if (hdr.contains('HDR')) {
+        badges.add(SvgPicture.asset('assets/images/media_badges/hdr.svg', height: 16, colorFilter: colorFilter));
+      } else if (hdr == 'SDR') {
+        badges.add(buildTextBadge('SDR'));
+      }
 
-    const colorFilter = ColorFilter.mode(Colors.white, BlendMode.srcIn);
-
-    if (hdr == 'Dolby Vision') {
-      badges.add(SvgPicture.asset('assets/images/media_badges/dolby_vision.svg', height: 20, colorFilter: colorFilter));
-    } else if (hdr == 'HDR10+') {
-      badges.add(buildTextBadge('HDR10+'));
-    } else if (hdr.contains('HDR')) {
-      badges.add(SvgPicture.asset('assets/images/media_badges/hdr.svg', height: 16, colorFilter: colorFilter));
-    } else if (hdr == 'SDR') {
-      badges.add(buildTextBadge('SDR'));
-    }
-
-          for (String type in audioTypes) {
+      for (String type in audioTypes) {
         if (type == 'Atmos') {
           badges.add(SvgPicture.asset('assets/images/media_badges/dolby_atmos.svg', height: 20, colorFilter: colorFilter));
         } else if (type == 'DD+') {
@@ -1677,6 +1676,52 @@ bool isVideoFile =
           badges.add(buildTextBadge('AAC'));
         }
       }
+    } else if (!_isUsingWebview) {
+      // Fallback: media_kit
+      int w = player.state.width ?? 0;
+      int h = player.state.height ?? 0;
+      if (_videoTracks.isNotEmpty) {
+          final vt = _videoTracks.first;
+          w = vt.w ?? w;
+          h = vt.h ?? h;
+      }
+      if (w >= 3840 || h >= 2160) {
+        badges.add(buildTextBadge('4K UHD'));
+      } else if (w >= 1920 || h >= 1080) {
+        badges.add(buildTextBadge('1080p FHD'));
+      } else if (w >= 1280 || h >= 720) {
+        badges.add(buildTextBadge('720p HD'));
+      }
+      
+      List<String> audioTypes = [];
+      for (var at in _audioTracks) {
+        String codec = (at.codec ?? '').toUpperCase();
+        String type = '';
+        if (codec.contains('TRUEHD')) type = 'TrueHD';
+        else if (codec.contains('EAC3')) type = 'DD+';
+        else if (codec.contains('AC3')) type = 'DD';
+        else if (codec.contains('DTS')) type = 'DTS';
+        else if (codec.contains('AAC')) type = 'AAC';
+        
+        if (type.isNotEmpty && !audioTypes.contains(type)) {
+          audioTypes.add(type);
+        }
+      }
+      
+      for (String type in audioTypes) {
+        if (type == 'TrueHD') {
+          badges.add(buildTextBadge('TrueHD')); 
+        } else if (type == 'DD+') {
+          badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital_plus.svg', height: 16, colorFilter: colorFilter));
+        } else if (type == 'DD') {
+          badges.add(SvgPicture.asset('assets/images/media_badges/dolby_digital.svg', height: 16, colorFilter: colorFilter));
+        } else if (type == 'DTS') {
+          badges.add(SvgPicture.asset('assets/images/media_badges/dts.svg', height: 16, colorFilter: colorFilter));
+        } else if (type == 'AAC') {
+          badges.add(buildTextBadge('AAC'));
+        }
+      }
+    }
 
     if (badges.isEmpty) return const SizedBox();
 
@@ -2128,7 +2173,7 @@ bool isVideoFile =
                                   L10n.t('resolution') ?? 'Độ phân giải',
                                   '${player.state.width ?? "Đang tải"} x ${player.state.height ?? "Đang tải"}',
                                 ),
-                              if (_currentPremiumMeta != null) _buildPremiumBadges(),
+                              _buildPremiumBadges(),
                               _buildInfoRow(
                                 L10n.t('streaming_source') ?? 'Nguồn phát',
                                 _isUsingWebview
@@ -2138,7 +2183,26 @@ bool isVideoFile =
                                           'Trình phát Video gốc',
                               ),
                               if (_isUsingWebview)
-                                _buildInfoRow('URL', _currentUrl),
+                                _buildInfoRow('URL', _currentUrl)
+                              else
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0, bottom: 16.0),
+                                  child: ElevatedButton.icon(
+                                    icon: const Icon(Icons.copy, size: 16),
+                                    label: const Text('Sao chép link luồng (External Player)'),
+                                    onPressed: () {
+                                      Clipboard.setData(ClipboardData(text: _currentUrl));
+                                      ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(content: Text('Đã sao chép link phát!')),
+                                      );
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.white24,
+                                      foregroundColor: Colors.white,
+                                      elevation: 0,
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
                         ],
